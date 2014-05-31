@@ -1,0 +1,383 @@
+# Translation of WP Accessibility in Romanian
+# This file is distributed under the same license as the WP Accessibility package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2014-03-06 22:29:49+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < 20)) ? 1 : 2);\n"
+"X-Generator: GlotPress/0.1\n"
+"Project-Id-Version: WP Accessibility\n"
+
+#: wp-accessibility.php:584 wp-accessibility.php:585 wp-accessibility.php:589
+#: wp-accessibility.php:590 wp-accessibility.php:591
+msgid "Obsolete since WordPress 3.8"
+msgstr "Obsolite începând cu Wordpress 3.8"
+
+#: wp-accessibility.php:644
+msgid "Make row actions always visible"
+msgstr "Fă acţiunea coloanelor totdeauna vizibilă"
+
+#: wp-accessibility.php:648
+msgid "Enable diagnostic CSS"
+msgstr "Activează diagnostic CSS"
+
+#: wp-accessibility.php:744
+msgid "<a href=\"http://www.joedolson.com/donate.php\">Make a donation today!</a> Every donation counts - donate $5, $20, or $100 and help me keep this plug-in running!"
+msgstr "<a href=\"http://www.joedolson.com/donate.php\">Donează chiar azi!</a> Fiecare donaţie contează- donează 5$, 20$, sau 100$ aşi ajută-mă să menţin acest modul functional!"
+
+#: wp-accessibility.php:844
+msgid "WP A11Y: Recent Posts"
+msgstr "WP A11Y: Postări recente"
+
+#: wp-accessibility.php:646
+msgid "Add Accessibility toolbar with fontsize adjustment and contrast toggle"
+msgstr "Adauga o bară de unelte pentru accesibilitate cu glisor de contrast şi mărire font"
+
+#: wp-accessibility.php:647
+msgid "Include grayscale toggle with Accessibility toolbar"
+msgstr "Include glisor culoare gri în bara de unelte"
+
+#: wp-accessibility.php:169
+msgid "Toggle High Contrast"
+msgstr "Glisor nivel contrast"
+
+#: wp-accessibility.php:170
+msgid "Toggle Grayscale"
+msgstr "Glisor nivel culoare gri"
+
+#: wp-accessibility.php:171
+msgid "Toggle Font size"
+msgstr "Glisor mărime font"
+
+#: wp-accessibility.php:643
+msgid "Enable WordPress Admin stylesheet"
+msgstr "Activează stil CSS pentru Wordpress admin"
+
+#: wp-accessibility.php:792
+msgid "Accessibility Toolbar Notes"
+msgstr "Notiţe bara de unelte accesibilitate"
+
+#: wp-accessibility.php:795
+msgid "It is almost impossible for the Accessibility Toolbar to guarantee a good result for large text or high contrast modes. You can author your own high-contrast styles by placing a stylesheet called <code>a11y-contrast.css</code> in your Theme's stylesheet directory."
+msgstr "Este aproape imposibil pentru bara de accesibilitate să ofere rezultate grozave pentru fonturile foarte mari sau contrastul foarte ridicat. Puteţi să vă configuraţi propriu contrast în fişierul CSS denumi t<code>a11y-contrast.css</code> aflat în folderul cu fişiere CSS ale temei."
+
+#: wp-accessibility.php:798
+msgid "You can define custom styles for the large print view by defining them under the body class <code>.fontsize</code> in your theme stylesheet."
+msgstr "Puteţi personaliza mărimea la afişarea fonturilor definind-o în body class <code>.fontsize</code> în fişierul CSS."
+
+#: wp-accessibility.php:71
+msgid "Accessibility Settings"
+msgstr "Setări accesibilitate"
+
+#: wp-accessibility.php:641
+msgid "Force search error on empty search submission (theme must have search.php template)"
+msgstr "Forţează erorile de căutare atunci când rezultatele sunt indisponibile (Tema trebuie să aibă un fişier search.php)"
+
+#: wp-accessibility.php:651
+msgid "Add outline to elements on keyboard focus"
+msgstr "Adaugă evidenţiere la elementele focusate de tastatură"
+
+#: wp-accessibility.php:651
+msgid "Outline color (hexadecimal, optional)"
+msgstr "Culoare evidenţiere, exprimată hexadecimal"
+
+#: wp-accessibility.php:663
+msgid "Color Contrast Tester"
+msgstr "Test contrast culoare"
+
+#: wp-accessibility.php:680
+msgid "Luminosity Contrast Ratio for <code>#%2$s</code> and <code>#%3$s</code> is <strong>%1$s</strong> (Threshold: greater than 7:1 for AAA, 4.5:1 for AA)"
+msgstr "Rată de contrast luminozitate pentru <code>#%2$s</code> şi <code>#%3$s</code> este <strong>%1$s</strong> (Limitat la: mai mare decât 7:1 pentru nivelul  AAA, 4.5:1 pentru AA)"
+
+#: wp-accessibility.php:682
+msgid "The colors compared <strong>pass</strong> the relative luminosity test at level AAA."
+msgstr "Culorile comparate <strong>au trecut</strong> testul de luminozitate până la nivelul AAA."
+
+#: wp-accessibility.php:685
+msgid "The colors compared <strong>pass</strong> the relative luminosity test at level AA."
+msgstr "Culorile comparate<strong>au trecut</strong> testul de luminozitate până la nivelul AA."
+
+#: wp-accessibility.php:688
+msgid "The colors compared pass the relative luminosity test <strong>only when used in large print</strong> situations (greater than 18pt text or 14pt bold text.)"
+msgstr "Culorile comparate au trecut testul de luminozitate <strong>doar când s-a folosit Mărire Font</strong>(Mai mare decât 18pt text sau 14pt bold text.)"
+
+#: wp-accessibility.php:691
+msgid "The colors compared <strong>do not pass</strong> the relative luminosity test."
+msgstr "Culorile comparate <strong>nu au trecut</strong> testul de luminozitate."
+
+#: wp-accessibility.php:693
+msgid "Test another set of colors"
+msgstr "Testează un alt set de culori"
+
+#: wp-accessibility.php:708
+msgid "Test of relative luminosity"
+msgstr "Testare iluminare"
+
+#: wp-accessibility.php:710
+msgid "Foreground color"
+msgstr "Culoare foreground"
+
+#: wp-accessibility.php:711
+msgid "Background color"
+msgstr "Culoare fundal"
+
+#: wp-accessibility.php:718
+msgid "Check Color Contrast"
+msgstr "Verifică contrastul culorilor"
+
+#: wp-accessibility.php:742
+msgid "If you've found WP Accessibility useful, then please consider <a href='http://wordpress.org/extend/plugins/wp-accessibility/'>rating it five stars</a>, <a href='http://www.joedolson.com/donate.php'>making a donation</a>, or <a href='http://translate.joedolson.com/projects/wp-accessibility'>helping with translation</a>."
+msgstr "Dacă aţi considerat WP Accessibility folositor, vă rugăm <a href='http://wordpress.org/extend/plugins/wp-accessibility/'>evaluaţi-l cu cinci stele</a>, <a href='http://www.joedolson.com/donate.php'>faceţi o donaţie</a>, sau <a href='http://translate.joedolson.com/projects/wp-accessibility'>ajutaţi-ne cu traducerea</a>."
+
+#: wp-accessibility.php:244
+msgid "Skip to content"
+msgstr "Sari la conţinut"
+
+#: wp-accessibility.php:246
+msgid "Skip to navigation"
+msgstr "Sari la navigare"
+
+#: wp-accessibility.php:248
+msgid "Site map"
+msgstr "Hartă site"
+
+#: wp-accessibility.php:435
+msgid "Remove Title Attributes Settings Updated"
+msgstr "Ştergere atribut titlu actualizată"
+
+#: wp-accessibility.php:455
+msgid "WP Accessibility does not provide any styles for visible skiplinks. You can still set the look of the links using the textareas provided, but all other layout must be assigned in your theme."
+msgstr "WP Accessibility nu furnizează posibilitatea de editare vizuală a linkurilor de tip Sari La. Dar puteţi face anumite modificări în câmpul de mai jos, însă totodată trebuie editate fişierele temei."
+
+#: wp-accessibility.php:459
+msgid "Add Skiplinks Settings Updated"
+msgstr "Adăugare linkuri \"Sari La\" actualizată"
+
+#: wp-accessibility.php:491
+msgid "Miscellaneous Accessibility Settings Updated"
+msgstr "Setări diverse de accesibilitate actualizate"
+
+#: wp-accessibility.php:573
+msgid "WP Accessibility: Settings"
+msgstr "WP Accessibility: Setări"
+
+#: wp-accessibility.php:578
+msgid "Remove Title Attributes"
+msgstr "Şterge atributul titlu"
+
+#: wp-accessibility.php:582
+msgid "Remove title attributes from:"
+msgstr "Sterge atributul titlu din:"
+
+#: wp-accessibility.php:584
+msgid "Nav menus"
+msgstr "Meniuri navigare"
+
+#: wp-accessibility.php:585
+msgid "Page lists"
+msgstr "Listă pagini"
+
+#: wp-accessibility.php:586
+msgid "Category lists"
+msgstr "Listă categorii"
+
+#: wp-accessibility.php:587
+msgid "Archive links"
+msgstr "Linkuri arhivă"
+
+#: wp-accessibility.php:588
+msgid "Tag clouds"
+msgstr "Nor etichete"
+
+#: wp-accessibility.php:589
+msgid "Category links"
+msgstr "Linkuri categorie"
+
+#: wp-accessibility.php:590
+msgid "Post edit links"
+msgstr "Linkuri editare postare"
+
+#: wp-accessibility.php:591
+msgid "Edit comment links"
+msgstr "Linkuri editare comentarii"
+
+#: wp-accessibility.php:598
+msgid "Update Title Attribute Settings"
+msgstr "Actualizare setări atribute titlu"
+
+#: wp-accessibility.php:604
+msgid "Add Skiplinks"
+msgstr "Adaugă linkuri Sari La"
+
+#: wp-accessibility.php:608
+msgid "Configure Skiplinks"
+msgstr "Configurează linkurile Sari La"
+
+#: wp-accessibility.php:610
+msgid "Enable Skiplinks"
+msgstr "Activare linkuri Sari La"
+
+#: wp-accessibility.php:611
+msgid "Skiplinks always visible"
+msgstr "Linkuri Sari La, totdeauna vizibile"
+
+#: wp-accessibility.php:612
+msgid "Skip to Content link target (ID of your main content container)"
+msgstr "Ţintă a linkului Sari la Conţinut(Inseraţi ID-ul containerului conţinut principal) "
+
+#: wp-accessibility.php:613
+msgid "Skip to Navigation link target (ID of your main navigation container)"
+msgstr "Ţinta linkului Sari La navigare (Introduceţi ID-ul containerului meniu principal)"
+
+#: wp-accessibility.php:614
+msgid "Site Map link target (URL for your site map)"
+msgstr "Ţintă fişier hartă site (Introduceţi URL pentru fişierul hartă site)"
+
+#: wp-accessibility.php:615
+msgid "Add your own link (link or container ID)"
+msgstr "Adaugă propriul link ori ID container"
+
+#: wp-accessibility.php:615
+msgid "Link text for your link"
+msgstr "Text  link pentru linkul propriu"
+
+#: wp-accessibility.php:616
+msgid "Styles for Skiplinks when they have focus"
+msgstr "Stil pentru linkul Sari La, când sunteţi focusaţi pe ele"
+
+#: wp-accessibility.php:618
+msgid "(Not currently visible)"
+msgstr "Invizibil în acest moment"
+
+#: wp-accessibility.php:619
+msgid "Styles for Skiplinks without focus"
+msgstr "Stil pentru linkurile Sari La, când nu sunteţi focusat pe ele"
+
+#: wp-accessibility.php:627
+msgid "Update Skiplink Settings"
+msgstr "Actualizează Linkurile Sari La"
+
+#: wp-accessibility.php:633
+msgid "Miscellaneous Accessibility Settings"
+msgstr "Setări diverse de accesibilitate"
+
+#: wp-accessibility.php:637
+msgid "Miscellaneous"
+msgstr "Diverse"
+
+#: wp-accessibility.php:639
+msgid "Add Site Language and text direction to HTML element"
+msgstr "Adaugă limbă pentru site ori direcţia de scriere pt text în elementul HTML"
+
+#: wp-accessibility.php:640
+msgid "Remove target attribute from links"
+msgstr "Şterge atributul titlu de la linkuri"
+
+#: wp-accessibility.php:642
+msgid "Remove tabindex from focusable elements"
+msgstr "Şterge tabindex de pe elementele focusabile"
+
+#: wp-accessibility.php:645
+msgid "Remove title attribute from images inserted into post content and featured images."
+msgstr "Şterge atributul titlu de la imaginile din postări sau din imaginile reprezentative"
+
+#: wp-accessibility.php:649
+msgid "Add post title to \"more\" links."
+msgstr "Adaugă titlul postării după linkul citeşte mai mult"
+
+#: wp-accessibility.php:650
+msgid "Continue reading text"
+msgstr "Text pentru linkul Citeşte mai mult"
+
+#: wp-accessibility.php:658
+msgid "Update Miscellaneous Settings"
+msgstr "Actualizare setări diverse"
+
+#: wp-accessibility.php:723
+msgid "Get Plug-in Support"
+msgstr "Obţine suport pentru modul"
+
+#: wp-accessibility.php:736
+msgid "Support this Plugin"
+msgstr "Sprijineşte acest modul"
+
+#: wp-accessibility.php:760
+msgid "Accessibility References"
+msgstr "Referinţe accesibilitate"
+
+#: wp-accessibility.php:775
+msgid "Contributing References"
+msgstr "Referinţe contributori"
+
+#: wp-accessibility.php:861
+msgid "Recent Posts"
+msgstr "Postări Recente"
+
+#: wp-accessibility.php:904
+msgid "Title:"
+msgstr "Titlu"
+
+#: wp-accessibility.php:907
+msgid "Number of posts to show:"
+msgstr "Număr postări afişate"
+
+#: wp-accessibility.php:994
+msgid "Please read the FAQ and other Help documents before making a support request."
+msgstr "Vă rugăm citiţi secţiunea Întrebări Frecvente sau documentaţia de ajutor înainte de a solicita suport prin tichete."
+
+#: wp-accessibility.php:996
+msgid "Please describe your problem. I'm not psychic."
+msgstr "Vă rog descrieţi problema. Noi nu o vom căuta"
+
+#: wp-accessibility.php:1000
+msgid "Thank you for supporting the continuing development of this plug-in! I'll get back to you as soon as I can."
+msgstr "Vă mulţumim că susţineţi dezvoltarea continuă a acestui modul. Sperăm să reintrăm în legătură curând."
+
+#: wp-accessibility.php:1002
+msgid "I cannot provide free support, but will treat your request as a bug report, and will incorporate any permanent solutions I discover into the plug-in."
+msgstr "Nu putem oferi suport gratuit, însă cererile dvs vor fi tratate ca şi probleme iar de îndată ce sunt descoperite îşi vor regăsi soluţionarea în versiunile următoare ale modulului."
+
+#: wp-accessibility.php:1014
+msgid "<strong>Please note</strong>: I do keep records of those who have donated, but if your donation came from somebody other than your account at this web site, you must note this in your message."
+msgstr "<strong>Atenţie!</strong>: Deşi menţinem evidenţa donatorilor, dacă donaţia dvs provine din altă sursă decât propriul cont vă rugăm să ne înştiinţaţi prin mesaj."
+
+#: wp-accessibility.php:1018
+msgid "From:"
+msgstr "De la"
+
+#: wp-accessibility.php:1021
+msgid "I have read <a href=\"%1$s\">the FAQ for this plug-in</a> <span>(required)</span>"
+msgstr "Am citit deja <a href=\"%1$s\">secţiunea Întrebări Frecvente a acestui modul</a> <span>(obligatoriu)</span>"
+
+#: wp-accessibility.php:1024
+msgid "I have <a href=\"%1$s\">made a donation to help support this plug-in</a>"
+msgstr "Am făcut deja o <a href=\"%1$s\">donaţie pentru a sprijini acest modul</a>"
+
+#: wp-accessibility.php:1027
+msgid "Support Request:"
+msgstr "Cerere suport"
+
+#: wp-accessibility.php:1030
+msgid "Send Support Request"
+msgstr "Trimite cererea de suport"
+
+#: wp-accessibility.php:1033
+msgid "The following additional information will be sent with your support request:"
+msgstr "următoarele informaţii vor fi trimise împreună cu cererea de suport:"
+
+msgid "WP Accessibility"
+msgstr "WP Accessibility"
+
+msgid "http://www.joedolson.com/articles/wp-accessibility/"
+msgstr "http://www.joedolson.com/articles/wp-accessibility/"
+
+msgid "Provides options to improve accessibility in your WordPress site, including removing title attributes."
+msgstr "furnizează câteva opţiuni de îmbunătăţire a accesibilităţii în site-ul Wordpress, inclusiv ştergerea atributului titlu"
+
+msgid "Joe Dolson"
+msgstr "Joe Dolson"
+
+msgid "http://www.joedolson.com/"
+msgstr "http://www.joedolson.com/"

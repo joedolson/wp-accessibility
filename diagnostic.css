@@ -1,0 +1,215 @@
+/* content styles */
+applet:hover:after, basefont:hover:after, center:hover:after, dir:hover:after, font:hover:after, isindex:hover:after, menu:hover:after, strike:hover:after, s:hover:after, u:hover:after, *[background]:hover:after, *[bgcolor]:hover:after, *[clear]:hover:after, *[color]:hover:after, *[compact]:hover:after, *[noshade]:hover:after, *[nowrap]:hover:after, *[size]:hover:after, *[start]:hover:after, *[bottommargin]:hover:after, *[leftmargin]:hover:after, *[rightmargin]:hover:after, *[topmargin]:hover:after, *[marginheight]:hover:after, *[marginwidth]:hover:after, *[alink]:hover:after, *[link]:hover:after, *[text]:hover:after, *[vlink]:hover:after, *[align]:hover:after, *[valign]:hover:after, *[hspace]:hover:after, *[vspace]:hover:after, *[height]:hover:after, *[width]:hover:after, ul[type]:hover:after, ol[type]:hover:after, li[type]:hover:after, iframe:not([title]):hover:after,div[role="img"]:not([aria-label]):hover:after, a[href=""]:hover:after, a[href="#"]:hover:after, a:not([href]):hover:after, a[href*=javascript\:]:hover:after, a[onclick]:hover:after, a[href=""]:focus:after, a[href="#"]:focus:after, a:not([href]):focus:after, a[href*=javascript\:]:focus:after, a[onclick]:focus:after, fieldset > :not(legend):first-child:after, fieldset > legend:not(:first-child):after,label:not([for]):hover:after, *[accesskey]:hover:after, th:empty:hover:after, table > tr:only-child:after, table > tbody > tr:only-child:after, table[align]:after, table[bgcolor]:after, table[outline]:after, table[cellpadding]:after, table[cellspacing]:after, table[width]:after, td[width]:after, td[valign]:after {
+	position: absolute; 
+	display: block; 
+	width: 200px; 
+	background: #fcfcfc;
+	color: #333; 
+	outline: 2px solid; 
+	padding: 5px; 
+}
+/* content styles */
+applet:hover:after, basefont:hover:after, center:hover:after, dir:hover:after, font:hover:after, isindex:hover:after, menu:hover:after, strike:hover:after, s:hover:after, u:hover:after, *[background]:hover:after, *[bgcolor]:hover:after, *[clear]:hover:after, *[color]:hover:after, *[compact]:hover:after, *[noshade]:hover:after, *[nowrap]:hover:after, *[size]:hover:after, *[start]:hover:after, *[bottommargin]:hover:after, *[leftmargin]:hover:after, *[rightmargin]:hover:after, *[topmargin]:hover:after, *[marginheight]:hover:after, *[marginwidth]:hover:after, *[alink]:hover:after, *[link]:hover:after, *[text]:hover:after, *[vlink]:hover:after, *[align]:hover:after, *[valign]:hover:after, *[hspace]:hover:after, *[vspace]:hover:after, *[height]:hover:after, *[width]:hover:after, ul[type]:hover:after, ol[type]:hover:after, li[type]:hover:after, iframe:not([title]):hover:after   {
+ position: absolute; background: #fff; padding: 3px; outline: 2px solid; color: #333;
+}
+/* Deprecated Elements - cannot be overridden by user styles */
+applet, basefont, center, dir, font, isindex, menu, s, strike, u {
+    outline: 2px dotted red !important;
+}
+
+applet:hover:after { content: " <applet> is a deprecated HTML element";}
+basefont:hover:after { content: " <basefont> is a deprecated HTML element"; }
+center:hover:after { content: " <center> is a deprecated HTML element"; }
+dir:hover:after { content: " <dir> is a deprecated HTML element"; }
+font:hover:after { content: " <font> is a deprecated HTML element"; }
+isindex:hover:after { content: " <isindex> is a deprecated HTML element"; }
+menu:hover:after { content: " <menu> is a deprecated HTML element"; }
+strike:hover:after { content: " <strike> is a deprecated HTML element"; }
+s:hover:after { content: " <s> is a deprecated HTML element"; }
+u:hover:after { content: " <u> is a deprecated HTML element"; }
+
+/* Deprecated Attributes - cannot be overridden by user styles */
+*[background], *[bgcolor], *[clear], *[color], *[compact], *[noshade], *[nowrap], *[size], *[start], *[bottommargin], *[leftmargin], *[rightmargin], *[topmargin], *[marginheight], *[marginwidth], *[alink], *[link], *[text], *[vlink], *[align], *[valign], *[hspace], *[vspace], *[height], *[width], ul[type], ol[type], li[type] {
+    outline: 2px solid red;
+}
+img[height], img[width] { outline: none; }
+
+*[background]:hover:after { content: " background is a deprecated HTML attribute"; }
+*[bgcolor]:hover:after { content: " bgcolor is a deprecated HTML attribute"; }
+*[clear]:hover:after { content: " clear is a deprecated HTML attribute"; }
+*[color]:hover:after { content: " color is a deprecated HTML attribute"; }
+*[compact]:hover:after { content: " compact is a deprecated HTML attribute"; }
+*[noshade]:hover:after { content: " noshade is a deprecated HTML attribute"; }
+*[nowrap]:hover:after { content: " nowrap is a deprecated HTML attribute"; }
+*[size]:hover:after { content: " size is a deprecated HTML attribute"; }
+*[start]:hover:after { content: " start is a deprecated HTML attribute"; }
+*[bottommargin]:hover:after { content: " bottommargin is a deprecated HTML attribute"; }
+*[leftmargin]:hover:after { content: " leftmargin is a deprecated HTML attribute"; }
+*[rightmargin]:hover:after { content: " rightmargin is a deprecated HTML attribute"; }
+*[topmargin]:hover:after { content: " topmargin is a deprecated HTML attribute"; }
+*[marginheight]:hover:after { content: " marginheight is a deprecated HTML attribute"; }
+*[marginwidth]:hover:after { content: " marginwidth is a deprecated HTML attribute"; }
+*[alink]:hover:after { content: " alink is a deprecated HTML attribute"; }
+*[link]:hover:after { content: " link is a deprecated HTML attribute"; }
+*[text]:hover:after { content: " text is a deprecated HTML attribute"; }
+*[vlink]:hover:after { content: " vlink is a deprecated HTML attribute"; }
+*[align]:hover:after { content: " align is a deprecated HTML attribute"; }
+*[valign]:hover:after { content: " valign is a deprecated HTML attribute"; }
+*[hspace]:hover:after { content: " hspace is a deprecated HTML attribute"; }
+*[vspace]:hover:after { content: " vspace is a deprecated HTML attribute"; }
+*[height]:hover:after { content: " height is a deprecated HTML attribute"; }
+*[width]:hover:after { content: " width is a deprecated HTML attribute"; }
+ul[type]:hover:after, ol[type]:hover:after, li[type]:hover:after { content: " type is a deprecated HTML attribute"; }
+
+/* Inline frames without title attribute */
+iframe:not([title]){
+    outline: 2px solid red !important;
+}
+
+iframe:not([title]):hover:after {
+	content: " <iframe> does not have a title attribute defined.";
+}
+
+
+/**
+ *     Image-related checks
+ *     Can't add generated content to images. Think...
+ */
+
+/* server-side image map. Yes these are sometimes still seen, if rarely */
+img[ismap]{
+    outline: 2px solid red;  
+}
+/* Images without alt attribute */
+img:not([alt]) {
+    outline: 2px solid red;
+}
+
+/* something that has a role of image but no alternative */
+div[role="img"]:not([aria-label]){
+   outline: 2px solid red; 
+}
+
+/* I don't know if that will work; but worth a try. */
+div[role="img"]:not([aria-label]):hover:after {
+	content: " This content has a role of image but no aria-label attribute.";
+}
+
+/* images without a source */
+img:not([src]),
+img[src=""],
+img[src="#"]{
+    outline: 2px solid red !important;
+}
+
+/**
+ *     Link-related checks
+ */
+
+/* Bad links, possibly relying on javascript to do something */
+a[href=""], a[href="#"], a:not([href]), a[href*=javascript\:], a[onclick]{
+    outline: 2px solid red !important;
+}
+
+a[href=""]:hover:after, a[href="#"]:hover:after, a:not([href]):hover:after, a[href*=javascript\:]:hover:after, a[onclick]:hover:after,
+a[href=""]:focus:after, a[href="#"]:focus:after, a:not([href]):focus:after, a[href*=javascript\:]:focus:after, a[onclick]:focus:after {
+	content: " This link may depend on JavaScript to perform it's function.";
+}
+
+/** 
+ *     form-related checks
+ */
+
+/*
+	Legends
+*/
+fieldset > :not(legend):first-child,	/* no other element than a legend can be first child of a fieldset element */
+fieldset > legend:not(:first-child) {	/* and a legend can't be anything else than first child of a fieldset element */
+	outline: 2px dashed red !important;
+}
+
+fieldset > :not(legend):first-child:after,
+fieldset > legend:not(:first-child):after {
+	content: " <legend> must be the first child of a fieldset";
+}
+
+
+/*
+	Input[type="image"] and their alt attribute
+	Note: adding :before or :after on this type of element won't work. Maybe background-image encoded in base64?
+	@reference Technique for WCAG 2.0 H36: Using alt attributes on images used as submit buttons - http://www.w3.org/TR/WCAG-TECHS/H36.html
+	@reference Technique for WCAG 2.0 F65: Failure (...) due to omitting the alt attribute on (...) input elements of type "image" - http://www.w3.org/TR/WCAG-TECHS/F65.html
+*/
+input[type="image"][alt=""],
+input[type="image"]:not([alt]) {
+	display: block;
+	background-color: red !important;
+	width: 200px !important;
+	height: 3em !important;
+}
+
+/* Missing 'for' attribute on a label */
+label:not([for]){
+    outline: 2px solid red !important;
+}
+label:not([for]):hover:after {
+	content: " This label does not have a for attribute associating it with a form input.";
+}
+
+/* Accesskey is a bad idea. 
+ * @reference Old discussion but still hits on salient points http://www.cs.tut.fi/~jkorpela/forms/accesskey.html */
+*[accesskey]{
+    outline: 2px solid red;
+}
+
+*[accesskey]:hover:after {
+	content: " Do not use the accesskey attribute.";
+}
+
+
+/**
+ *     TABLE RELATED CHECKS
+ */
+
+/* Empty Header Cells */
+th:empty {
+    padding: 20px;
+    outline: 2px solid yellow !important;
+}
+
+th:empty:after {
+	content: " Table header cell is empty.";
+}
+
+/* only one TR in the table. Is that a layout table? */ 
+table > tr:only-child, 
+table > tbody > tr:only-child {
+  outline: 2px solid red;
+}
+
+table > tr:only-child:after, table > tbody > tr:only-child:after {
+	content: " Table has only one row. Is this a layout table?"
+}
+
+/* Deprecated attributes on table */
+table[align],
+table[bgcolor],
+table[outline],
+table[cellpadding],
+table[cellspacing],
+table[width],
+td[width],
+td[valign] {
+    outline: 2px solid red;
+}
+
+table[align]:after,
+table[bgcolor]:after,
+table[outline]:after,
+table[cellpadding]:after,
+table[cellspacing]:after,
+table[width]:after,
+td[width]:after,
+td[valign]:after {
+	content: " This table uses one or more deprecated attributes: align, bgcolor, outline, cellpadding, cellspacing, width, or valign";
+}

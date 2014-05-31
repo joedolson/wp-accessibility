@@ -1,0 +1,6 @@
+/* Admin styles for WP Accessibility */
+#wpa_settings_page .postbox { margin: 0 10px 10px 0;	}
+#wpa_settings_page .meta-box-sortables { min-height: 0; }
+#wpa_settings_page legend { font-weight: 700; }
+li.fore { float: left; width: 200px; margin-right: 30px; }
+li.back { margin-left: 230px; }
