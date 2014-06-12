@@ -27,7 +27,6 @@ fieldset p {
 
 @-moz-document url-prefix() {
 	.a11y-toggle-grayscale { display:none !important; }
-	.a11y-toggle-fontsize { margin-top: -25px; }
 }
 
 .a11y-toolbar {

@@ -3,7 +3,7 @@
 Plugin Name: WP Accessibility
 Plugin URI: http://www.joedolson.com/articles/wp-accessibility/
 Description: Provides options to improve accessibility in your WordPress site, including removing title attributes.
-Version: 1.3.2
+Version: 1.3.3
 Author: Joe Dolson
 Author URI: http://www.joedolson.com/
 
@@ -36,7 +36,7 @@ function add_wpa_admin_menu() {
 
 // ACTIVATION
 function wpa_install() {
-	$wpa_version = '1.3.2';
+	$wpa_version = '1.3.3';
 	if ( get_option('wpa_installed') != 'true' ) {
 		add_option( 'rta_from_nav_menu', 'on' );
 		add_option( 'rta_from_page_lists', 'on' );
@@ -83,7 +83,7 @@ add_action( 'admin_menu', 'wpa_javascript' );
 
 function wpa_javascript() { 
 	if ( isset($_GET['page']) && $_GET['page'] == 'wp-accessibility/wp-accessibility.php' ) {
-		wp_enqueue_script('farbtastic' );	
+		wp_enqueue_script( 'farbtastic' );	
 	}
 }
 
@@ -105,7 +105,7 @@ function wpa_admin_stylesheet() {
 		}
 		wp_register_style( 'wp-row-actions', $file );
 		wp_enqueue_style( 'wp-row-actions' );	
-	}	
+	}
 }
 function wpa_admin_js() {} // just a placeholder
 
@@ -279,7 +279,7 @@ function wpa_jquery_asl() {
 	$content = str_replace( '#','',esc_attr( get_option('asl_content') ) );
 	$visibility = ( get_option( 'asl_visible' ) == 'on' )?'wpa-visible':'wpa-hide';
 	$nav = str_replace( '#','',esc_attr( get_option('asl_navigation') ) );
-	$sitemap = esc_url(get_option( 'asl_sitemap' ));
+	$sitemap = esc_url( get_option( 'asl_sitemap' ) );
 	$extra = get_option( 'asl_extra_target' );
 	$extra = ( wpa_is_url($extra) )?esc_url($extra):str_replace('#','',esc_attr( $extra ));
 	if ( $extra != '' && !wpa_is_url($extra) ) { $extra = "#$extra"; }

@@ -4,7 +4,7 @@ Donate link: http://www.joedolson.com/donate.php
 Tags: title, accessibility, accessible, navigation, wcag, a11y, section508, focus
 Requires at least: 3.4.2
 Tested up to: 3.9.1
-Stable tag: 1.3.2
+Stable tag: 1.3.3
 License: GPLv2 or later
 
 WP Accessibility provides fixes for common accessibility issues in your WordPress site.
@@ -46,7 +46,7 @@ The plug-in is intended to help with deficiencies commonly found in themes and t
 Translating my plug-ins is always appreciated. Visit <a href="http://translate.joedolson.com">my translations site</a> to start getting your language into shape!
 
 Available languages (in order of completeness):
-Portuguese (Portugal), Romanian, Dutch, French, Spanish, Italian, German, Polish, Finnish
+Portuguese (Portugal), Italian, Romanian, Dutch, French, Spanish, German, Polish, Finnish
 
 Visit the [WP Accessibility translations site](http://translate.joedolson.com/projects/wp-accessibility/) to check the progress of a translation.
 
@@ -57,6 +57,11 @@ Visit the [WP Accessibility translations site](http://translate.joedolson.com/pr
 2. Customise your settings on the Settings > WP Accessibility page.
 
 == Changelog ==
+
+= 1.3.3 =
+
+* Bug fix: a11y.css issue collapsing toolbar buttons in Firefox
+* Language: Update Italian.
 
 = 1.3.2 =
 
