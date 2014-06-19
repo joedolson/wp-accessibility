@@ -1,0 +1,211 @@
+/*
+Document   : accessibility
+Created on : Oct 12, 2012, 3:27:54 PM
+Author     : Eric
+*/
+ 
+/* Use this class to hide content from display, but to make it accessible to screen readers */
+.accessibility-nonvisible {
+	position:absolute;
+	left:-10000px;
+	top:auto;
+	width:1px;
+	height:1px;
+	overflow:hidden; 
+	clip: rect(1px, 1px, 1px, 1px);
+}
+
+/* All Accessibility Bar components are contained within this main div */
+#accessibilityBar {
+	position:relative;
+	
+	background: white;
+	
+	/* some themes (notably _s) put a clear:both on all headings and a bunch of other things. */
+	* {
+		clear:none;
+	}
+	 
+	padding:0; margin: 0;
+	
+	font: {
+		size: 1.2em;
+	}
+	
+	line-height: 1.2em;
+
+	a {
+		white-space:nowrap;
+		text-decoration:none;
+
+
+		&:hover  {
+
+		}
+	
+		/* Highlight focused items when using keyboard navigation */
+		&:focus { 
+
+		}
+	}
+
+	h4 {
+		margin: 0;
+		font-weight: bold;
+		font-size:1em;
+		display: inline-block;
+		text-transform: uppercase;
+		vertical-align: inherit;
+		body.ie7 & {
+			display: inline;
+		}
+	}
+		
+	ul {
+		margin:0;
+	}
+	
+	#accessibilityBarContent {
+		padding:10px;
+	}
+	
+	body.ie7 &,
+	body.ie8 & {
+		background-color: rgb(255,255,255);
+		border: 1px solid white;
+	}
+}
+
+/*	Manage the hiding and showing of the bar.
+	The 'collapsed' class is applied when the bar is hidden.
+*/
+
+#accessibility-bar-expand, #accessibility-bar-collapse {
+	margin:0; padding:10px 6px 6px;
+	cursor: pointer;
+
+	
+
+	a {
+		display: inline-block;
+		text-align:center;
+		
+		img {
+			border: none;
+			padding:0;
+			margin: 0;
+			display: inline-block;
+		}
+	}
+	&.has-image a {
+		display: block;
+		border: none;
+		line-height: inherit;
+	}
+
+	&:hover a {
+		
+	}	
+}
+
+#accessibility-bar-expand {
+	display: none;
+}
+#accessibility-bar-collapse {
+	display: inline-block;
+}
+
+#accessibilityBar.collapsed {
+	#accessibilityBarContent {
+		display: none;
+	}
+	padding:0; margin:0;
+}
+
+#accessibility-bar-expand.collapsed {
+	display: inline-block;
+}
+
+#accessibility-bar-collapse.collapsed {
+	display: none;
+}
+
+
+/* All the components of the bar are inline-block */
+#skip-to, #controlsMenu, #cookie-crumb {
+	display:inline-block;
+	margin:5px;
+}
+
+/* Inline styles for LI navigation links */
+#quickaccess, #accessibilityControls, #zg-crumb {
+	display: inline-block;
+	list-style:none;
+	margin-top:6px;
+	padding:0;
+	
+	body.ie7 & {
+		display: inline;
+	}
+	li {
+		display:inline;
+		position:relative;
+		padding: 0 4px;
+	}
+}
+
+/* Skip Links styling */
+#quickaccess  li {
+	border-left-width: 1px;
+	border-left-style: solid;
+	&:first-child {
+		border:none;
+		padding-left:0;
+	}
+}
+
+/* Controls Menu styling */
+#controlsMenu {
+	float:right;
+}
+
+#accessibilityControls {
+	display:inline-block;
+	list-style:none;
+	margin:0; padding:0;
+	
+	li {
+		display:inline;
+		margin:0; 
+		
+		cursor: pointer;
+
+		&.button-active {
+/*			background-color:red;*/
+		}
+
+		a {
+			
+			
+			
+
+			text-align:center;
+		}
+
+		&:hover a {
+			
+		}
+	}
+}
+
+/* Cookie Crumb styling */
+#cookie-crumb {
+	display:block;
+	clear:both;
+	padding-bottom: 10px;
+	margin-bottom: 0;
+	
+	.crumb {
+		display:inline-block;
+	}
+}

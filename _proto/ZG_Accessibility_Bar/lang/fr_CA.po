@@ -1,0 +1,87 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: ZG_Accessibility_Bar V01\n"
+"POT-Creation-Date: 2013-10-15 23:20-0500\n"
+"PO-Revision-Date: 2013-10-15 23:29-0500\n"
+"Last-Translator: Tom Auger <tom.auger@zeitguys.com>\n"
+"Language-Team: Zeitguys <opensource@zeitguys.com>\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.7\n"
+"X-Poedit-KeywordsList: __;gettext;gettext_noop;_e;_n;_x;_ex;esc_attr__;"
+"esc_attr_e;esc-attr_x\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../ZG_Accessibility_Bar.php:32
+msgid "Hide"
+msgstr "Cacher"
+
+#: ../theme/accessibility_bar.php:16
+msgid "Accessibility"
+msgstr "Accessibilité"
+
+#: ../theme/accessibility_bar.php:16
+msgctxt "Screen reader text"
+msgid "Skip to"
+msgstr "Accès rapide"
+
+#: ../theme/accessibility_bar.php:18
+msgctxt "Page slug"
+msgid "accessibility-policy"
+msgstr "politique-daccessibilite"
+
+#: ../theme/accessibility_bar.php:18 ../theme/accessibility_bar.php:19
+#: ../theme/accessibility_bar.php:20 ../theme/accessibility_bar.php:21
+msgctxt "Link title attr"
+msgid "Access key: "
+msgstr "Touche d'accès rapide : "
+
+#: ../theme/accessibility_bar.php:18
+msgid "Accessibility Policy"
+msgstr "Politique d'accessibilité"
+
+#: ../theme/accessibility_bar.php:19
+msgid "Main Content"
+msgstr "Contenu"
+
+#: ../theme/accessibility_bar.php:20
+msgid "Main Menu"
+msgstr "Menu principal"
+
+#: ../theme/accessibility_bar.php:21
+msgctxt "Page slug"
+msgid "contact"
+msgstr "nous-joindre"
+
+#: ../theme/accessibility_bar.php:21
+msgid "Contact"
+msgstr "Comment nous joindre"
+
+#: ../theme/accessibility_bar.php:28
+msgid "Text size"
+msgstr "Taille du texte"
+
+#: ../theme/accessibility_bar.php:30
+msgid "increase text size"
+msgstr "agrandir la taille du texte"
+
+#: ../theme/accessibility_bar.php:31
+msgid "decrease text size"
+msgstr "réduire la taille du texte"
+
+#: ../theme/accessibility_bar.php:32
+msgid "reset text size"
+msgstr "rendre une taille normale au texte"
+
+#: ../theme/accessibility_bar.php:39
+msgid "History: "
+msgstr "Historique :"
+
+#: ../theme/accessibility_bar.php:44
+msgid "Minimize/expand accessibility bar"
+msgstr "Cacher / révéler la barre d'accessibilité"
