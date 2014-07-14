@@ -1,0 +1,415 @@
+# Translation of WP Accessibility in Greek
+# This file is distributed under the same license as the WP Accessibility package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2014-07-03 19:17:46+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/0.1\n"
+"Project-Id-Version: WP Accessibility\n"
+
+#: templates/longdesc-template.php:26
+msgid "Return to article."
+msgstr "Επιστροφή στο άρθρο"
+
+#: wp-accessibility.php:691
+msgid "Long Description UI"
+msgstr "Χρήση εκτεταμένης περιγραφής"
+
+#: wp-accessibility.php:692
+msgid "Link to description"
+msgstr "Σύνδεσμος προς την περιγραφή"
+
+#: wp-accessibility.php:693
+msgid "Button trigger to overlay image"
+msgstr "Κουμπί για επικάλυψη στην εικόνα"
+
+#: wp-accessibility.php:694
+msgid "Browser defaults only"
+msgstr "Το πρόγραμμα περιήγησης θα το καθορίσει"
+
+#: wp-accessibility.php:848
+msgid "Customization Notes"
+msgstr "Σημειώσεις προσαρμογής"
+
+#: wp-accessibility.php:851
+msgid "It is almost impossible for the Accessibility Toolbar to guarantee a good result for large text or high contrast modes. Author your own high-contrast styles by placing a stylesheet called <code>a11y-contrast.css</code> in your Theme's stylesheet directory."
+msgstr "Είναι σχεδόν αδύνατο να εγγυηθούμε άψογα αποτελέσματα στα μεγάλα γράμματα ή στην κατάσταση υψηλής αντίθεσης. Φτιάξτε το δικό σας στυλ υψηλής αντίθεσης τοποθετώντας το δικό σας φύλλο στυλ με όνομα <code>a11y-contrast.css</code> μέσα στον αντίστοιχο φάκελο του Θέματός σας"
+
+#: wp-accessibility.php:854
+msgid "Define custom styles for large print by asssigning them in the body class <code>.fontsize</code> in your theme stylesheet."
+msgstr "Ορίστε την επιθυμητή μορφή-στυλ για την κατάσταση \"Μεγάλα Γράμματα\" εφαρμόζοντάς την στην body class <code>.fontsize</code> μέσα στο φύλλο στυλ του Θέματός σας."
+
+#: wp-accessibility.php:857
+msgid "Define a custom long description template by adding the template \"longdesc-template.php\" to your theme directory."
+msgstr "Ορίστε την επιθυμητή μορφή-στυλ για την \"εκτενή περιγραφή\" προσθέτοντας ένα πρότυπο \"longdesc-template.php\" στον φάκελο του Θέματός σας."
+
+#: wp-accessibility.php:180
+msgid "Accessibility Toolbar"
+msgstr "Εργαλειοθήκη προσβασιμότητας"
+
+#: wp-accessibility.php:701
+msgid "Support Accessibility toolbar as shortcode or widget"
+msgstr "Χρήση της Εργαλειοθήκης Προσβασιμότητας με μικροκώδικα (shortcode) ή σε μονάδα (widget)"
+
+#: wp-accessibility.php:632 wp-accessibility.php:633 wp-accessibility.php:637
+#: wp-accessibility.php:638 wp-accessibility.php:639
+msgid "Obsolete since WordPress 3.8"
+msgstr "Μη εφαρμόσημο από το Wordpress 3.8 και μετά"
+
+#: wp-accessibility.php:698
+msgid "Make row actions always visible"
+msgstr "Να είναι πάντα ορατή η βασική διαχείριση άρθρων (ταχυεπεξεργασία, διαγραφή κλπ)"
+
+#: wp-accessibility.php:703
+msgid "Enable diagnostic CSS"
+msgstr "Ενεργοποίηση διαγνωστικής κατάστασης CSS"
+
+#: wp-accessibility.php:799
+msgid "<a href=\"http://www.joedolson.com/donate.php\">Make a donation today!</a> Every donation counts - donate $5, $20, or $100 and help me keep this plug-in running!"
+msgstr "<a href=\"http://www.joedolson.com/donate.php\">Κάντε μια δωρεά σήμερα!</a> Κάθε δωρεά είναι αποδεκτή - Δωρίστε $5, $20, ή $100 και βοηθήστε με να διατηρήσω ενεργό αυτό το πρόσθετο!"
+
+#: wp-accessibility.php:903
+msgid "WP A11Y: Recent Posts"
+msgstr "Πρόσφατες δημοσιεύσεις για το WP A11Y"
+
+#: wp-accessibility.php:700
+msgid "Add Accessibility toolbar with fontsize adjustment and contrast toggle"
+msgstr "Εμφάνιση της Εργαλειοθήκης Προσβασιμότητας με τις επιλογές \"Μεγέθους γραμμάτων\" και \"Υψηλής Αντίθεσης\""
+
+#: wp-accessibility.php:702
+msgid "Include grayscale toggle with Accessibility toolbar"
+msgstr "Προσθήκη της επιλογής \"Διαβάθμιση Γκρι\" στην Εργαλειοθήκη Προσβασιμότητας"
+
+#: wp-accessibility.php:189 wp-accessibility.php:209
+msgid "Toggle High Contrast"
+msgstr "Εναλλαγή Υψηλής Αντίθεσης"
+
+#: wp-accessibility.php:190 wp-accessibility.php:210
+msgid "Toggle Grayscale"
+msgstr "Εναλλαγή Διαβάθμισης Γκρι"
+
+#: wp-accessibility.php:191 wp-accessibility.php:211
+msgid "Toggle Font size"
+msgstr "Εναλλαγή Μεγέθους Γραμμάτων"
+
+#: wp-accessibility.php:697
+msgid "Enable WordPress Admin stylesheet"
+msgstr "Ενεργοποίηση του Στυλ Προσβασιμότητας και στην Διαχείρηση του WordPress "
+
+#: wp-accessibility.php:75
+msgid "Accessibility Settings"
+msgstr "Ρυθμίσεις Προσβασιμότητας"
+
+#: wp-accessibility.php:689
+msgid "Force search error on empty search submission (theme must have search.php template)"
+msgstr "Επιβολή κατάδειξης λάθους αναζήτησης όταν γίνει καταχώρηση κενής αναζήτησης (το Θέμα σας πρέπει να έχει πρότυπο search.php)"
+
+#: wp-accessibility.php:706
+msgid "Add outline to elements on keyboard focus"
+msgstr "Προσθήκη περιγράμματος όταν ένα στοιχείο εστιαστεί (πλοήγηση με πληκτρολόγιο, χωρίς \"ποντίκι\")"
+
+#: wp-accessibility.php:706
+msgid "Outline color (hexadecimal, optional)"
+msgstr "Χρώμα περιγράμματος (δεκαεξαδική μορφή, προαιρετικό) "
+
+#: wp-accessibility.php:718
+msgid "Color Contrast Tester"
+msgstr "Έλεγχος Χρωματικής Αντίθεσης"
+
+#: wp-accessibility.php:735
+msgid "Luminosity Contrast Ratio for <code>#%2$s</code> and <code>#%3$s</code> is <strong>%1$s</strong> (Threshold: greater than 7:1 for AAA, 4.5:1 for AA)"
+msgstr "ο Λόγος Αντίθεσης Φωτεινότητας για το <code>#%2$s</code> και το <code>#%3$s</code> είναι <strong>%1$s</strong> (Όρια: λόγος μεγαλύτερος από 7:1 αντιστοιχεί σε AAA, από 4.5:1 αντιστοιχεί σε AA)"
+
+#: wp-accessibility.php:737
+msgid "The colors compared <strong>pass</strong> the relative luminosity test at level AAA."
+msgstr "Τα χρώματα που συγκρίνατε <strong>περνάνε</strong> το τέστ σχετικής φωτεινότητας με επίπεδο ΑΑΑ"
+
+#: wp-accessibility.php:740
+msgid "The colors compared <strong>pass</strong> the relative luminosity test at level AA."
+msgstr "Τα χρώματα που συγκρίνατε <strong>περνάνε</strong> το τέστ σχετικής φωτεινότητας με επίπεδο ΑΑ"
+
+#: wp-accessibility.php:743
+msgid "The colors compared pass the relative luminosity test <strong>only when used in large print</strong> situations (greater than 18pt text or 14pt bold text.)"
+msgstr "Τα χρώματα που συγκρίνατε περνάνε το τέστ σχετικής αντίθεσης <strong>μόνο όταν χρησιμοποιηθούν σε μεγάλα γράμματα</strong> (Μεγαλύτερα από 18pt απλά ή 14pt έντονα)"
+
+#: wp-accessibility.php:746
+msgid "The colors compared <strong>do not pass</strong> the relative luminosity test."
+msgstr "Τα χρώματα που συγκρίνατε <strong>δεν περνάνε</strong> το τέστ σχετικής αντίθεσης."
+
+#: wp-accessibility.php:748
+msgid "Test another set of colors"
+msgstr "Δοκιμάστε άλλο χρωματικό συνδυασμό"
+
+#: wp-accessibility.php:763
+msgid "Test of relative luminosity"
+msgstr "Δοκιμή σχετικής φωτεινότητας"
+
+#: wp-accessibility.php:765
+msgid "Foreground color"
+msgstr "Χρώμα προσκηνίου"
+
+#: wp-accessibility.php:766
+msgid "Background color"
+msgstr "Χρώμα παρασκηνίου"
+
+#: wp-accessibility.php:773
+msgid "Check Color Contrast"
+msgstr "Δοκιμή Χρωματικής Αντίθεσης"
+
+#: wp-accessibility.php:797
+msgid "If you've found WP Accessibility useful, then please consider <a href='http://wordpress.org/extend/plugins/wp-accessibility/'>rating it five stars</a>, <a href='http://www.joedolson.com/donate.php'>making a donation</a>, or <a href='http://translate.joedolson.com/projects/wp-accessibility'>helping with translation</a>."
+msgstr "Αν βρίσκετε το WP Accessibility χρήσιμο, παρακαλώ σκεφτείτε <a href='http://wordpress.org/extend/plugins/wp-accessibility/'>να το αξιολογήσετε με πέντε αστέρια</a>, <a href='http://www.joedolson.com/donate.php'>να κάνετε μια δωρεά</a>, ή <a href='http://translate.joedolson.com/projects/wp-accessibility'>να βοηθήσετε στην μετάφρασή του</a>."
+
+#: wp-accessibility.php:288
+msgid "Skip to content"
+msgstr "Άλμα στο περιεχόμενο"
+
+#: wp-accessibility.php:289
+msgid "Skip to navigation"
+msgstr "Άλμα στη γραμμή πλοήγησης"
+
+#: wp-accessibility.php:290
+msgid "Site map"
+msgstr "Χάρτης Ιστοσελίδας"
+
+#: wp-accessibility.php:479
+msgid "Remove Title Attributes Settings Updated"
+msgstr "H ρύθμιση \"Αφαίρεση της ιδιότητας Title\" εφαρμόστηκε"
+
+#: wp-accessibility.php:499
+msgid "WP Accessibility does not provide any styles for visible skiplinks. You can still set the look of the links using the textareas provided, but all other layout must be assigned in your theme."
+msgstr "Το WP Accessibility δεν παρέχει κανένα στυλ για την εμφάνιση των Αλμάτων (skiplinks). Μπορείτε να καθορίσετε την εμφάνισή των συνδέσμων στις αντίστοιχες περιοχές όμως όλο την θπόλοιπη εμφάνιση πρέπει να την εφαρμόσετε στο Θέμα σας."
+
+#: wp-accessibility.php:503
+msgid "Add Skiplinks Settings Updated"
+msgstr "H ρύθμιση \"Προσθήκη Αλμάτων\" εφαρμόστηκε "
+
+#: wp-accessibility.php:539
+msgid "Miscellaneous Accessibility Settings Updated"
+msgstr "H ρύθμιση \"Διάφορα ζητήματα Προσβασιμότητας\" εφαρμόστηκε "
+
+#: wp-accessibility.php:621
+msgid "WP Accessibility: Settings"
+msgstr "WP Accessibility: Ρυθμίσεις"
+
+#: wp-accessibility.php:626
+msgid "Remove Title Attributes"
+msgstr "Αφαίρεση ιδιότητας \"Tilte\""
+
+#: wp-accessibility.php:630
+msgid "Remove title attributes from:"
+msgstr "Αφαίρεση ιδιότητας \"Tilte\" από:"
+
+#: wp-accessibility.php:632
+msgid "Nav menus"
+msgstr "Μενού πλοήγησης"
+
+#: wp-accessibility.php:633
+msgid "Page lists"
+msgstr "Λίστες Σελίδας"
+
+#: wp-accessibility.php:634
+msgid "Category lists"
+msgstr "Λίστες Κατηγορίας"
+
+#: wp-accessibility.php:635
+msgid "Archive links"
+msgstr "Συνδέσμους Αρχείου"
+
+#: wp-accessibility.php:636
+msgid "Tag clouds"
+msgstr "Ετικετοσύννεφα"
+
+#: wp-accessibility.php:637
+msgid "Category links"
+msgstr "Συνδέσμους Κατηγορίας"
+
+#: wp-accessibility.php:638
+msgid "Post edit links"
+msgstr "Συνδέσμους επεξεργασίας Δημοσιεύσεων"
+
+#: wp-accessibility.php:639
+msgid "Edit comment links"
+msgstr "Συνδέσμους επεξεργασίας Σχολίων"
+
+#: wp-accessibility.php:646
+msgid "Update Title Attribute Settings"
+msgstr "Εφαρμογή ρυθμίσεων σχετικά με την ιδιότητα \"Title\""
+
+#: wp-accessibility.php:652
+msgid "Add Skiplinks"
+msgstr "Προσθήκη Αλμάτων (Skiplinks)"
+
+#: wp-accessibility.php:656
+msgid "Configure Skiplinks"
+msgstr "Διαμόρφωση Αλμάτων"
+
+#: wp-accessibility.php:658
+msgid "Enable Skiplinks"
+msgstr "Ενεργοποίηση Αλμάτων"
+
+#: wp-accessibility.php:659
+msgid "Skiplinks always visible"
+msgstr "Τα Άλματα να εμφανίζοντε πάντα"
+
+#: wp-accessibility.php:660
+msgid "Skip to Content link target (ID of your main content container)"
+msgstr "Στόχος του συνδέσμου Άλμα στο Περιεχόμενο (το ID για το κύριο περιεχόμενο)"
+
+#: wp-accessibility.php:661
+msgid "Skip to Navigation link target (ID of your main navigation container)"
+msgstr "Στόχος του συνδέσμου Άλμα στη γραμμή πλοήγησης (το ID για το κύριο μενού της ιστοσελίδας) "
+
+#: wp-accessibility.php:662
+msgid "Site Map link target (URL for your site map)"
+msgstr "Στόχος του συνδέσμου Χάρτης Ιστοσελίδας (το URL για τον χάρτη Ιστοσελίδας, Site Map) "
+
+#: wp-accessibility.php:663
+msgid "Add your own link (link or container ID)"
+msgstr "Προσθέστε άλλο σύνδεσμο (URL ή ID)"
+
+#: wp-accessibility.php:663
+msgid "Link text for your link"
+msgstr "Κείμενο για το σύνδεσμο"
+
+#: wp-accessibility.php:664
+msgid "Styles for Skiplinks when they have focus"
+msgstr "Στυλ για τα Άλματα όταν έχουν εστιαστεί (focus)"
+
+#: wp-accessibility.php:666
+msgid "(Not currently visible)"
+msgstr "(Δεν εμφανίζεται ακόμα)"
+
+#: wp-accessibility.php:667
+msgid "Styles for Skiplinks without focus"
+msgstr "Στυλ για τα Άλματα όταν δεν έχουν εστιαστεί (focus) "
+
+#: wp-accessibility.php:675
+msgid "Update Skiplink Settings"
+msgstr "Εφαρμογή ρυθμίσεων για τα Άλματα"
+
+#: wp-accessibility.php:681
+msgid "Miscellaneous Accessibility Settings"
+msgstr "Διάφορες ρυθμίσεις Προσβασιμότητας"
+
+#: wp-accessibility.php:685
+msgid "Miscellaneous"
+msgstr "Διάφορα"
+
+#: wp-accessibility.php:687
+msgid "Add Site Language and text direction to HTML element"
+msgstr "Προσθήκη \"Γλώσσας Ιστοσελίδα\" και \"Κατεύθυνση ανάγνωσης\" στην επικεφαλίδα HTML"
+
+#: wp-accessibility.php:688
+msgid "Remove target attribute from links"
+msgstr "Αφαίρεση ιδιότητας \"target\" από τους συνδέσμους"
+
+#: wp-accessibility.php:690
+msgid "Remove tabindex from focusable elements"
+msgstr "Αφαίρεση ιδιότητας \"tabindex\" από τα στοιχεία που μπορούν να εστιαστούν (focus)"
+
+#: wp-accessibility.php:699
+msgid "Remove title attribute from images inserted into post content and featured images."
+msgstr "Αφαίρεση ιδιότητας \"title\" από τις εικόνες που βρίσκονται μέσα σε άρθρα και τις επιλεγμένες εικόνες άρθρου"
+
+#: wp-accessibility.php:704
+msgid "Add post title to \"more\" links."
+msgstr "Προσθήκη του τίτλου άρθρου στους συνδέσμους \"περισσότερα\"."
+
+#: wp-accessibility.php:705
+msgid "Continue reading text"
+msgstr "Συνέχεια ανάγνωσης κειμένου"
+
+#: wp-accessibility.php:713
+msgid "Update Miscellaneous Settings"
+msgstr "Εφαρμογή Διάφορων ρυθμίσεων"
+
+#: wp-accessibility.php:778
+msgid "Get Plug-in Support"
+msgstr "Ζητήστε βοήθεια σχετικά με το πρόσθετο"
+
+#: wp-accessibility.php:791
+msgid "Support this Plugin"
+msgstr "Στηρίξτε το πρόσθετο"
+
+#: wp-accessibility.php:815
+msgid "Accessibility References"
+msgstr "Παραπομπές σχετικά με τη Προσβασιμότητα"
+
+#: wp-accessibility.php:830
+msgid "Contributing References"
+msgstr "Παραπομπές που Συνέβαλαν"
+
+#: wp-accessibility.php:920
+msgid "Recent Posts"
+msgstr "Πρόσφατες Δημοσιεύσεις"
+
+#: wp-accessibility.php:963
+msgid "Title:"
+msgstr "Τίτλος:"
+
+#: wp-accessibility.php:966
+msgid "Number of posts to show:"
+msgstr "Αριθμός άρθρων που θα εμφανίζονται:"
+
+#: wp-accessibility.php:1053
+msgid "Please read the FAQ and other Help documents before making a support request."
+msgstr "Παρακαλώ διαβάστε τα FAQ και τα υπόλοιπα κείμενα Βοήθειας πριν ζητήσετε υποστήριξη."
+
+#: wp-accessibility.php:1055
+msgid "Please describe your problem. I'm not psychic."
+msgstr "Παρακαλώ περιγράψτε το πρόβλημα που αντιμετωπίζετε. Δεν είμαι μάντης..."
+
+#: wp-accessibility.php:1059
+msgid "Thank you for supporting the continuing development of this plug-in! I'll get back to you as soon as I can."
+msgstr "Ευχαριστώ που στηρίζετε την παραπέρα ανάπτυξη του προσθέτου! Θα επικοινωνήσω το συντομότερο."
+
+#: wp-accessibility.php:1061
+msgid "I cannot provide free support, but will treat your request as a bug report, and will incorporate any permanent solutions I discover into the plug-in."
+msgstr "Δεν μπορώ παρέχω δωρεάν υποστήριξη, όμως θα αντιμετωπίσω το αίτημα σας σαν αναφορά λάθους και θα εντάξω όποια σταθερή λύση βρω στο πρόσθετο."
+
+#: wp-accessibility.php:1073
+msgid "<strong>Please note</strong>: I do keep records of those who have donated, but if your donation came from somebody other than your account at this web site, you must note this in your message."
+msgstr "<strong>Παρακαλώ πάρτε υπόψη</strong>: Συντηρώ αρχείο όσων έκαναν δωρεά, αλλά αν η δωρεά σας έγινε με διαφορετικά στοιχεία από αυτά του λογαριασμού σας σ' αυτή την ιστοσελίδα, θα πρέπει να το αναφέρετε στο μήνυμά σας."
+
+#: wp-accessibility.php:1077
+msgid "From:"
+msgstr "Από:"
+
+#: wp-accessibility.php:1080
+msgid "I have read <a href=\"%1$s\">the FAQ for this plug-in</a> <span>(required)</span>"
+msgstr "Έχω διαβάσει <a href=\"%1$s\">τις συχνές ερωτήσεις για αυτό το πρόσθετο</a> <span>(απαραίτητο)</span>"
+
+#: wp-accessibility.php:1083
+msgid "I have <a href=\"%1$s\">made a donation to help support this plug-in</a>"
+msgstr "Εχω <a href=\"%1$s\">κάνει δωρεά για να υποστηρίξω το πρόσθετο</a>"
+
+#: wp-accessibility.php:1086
+msgid "Support Request:"
+msgstr "Αίτημα Υποστήριξης:"
+
+#: wp-accessibility.php:1089
+msgid "Send Support Request"
+msgstr "Αποστολή Αιτήματος Υποστήριξης"
+
+#: wp-accessibility.php:1092
+msgid "The following additional information will be sent with your support request:"
+msgstr "Οι παρακάτω πρόσθετες πληροφορίες θα αποσταλούν μαζί με το αίτημά σας:"
+
+msgid "WP Accessibility"
+msgstr "WP Accessibility (Προσβάσιμο WP)"
+
+msgid "http://www.joedolson.com/articles/wp-accessibility/"
+msgstr ""
+
+msgid "Provides options to improve accessibility in your WordPress site, including removing title attributes."
+msgstr "Παρέχει επιλογές για να βελτιώσετε την προσβασιμότητα της σελίδας σας, συμπεριλαμβανομένου την αφαίρεση της ιδιότητας \"title\"."
+
+msgid "Joe Dolson"
+msgstr "Joe Dolson"
+
+msgid "http://www.joedolson.com/"
+msgstr ""

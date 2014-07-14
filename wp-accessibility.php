@@ -3,7 +3,7 @@
 Plugin Name: WP Accessibility
 Plugin URI: http://www.joedolson.com/articles/wp-accessibility/
 Description: Provides options to improve accessibility in your WordPress site, including removing title attributes.
-Version: 1.3.3
+Version: 1.3.6
 Author: Joe Dolson
 Author URI: http://www.joedolson.com/
 
@@ -36,7 +36,7 @@ function add_wpa_admin_menu() {
 
 // ACTIVATION
 function wpa_install() {
-	$wpa_version = '1.3.3';
+	$wpa_version = '1.3.6';
 	if ( get_option('wpa_installed') != 'true' ) {
 		add_option( 'rta_from_nav_menu', 'on' );
 		add_option( 'rta_from_page_lists', 'on' );
@@ -191,7 +191,7 @@ function wpa_toolbar_html() {
 	$contrast = __('Toggle High Contrast','wp-accessibility');
 	$grayscale = __('Toggle Grayscale','wp-accessibility');
 	$fontsize = __('Toggle Font size','wp-accessibility');
-	$enable_grayscale = ( get_option('wpa_toolbar_gs') == 'on' )?true:false;	
+	$enable_grayscale = ( get_option('wpa_toolbar_gs') == 'on' )?true:false;
 	$toolbar = '
 <!-- a11y toolbar widget -->
 <div class="a11y-toolbar-widget">
@@ -213,13 +213,14 @@ function wpa_toolbar_js() {
 	$fontsize = __('Toggle Font size','wp-accessibility');
 	$enable_grayscale = ( get_option('wpa_toolbar_gs') == 'on' )?true:false;
 	$location = apply_filters( 'wpa_move_toolbar', 'body' );
+	$is_rtl = ( is_rtl() ) ? ' rtl' : ' ltr' ;
 echo	
 	"
 <script type='text/javascript'>
 //<![CDATA[
 	(function( $ ) { 'use strict';
 		var insert_a11y_toolbar = '<!-- a11y toolbar -->';
-		insert_a11y_toolbar += '<div class=\"a11y-toolbar\">';
+		insert_a11y_toolbar += '<div class=\"a11y-toolbar$is_rtl\">';
 		insert_a11y_toolbar += '<ul>';
 		insert_a11y_toolbar += '<li><a href=\"#\" class=\"a11y-toggle-contrast toggle-contrast\" id=\"is_normal_contrast\" title=\"$contrast\"><span class=\"offscreen\">$contrast</span><i class=\"icon icon-adjust\"></i></a></li>';";
 		if ( get_option( 'wpa_toolbar' ) == 'on' && $enable_grayscale ) {
@@ -294,9 +295,11 @@ function wpa_jquery_asl() {
 	$output = ($html != '')?"<div class=\"$visibility$is_rtl\" id=\"skiplinks\" role=\"navigation\">$html</div>":'';
 	$skiplinks_js = ( $output )?"$('body').prepend('$output');":'';
 	// attach language to html element
-	$lang = ( get_option( 'wpa_lang' ) == 'on' )?get_bloginfo('language'):false;
-	$dir = ( get_option( 'wpa_lang' ) == 'on' )?get_bloginfo('text_direction'):false;
-	$lang_js = "$('html').attr('lang','$lang'); $('html').attr('dir','$dir')";
+	if ( get_option( 'wpa_lang' ) == 'on' ) {
+		$lang = get_bloginfo('language');
+		$dir = get_bloginfo('text_direction');
+		$lang_js = "$('html').attr('lang','$lang'); $('html').attr('dir','$dir')";
+	}
 	// force links to open in the same window
 	$targets = ( get_option( 'wpa_target' ) == 'on' ) ? "$('a').removeAttr('target');":'';
 	$tabindex = ( get_option( 'wpa_tabindex') == 'on' ) ? "$('input,a,select,textarea,button').removeAttr('tabindex');":'';
@@ -335,9 +338,14 @@ function wpa_logout_item($admin_bar){
 function wpa_stylesheet() {
 	// Respects SSL, Style.css is relative to the current file
 	wp_register_style( 'wpa-style', plugins_url('wpa-style.css', __FILE__) );
-	wp_enqueue_style( 'wpa-style' );
 	wp_register_style( 'ui-a11y.css', plugins_url( 'toolbar/css/a11y.css', __FILE__) );
-	wp_enqueue_style( 'ui-a11y.css' );
+	// only enable styles when required by options
+	if ( get_option( 'wpa_longdesc' ) == 'on' || get_option( 'asl_enable' ) == 'on' ) {
+		wp_enqueue_style( 'wpa-style' );
+	}
+	if ( get_option( 'wpa_toolbar' ) == 'on' || get_option( 'wpa_widget_toolbar' ) == 'on' ) {
+		wp_enqueue_style( 'ui-a11y.css' );
+	}
 	if ( current_user_can( 'edit_files' ) && get_option('wpa_diagnostics') == 'on' ) {
 		wp_register_style( 'diagnostic', plugins_url('diagnostic.css', __FILE__) );
 		wp_register_style( 'diagnostic-head', plugins_url('diagnostic-head.css', __FILE__) );
@@ -556,10 +564,12 @@ if ( get_option('wpa_search') == 'on' ) {
 	add_filter('pre_get_posts','wpa_filter');
 }
 function wpa_filter($query) {
-	if ( isset($_GET['s']) && $_GET['s'] == '' ) { 
-		$query->query_vars['s'] = '&#32;';
-		$query->set( 'is_search', 1 );
-		add_action('template_redirect','wpa_search_error');
+	if ( !is_admin() ) {
+		if ( isset($_GET['s']) && $_GET['s'] == '' ) { 
+			$query->query_vars['s'] = '&#32;';
+			$query->set( 'is_search', 1 );
+			add_action('template_redirect','wpa_search_error');
+		}
 	}
 	return $query;
 }
@@ -866,6 +876,9 @@ if ( $l_contrast ) {
 					</p>
 					<p>
 					<?php _e('Define a custom long description template by adding the template "longdesc-template.php" to your theme directory.','wp-accessibility' ); ?>
+					</p>
+					<p>
+					<?php _e('The <a href="#wpa_widget_toolbar">shortcode for the Accessibility toolbar</a> (if enabled) is <code>[wpa_toolbar]</code>','wp-accessibility' ); ?>
 					</p>					
 				</div>
 			</div>
@@ -1094,7 +1107,7 @@ $plugins_string
 		<code>".__('From:','wp-accessibility')." \"$current_user->display_name\" &lt;$current_user->user_email&gt;</code>
 		</p>
 		<p>
-		<input type='checkbox' name='has_read_faq' id='has_read_faq' value='on' /> <label for='has_read_faq'>".sprintf(__('I have read <a href="%1$s">the FAQ for this plug-in</a> <span>(required)</span>','wp-accessibility'),'http://www.joedolson.com/articles/wp-accessibility/faqs/')."</label>
+		<input type='checkbox' name='has_read_faq' id='has_read_faq' value='on' /> <label for='has_read_faq'>".sprintf( __('I have read <a href="%1$s">the FAQ for this plug-in</a> <span>(required)</span>','wp-accessibility'),'http://www.joedolson.com/articles/wp-accessibility/faqs/')."</label>
         </p>
         <p>
         <input type='checkbox' name='has_donated' id='has_donated' value='on' /> <label for='has_donated'>".sprintf(__('I have <a href="%1$s">made a donation to help support this plug-in</a>','wp-accessibility'),'http://www.joedolson.com/donate.php')."</label>
