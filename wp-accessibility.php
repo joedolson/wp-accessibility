@@ -3,7 +3,7 @@
 Plugin Name: WP Accessibility
 Plugin URI: http://www.joedolson.com/articles/wp-accessibility/
 Description: Provides options to improve accessibility in your WordPress site, including removing title attributes.
-Version: 1.3.6
+Version: 1.3.7
 Author: Joe Dolson
 Author URI: http://www.joedolson.com/
 
@@ -36,7 +36,7 @@ function add_wpa_admin_menu() {
 
 // ACTIVATION
 function wpa_install() {
-	$wpa_version = '1.3.6';
+	$wpa_version = '1.3.7';
 	if ( get_option('wpa_installed') != 'true' ) {
 		add_option( 'rta_from_nav_menu', 'on' );
 		add_option( 'rta_from_page_lists', 'on' );
@@ -54,11 +54,11 @@ function wpa_install() {
 		add_option( 'wpa_continue','Continue Reading' );
 		add_option( 'wpa_focus', '' );
 		add_option( 'wpa_installed', 'true' );
-		add_option( 'wpa_version', $version );	
+		add_option( 'wpa_version', $wpa_version );	
 		add_option( 'wpa_longdesc', 'jquery' );
 	} else {
 		wpa_check_version();
-		update_option( 'wpa_version', $version );
+		update_option( 'wpa_version', $wpa_version );
 	}
 }
 
@@ -277,23 +277,25 @@ function wpa_is_url($url) {
 
 function wpa_jquery_asl() {		
 	$skiplinks_js = $targets = $lang_js = $tabindex = $longdesc = false;
-	$content = str_replace( '#','',esc_attr( get_option('asl_content') ) );
 	$visibility = ( get_option( 'asl_visible' ) == 'on' )?'wpa-visible':'wpa-hide';
-	$nav = str_replace( '#','',esc_attr( get_option('asl_navigation') ) );
-	$sitemap = esc_url( get_option( 'asl_sitemap' ) );
-	$extra = get_option( 'asl_extra_target' );
-	$extra = ( wpa_is_url($extra) )?esc_url($extra):str_replace('#','',esc_attr( $extra ));
-	if ( $extra != '' && !wpa_is_url($extra) ) { $extra = "#$extra"; }
-	$extra_text = stripslashes(get_option( 'asl_extra_text' ));
-	$html = '';
-	// set up skiplinks
-	$html .= ( $content != '' )?"<a href=\"#$content\">".__('Skip to content','wp-accessibility')."</a> ":'';
-	$html .= ( $nav != '' )?"<a href=\"#$nav\">".__('Skip to navigation','wp-accessibility')."</a> ":'';
-	$html .= ( $sitemap != '' )?"<a href=\"$sitemap\">".__('Site map','wp-accessibility')."</a> ":'';
-	$html .= ( $extra != '' && $extra_text != '' )?"<a href=\"$extra\">$extra_text</a> ":'';
-	$is_rtl = ( is_rtl() ) ? '-rtl' : '-ltr' ;
-	$output = ($html != '')?"<div class=\"$visibility$is_rtl\" id=\"skiplinks\" role=\"navigation\">$html</div>":'';
-	$skiplinks_js = ( $output )?"$('body').prepend('$output');":'';
+	if ( get_option( 'asl_enable' ) == 'on' ) {
+		$html = '';
+		// set up skiplinks
+		$extra = get_option( 'asl_extra_target' );
+		$extra = ( wpa_is_url($extra) )?esc_url($extra):str_replace('#','',esc_attr( $extra ));
+		if ( $extra != '' && !wpa_is_url($extra) ) { $extra = "#$extra"; }
+		$extra_text = stripslashes(get_option( 'asl_extra_text' ));		
+		$content = str_replace( '#','',esc_attr( get_option('asl_content') ) );	
+		$nav = str_replace( '#','',esc_attr( get_option('asl_navigation') ) );
+		$sitemap = esc_url( get_option( 'asl_sitemap' ) );		
+		$html .= ( $content != '' )?"<a href=\"#$content\">".__('Skip to content','wp-accessibility')."</a> ":'';
+		$html .= ( $nav != '' )?"<a href=\"#$nav\">".__('Skip to navigation','wp-accessibility')."</a> ":'';
+		$html .= ( $sitemap != '' )?"<a href=\"$sitemap\">".__('Site map','wp-accessibility')."</a> ":'';
+		$html .= ( $extra != '' && $extra_text != '' )?"<a href=\"$extra\">$extra_text</a> ":'';
+		$is_rtl = ( is_rtl() ) ? '-rtl' : '-ltr' ;
+		$output = ($html != '')?"<div class=\"$visibility$is_rtl\" id=\"skiplinks\" role=\"navigation\">$html</div>":'';
+		$skiplinks_js = ( $output )?"$('body').prepend('$output');":'';
+	}
 	// attach language to html element
 	if ( get_option( 'wpa_lang' ) == 'on' ) {
 		$lang = get_bloginfo('language');
@@ -715,7 +717,7 @@ function wpa_admin_menu() { ?>
 						</select>
 						</li>
 						<li><input type="checkbox" id="wpa_admin_css" name="wpa_admin_css" <?php if ( get_option('wpa_admin_css') == "on") { echo 'checked="checked" '; } ?>/> <label for="wpa_admin_css"><?php _e('Enable WordPress Admin stylesheet','wp-accessibility'); ?></label></li>
-						<li><input type="checkbox" id="wpa_row_actions" name="wpa_row_actions" <?php if ( get_option('wpa_row_actions') == "on") { echo 'checked="checked" '; } ?>/> <label for="wpa_row_actions"><?php _e('Make row actions always visible','wp-accessibility'); ?></label></li>						
+						<li><input type="checkbox" id="wpa_row_actions" name="wpa_row_actions" <?php if ( get_option('wpa_row_actions') == "on") { echo 'checked="checked" '; } ?>/> <label for="wpa_row_actions"><?php _e( 'Make row actions always visible','wp-accessibility' ); ?></label></li>						
 						<li><input type="checkbox" id="wpa_image_titles" name="wpa_image_titles" <?php if ( get_option('wpa_image_titles') == "on") { echo 'checked="checked" '; } ?>/> <label for="wpa_image_titles"><?php _e('Remove title attribute from images inserted into post content and featured images.','wp-accessibility'); ?></label></li>
 						<li><input type="checkbox" id="wpa_toolbar" name="wpa_toolbar" <?php if ( get_option('wpa_toolbar') == "on") { echo 'checked="checked" '; } ?>/> <label for="wpa_toolbar"><?php _e('Add Accessibility toolbar with fontsize adjustment and contrast toggle','wp-accessibility'); ?></label></li>
 						<li><input type="checkbox" id="wpa_widget_toolbar" name="wpa_widget_toolbar" <?php if ( get_option('wpa_widget_toolbar') == "on") { echo 'checked="checked" '; } ?>/> <label for="wpa_widget_toolbar"><?php _e('Support Accessibility toolbar as shortcode or widget','wp-accessibility'); ?></label></li>		
@@ -724,7 +726,7 @@ function wpa_admin_menu() { ?>
 						<li><input type="checkbox" id="wpa_more" name="wpa_more" <?php if ( get_option('wpa_more') == "on") { echo 'checked="checked" '; } ?>/> <label for="wpa_more"><?php _e('Add post title to "more" links.','wp-accessibility'); ?></label>
 							<label for="wpa_continue"><?php _e('Continue reading text','wp-accessibility'); ?></label> <input type="text" id="wpa_continue" name="wpa_continue" value="<?php echo esc_attr(get_option('wpa_continue') ); ?>" /></li>
 						<li><input type="checkbox" id="wpa_focus" name="wpa_focus" <?php if ( get_option('wpa_focus') == "on") { echo 'checked="checked" '; } ?>/> <label for="wpa_focus"><?php _e('Add outline to elements on keyboard focus','wp-accessibility'); ?></label> <label for="wpa_focus_color"><?php _e('Outline color (hexadecimal, optional)','wp-accessibility' ); ?></label><input type="text" id="wpa_focus_color" name="wpa_focus_color" value="#<?php echo esc_attr(get_option('wpa_focus_color') ); ?>" /></li>
-						<li><input type="checkbox" id="wpa_insert_roles" name="wpa_insert_roles" <?php if ( get_option('wpa_insert_roles') == "on") { echo 'checked="checked" '; } ?>/> <label for="wpa_insert_roles"><?php _e('Add landmark roles to HTML5 structural elements','wp-accessibility'); ?></label><br /><label for="wpa_complementary_container"><?php _e('ID for complementary role','wp-accessibility' ); ?></label><input type="text" id="wpa_complementary_container" name="wpa_complementary_container" value="#<?php echo esc_attr( get_option( 'wpa_complementary_container' ) ); ?>" /></li>						
+						<li><input type="checkbox" id="wpa_insert_roles" name="wpa_insert_roles" <?php if ( get_option('wpa_insert_roles') == "on") { echo 'checked="checked" '; } ?>/> <label for="wpa_insert_roles"><?php _e('Add landmark roles to HTML5 structural elements','wp-accessibility'); ?></label><br /><label for="wpa_complementary_container"><?php _e('ID for complementary role','wp-accessibility' ); ?></label><input type="text" id="wpa_complementary_container" name="wpa_complementary_container" value="#<?php echo esc_attr( get_option( 'wpa_complementary_container' ) ); ?>" /></li>
 					</ul>
 				</fieldset>
 					<p>
@@ -872,7 +874,7 @@ if ( $l_contrast ) {
 					<?php _e('It is almost impossible for the Accessibility Toolbar to guarantee a good result for large text or high contrast modes. Author your own high-contrast styles by placing a stylesheet called <code>a11y-contrast.css</code> in your Theme\'s stylesheet directory.','wp-accessibility'); ?>
 					</p>
 					<p>
-					<?php _e('Define custom styles for large print by asssigning them in the body class <code>.fontsize</code> in your theme stylesheet.','wp-accessibility' ); ?>
+					<?php _e('Define custom styles for large print by assigning them in the body class <code>.fontsize</code> in your theme stylesheet.','wp-accessibility' ); ?>
 					</p>
 					<p>
 					<?php _e('Define a custom long description template by adding the template "longdesc-template.php" to your theme directory.','wp-accessibility' ); ?>
@@ -1010,20 +1012,12 @@ get_currentuserinfo();
 	$php_version = phpversion();
 	
 	// theme data
-	if ( function_exists( 'wp_get_theme' ) ) {
 	$theme = wp_get_theme();
-		$theme_name = $theme->Name;
-		$theme_uri = $theme->ThemeURI;
-		$theme_parent = $theme->Template;
-		$theme_version = $theme->Version;	
-	} else {
-	$theme_path = get_stylesheet_directory().'/style.css';
-	$theme = get_theme_data($theme_path);
-		$theme_name = $theme['Name'];
-		$theme_uri = $theme['ThemeURI'];
-		$theme_parent = $theme['Template'];
-		$theme_version = $theme['Version'];
-	}
+	$theme_name = $theme->Name;
+	$theme_uri = $theme->ThemeURI;
+	$theme_parent = $theme->Template;
+	$theme_version = $theme->Version;	
+
 	// plugin data
 	$plugins = get_plugins();
 	$plugins_string = '';

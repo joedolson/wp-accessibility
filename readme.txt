@@ -4,7 +4,7 @@ Donate link: http://www.joedolson.com/donate.php
 Tags: title, accessibility, accessible, navigation, wcag, a11y, section508, focus
 Requires at least: 3.4.2
 Tested up to: 3.9.1
-Stable tag: 1.3.6
+Stable tag: 1.3.7
 License: GPLv2 or later
 
 WP Accessibility fixes common accessibility issues in your WordPress site.
@@ -57,6 +57,20 @@ Visit the [WP Accessibility translations site](http://translate.joedolson.com/pr
 3. Customise your settings on the Settings > WP Accessibility page.
 
 == Changelog ==
+
+= 1.x.x =
+
+These are potential future features.
+
+* Auto configuration of settings based on Tenon results. (Whoa. Can I do that?)
+* Front End Tenon reporting
+* Provide ability for themes to pass default settings within that theme.
+* Make accessibility toolbar icons scaleable
+
+= 1.3.7 =
+
+* Typo fixed.
+* Bug fix: If any skiplink field was filled in, skiplinks automatically displayed. 
 
 = 1.3.6 =
 
