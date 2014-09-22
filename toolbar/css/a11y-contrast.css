@@ -1,9 +1,7 @@
 @import url(chrome://flashblock/content/flashblock.css);
 
 /* Some versions of IE ignore the first entry so: */
-.placebo { line-height: normal; } /* should be harmless even if there is a
-.placebo - we want line-height normal
-anyway - and should validate */
+.placebo { line-height: normal; } /* should be harmless even if there is a .placebo - we want line-height normal anyway - and should validate */
 
 @media print { * { color: black !important; } } /* in browsers that do not support @media, this will be overridden by the items below */
 
@@ -252,42 +250,7 @@ span, a[onclick]:active strong, a[onclick]:active tt,
 a[onclick]:active u, a[onclick]:active var {
    text-decoration: underline !important;
 }
-abbr:first-letter, acronym:first-letter, address:first-line,
-article:first-letter, article:first-line, aside:first-letter,
-aside:first-line, basefont:first-letter, bdi:first-letter,
-big:first-letter, blink:first-letter, blockquote:first-line,
-body:first-line, button:first-letter, canvas:first-letter,
-caption:first-letter, caption:first-line, center:first-letter,
-center:first-line, cite:first-letter, command:first-letter,
-dd:first-line, details:first-letter, details:first-line,
-dfn:first-letter, dir:first-letter, dl:first-line,
-dt:first-line, em:first-letter, embed:first-letter,
-fieldset:first-letter, figcaption:first-letter,
-figcaption:first-line, figure:first-letter, figure:first-line,
-font:first-letter, footer:first-letter, footer:first-line,
-form:first-line, h1:first-line, h2:first-line, h3:first-line,
-h4:first-line, h5:first-line, h6:first-line,
-header:first-letter, header:first-line, hgroup:first-letter,
-hgroup:first-line, html:first-line, i:first-letter,
-iframe:first-letter, kbd:first-letter, legend:first-letter,
-legend:first-line, listing:first-letter, listing:first-line,
-mark:first-letter, mark:first-line, marquee:first-letter,
-menu:first-letter, menu:first-line, meter:first-letter,
-meter:first-line, multicol:first-letter, multicol:first-line,
-nav:first-letter, nav:first-line, nobr:first-letter,
-object:first-letter, ol:first-letter, p:first-line,
-plaintext:first-letter, plaintext:first-line, pre:first-line,
-progress:first-letter, progress:first-line, q:first-letter,
-s:first-letter, section:first-line, small:first-letter,
-span:first-letter, strike:first-letter, strong:first-letter,
-sub:first-letter, summary:first-letter, summary:first-line,
-sup:first-letter, time:first-letter, tt:first-letter,
-u:first-letter, var:first-letter, xmp:first-letter,
-xmp:first-line {
-   background: inherit !important;
-   background-color: inherit !important;
-   color: inherit !important;
-}
+
 a:link:hover , a:link:hover abbr, a:link:hover acronym, a:link:hover
 b, a:link:hover basefont, a:link:hover big, a:link:hover br,
 a:link:hover code, a:link:hover div, a:link:hover em, a:link:hover
@@ -306,6 +269,7 @@ a:visited:hover tt, a:visited:hover u, a:visited:hover var {
    background: #400000 !important;
    background-color: #400000 !important;
 }
+
 a:link:active , a:link:active abbr, a:link:active acronym,
 a:link:active b, a:link:active basefont, a:link:active big,
 a:link:active br, a:link:active code, a:link:active div, a:link:active
@@ -328,6 +292,7 @@ button.disabled, input.disabled, select.disabled, textarea.disabled {
    background: #404040 !important;
    background-color: #404040 !important;
 }
+
 a[onclick]:hover , a[onclick]:hover abbr, a[onclick]:hover acronym,
 a[onclick]:hover b, a[onclick]:hover basefont, a[onclick]:hover big,
 a[onclick]:hover br, a[onclick]:hover code, a[onclick]:hover div,
@@ -344,6 +309,7 @@ input[type=reset] {
    background: #400060 !important;
    background-color: #400060 !important;
 }
+
 a[onclick]:active , a[onclick]:active abbr, a[onclick]:active acronym,
 a[onclick]:active b, a[onclick]:active basefont, a[onclick]:active
 big, a[onclick]:active br, a[onclick]:active code, a[onclick]:active
@@ -355,6 +321,7 @@ span, a[onclick]:active strong, a[onclick]:active tt,
 a[onclick]:active u, a[onclick]:active var {
    color: red !important;
 }
+
 div[role="button"], input[type=button], input[type=submit] {
    background: #600040 !important;
    background-color: #600040 !important;
@@ -481,23 +448,3 @@ input[type=text],input[type=password],input[type=search] { border: 1px solid gre
 :-moz-placeholder { /* Firefox 18- */ color: #fff; }
 ::-moz-placeholder {  /* Firefox 19+ */ color: #fff; }
 :-ms-input-placeholder { color: #fff; }
-
-.a11y-toolbar .icon, .a11y-toolbar a:hover .icon {
-	display: inline-block;
-	background: url('../img/sprite.png') transparent no-repeat !important;
-	height: 16px;
-	width: 16px;
-	margin-top: 3px;
-}
-
-.a11y-toolbar a .icon-adjust, .a11y-toolbar a:hover .icon-adjust {
-	background-position: -16px 0 !important;
-}
-
-.a11y-toolbar a .icon-tint, .a11y-toolbar a:hover .icon-tint {
-	background-position: -16px -16px !important;
-}
-
-.a11y-toolbar a .icon-font, .a11y-toolbar a:hover .icon-font {
-	background-position: -16px -32px !important;
-}

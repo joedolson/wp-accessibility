@@ -34,17 +34,17 @@ jQuery(document).ready(function($) {
 	// Saturation handler
 	if (readCookie('a11y-desaturated')) {
 		$('body').addClass('desaturated');
-		$('#is_normal_color').attr('id', 'is_grayscale').addClass('active');
+		$('#is_normal_color').attr('id', 'is_grayscale').attr( 'aria-checked', true ).addClass('active');
 	};
 	$('.toggle-grayscale').on('click', function() {
 		if ($(this).attr('id') == "is_normal_color") {
 			$('body').addClass('desaturated');
-			$(this).attr('id', 'is_grayscale').addClass('active');
+			$(this).attr('id', 'is_grayscale').attr( 'aria-checked', true ).addClass('active');
 			createCookie('a11y-desaturated', '1');
 			return false;
 		} else {
 			$('body').removeClass('desaturated');
-			$(this).attr('id', 'is_normal_color').removeClass('active');
+			$(this).attr('id', 'is_normal_color').removeAttr( 'aria-checked' ).removeClass('active');
 			eraseCookie('a11y-desaturated');
 			return false;
 		}
@@ -54,7 +54,7 @@ jQuery(document).ready(function($) {
 	if (readCookie('a11y-high-contrast')) {
 		$('body').addClass('contrast');
 		$('head').append( $("<link href='"+a11y_stylesheet_path+"' id='highContrastStylesheet' rel='stylesheet' type='text/css' />") );
-		$('#is_normal_contrast').attr('id', 'is_high_contrast').addClass('active');
+		$('#is_normal_contrast').attr('id', 'is_high_contrast').attr( 'aria-checked', true ).addClass('active');
 		$('.a11y-toolbar ul li a i').addClass('icon-white');
 	};
 	
@@ -62,14 +62,14 @@ jQuery(document).ready(function($) {
 		if ($(this).attr('id') == "is_normal_contrast") {
 			$('head').append( $("<link href='"+a11y_stylesheet_path+"' id='highContrastStylesheet' rel='stylesheet' type='text/css' />") );
 			$('body').addClass('contrast');
-			$(this).attr('id', 'is_high_contrast').addClass('active');
+			$(this).attr('id', 'is_high_contrast').attr( 'aria-checked', true ).addClass('active');
 			$(this).parent().parent().find('i').addClass('icon-white');
 			createCookie('a11y-high-contrast', '1');
 			return false;
 		} else {
 			$('#highContrastStylesheet').remove();					
 			$('body').removeClass('contrast');
-			$(this).attr('id', 'is_normal_contrast').removeClass('active');
+			$(this).attr('id', 'is_normal_contrast').removeAttr( 'aria-checked' ).removeClass('active');
 			$(this).parent().parent().find('i').removeClass('icon-white');
 			eraseCookie('a11y-high-contrast');			
 			return false;
@@ -79,18 +79,18 @@ jQuery(document).ready(function($) {
 	// Fontsize handler
 	if (readCookie('a11y-larger-fontsize')) {
 		$('body').addClass('fontsize');
-		$('#is_normal_fontsize').attr('id', 'is_large_fontsize').addClass('active');
+		$('#is_normal_fontsize').attr('id', 'is_large_fontsize').attr( 'aria-checked', true ).addClass('active');
 	}
 
 	$('.toggle-fontsize').on('click', function() {
 		if ($(this).attr('id') == "is_normal_fontsize") {
 			$('body').addClass('fontsize');
-			$(this).attr('id', 'is_large_fontsize').addClass('active');
+			$(this).attr('id', 'is_large_fontsize').attr( 'aria-checked', true ).addClass('active');
 			createCookie('a11y-larger-fontsize', '1');
 			return false;
 		} else {
 			$('body').removeClass('fontsize');
-			$(this).attr('id', 'is_normal_fontsize').removeClass('active');
+			$(this).attr('id', 'is_normal_fontsize').removeAttr( 'aria-checked' ).removeClass('active');
 			eraseCookie('a11y-larger-fontsize');
 			return false;
 		}

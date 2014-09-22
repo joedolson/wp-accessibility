@@ -3,8 +3,8 @@ Contributors: joedolson
 Donate link: http://www.joedolson.com/donate.php
 Tags: title, accessibility, accessible, navigation, wcag, a11y, section508, focus
 Requires at least: 3.4.2
-Tested up to: 3.9.1
-Stable tag: 1.3.7
+Tested up to: 4.0
+Stable tag: 1.3.8
 License: GPLv2 or later
 
 WP Accessibility fixes common accessibility issues in your WordPress site.
@@ -45,8 +45,8 @@ The plug-in is intended to help with deficiencies commonly found in themes and t
 
 Translating my plug-ins is always appreciated. Visit <a href="http://translate.joedolson.com">my translations site</a> to start getting your language into shape!
 
-Available languages (in order of completeness):
-Greek, Portuguese (Portugal), Italian, Romanian, Dutch, French, Spanish, German, Polish, Finnish, Hebrew
+Available translations (in order of completeness):
+Dutch, French, Greek, Portuguese (Portugal), Italian, Romanian, German, Spanish, Polish, Russian, Slovenian, Hebrew, Finnish
 
 Visit the [WP Accessibility translations site](http://translate.joedolson.com/projects/wp-accessibility/) to check the progress of a translation.
 
@@ -65,7 +65,16 @@ These are potential future features.
 * Auto configuration of settings based on Tenon results. (Whoa. Can I do that?)
 * Front End Tenon reporting
 * Provide ability for themes to pass default settings within that theme.
-* Make accessibility toolbar icons scaleable
+
+= 1.3.8 =
+
+* Feature: iconfont toolbar icons so icons can be resized [Thanks Chris!](https://github.com/clrux/a11y)
+* Feature: define size of toolbar icons 
+* Feature: Assign tabindex=-1 to skiplink targets to ensure functionality of skiplinks.
+* Bug fix: Switch template_redirect to template_include filter
+* Redo file structure to move CSS into subdirectory.
+* Update translations: French, German, Hebrew
+* Add translations: Slovenian, Russian
 
 = 1.3.7 =
 

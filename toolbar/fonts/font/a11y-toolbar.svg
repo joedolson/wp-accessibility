@@ -1,0 +1,14 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg">
+<metadata>Copyright (C) 2014 by original authors @ fontello.com</metadata>
+<defs>
+<font id="a11y-toolbar" horiz-adv-x="1000" >
+<font-face font-family="a11y-toolbar" font-weight="400" font-stretch="normal" units-per-em="1000" ascent="850" descent="-150" />
+<missing-glyph horiz-adv-x="1000" />
+<glyph glyph-name="fontsize" unicode="&#xe800;" d="m0-79l1 44q13 4 31 7t32 6 28 8 25 17 17 28l132 344 156 404h72q4-8 6-12l114-268q19-44 60-144t63-153q9-19 33-81t40-94q11-25 19-31 11-9 49-17t47-11q4-22 4-32 0-2-1-7t0-8q-35 0-106 5t-107 4q-42 0-120-4t-99-4q0 24 2 43l73 16q1 0 7 1t9 2 8 3 9 4 6 4 5 6 1 8q0 9-17 54t-40 99-24 56l-251 1q-14-33-43-109t-28-91q0-12 8-21t24-14 27-7 32-5 23-2q1-11 1-32 0-5-2-16-32 0-97 6t-97 6q-5 0-15-3t-12-2q-45-8-105-8z m310 366q18 0 76-1t89-1q11 0 32 1-48 141-102 252z" horiz-adv-x="928.6" />
+<glyph glyph-name="contrast" unicode="&#xe801;" d="m0 350q0 117 58 215t155 156 216 58 215-58 156-156 57-215-57-215-156-156-215-58-216 58-155 156-58 215z m125 0q0-83 41-152t110-111 153-41v608q-83 0-153-41t-110-111-41-152z" horiz-adv-x="857.1" />
+<glyph glyph-name="saturation" unicode="&#xe802;" d="m290 822q14-118 60-219t92-159 82-136 36-160q0-114-83-196t-197-82-197 82-83 196q0 82 36 160t82 136 92 159 60 219q2 8 11 8t9-8z m-42-392q2 4-2 14-6 6-14 6t-12-6l-40-58q-32-46-48-70t-34-75-18-101q0-24 17-41t41-17q58 0 58 68 0 94 42 246 2 6 5 17t5 17z" horiz-adv-x="560" />
+</font>
+</defs>
+</svg>
