@@ -1,60 +1,79 @@
 /* Head attributes */
-body:before { content: "Currently viewing with diagnostic CSS enabled."; display: block; position: relative; width: 100%; text-align: center; border-bottom: 4px solid; border-top: 4px solid; background: #fcfcfc; color: #933; padding: 5px 0; }
+body:before {
+    content: "Currently viewing with diagnostic CSS enabled.";
+    display: block;
+    position: relative;
+    width: 100%;
+    text-align: center;
+    border-bottom: 4px solid;
+    border-top: 4px solid;
+    background: #fcfcfc;
+    color: #933;
+    padding: 5px 0;
+}
+
 /*
 	dir attribute
 */
 /* If used, dir attribute only accepts 2 possible values */
 [dir]:not([dir="rtl"]):not([dir="ltr"]) {
-	background-color: hotpink !important;
+    background-color: hotpink !important;
 }
+
 [dir="rtl"]:before,
 [dir="ltr"]:before {
-	content: "dir: " attr(dir);
-	display: block;
-	color: darkgreen !important;
-	background-color: lightyellow !important;
+    content: "dir: " attr(dir);
+    display: block;
+    color: darkgreen !important;
+    background-color: lightyellow !important;
 }
 
 /*
 	title element: not empty, unique and in head
 */
 head, title {
-	display: block;
-}
-title:before {
-	content: 'TITLE';
-	margin: 0 0.4em;
-	padding: 0 0.4em;
-	color: black;
-	background-color: #D0D0D0;
-	border-radius: 3px;
-}
-head > title {
-	margin: 0;
-	padding: 0.2em 0;
-	border-bottom: 1px solid #CCC;
-	color: #444;
-	background-color: white;
-}
-/* empty? */
-title:empty:after {
-	content: "ERROR: title element is empty and it shouldn't be";
-	color: #C22;
-	background-color: white;
-}
-title:empty:before,
-title ~ title:before { /* not unique? */
-	color: white;
-	background-color: #C22;
-}
-title ~ title:after {
-	content: ' (ERROR: why is there more than one title element?)';
-}
-title ~ title {
-	color: #C22;
-	background-color: white;
+    display: block;
 }
 
+title:before {
+    content: 'TITLE';
+    margin: 0 0.4em;
+    padding: 0 0.4em;
+    color: black;
+    background-color: #D0D0D0;
+    border-radius: 3px;
+}
+
+head > title {
+    margin: 0;
+    padding: 0.2em 0;
+    border-bottom: 1px solid #CCC;
+    color: #444;
+    background-color: white;
+}
+
+/* empty? */
+title:empty:after {
+    content: "ERROR: title element is empty and it shouldn't be";
+    color: #C22;
+    background-color: white;
+}
+
+title:empty:before,
+title ~ title:before {
+    /* not unique? */
+    color: white;
+    background-color: #C22;
+}
+
+title ~ title:after {
+    content: ' (ERROR: why is there more than one title element?)';
+}
+
+title ~ title {
+    color: #C22;
+    background-color: white;
+}
 
 /*
 	Meta refresh?
@@ -62,37 +81,38 @@ title ~ title {
 	@reference Technique for WCAG 2.0 F40: Failure (...) due to using meta redirect with a time limit - http://www.w3.org/TR/WCAG-TECHS/F40.html
 */
 meta[http-equiv=refresh]:before {
-	content: 'meta refresh detected';
-}
-meta[http-equiv=refresh] {
-	display: block;
-	padding: 0.4em;
-	font-weight: bold;
-	color: white;
-	background-color: darkred;
+    content: 'meta refresh detected';
 }
 
+meta[http-equiv=refresh] {
+    display: block;
+    padding: 0.4em;
+    font-weight: bold;
+    color: white;
+    background-color: darkred;
+}
 
 /*
 	Lang attribute on html element
 	@reference Technique for WCAG 2.0 H57: Using language attributes on the html element  - http://www.w3.org/TR/WCAG-TECHS/F40.html
 */
 html[lang] {
-	display: block;
-	margin-top: 0.4em;
+    display: block;
+    margin-top: 0.4em;
 }
+
 html:not([lang]):before {
-	content: 'no lang attribute detected';
-	margin: 0.4em;
-	padding: 0 0.4em;
-	color: white;
-	background-color: darkred;
-	border-radius: 3px;
+    content: 'no lang attribute detected';
+    margin: 0.4em;
+    padding: 0 0.4em;
+    color: white;
+    background-color: darkred;
+    border-radius: 3px;
 }
 
 html[lang]:before {
-	content: 'Default page language: ' attr(lang);
-	margin: 0.4em;
-	color: #444;
-	background-color: white;
+    content: 'Default page language: ' attr(lang);
+    margin: 0.4em;
+    color: #444;
+    background-color: white;
 }

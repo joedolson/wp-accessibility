@@ -1,15 +1,15 @@
 <?php
-if ( !defined( 'ABSPATH' ) && !defined( 'WP_UNINSTALL_PLUGIN' ) ) {
+if ( ! defined( 'ABSPATH' ) && ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit();
 } else {
-	delete_option( 'rta_from_nav_menu');
-	delete_option( 'rta_from_page_lists');
-	delete_option( 'rta_from_category_lists');
-	delete_option( 'rta_from_archive_links');
-	delete_option( 'rta_from_tag_clouds');
-	delete_option( 'rta_from_category_links');
-	delete_option( 'rta_from_post_edit_links');
-	delete_option( 'rta_from_edit_comment_links');
+	delete_option( 'rta_from_nav_menu' );
+	delete_option( 'rta_from_page_lists' );
+	delete_option( 'rta_from_category_lists' );
+	delete_option( 'rta_from_archive_links' );
+	delete_option( 'rta_from_tag_clouds' );
+	delete_option( 'rta_from_category_links' );
+	delete_option( 'rta_from_post_edit_links' );
+	delete_option( 'rta_from_edit_comment_links' );
 	delete_option( 'wpa_installed' );
 	delete_option( 'wpa_version' );
 	delete_option( 'asl_enable' );
@@ -20,7 +20,7 @@ if ( !defined( 'ABSPATH' ) && !defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	delete_option( 'asl_extra_text' );
 	delete_option( 'asl_visible' );
 	delete_option( 'asl_styles_focus' );
-	delete_option( 'asl_styles_passive' );		
+	delete_option( 'asl_styles_passive' );
 	delete_option( 'wpa_lang' );
 	delete_option( 'wpa_target' );
 	delete_option( 'wpa_search' );
