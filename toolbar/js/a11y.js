@@ -115,17 +115,4 @@ jQuery(document).ready(function ($) {
         }, 100);
     }
 
-    // Focuses on the correct section of the page if we're in-page linking
-    // Thanks to WebAIM.org for this idea
-    // does not support 'name' targets
-    /* Removed, because it conflicts with many other plug-ins.
-     $('a[href^="#"]').click(function(event) {
-     var inPageAnchor = "#" + this.href.split('#')[1];
-     $(inPageAnchor).scrollTo({ duration: 1000 });
-     setTimeout(function() {
-     $(inPageAnchor).focus();
-     }, 100);
-     return false;
-     });
-     */
 });

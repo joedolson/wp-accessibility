@@ -1,10 +1,10 @@
 === WP Accessibility ===
 Contributors: joedolson
 Donate link: http://www.joedolson.com/donate.php
-Tags: title, accessibility, accessible, navigation, wcag, a11y, section508, focus
+Tags: title, accessibility, accessible, navigation, wcag, a11y, section508, focus, alt text
 Requires at least: 3.4.2
-Tested up to: 4.1
-Stable tag: 1.3.11
+Tested up to: 4.2
+Stable tag: 1.4.0
 License: GPLv2 or later
 
 WP Accessibility fixes common accessibility issues in your WordPress site.
@@ -23,6 +23,7 @@ All features can be disabled according to your theme's needs. For advanced users
 * Add an outline to the keyboard focus state for focusable elements. 
 * Add a toolbar toggling between high contrast, large print, and desaturated (grayscale) views of your theme.
 * Add a long description to images. Use the image's "Description" field to add long descriptions.
+* Enforcement for alt attributes on images.
 
 = Accessibility Issues fixed by WP Accessibility: =
 
@@ -46,7 +47,7 @@ The plug-in is intended to help with deficiencies commonly found in themes and t
 Translating my plug-ins is always appreciated. Visit <a href="http://translate.joedolson.com">my translations site</a> to start getting your language into shape!
 
 Available translations (in order of completeness):
-Dutch, Finnish, French, Portuguese (Brazil), Bulgarian, Greek, Portuguese (Portugal), Italian, Russian, Romanian, German, Spanish, Polish, Hebrew, Slovenian
+Dutch, Finnish, French, Portuguese (Brazil), Bulgarian, Greek, Spanish, Portuguese (Portugal), Italian, Russian, Romanian, German, Polish, Hebrew, Slovenian
 
 Visit the [WP Accessibility translations site](http://translate.joedolson.com/projects/wp-accessibility/) to check the progress of a translation.
 
@@ -58,13 +59,24 @@ Visit the [WP Accessibility translations site](http://translate.joedolson.com/pr
 
 == Changelog ==
 
-= 1.x.x =
+= 1.4.2 =
 
-These are potential future features.
+* Change: Use image to mark 'needs alt', for easier deletion. [todo]
+* Fix: text_direction deprecated in bloginfo
+* Language updates: Spanish, Polish
 
-* Auto configuration of settings based on Tenon results. (Whoa. Can I do that?)
-* Front End Tenon reporting
-* Provide ability for themes to pass default settings within that theme.
+= 1.4.1 =
+
+* Bug fix: warning thrown if current theme does not have any tags.
+
+= 1.4.0 =
+
+* Added enforcement tools for alt attribute usage in images.
+* Media lists indicate whether an image is marked as decorative, has an alt attribute, or needs an alt attribute.
+* Media editor shows checkbox to mark as decorative when editing image media types.
+* If an image is inserted into a post without either being marked as decorative or having an alt attribute provided, HTML will also insert a notice indicating that the image needs an alt attribute.
+* If an image is inserted and is checked as decorative, the alt attribute will be set to an empty value.
+* Language update: Spanish
 
 = 1.3.11 =
 
