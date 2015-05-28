@@ -1,5 +1,4 @@
 .wpa-image-missing-alt {
 	border: 2px solid red;
-	display: inline-block;
-	padding: .5em;	
+	box-shadow: 0 0 2px 2px #ffa;
 }

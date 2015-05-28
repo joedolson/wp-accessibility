@@ -3,7 +3,7 @@
 Plugin Name: WP Accessibility
 Plugin URI: http://www.joedolson.com/wp-accessibility/
 Description: Provides options to improve accessibility in your WordPress site, including removing title attributes.
-Version: 1.4.0
+Version: 1.4.1
 Author: Joe Dolson
 Text Domain: wp-accessibility
 Author URI: http://www.joedolson.com/
@@ -37,7 +37,7 @@ function add_wpa_admin_menu() {
 
 // ACTIVATION
 function wpa_install() {
-	$wpa_version = '1.4.0';
+	$wpa_version = '1.4.1';
 	if ( get_option( 'wpa_installed' ) != 'true' ) {
 		add_option( 'rta_from_nav_menu', 'on' );
 		add_option( 'rta_from_page_lists', 'on' );
@@ -1734,16 +1734,21 @@ function wpa_alt_attribute( $html, $id, $caption, $title, $align, $url, $size, $
 	$noalt = get_post_meta( $id, '_no_alt', true );
 	/* Get the original title to compare to alt */
 	$title = get_the_title( $id );
-	$warning = '';
+	$warning = false;
 	if ( $noalt == 1 ) {
 		$html = str_replace( 'alt="'.$alt.'"', 'alt=""', $html );
 	}
 	if ( ( $alt == '' || $alt == $title ) && $noalt != 1 ) {
-		$warning = __( 'This image requires an <code>alt</code> attribute.', 'wp-accessibility' );
+		if ( $alt == $title ) {
+			$warning = __( 'The alt text for this image is the same as the title. In most cases, that means that the alt attribute has been automatically provided from the image file name.', 'wp-accessibility' );
+			$image = 'alt-same.png';
+		} else {
+			$warning = __( 'This image requires alt text, but the alt text is currently blank. Either add alt text or mark the image as decorative.', 'wp-accessibility' );
+			$image = 'alt-missing.png';
+		}
 	}
 	if ( $warning ) {
-		$html = str_replace( 'alt="'.$alt.'"', 'alt=""', $html );
-		return "<div class='wpa-image-missing-alt'>" . $html . '<br />' . $warning . "</div>";
+		return "<img class='wpa-image-missing-alt size-" . esc_attr( $size ) . ' ' . esc_attr( $align ) . "' src='" . plugins_url( "imgs/$image", __FILE__ ) . "' alt='" . esc_attr( $warning ) . "' />";
 	}
 	return $html;
 }
