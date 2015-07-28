@@ -59,6 +59,11 @@ Visit the [WP Accessibility translations site](http://translate.joedolson.com/pr
 
 == Changelog ==
 
+= 1.4.2 =
+
+* Language update: Norwegian
+* New feature: Automatically add labels to WordPress standard search form & comment forms if missing.
+
 = 1.4.1 =
 
 * Bug fix: warning thrown if current theme does not have any tags.

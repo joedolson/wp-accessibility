@@ -109,3 +109,5 @@ div.aligncenter {
     box-shadow: 0 0 5px;
     font-size: 1.4em;
 }
+
+label.wpa-screen-reader-text { position: absolute!important; clip: rect(1px,1px,1px,1px); overflow: hidden; color: #000; background: #fff; width: 1px; height: 1px; }

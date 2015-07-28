@@ -3,7 +3,7 @@
 Plugin Name: WP Accessibility
 Plugin URI: http://www.joedolson.com/wp-accessibility/
 Description: Provides options to improve accessibility in your WordPress site, including removing title attributes.
-Version: 1.4.1
+Version: 1.4.2
 Author: Joe Dolson
 Text Domain: wp-accessibility
 Author URI: http://www.joedolson.com/
@@ -37,7 +37,7 @@ function add_wpa_admin_menu() {
 
 // ACTIVATION
 function wpa_install() {
-	$wpa_version = '1.4.1';
+	$wpa_version = '1.4.2';
 	if ( get_option( 'wpa_installed' ) != 'true' ) {
 		add_option( 'rta_from_nav_menu', 'on' );
 		add_option( 'rta_from_page_lists', 'on' );
@@ -171,6 +171,17 @@ function wpa_enqueue_scripts() {
 			$wpa_comp = false;
 		}
 		wp_localize_script( 'wpa-complementary', 'wpaComplementary', $wpa_comp );
+	}
+	if ( get_option( 'wpa_labels' ) == 'on' ) {
+		wp_enqueue_script( 'wpa-labels', plugins_url( 'js/wpa.labels.js', __FILE__ ), array( 'jquery' ), '1.0', true );
+		$labels = array( 
+			's' => __( 'Search', 'wp-accessibility' ),
+			'author' => __( 'Name', 'wp-accessibility' ),
+			'email' => __( 'Email', 'wp-accessibility' ),
+			'url' => __( 'Website', 'wp-accessibility' ),
+			'comment' => __( 'Comment', 'wp-accessibility' )
+		);
+		wp_localize_script( 'wpa-labels', 'wpalabels', $labels );
 	}
 	if ( get_option( 'wpa_toolbar' ) == 'on' ) {
 		add_action( 'wp_footer', 'wpa_toolbar_js' );
@@ -327,7 +338,7 @@ function wpa_jquery_asl() {
 	$targets    = ( get_option( 'wpa_target' ) == 'on' ) ? "$('a').removeAttr('target');" : '';
 	$tabindex   = ( get_option( 'wpa_tabindex' ) == 'on' ) ? "$('input,a,select,textarea,button').removeAttr('tabindex');" : '';
 	$underlines = ( get_option( 'wpa_underline' ) == 'on' ) ? "$('a').css( 'text-decoration','underline' );$('a').on( 'focusin mouseenter', function() { $(this).css( 'text-decoration','none' ); });$('a').on( 'focusout mouseleave', function() { $(this).css( 'text-decoration','underline' ); } );" : '';
-
+	
 	$display = ( $skiplinks_js || $targets || $lang_js || $tabindex || $longdesc ) ? true : false;
 	if ( $display ) {
 		$script = "
@@ -576,6 +587,7 @@ function wpa_update_settings() {
 		if ( isset( $_POST['action'] ) && $_POST['action'] == 'misc' ) {
 			$wpa_lang                    = ( isset( $_POST['wpa_lang'] ) ) ? 'on' : '';
 			$wpa_target                  = ( isset( $_POST['wpa_target'] ) ) ? 'on' : '';
+			$wpa_labels                  = ( isset( $_POST['wpa_labels'] ) ) ? 'on' : '';
 			$wpa_search                  = ( isset( $_POST['wpa_search'] ) ) ? 'on' : '';
 			$wpa_tabindex                = ( isset ( $_POST['wpa_tabindex'] ) ) ? 'on' : '';
 			$wpa_underline               = ( isset ( $_POST['wpa_underline'] ) ) ? 'on' : '';
@@ -596,6 +608,7 @@ function wpa_update_settings() {
 			$wpa_complementary_container = ( isset( $_POST['wpa_complementary_container'] ) ) ? str_replace( '#', '', $_POST['wpa_complementary_container'] ) : '';
 			update_option( 'wpa_lang', $wpa_lang );
 			update_option( 'wpa_target', $wpa_target );
+			update_option( 'wpa_labels', $wpa_labels );
 			update_option( 'wpa_search', $wpa_search );
 			update_option( 'wpa_tabindex', $wpa_tabindex );
 			update_option( 'wpa_underline', $wpa_underline );
@@ -912,8 +925,11 @@ function wpa_admin_menu() {
 										type="text" id="wpa_complementary_container" name="wpa_complementary_container"
 										value="#<?php esc_attr_e( get_option( 'wpa_complementary_container' ) ); ?>"/>
 								</li>
+								<li>
+									<input type="checkbox" id="wpa_labels" name="wpa_labels" <?php checked( get_option( 'wpa_labels'), 'on' ); ?> /> <label for='wpa_labels'><?php _e( 'Automatically Label WordPress search form and comment forms', 'wp-accessibility' ); ?></label>
+								</li>
 								<?php } else { ?>
-									<li><?php _e( '<strong>Three disabled features:</strong> Site language, continue reading text, and landmark roles are defined by your <code>accessibility-ready</code> theme.', 'wp-accessibility' ); ?></li>
+									<li><?php _e( '<strong>Four disabled features:</strong> Site language, continue reading text, landmark roles and standard form labels are defined in your <code>accessibility-ready</code> theme.', 'wp-accessibility' ); ?></li>
 								<?php } ?>
 								<li><input type="checkbox" id="wpa_target"
 								           name="wpa_target" <?php if ( get_option( 'wpa_target' ) == "on" ) {
