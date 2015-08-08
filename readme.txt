@@ -1,10 +1,10 @@
 === WP Accessibility ===
 Contributors: joedolson
 Donate link: http://www.joedolson.com/donate.php
-Tags: title, accessibility, accessible, navigation, wcag, a11y, section508, focus, alt text
+Tags: title, accessibility, accessible, navigation, wcag, a11y, section508, focus, alt text, labels, aria
 Requires at least: 3.4.2
-Tested up to: 4.2.2
-Stable tag: 1.4.1
+Tested up to: 4.3.0
+Stable tag: 1.4.3
 License: GPLv2 or later
 
 WP Accessibility fixes common accessibility issues in your WordPress site.
@@ -34,6 +34,7 @@ All features can be disabled according to your theme's needs. For advanced users
 * Remove redundant title attributes from page lists, category lists, and archive menus. 
 * Add post titles to standard "read more" links.
 * Address some accessibility issues in the WordPress admin styles
+* Add labels to standard WordPress form fields if missing
 
 = Accessibility Tools built into WP Accessibility: =
 
@@ -58,6 +59,11 @@ Visit the [WP Accessibility translations site](http://translate.joedolson.com/pr
 3. Customise your settings on the Settings > WP Accessibility page.
 
 == Changelog ==
+
+= 1.4.3 =
+
+* Update widget constructors to use PHP5+ syntax.
+* Add filter to disable or replace the fontsize styles for toolbar. 'wpa_fontsize_css'. Return false to disable; return stylesheet URL to replace.
 
 = 1.4.2 =
 

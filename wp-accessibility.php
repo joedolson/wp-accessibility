@@ -3,7 +3,7 @@
 Plugin Name: WP Accessibility
 Plugin URI: http://www.joedolson.com/wp-accessibility/
 Description: Provides options to improve accessibility in your WordPress site, including removing title attributes.
-Version: 1.4.2
+Version: 1.4.3
 Author: Joe Dolson
 Text Domain: wp-accessibility
 Author URI: http://www.joedolson.com/
@@ -37,7 +37,7 @@ function add_wpa_admin_menu() {
 
 // ACTIVATION
 function wpa_install() {
-	$wpa_version = '1.4.2';
+	$wpa_version = '1.4.3';
 	if ( get_option( 'wpa_installed' ) != 'true' ) {
 		add_option( 'rta_from_nav_menu', 'on' );
 		add_option( 'rta_from_page_lists', 'on' );
@@ -197,8 +197,8 @@ function wpa_enqueue_scripts() {
 add_action( 'widgets_init', create_function( '', 'return register_widget("wp_accessibility_toolbar");' ) );
 
 class wp_accessibility_toolbar extends WP_Widget {
-	function wp_accessibility_toolbar() {
-		parent::WP_Widget( false, $name = __( 'Accessibility Toolbar', 'wp-accessibility' ) );
+	function __construct() {
+		parent::__construct( false, $name = __( 'Accessibility Toolbar', 'wp-accessibility' ) );
 	}
 
 	function widget( $args, $instance ) {
@@ -373,7 +373,10 @@ function wpa_stylesheet() {
 	// Respects SSL, Style.css is relative to the current file
 	wp_register_style( 'wpa-style', plugins_url( 'css/wpa-style.css', __FILE__ ) );
 	wp_register_style( 'ui-font.css', plugins_url( 'toolbar/fonts/css/a11y-toolbar.css', __FILE__ ) );
-	wp_register_style( 'ui-a11y.css', plugins_url( 'toolbar/css/a11y.css', __FILE__ ), array( 'ui-font.css' ) );
+	$toolbar = apply_filters( 'wpa_toolbar_css', plugins_url( 'toolbar/css/a11y.css', __FILE__ ) );
+	wp_register_style( 'ui-a11y.css', $toolbar, array( 'ui-font.css' ) );
+	$fontsize = apply_filters( 'wpa_fontsize_css', plugins_url( 'toolbar/css/a11y-fontsize.css', __FILE__ ) );
+	wp_register_style( 'ui-fontsize.css', $fontsize );
 	// only enable styles when required by options
 	if ( get_option( 'wpa_toolbar_size' ) && get_option( 'wpa_toolbar' ) == 'on' ) {
 		echo "
@@ -386,8 +389,9 @@ function wpa_stylesheet() {
 	if ( get_option( 'wpa_longdesc' ) == 'link' || get_option( 'wpa_longdesc' ) == 'jquery' || get_option( 'asl_enable' ) == 'on' ) {
 		wp_enqueue_style( 'wpa-style' );
 	}
-	if ( get_option( 'wpa_toolbar' ) == 'on' || get_option( 'wpa_widget_toolbar' ) == 'on' ) {
+	if ( get_option( 'wpa_toolbar' ) == 'on' || get_option( 'wpa_widget_toolbar' ) == 'on' && ( $toolbar && $fontsize ) ) {
 		wp_enqueue_style( 'ui-a11y.css' );
+		wp_enqueue_style( 'ui-fontsize.css' );
 	}
 	if ( current_user_can( 'edit_files' ) && get_option( 'wpa_diagnostics' ) == 'on' ) {
 		wp_register_style( 'diagnostic', plugins_url( 'css/diagnostic.css', __FILE__ ) );
@@ -1298,8 +1302,8 @@ function wpa_remove_title_attributes( $output ) {
 // The built-in Recent Posts widget hard-coded title attributes until 3.8.
 class WP_Widget_Recent_Posts_No_Title_Attributes extends WP_Widget {
 
-	function WP_Widget_Recent_Posts_No_Title_Attributes() {
-		parent::WP_Widget( false, $name = __( 'WP A11Y: Recent Posts', 'wp-accessibility' ) );
+	function __construct() {
+		parent::__construct( false, $name = __( 'WP A11Y: Recent Posts', 'wp-accessibility' ) );
 	}
 
 	function widget( $args, $instance ) {
