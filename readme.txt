@@ -3,8 +3,9 @@ Contributors: joedolson
 Donate link: http://www.joedolson.com/donate.php
 Tags: title, accessibility, accessible, navigation, wcag, a11y, section508, focus, alt text, labels, aria
 Requires at least: 3.4.2
-Tested up to: 4.3.0
-Stable tag: 1.4.3
+Tested up to: 4.3.1
+Stable tag: 1.4.5
+Text Domain: wp-accessibility
 License: GPLv2 or later
 
 WP Accessibility fixes common accessibility issues in your WordPress site.
@@ -59,6 +60,20 @@ Visit the [WP Accessibility translations site](http://translate.joedolson.com/pr
 3. Customise your settings on the Settings > WP Accessibility page.
 
 == Changelog ==
+
+= Future =
+
+* Note: WP A11y recent posts widget will be removed in 1.5.0
+
+= 1.4.5 =
+
+* Add languages: Hungarian, English (Australian)
+* Bug fix: Retain intended image when adding alt attribute missing warning.
+
+= 1.4.4 =
+
+* In WP 4.3, widgets with no settings are not saved. So...
+* Added Title setting to WP Accessibility toolbar widget.
 
 = 1.4.3 =
 

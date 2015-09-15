@@ -30,6 +30,8 @@
 }
 
 .a11y-toolbar ul li {
+	margin: 0;
+	padding: 0;
     display: block;
 }
 
