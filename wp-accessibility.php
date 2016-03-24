@@ -668,7 +668,7 @@ if ( get_option( 'wpa_search' ) == 'on' ) {
 
 function wpa_filter( $query ) {
 	if ( ! is_admin() ) {
-		if ( isset( $_GET['s'] ) && $_GET['s'] == '' ) {
+		if ( isset( $_GET['s'] ) && ( trim($_GET['s'] ) == NULL ) && ( $query->is_main_query() ) ) {
 			$query->query_vars['s'] = '&#32;';
 			$query->set( 'is_search', 1 );
 			add_action( 'template_include', 'wpa_search_error' );
