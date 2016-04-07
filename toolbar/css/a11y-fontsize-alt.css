@@ -1,0 +1,4 @@
+/* enqueue these as a separate stylesheet so they can be filtered */
+html.fontsize {
+	font-size: 100% !important;
+}

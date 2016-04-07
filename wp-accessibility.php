@@ -3,7 +3,7 @@
 Plugin Name: WP Accessibility
 Plugin URI: http://www.joedolson.com/wp-accessibility/
 Description: Helps improve accessibility in your WordPress site, like removing title attributes.
-Version: 1.4.6
+Version: 1.5.2
 Author: Joe Dolson
 Text Domain: wp-accessibility
 Domain Path: /lang
@@ -27,7 +27,12 @@ Author URI: http://www.joedolson.com/
 */
 
 register_activation_hook( __FILE__, 'wpa_install' );
-load_plugin_textdomain( 'wp-accessibility', false, dirname( plugin_basename( __FILE__ ) ) . '/lang' );
+
+// Enable internationalisation
+add_action( 'plugins_loaded', 'wpa_load_textdomain' );
+function wpa_load_textdomain() {
+	load_plugin_textdomain( 'wp-accessibility', false, dirname( plugin_basename( __FILE__ ) ) . '/lang' );
+}
 
 // ADMIN MENU
 add_action( 'admin_menu', 'add_wpa_admin_menu' );
@@ -38,7 +43,7 @@ function add_wpa_admin_menu() {
 
 // ACTIVATION
 function wpa_install() {
-	$wpa_version = '1.4.6';
+	$wpa_version = '1.5.2';
 	if ( get_option( 'wpa_installed' ) != 'true' ) {
 		add_option( 'rta_from_nav_menu', 'on' );
 		add_option( 'rta_from_page_lists', 'on' );
@@ -48,7 +53,7 @@ function wpa_install() {
 		add_option( 'rta_from_category_links', 'on' );
 		add_option( 'rta_from_post_edit_links', 'on' );
 		add_option( 'rta_from_edit_comment_links', 'on' );
-		add_option( 'asl_styles_focus', 'left: 1em; top: 1em; background: #f6f3fa; color: #00c; padding: 5px; border: 1px solid #357; box-shadow: 2px 2px 2px #777; border-radius: 5px; font-size: 1.4em' );
+		add_option( 'asl_styles_focus', '' );
 		add_option( 'asl_styles_passive', '' );
 		add_option( 'wpa_target', 'on' );
 		add_option( 'wpa_search', 'on' );
@@ -198,7 +203,7 @@ function wpacc_enqueue_scripts() {
 add_action( 'widgets_init', create_function( '', 'return register_widget("wp_accessibility_toolbar");' ) );
 class wp_accessibility_toolbar extends WP_Widget {
 	function __construct() {
-		parent::__construct( false, $name = __( 'Accessibility Toolbar', 'wp-accessibility' ) );
+		parent::__construct( false, $name = __( 'Accessibility Toolbar', 'wp-accessibility' ), array( 'customize_selective_refresh' => true ) );
 	}
 
 	function widget( $args, $instance ) {
@@ -266,13 +271,13 @@ function wpa_toolbar_js() {
 (function( $ ) { 'use strict';
 	var insert_a11y_toolbar = '<!-- a11y toolbar -->';
 	insert_a11y_toolbar += '<div class=\"a11y-toolbar$is_rtl$is_right\">';
-	insert_a11y_toolbar += '<ul>';
-	insert_a11y_toolbar += '<li><button type=\"button\" class=\"a11y-toggle-contrast toggle-contrast\" id=\"is_normal_contrast\"><span class=\"offscreen\">$contrast</span><span class=\"aticon aticon-adjust\" aria-hidden=\"true\"></span></button></li>';";
+	insert_a11y_toolbar += '<ul class=\"a11y-toolbar-list\">';
+	insert_a11y_toolbar += '<li class=\"a11y-toolbar-list-item\"><button type=\"button\" class=\"a11y-toggle-contrast toggle-contrast\" id=\"is_normal_contrast\"><span class=\"offscreen\">$contrast</span><span class=\"aticon aticon-adjust\" aria-hidden=\"true\"></span></button></li>';";
 	if ( get_option( 'wpa_toolbar' ) == 'on' && $enable_grayscale ) {
-		echo "insert_a11y_toolbar += '<li><button type=\"button\" class=\"a11y-toggle-grayscale toggle-grayscale\" id=\"is_normal_color\"><span class=\"offscreen\">$grayscale</span><span class=\"aticon aticon-tint\" aria-hidden=\"true\"></span></button></li>';";
+		echo "insert_a11y_toolbar += '<li class=\"a11y-toolbar-list-item\"><button type=\"button\" class=\"a11y-toggle-grayscale toggle-grayscale\" id=\"is_normal_color\"><span class=\"offscreen\">$grayscale</span><span class=\"aticon aticon-tint\" aria-hidden=\"true\"></span></button></li>';";
 	}
 	echo "
-	insert_a11y_toolbar += '<li><button type=\"button\" class=\"a11y-toggle-fontsize toggle-fontsize\" id=\"is_normal_fontsize\"><span class=\"offscreen\">$fontsize</span><span class=\"aticon aticon-font\" aria-hidden=\"true\"></span></button></li>';
+	insert_a11y_toolbar += '<li class=\"a11y-toolbar-list-item\"><button type=\"button\" class=\"a11y-toggle-fontsize toggle-fontsize\" id=\"is_normal_fontsize\"><span class=\"offscreen\">$fontsize</span><span class=\"aticon aticon-font\" aria-hidden=\"true\"></span></button></li>';
 	insert_a11y_toolbar += '</ul>';
 	insert_a11y_toolbar += '</div>';
 	insert_a11y_toolbar += '<!-- // a11y toolbar -->';
@@ -286,8 +291,12 @@ function wpa_css() {
 	$styles = '';
 	if ( get_option( 'asl_enable' ) == 'on' ) {
 		$focus = get_option( 'asl_styles_focus' );
+		// these styles are derived from the WordPress skip link defaults
+		$default_focus = "background-color: #f1f1f1; box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.6); clip: auto; color: #21759b; display: block; font-size: 14px; font-weight: bold; height: auto; line-height: normal; padding: 15px 23px 14px; position: absolute; left: 5px; top: 5px; text-decoration: none; text-transform: none; width: auto; z-index: 100000;";
 		if ( ! $focus ) {
-			$focus = "background-color: #f1f1f1; border-radius: 3px; box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.6); clip: auto; color: #21759b; display: block; font-size: 14px; font-weight: bold; height: auto; line-height: normal; padding: 15px 23px 14px; position: absolute; left: 5px; top: 5px; text-decoration: none; text-transform: none; width: auto; z-index: 100000;";
+			$focus = $default_focus;
+		} else {
+			$focus = $default_focus . $focus;
 		}
 		$passive = get_option( 'asl_styles_passive' );
 		$vis     = $invis = '';
@@ -297,9 +306,12 @@ function wpa_css() {
 		} else {
 			$invis = '#skiplinks a:hover,';
 		}
+		$visibility   = ( get_option( 'asl_visible' ) == 'on' ) ? 'wpa-visible' : 'wpa-hide';
+		$is_rtl = ( is_rtl() ) ? '-rtl' : '-ltr';		
+		$class = '.' . $visibility . $is_rtl;
 		$styles .= "
-		#skiplinks a, $invis #skiplinks a:visited { $passive }
-		#skiplinks a:active, $vis #skiplinks a:focus { $focus  }
+		$class#skiplinks a, $invis $class#skiplinks a:visited { $passive }
+		$class#skiplinks a:active, $vis $class#skiplinks a:focus { $focus  }
 		";
 	}
 	if ( get_option( 'wpa_focus' ) == 'on' ) {
@@ -353,9 +365,10 @@ function wpa_jquery_asl() {
 		$lang_js = "$('html').attr( 'lang','$lang' ); $('html').attr( 'dir','$dir' )";
 	}
 	// force links to open in the same window
+	$underline_target = apply_filters( 'wpa_underline_target', 'a' );
 	$targets    = ( get_option( 'wpa_target' ) == 'on' ) ? "$('a').removeAttr('target');" : '';
 	$tabindex   = ( get_option( 'wpa_tabindex' ) == 'on' ) ? "$('input,a,select,textarea,button').removeAttr('tabindex');" : '';
-	$underlines = ( get_option( 'wpa_underline' ) == 'on' ) ? "$('a').css( 'text-decoration','underline' );$('a').on( 'focusin mouseenter', function() { $(this).css( 'text-decoration','none' ); });$('a').on( 'focusout mouseleave', function() { $(this).css( 'text-decoration','underline' ); } );" : '';
+	$underlines = ( get_option( 'wpa_underline' ) == 'on' ) ? "$('$underline_target').css( 'text-decoration','underline' );$('$underline_target').on( 'focusin mouseenter', function() { $(this).css( 'text-decoration','none' ); });$('$underline_target').on( 'focusout mouseleave', function() { $(this).css( 'text-decoration','underline' ); } );" : '';
 	
 	$display = ( $skiplinks_js || $targets || $lang_js || $tabindex || $longdesc ) ? true : false;
 	if ( $display ) {
@@ -393,7 +406,8 @@ function wpa_stylesheet() {
 	wp_register_style( 'ui-font.css', plugins_url( 'toolbar/fonts/css/a11y-toolbar.css', __FILE__ ) );
 	$toolbar = apply_filters( 'wpa_toolbar_css', plugins_url( 'toolbar/css/a11y.css', __FILE__ ) );
 	wp_register_style( 'ui-a11y.css', $toolbar, array( 'ui-font.css' ) );
-	$fontsize = apply_filters( 'wpa_fontsize_css', plugins_url( 'toolbar/css/a11y-fontsize.css', __FILE__ ) );
+	$fontsize_stylesheet = ( get_option( 'wpa_alternate_fontsize' ) == 'on' ) ? 'a11y-fontsize-alt' : 'a11y-fontsize';
+	$fontsize = apply_filters( 'wpa_fontsize_css', plugins_url( 'toolbar/css/'. $fontsize_stylesheet . '.css', __FILE__ ) );
 	wp_register_style( 'ui-fontsize.css', $fontsize );
 	// only enable styles when required by options
 	if ( get_option( 'wpa_toolbar_size' ) && get_option( 'wpa_toolbar' ) == 'on' ) {
@@ -621,6 +635,7 @@ function wpa_update_settings() {
 			$wpa_continue                = ( isset( $_POST['wpa_continue'] ) ) ? $_POST['wpa_continue'] : 'Continue Reading';
 			$wpa_toolbar                 = ( isset( $_POST['wpa_toolbar'] ) ) ? 'on' : '';
 			$wpa_toolbar_size            = ( isset( $_POST['wpa_toolbar_size'] ) ) ? $_POST['wpa_toolbar_size'] : '';
+			$wpa_alternate_fontsize      = ( isset( $_POST['wpa_alternate_fontsize'] ) ) ? 'on' : '';
 			$wpa_widget_toolbar          = ( isset( $_POST['wpa_widget_toolbar'] ) ) ? 'on' : '';
 			$wpa_toolbar_gs              = ( isset( $_POST['wpa_toolbar_gs'] ) ) ? 'on' : '';
 			$wpa_toolbar_default         = ( isset( $_POST['wpa_toolbar_default'] ) ) ? $_POST['wpa_toolbar_default'] : '';
@@ -642,6 +657,7 @@ function wpa_update_settings() {
 			update_option( 'wpa_focus', $wpa_focus );
 			update_option( 'wpa_toolbar', $wpa_toolbar );
 			update_option( 'wpa_toolbar_size', $wpa_toolbar_size );
+			update_option( 'wpa_alternate_fontsize', $wpa_alternate_fontsize );
 			update_option( 'wpa_widget_toolbar', $wpa_widget_toolbar );
 			update_option( 'wpa_toolbar_gs', $wpa_toolbar_gs );
 			update_option( 'wpa_toolbar_default', $wpa_toolbar_default );
@@ -662,13 +678,13 @@ function wpa_update_settings() {
 	}
 }
 
-if ( get_option( 'wpa_search' ) == 'on' ) {
+if ( 'on' == get_option( 'wpa_search' ) ) {
 	add_filter( 'pre_get_posts', 'wpa_filter' );
 }
 
 function wpa_filter( $query ) {
 	if ( ! is_admin() ) {
-		if ( isset( $_GET['s'] ) && $_GET['s'] == '' ) {
+		if ( isset( $_GET['s'] ) && NULL == trim( $_GET['s'] ) && ( $query->is_main_query() ) ) {
 			$query->query_vars['s'] = '&#32;';
 			$query->set( 'is_search', 1 );
 			add_action( 'template_include', 'wpa_search_error' );
@@ -938,11 +954,9 @@ function wpa_admin_menu() {
 										echo 'checked="checked" ';
 									} ?>/> <label
 										for="wpa_more"><?php _e( 'Add post title to "more" links.', 'wp-accessibility' ); ?></label>
-									<label
-										for="wpa_continue"><?php _e( 'Continue reading text', 'wp-accessibility' ); ?></label>
-									<input type="text" id="wpa_continue" name="wpa_continue"
-									       value="<?php esc_attr_e( get_option( 'wpa_continue' ) ); ?>"/></li>
-										   								<li><input type="checkbox" id="wpa_insert_roles"
+									<label for="wpa_continue"><?php _e( 'Continue reading text', 'wp-accessibility' ); ?></label>
+									<input type="text" id="wpa_continue" name="wpa_continue" value="<?php esc_attr_e( get_option( 'wpa_continue' ) ); ?>"/></li>
+								<li><input type="checkbox" id="wpa_insert_roles"
 								           name="wpa_insert_roles" <?php if ( get_option( 'wpa_insert_roles' ) == "on" ) {
 										echo 'checked="checked" ';
 									} ?>/> <label
@@ -1042,7 +1056,7 @@ function wpa_admin_menu() {
 								</li>
 								<li>
 									<label for="wpa_toolbar_default"><?php _e( 'Toolbar location (ID attribute)', 'wp-accessibility' ); ?></label> <input type="text" id="wpa_toolbar_default" name="wpa_toolbar_default" value="<?php esc_attr_e( get_option( 'wpa_toolbar_default' ) ); ?>" />
-								</li>								
+								</li>							
 								<?php
 								$size = get_option( 'wpa_toolbar_size' );
 								?>
@@ -1060,6 +1074,12 @@ function wpa_admin_menu() {
 										?>
 									</select>
 								</li>
+								<li><input type="checkbox" id="wpa_alternate_fontsize"
+								        name="wpa_alternate_fontsize" <?php if ( get_option( 'wpa_alternate_fontsize' ) == "on" ) {
+											echo 'checked="checked" ';
+										} ?>/> <label
+										for="wpa_alternate_fontsize"><?php _e( 'Use alternate font resizing stylesheet', 'wp-accessibility' ); ?></label>
+								</li>								
 								<li><input type="checkbox" id="wpa_widget_toolbar"
 								           name="wpa_widget_toolbar" <?php if ( get_option( 'wpa_widget_toolbar' ) == "on" ) {
 										echo 'checked="checked" ';
@@ -1168,6 +1188,13 @@ function wpa_admin_menu() {
 				<h3><?php _e( 'Get Plug-in Support', 'wp-accessibility' ); ?></h3>
 
 				<div class="inside">
+				<div class='wpa-support-me'>
+					<p>
+						<?php printf(
+							__( 'Please, consider <a href="%s">making a donation</a> to support WP Accessibility!', 'wp-accessibility' )
+						, "https://www.joedolson.com/donate/" ); ?>
+					</p>
+				</div>					
 					<?php wpa_get_support_form(); ?>
 				</div>
 			</div>
@@ -1198,7 +1225,7 @@ function wpa_admin_menu() {
 					<p><?php _e( "If you've found WP Accessibility useful, then please consider <a href='http://wordpress.org/extend/plugins/wp-accessibility/'>rating it five stars</a>, <a href='http://www.joedolson.com/donate/'>making a donation</a>, or <a href='http://translate.joedolson.com/projects/wp-accessibility'>helping with translation</a>.", 'wp-accessibility' ); ?></p>
 
 					<div>
-						<p><?php _e( '<a href="http://www.joedolson.com/donate/">Make a donation today!</a> Your donation counts - donate $5, $20, or $100 and help me keep this plug-in running!', 'wp-to-twitter' ); ?></p>
+						<p><?php _e( '<a href="http://www.joedolson.com/donate/">Make a donation today!</a> Your donation counts - donate $5, $20, or $100 and help me keep this plug-in running!', 'wp-accessibility' ); ?></p>
 
 						<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
 							<div>
@@ -1335,104 +1362,10 @@ function wpa_remove_title_attributes( $output ) {
 	return $output;
 }
 
-// The built-in Recent Posts widget hard-coded title attributes until 3.8.
-class WP_Widget_Recent_Posts_No_Title_Attributes extends WP_Widget {
 
-	function __construct() {
-		parent::__construct( false, $name = __( 'WP A11Y: Recent Posts', 'wp-accessibility' ) );
-	}
-
-	function widget( $args, $instance ) {
-		$cache = wp_cache_get( 'widget_recent_posts', 'widget' );
-
-		if ( ! is_array( $cache ) ) {
-			$cache = array();
-		}
-
-		if ( isset( $cache[ $args['widget_id'] ] ) ) {
-			echo $cache[ $args['widget_id'] ];
-
-			return;
-		}
-
-		ob_start();
-		extract( $args );
-
-		$title = apply_filters( 'widget_title', empty( $instance['title'] ) ? __( 'Recent Posts' ) : $instance['title'], $instance, $args );
-		if ( ! $number = (int) $instance['number'] ) {
-			$number = 5;
-		}
-
-		$r = new WP_Query( array( 'showposts'           => $number,
-		                          'nopaging'            => 0,
-		                          'post_status'         => 'publish',
-		                          'ignore_sticky_posts' => 1
-			) );
-		if ( $r->have_posts() ) :
-			?>
-			<?php echo $before_widget; ?>
-			<?php if ( $title ) {
-			echo $before_title . $title . $after_title;
-		} ?>
-			<?php echo wpa_deprecated_warning( 'recent_posts' ); ?>
-			<ul>
-				<?php while ( $r->have_posts() ) : $r->the_post(); ?>
-					<li><a href="<?php the_permalink() ?>"><?php if ( get_the_title() ) {
-								the_title();
-							} else {
-								the_ID();
-							} ?> </a></li>
-				<?php endwhile; ?>
-			</ul>
-			<?php echo $after_widget; ?>
-			<?php
-			wp_reset_query();  // Restore global post data stomped by the_post().
-		endif;
-
-		$cache[ $args['widget_id'] ] = ob_get_flush();
-		wp_cache_add( 'widget_recent_posts', $cache, 'widget' );
-	}
-
-	function update( $new_instance, $old_instance ) {
-		$instance           = $old_instance;
-		$instance['title']  = strip_tags( $new_instance['title'] );
-		$instance['number'] = abs( (int) $new_instance['number'] );
-		$this->flush_widget_cache();
-
-		$alloptions = wp_cache_get( 'alloptions', 'options' );
-		if ( isset( $alloptions['widget_recent_entries'] ) ) {
-			delete_option( 'widget_recent_entries' );
-		}
-
-		return $instance;
-	}
-
-	function flush_widget_cache() {
-		wp_cache_delete( 'widget_recent_posts', 'widget' );
-	}
-
-	function form( $instance ) {
-		$title = ( isset( $instance['title'] ) ) ? esc_attr( $instance['title'] ) : '';
-		if ( ! isset( $instance['number'] ) || $number != (int) $instance['number'] ) {
-			$number = 5;
-		}
-		?>
-		<p><label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label>
-			<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>"
-			       name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php esc_attr_e( $title ); ?>"/>
-		</p>
-
-		<p><label
-				for="<?php echo $this->get_field_id( 'number' ); ?>"><?php _e( 'Number of posts to show:' ); ?></label>
-			<input id="<?php echo $this->get_field_id( 'number' ); ?>"
-			       name="<?php echo $this->get_field_name( 'number' ); ?>" type="text" value="<?php esc_attr_e( $number ); ?>"
-			       size="3"/></p>
-	<?php
-	}
-}
-
-add_action( 'widgets_init', create_function( '', 'return register_widget("WP_Widget_Recent_Posts_No_Title_Attributes");' ) );
-
+/**
+ * Reuse this function next time I deprecate a feature.
+ 
 function wpa_deprecated_warning( $context ) {
 	if ( is_user_logged_in() && current_user_can( 'manage_options' ) ) {
 		switch ( $context ) {
@@ -1445,10 +1378,11 @@ function wpa_deprecated_warning( $context ) {
 
 	return;
 }
+*/
 
 function wpa_get_support_form() {
 	global $current_user, $wpa_version;
-	get_currentuserinfo();
+	$current_user = wp_get_current_user();
 	$request = '';
 	$version = $wpa_version;
 	// send fields for all plugins
@@ -1543,10 +1477,6 @@ $plugins_string
 	<form method='post' action='$admin_url'>
 		<div><input type='hidden' name='_wpnonce' value='" . wp_create_nonce( 'wpa-nonce' ) . "' /></div>
 		<div>";
-	echo "
-		<p>" .
-	     __( '<strong>Please note</strong>: I do keep records of those who have donated, but if your donation came from somebody other than your account at this web site, you must note this in your message.', 'wp-accessibility' )
-	     . "</p>";
 	echo "
 		<p>
 		<code>" . __( 'From:', 'wp-accessibility' ) . " \"$current_user->display_name\" &lt;$current_user->user_email&gt;</code>
@@ -1684,10 +1614,9 @@ function longdesc_add_attr( $html, $id, $caption, $title, $align, $url, $size, $
 			$args['referrer'] = (int) $_REQUEST['post_id'];
 		}
 		if ( ! empty( $image->post_content ) ) {
-			$search  = '<img';
-			$replace = $search . ' longdesc="' . esc_url( add_query_arg( $args, home_url() ) ) . '"';
+			$search  = '<img ';
+			$replace = '<img tabindex="-1" id="' . esc_attr( longdesc_return_anchor( $image->ID ) ) . '" longdesc="' . esc_url( add_query_arg( $args, home_url() ) ) . '"';
 			$html    = str_replace( $search, $replace, $html );
-			$html .= '<a id="' . esc_attr( longdesc_return_anchor( $image->ID ) ) . '"></a>';
 		}
 	}
 

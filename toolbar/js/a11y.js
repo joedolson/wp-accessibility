@@ -86,12 +86,12 @@ jQuery(document).ready(function ($) {
 
     $('.toggle-fontsize').on('click', function () {
         if ($(this).attr('id') == "is_normal_fontsize") {
-            $('body').addClass('fontsize');
+            $('html').addClass('fontsize');
             $(this).attr('id', 'is_large_fontsize').attr('aria-checked', true).addClass('active');
             createCookie('a11y-larger-fontsize', '1');
             return false;
         } else {
-            $('body').removeClass('fontsize');
+            $('html').removeClass('fontsize');
             $(this).attr('id', 'is_normal_fontsize').removeAttr('aria-checked').removeClass('active');
             eraseCookie('a11y-larger-fontsize');
             return false;

@@ -2,8 +2,9 @@
 	font-family: 'a11y';
 	src:url('a11y.eot');
 	src:url('a11y.eot?#iefix') format('embedded-opentype'),
-		url('a11y.ttf') format('truetype'),
+		url('a11y.woff2') format('woff2'),
 		url('a11y.woff') format('woff'),
+		url('a11y.ttf') format('truetype'),
 		url('a11y.svg#a11y') format('svg');
 	font-weight: normal;
 	font-style: normal;

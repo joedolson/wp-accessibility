@@ -3,8 +3,8 @@ Contributors: joedolson
 Donate link: http://www.joedolson.com/donate/
 Tags: title, accessibility, accessible, navigation, wcag, a11y, section508, focus, alt text, labels, aria
 Requires at least: 3.4.2
-Tested up to: 4.4.0
-Stable tag: 1.4.6
+Tested up to: 4.5
+Stable tag: 1.5.2
 Text Domain: wp-accessibility
 License: GPLv2 or later
 
@@ -51,7 +51,7 @@ Translating my plug-ins is always appreciated. Visit <a href="http://translate.j
 Available translations (in order of completeness):
 Dutch, Finnish, French, Portuguese (Brazil), Bulgarian, Greek, Spanish, Portuguese (Portugal), Italian, Russian, Romanian, German, Polish, Hebrew, Slovenian
 
-Visit the [WP Accessibility translations site](http://translate.joedolson.com/projects/wp-accessibility/) to check the progress of a translation.
+Visit the [WP Accessibility translations site](http://translate.joedolson.com/projects/wp-accessibility/) to help work on a translation.
 
 == Installation ==
 
@@ -63,15 +63,33 @@ Visit the [WP Accessibility translations site](http://translate.joedolson.com/pr
 
 = Future =
 
-* Note: WP A11y recent posts widget will be removed in 1.5.0
+Suggest a change!
 
-= 1.4.7 =
+= 1.5.2 =
+
+* Bug fix: Add RTL version of editor styles
+* Bug fix: incorrect textdomain on donate request
+* Bug fix: Issue with :focus state on skiplinks when not always visible
+* Bug fix: Install with no default focus styles; add custom styles to end of default focus styles string
+* Bug fix: search filter could prevent display of nav menus (props @jdelia & @GaryJones)
+* Bug fix: extraneous anchor generated in longdesc format (https://github.com/joedolson/wp-accessibility/issues/4)
+* Add alternate font resizing stylesheet for improved use with rems
+* Add support for selective refresh in customizer
+
+= 1.5.1 =
+
+* Add: :hover/:focus text describing toolbar buttons; replaces title attributes removed in 1.5.0
+* Missing: Add woff2 call
+* Bug fix: Re-order font format imports
+
+= 1.5.0 =
 
 * Updated toolbar fonts
-* Updated toolbar to use <button> instead of <a>
+* Updated toolbar to use `button` instead of `a`
 * Improved fontsize increase default CSS. Most themes will still benefit from custom styles.
 * Added option to place toolbar on right side of screen.
-* 
+* Update load method for text domain
+* WP A11y recent posts widget removed.
 
 = 1.4.6 =
 

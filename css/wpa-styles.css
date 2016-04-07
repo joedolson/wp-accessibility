@@ -20,3 +20,22 @@ li.fore {
 li.back {
     margin-left: 230px;
 }
+
+.wpa-support-me p {
+    font-size: 1.6em;
+    font-weight: 600;
+    background: #007eb3;
+    text-shadow: 1px 1px rgb( 35, 60, 127 );
+    padding: 1em;
+    text-align: center;
+    margin: 0 0 1em;
+}
+
+.wpa-support-me p, .wpa-support-me a {
+    color: #fff;
+}
+
+.wpa-support-me a:hover, .wpa-support-me a:focus {
+    text-decoration: none;
+	background: #fff;
+}
