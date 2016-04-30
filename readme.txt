@@ -65,6 +65,11 @@ Visit the [WP Accessibility translations site](http://translate.joedolson.com/pr
 
 Suggest a change!
 
+= 1.5.3 =
+
+* Bug fix: incorrect assignment of fontsize class on subsequent pages.
+* Removal of en_AU and nl_NL languages in favor of completed language packs
+
 = 1.5.2 =
 
 * Bug fix: Add RTL version of editor styles
