@@ -80,7 +80,7 @@ jQuery(document).ready(function ($) {
 
     // Fontsize handler
     if (readCookie('a11y-larger-fontsize')) {
-        $('body').addClass('fontsize');
+        $('html').addClass('fontsize');
         $('#is_normal_fontsize').attr('id', 'is_large_fontsize').attr('aria-checked', true).addClass('active');
     }
 
