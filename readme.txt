@@ -65,6 +65,15 @@ Visit the [WP Accessibility translations site](http://translate.joedolson.com/pr
 
 Suggest a change!
 
+= 1.5.4 =
+
+* Bug fix: .fontsize default classes used immediate children selector, which was incompatible with the switch to using html as the parent selector.
+* Change: Added option to hide toolbar on small screens.
+* UI Change: Split Toolbar & Miscellaneous settings into separate sections.
+* Updated informational and contributing links
+* Re-ordered settings groups to better reflect need.
+* Split settings into separate plug-in file.
+
 = 1.5.3 =
 
 * Bug fix: incorrect assignment of fontsize class on subsequent pages.
