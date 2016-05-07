@@ -2,6 +2,13 @@
 	Accessibility styles
 	chris@inathought.com
 */
+@media only screen and (max-width: 800px) {
+	/* Remove toolbar on small screens */
+	.a11y-responsive {
+		display: none;
+	}
+}
+
 .focusable:focus {
     outline: none !important;
 }
