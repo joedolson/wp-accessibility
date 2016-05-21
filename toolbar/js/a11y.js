@@ -45,7 +45,7 @@ jQuery(document).ready(function ($) {
             return false;
         } else {
             $('body').removeClass('desaturated');
-            $(this).attr('id', 'is_normal_color').removeAttr('aria-pressed').removeClass('active');
+            $(this).attr('id', 'is_normal_color').attr('aria-pressed', false).removeClass('active');
             eraseCookie('a11y-desaturated');
             return false;
         }
@@ -71,7 +71,7 @@ jQuery(document).ready(function ($) {
         } else {
             $('#highContrastStylesheet').remove();
             $('body').removeClass('contrast');
-            $(this).attr('id', 'is_normal_contrast').removeAttr('aria-pressed').removeClass('active');
+            $(this).attr('id', 'is_normal_contrast').attr('aria-pressed', false).removeClass('active');
             $(this).parent().parent().find('i').removeClass('icon-white');
             eraseCookie('a11y-high-contrast');
             return false;
@@ -81,18 +81,18 @@ jQuery(document).ready(function ($) {
     // Fontsize handler
     if (readCookie('a11y-larger-fontsize')) {
         $('html').addClass('fontsize');
-        $('#is_normal_fontsize').attr('id', 'is_large_fontsize').attr('aria-checked', true).addClass('active');
+        $('#is_normal_fontsize').attr('id', 'is_large_fontsize').attr('aria-pressed', true).addClass('active');
     }
 
     $('.toggle-fontsize').on('click', function () {
         if ($(this).attr('id') == "is_normal_fontsize") {
             $('html').addClass('fontsize');
-            $(this).attr('id', 'is_large_fontsize').attr('aria-checked', true).addClass('active');
+            $(this).attr('id', 'is_large_fontsize').attr('aria-pressed', true).addClass('active');
             createCookie('a11y-larger-fontsize', '1');
             return false;
         } else {
             $('html').removeClass('fontsize');
-            $(this).attr('id', 'is_normal_fontsize').removeAttr('aria-checked').removeClass('active');
+            $(this).attr('id', 'is_normal_fontsize').attr('aria-pressed', false).removeClass('active');
             eraseCookie('a11y-larger-fontsize');
             return false;
         }
