@@ -65,6 +65,12 @@ Visit the [WP Accessibility translations site](http://translate.joedolson.com/pr
 
 Suggest a change!
 
+= 1.5.5 =
+
+* Bug fix: remove aria-pressed when buttons not active
+* Bug fix: include aria-pressed on button HTML
+* Above thanks to Jose Manuel (https://github.com/joedolson/wp-accessibility/pull/7)
+
 = 1.5.4 =
 
 * Bug fix: .fontsize default classes used immediate children selector, which was incompatible with the switch to using html as the parent selector.
