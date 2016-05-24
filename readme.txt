@@ -70,6 +70,7 @@ Suggest a change!
 * Bug fix: remove aria-pressed when buttons not active
 * Bug fix: include aria-pressed on button HTML
 * Above thanks to Jose Manuel (https://github.com/joedolson/wp-accessibility/pull/7)
+* Text change to better describe content title attribute stripping.
 
 = 1.5.4 =
 

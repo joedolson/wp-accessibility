@@ -369,7 +369,7 @@ function wpa_admin_menu() {
 									   name="wpa_image_titles" <?php if ( get_option( 'wpa_image_titles' ) == "on" ) {
 									echo 'checked="checked" ';
 								} ?>/> <label
-									for="wpa_image_titles"><?php _e( 'Remove title attribute from images inserted into post content and featured images.', 'wp-accessibility' ); ?></label>
+									for="wpa_image_titles"><?php _e( 'Remove title attributes inserted into post content and featured images.', 'wp-accessibility' ); ?></label>
 							</li>
 							<li><input type="checkbox" id="wpa_diagnostics"
 									   name="wpa_diagnostics" <?php if ( get_option( 'wpa_diagnostics' ) == "on" ) {
