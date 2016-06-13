@@ -63,13 +63,13 @@ Visit the [WP Accessibility translations site](http://translate.joedolson.com/pr
 
 = Future =
 
-Suggest a change!
+[Suggest a change!](https://github.com/joedolson/wp-accessibility/)
 
 = 1.5.5 =
 
-* Bug fix: remove aria-pressed when buttons not active
-* Bug fix: include aria-pressed on button HTML
-* Above thanks to Jose Manuel (https://github.com/joedolson/wp-accessibility/pull/7)
+* Bug fix: remove aria-pressed when buttons not active props Jose Manuel (https://github.com/joedolson/wp-accessibility/pull/7)
+* Bug fix: include aria-pressed on button HTML props Jose Manuel (https://github.com/joedolson/wp-accessibility/pull/7)
+* Bug fix: Don't show logout link if user not logged in. Props @boonebgorges (https://github.com/joedolson/wp-accessibility/pull/9)
 * Text change to better describe content title attribute stripping.
 
 = 1.5.4 =
