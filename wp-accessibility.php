@@ -395,6 +395,10 @@ function wpa_jquery_asl() {
 // http://www.coolfields.co.uk/2013/02/wordpress-permanently-visible-log-out-link-plugin-version-0-1/
 add_action( 'admin_bar_menu', 'wpa_logout_item', 11 );
 function wpa_logout_item( $admin_bar ) {
+	if ( ! is_user_logged_in() ) {
+		return;
+	}
+
 	$args = array(
 		'id'    => 'wpa-logout',
 		'title' => 'Log Out',
