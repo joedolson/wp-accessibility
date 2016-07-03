@@ -46,12 +46,7 @@ Learn more! <a href="http://make.wordpress.org/accessibility/wp-accessibility-pl
 
 The plug-in is intended to help with deficiencies commonly found in themes and to solve some issues in WordPress core. It can't correct every problem (by a long shot), but provides tools to fix some issues, supplement the accessibility of your site, or identify problems.
 
-Translating my plug-ins is always appreciated. Visit <a href="http://translate.joedolson.com">my translations site</a> to start getting your language into shape!
-
-Available translations (in order of completeness):
-Dutch, Finnish, French, Portuguese (Brazil), Bulgarian, Greek, Spanish, Portuguese (Portugal), Italian, Russian, Romanian, German, Polish, Hebrew, Slovenian
-
-Visit the [WP Accessibility translations site](http://translate.joedolson.com/projects/wp-accessibility/) to help work on a translation.
+Translating my plug-ins is always appreciated. Visit <a href="https://translate.wordpress.org/projects/wp-plugins/wp-accessibility">the WordPress translations site</a> to get your language into shape!
 
 == Installation ==
 
@@ -72,6 +67,7 @@ Visit the [WP Accessibility translations site](http://translate.joedolson.com/pr
 * Bug fix: Don't show logout link if user not logged in. Props @boonebgorges (https://github.com/joedolson/wp-accessibility/pull/9)
 * Bug fix: Don't assume that images with long descriptions have classes
 * Text change to better describe content title attribute stripping.
+* Update readme.txt
 
 = 1.5.4 =
 
