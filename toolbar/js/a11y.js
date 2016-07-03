@@ -65,14 +65,12 @@ jQuery(document).ready(function ($) {
             $('head').append($("<link href='" + a11y_stylesheet_path + "' id='highContrastStylesheet' rel='stylesheet' type='text/css' />"));
             $('body').addClass('contrast');
             $(this).attr('id', 'is_high_contrast').attr('aria-pressed', true).addClass('active');
-            $(this).parent().parent().find('i').addClass('icon-white');
             createCookie('a11y-high-contrast', '1');
             return false;
         } else {
             $('#highContrastStylesheet').remove();
             $('body').removeClass('contrast');
             $(this).attr('id', 'is_normal_contrast').attr('aria-pressed', false).removeClass('active');
-            $(this).parent().parent().find('i').removeClass('icon-white');
             eraseCookie('a11y-high-contrast');
             return false;
         }

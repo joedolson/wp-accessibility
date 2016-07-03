@@ -66,6 +66,7 @@ Translating my plug-ins is always appreciated. Visit <a href="https://translate.
 * Bug fix: Don't show logout link if user not logged in. Props @boonebgorges (https://github.com/joedolson/wp-accessibility/pull/9)
 * Bug fix: Don't assume that images with long descriptions have classes
 * Text change to better describe content title attribute stripping.
+* Add aria-label to skip link navigation region.
 * Update readme.txt
 
 = 1.5.4 =

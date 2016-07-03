@@ -91,6 +91,9 @@ add_filter( 'plugin_action_links', 'wpa_plugin_action', 10, 2 );
 add_action( 'wp_enqueue_scripts', 'wpa_register_scripts' );
 add_action( 'admin_menu', 'wpa_javascript' );
 
+/**
+ * Enqueue color picker for contrast testing
+ **/
 function wpa_javascript() {
 	if ( isset( $_GET['page'] ) && $_GET['page'] == 'wp-accessibility/wp-accessibility.php' ) {
 		wp_enqueue_script( 'farbtastic' );
@@ -273,14 +276,14 @@ function wpa_toolbar_js() {
 //<![CDATA[
 (function( $ ) { 'use strict';
 	var insert_a11y_toolbar = '<!-- a11y toolbar -->';
-	insert_a11y_toolbar += '<div class=\"$responsive a11y-toolbar$is_rtl$is_right\">';
+	insert_a11y_toolbar += '<div class=\"$responsive a11y-toolbar$is_rtl$is_right\" role=\"menu\">';
 	insert_a11y_toolbar += '<ul class=\"a11y-toolbar-list\">';
-	insert_a11y_toolbar += '<li class=\"a11y-toolbar-list-item\"><button type=\"button\" class=\"a11y-toggle-contrast toggle-contrast\" id=\"is_normal_contrast\" aria-pressed=\"false\"><span class=\"offscreen\">$contrast</span><span class=\"aticon aticon-adjust\" aria-hidden=\"true\"></span></button></li>';";
+	insert_a11y_toolbar += '<li class=\"a11y-toolbar-list-item\" role=\"menuitem\"><button type=\"button\" class=\"a11y-toggle-contrast toggle-contrast\" id=\"is_normal_contrast\" aria-pressed=\"false\"><span class=\"offscreen\">$contrast</span><span class=\"aticon aticon-adjust\" aria-hidden=\"true\"></span></button></li>';";
 	if ( get_option( 'wpa_toolbar' ) == 'on' && $enable_grayscale ) {
-		echo "insert_a11y_toolbar += '<li class=\"a11y-toolbar-list-item\"><button type=\"button\" class=\"a11y-toggle-grayscale toggle-grayscale\" id=\"is_normal_color\" aria-pressed=\"false\"><span class=\"offscreen\">$grayscale</span><span class=\"aticon aticon-tint\" aria-hidden=\"true\"></span></button></li>';";
+		echo "insert_a11y_toolbar += '<li class=\"a11y-toolbar-list-item\" role=\"menuitem\"><button type=\"button\" class=\"a11y-toggle-grayscale toggle-grayscale\" id=\"is_normal_color\" aria-pressed=\"false\"><span class=\"offscreen\">$grayscale</span><span class=\"aticon aticon-tint\" aria-hidden=\"true\"></span></button></li>';";
 	}
 	echo "
-	insert_a11y_toolbar += '<li class=\"a11y-toolbar-list-item\"><button type=\"button\" class=\"a11y-toggle-fontsize toggle-fontsize\" id=\"is_normal_fontsize\" aria-pressed=\"false\"><span class=\"offscreen\">$fontsize</span><span class=\"aticon aticon-font\" aria-hidden=\"true\"></span></button></li>';
+	insert_a11y_toolbar += '<li class=\"a11y-toolbar-list-item\" role=\"menuitem\"><button type=\"button\" class=\"a11y-toggle-fontsize toggle-fontsize\" id=\"is_normal_fontsize\" aria-pressed=\"false\"><span class=\"offscreen\">$fontsize</span><span class=\"aticon aticon-font\" aria-hidden=\"true\"></span></button></li>';
 	insert_a11y_toolbar += '</ul>';
 	insert_a11y_toolbar += '</div>';
 	insert_a11y_toolbar += '<!-- // a11y toolbar -->';
@@ -355,7 +358,8 @@ function wpa_jquery_asl() {
 		$html .= ( $sitemap != '' ) ? "<a href=\"$sitemap\">" . __( 'Site map', 'wp-accessibility' ) . "</a> " : '';
 		$html .= ( $extra != '' && $extra_text != '' ) ? "<a href=\"$extra\">$extra_text</a> " : '';
 		$is_rtl = ( is_rtl() ) ? '-rtl' : '-ltr';
-		$output = ( $html != '' ) ? "<div class=\"$visibility$is_rtl\" id=\"skiplinks\" role=\"navigation\">$html</div>" : '';
+		$skiplinks = __( 'Skip links', 'wp-accessibility' );
+		$output = ( $html != '' ) ? "<div class=\"$visibility$is_rtl\" id=\"skiplinks\" role=\"navigation\" aria-label=\"$skiplinks\">$html</div>" : '';
 		// attach skiplinks HTML; set tabindex on #content area to -1
 		$focusable = ( $content != '' ) ? "$('#$content').attr('tabindex','-1');" : '';
 		$focusable .= ( $nav != '' ) ? "$('#$nav').attr('tabindex','-1');" : '';
