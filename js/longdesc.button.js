@@ -4,7 +4,7 @@
         var longdesc = $(this).attr('longdesc');
         var text = '<span>Long Description</span>';
         var classes = $(this).attr('class');
-		var class_array = classes.split(' ');
+		var class_array = ( Array.isArray(classes) ) ? classes.split(' ') : [];
 		var image_id = '';
 		$.each( class_array, function ( index, value ) {
 			if ( value.match( /wp-image-/gi ) ) {
