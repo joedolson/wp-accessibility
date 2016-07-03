@@ -62,8 +62,7 @@ Translating my plug-ins is always appreciated. Visit <a href="https://translate.
 
 = 1.5.5 =
 
-* Bug fix: remove aria-pressed when buttons not active props Jose Manuel (https://github.com/joedolson/wp-accessibility/pull/7)
-* Bug fix: include aria-pressed on button HTML props Jose Manuel (https://github.com/joedolson/wp-accessibility/pull/7)
+* Bug fix: use aria-pressed on toolbar buttons. Props Jose Manuel (https://github.com/joedolson/wp-accessibility/pull/7)
 * Bug fix: Don't show logout link if user not logged in. Props @boonebgorges (https://github.com/joedolson/wp-accessibility/pull/9)
 * Bug fix: Don't assume that images with long descriptions have classes
 * Text change to better describe content title attribute stripping.
