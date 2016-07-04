@@ -67,6 +67,7 @@ Translating my plug-ins is always appreciated. Visit <a href="https://translate.
 * Bug fix: Don't assume that images with long descriptions have classes
 * Text change to better describe content title attribute stripping.
 * Add aria-label to skip link navigation region.
+* Add role=menu to toolbar.
 * Update readme.txt
 
 = 1.5.4 =
