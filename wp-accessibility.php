@@ -217,6 +217,7 @@ class wp_accessibility_toolbar extends WP_Widget {
 		echo $before_widget;
 		echo ( $title ) ? $before_title . $title . $after_title : '';		
 		echo wpa_toolbar_html();
+		echo $after_widget;
 	}
 
 	function form( $instance ) {
