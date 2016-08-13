@@ -60,6 +60,8 @@ Translating my plug-ins is always appreciated. Visit <a href="https://translate.
 
 [Suggest a change!](https://github.com/joedolson/wp-accessibility/)
 
+* Add longdesc parsing to featured images
+
 = 1.5.5 =
 
 * Bug fix: use aria-pressed on toolbar buttons. Props Jose Manuel (https://github.com/joedolson/wp-accessibility/pull/7)

@@ -770,7 +770,7 @@ Version: $theme_version
 ==Active Plugins:==
 $plugins_string
 ";
-	if ( isset( $_POST['wpt_support'] ) ) {
+	if ( isset( $_POST['wpa_support'] ) ) {
 		$nonce = $_REQUEST['_wpnonce'];
 		if ( ! wp_verify_nonce( $nonce, 'wpa-nonce' ) ) {
 			die( "Security check failed" );
@@ -821,7 +821,7 @@ $plugins_string
         <label for='support_request'>" . __( 'Support Request:', 'wp-accessibility' ) . "</label><br /><textarea name='support_request' required aria-required='true' id='support_request' cols='80' rows='10'>" . stripslashes( $request ) . "</textarea>
 		</p>
 		<p>
-		<input type='submit' value='" . __( 'Send Support Request', 'wp-accessibility' ) . "' name='wpt_support' class='button-primary' />
+		<input type='submit' value='" . __( 'Send Support Request', 'wp-accessibility' ) . "' name='wpa_support' class='button-primary' />
 		</p>
 		<p>" .
 	     __( 'The following additional information will be sent with your support request:', 'wp-accessibility' )
