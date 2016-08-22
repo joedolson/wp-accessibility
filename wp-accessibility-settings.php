@@ -66,6 +66,7 @@ function wpa_update_settings() {
 			$wpa_tabindex                = ( isset( $_POST['wpa_tabindex'] ) ) ? 'on' : '';
 			$wpa_underline               = ( isset( $_POST['wpa_underline'] ) ) ? 'on' : '';
 			$wpa_longdesc                = ( isset( $_POST['wpa_longdesc'] ) ) ? esc_attr( $_POST['wpa_longdesc'] ) : 'false';
+			$wpa_longdesc_featured       = ( isset( $_POST['wpa_longdesc_featured'] ) ) ? esc_attr( $_POST['wpa_longdesc_featured'] ) : 'false';
 			$wpa_image_titles            = ( isset( $_POST['wpa_image_titles'] ) ) ? 'on' : '';
 			$wpa_more                    = ( isset( $_POST['wpa_more'] ) ) ? 'on' : '';
 			$wpa_focus                   = ( isset( $_POST['wpa_focus'] ) ) ? 'on' : '';
@@ -83,6 +84,7 @@ function wpa_update_settings() {
 			update_option( 'wpa_tabindex', $wpa_tabindex );
 			update_option( 'wpa_underline', $wpa_underline );
 			update_option( 'wpa_longdesc', $wpa_longdesc );
+			update_option( 'wpa_longdesc_featured', $wpa_longdesc_featured );
 			update_option( 'wpa_image_titles', $wpa_image_titles );
 			update_option( 'wpa_more', $wpa_more );
 			update_option( 'wpa_focus', $wpa_focus );
@@ -370,6 +372,12 @@ function wpa_admin_menu() {
 												echo 'selected="selected"';
 											} ?>><?php _e( 'Browser defaults only', 'wp-accessibility' ); ?></option>
 								</select>
+							</li>
+							<li><input type="checkbox" id="wpa_longdesc_featured"
+									   name="wpa_longdesc_featured" <?php if ( get_option( 'wpa_longdesc_featured' ) == "on" ) {
+									echo 'checked="checked" ';
+								} ?>/> <label
+									for="wpa_longdesc_featured"><?php _e( 'Support <code>longdesc</code> on featured images', 'wp-accessibility' ); ?></label>
 							</li>
 							<li><input type="checkbox" id="wpa_admin_css"
 									   name="wpa_admin_css" <?php if ( get_option( 'wpa_admin_css' ) == "on" ) {
