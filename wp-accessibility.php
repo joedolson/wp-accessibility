@@ -834,6 +834,25 @@ $plugins_string
 }
 
 
+add_filter( 'wp_get_attachment_image_attributes', 'wpa_featured_longdesc', 10, 3 );
+function wpa_featured_longdesc( $attr, $attachment, $size ) {
+	$attachment_id = $attachment->ID;
+	$args = array( 'longdesc' => $attachment_id );
+	/* The referrer is the post that the image is inserted into. */
+	if ( isset( $_REQUEST['post_id'] ) ) {
+		$args['referrer'] = (int) $_REQUEST['post_id'];
+	}
+
+	$target = add_query_arg( $args, home_url() );
+	$id     = longdesc_return_anchor( $attachment_id );
+
+	$attr['longdesc'] = $target;
+	$attr['id']      = $id;
+
+	return $attr;
+}
+
+
 /* longdesc support, based on work by Michael Fields (http://wordpress.org/plugins/long-description-for-image-attachments/) */
 
 define( 'WPA_TEMPLATES', trailingslashit( dirname( __FILE__ ) ) . 'templates/' );

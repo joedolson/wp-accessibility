@@ -3,7 +3,7 @@ Contributors: joedolson
 Donate link: http://www.joedolson.com/donate/
 Tags: title, accessibility, accessible, navigation, wcag, a11y, section508, focus, alt text, labels, aria
 Requires at least: 3.4.2
-Tested up to: 4.5
+Tested up to: 4.6
 Stable tag: 1.5.5
 Text Domain: wp-accessibility
 License: GPLv2 or later
@@ -60,7 +60,9 @@ Translating my plug-ins is always appreciated. Visit <a href="https://translate.
 
 [Suggest a change!](https://github.com/joedolson/wp-accessibility/)
 
-* Add longdesc parsing to featured images
+= 1.5.6 =
+
+* Add support for longdesc in featured images.
 
 = 1.5.5 =
 
