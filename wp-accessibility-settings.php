@@ -104,6 +104,8 @@ function wpa_update_settings() {
 			$wpa_alternate_fontsize      = ( isset( $_POST['wpa_alternate_fontsize'] ) ) ? 'on' : '';
 			$wpa_widget_toolbar          = ( isset( $_POST['wpa_widget_toolbar'] ) ) ? 'on' : '';
 			$wpa_toolbar_gs              = ( isset( $_POST['wpa_toolbar_gs'] ) ) ? 'on' : '';
+			$wpa_toolbar_fs              = ( isset( $_POST['wpa_toolbar_fs'] ) ) ? 'off' : '';
+			$wpa_toolbar_ct              = ( isset( $_POST['wpa_toolbar_ct'] ) ) ? 'off' : '';
 			$wpa_toolbar_default         = ( isset( $_POST['wpa_toolbar_default'] ) ) ? $_POST['wpa_toolbar_default'] : '';
 			$wpa_toolbar_right           = ( isset( $_POST['wpa_toolbar_right'] ) ) ? 'on' : '';
 			$wpa_toolbar_mobile          = ( isset( $_POST['wpa_toolbar_mobile'] ) ) ? 'on' : '';
@@ -112,6 +114,8 @@ function wpa_update_settings() {
 			update_option( 'wpa_alternate_fontsize', $wpa_alternate_fontsize );
 			update_option( 'wpa_widget_toolbar', $wpa_widget_toolbar );
 			update_option( 'wpa_toolbar_gs', $wpa_toolbar_gs );
+			update_option( 'wpa_toolbar_fs', $wpa_toolbar_fs );
+			update_option( 'wpa_toolbar_ct', $wpa_toolbar_ct );
 			update_option( 'wpa_toolbar_default', $wpa_toolbar_default );
 			update_option( 'wpa_toolbar_right', $wpa_toolbar_right );
 			update_option( 'wpa_toolbar_mobile', $wpa_toolbar_mobile );	
@@ -217,6 +221,26 @@ function wpa_admin_menu() {
 									echo 'checked="checked" ';
 								} ?>/> <label
 									for="wpa_toolbar"><?php _e( 'Add Accessibility toolbar with fontsize adjustment and contrast toggle', 'wp-accessibility' ); ?></label>
+								<ul>
+									<li><input type="checkbox" id="wpa_toolbar_fs"
+											   name="wpa_toolbar_fs" <?php if ( get_option( 'wpa_toolbar_fs' ) == "off" ) {
+											echo 'checked="checked" ';
+										} ?>/> <label
+											for="wpa_toolbar_fs"><?php _e( 'Exclude font size toggle from Accessibility toolbar', 'wp-accessibility' ); ?></label>
+									</li>
+									<li><input type="checkbox" id="wpa_toolbar_ct"
+											   name="wpa_toolbar_ct" <?php if ( get_option( 'wpa_toolbar_ct' ) == "on" ) {
+											echo 'checked="checked" ';
+										} ?>/> <label
+											for="wpa_toolbar_ct"><?php _e( 'Exclude contrast toggle from Accessibility toolbar', 'wp-accessibility' ); ?></label>
+									</li>
+									<li><input type="checkbox" id="wpa_toolbar_gs"
+											   name="wpa_toolbar_gs" <?php if ( get_option( 'wpa_toolbar_gs' ) == "on" ) {
+											echo 'checked="checked" ';
+										} ?>/> <label
+											for="wpa_toolbar_gs"><?php _e( 'Include grayscale toggle with Accessibility toolbar', 'wp-accessibility' ); ?></label>
+									</li>									
+								</ul>
 							</li>
 							<li>
 								<label for="wpa_toolbar_default"><?php _e( 'Toolbar location (ID attribute)', 'wp-accessibility' ); ?></label> <input type="text" id="wpa_toolbar_default" name="wpa_toolbar_default" value="<?php esc_attr_e( get_option( 'wpa_toolbar_default' ) ); ?>" />
@@ -249,12 +273,6 @@ function wpa_admin_menu() {
 									echo 'checked="checked" ';
 								} ?>/> <label
 									for="wpa_widget_toolbar"><?php _e( 'Support Accessibility toolbar as shortcode or widget', 'wp-accessibility' ); ?></label>
-							</li>
-							<li><input type="checkbox" id="wpa_toolbar_gs"
-									   name="wpa_toolbar_gs" <?php if ( get_option( 'wpa_toolbar_gs' ) == "on" ) {
-									echo 'checked="checked" ';
-								} ?>/> <label
-									for="wpa_toolbar_gs"><?php _e( 'Include grayscale toggle with Accessibility toolbar', 'wp-accessibility' ); ?></label>
 							</li>
 							<li><input type="checkbox" id="wpa_toolbar_right"
 									   name="wpa_toolbar_right" <?php if ( get_option( 'wpa_toolbar_right' ) == "on" ) {

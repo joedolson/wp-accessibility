@@ -62,7 +62,8 @@ Translating my plug-ins is always appreciated. Visit <a href="https://translate.
 
 = 1.5.6 =
 
-* Add support for longdesc in featured images.
+* Feature: Add support for longdesc in featured images.
+* Feature: Option to enable only a single element in toolbar
 
 = 1.5.5 =
 

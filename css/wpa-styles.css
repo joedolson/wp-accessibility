@@ -39,3 +39,7 @@ li.back {
     text-decoration: none;
 	background: #fff;
 }
+
+#wpa_settings_page ul ul {
+	margin: 1em 2em;
+}
