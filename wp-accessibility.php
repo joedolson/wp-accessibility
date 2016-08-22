@@ -849,19 +849,22 @@ $plugins_string
 
 add_filter( 'wp_get_attachment_image_attributes', 'wpa_featured_longdesc', 10, 3 );
 function wpa_featured_longdesc( $attr, $attachment, $size ) {
-	$attachment_id = $attachment->ID;
-	$args = array( 'longdesc' => $attachment_id );
-	/* The referrer is the post that the image is inserted into. */
-	if ( isset( $_REQUEST['post_id'] ) ) {
-		$args['referrer'] = (int) $_REQUEST['post_id'];
+	if ( get_option( 'wpa_longdesc_featured' ) == 'on' ) {
+		$attachment_id = $attachment->ID;
+		$args = array( 'longdesc' => $attachment_id );
+		/* The referrer is the post that the image is inserted into. */
+		if ( isset( $_REQUEST['post_id'] ) || get_the_ID() ) {
+			$id = ( isset( $_REQUEST['post_id'] ) ) ? $_REQUEST['post_id'] : get_the_ID();
+			$args['referrer'] = intval( $id );
+		}
+
+		$target = add_query_arg( $args, home_url() );
+		$id     = longdesc_return_anchor( $attachment_id );
+
+		$attr['longdesc'] = $target;
+		$attr['id']      = $id;
 	}
-
-	$target = add_query_arg( $args, home_url() );
-	$id     = longdesc_return_anchor( $attachment_id );
-
-	$attr['longdesc'] = $target;
-	$attr['id']      = $id;
-
+	
 	return $attr;
 }
 
@@ -972,8 +975,9 @@ function longdesc_add_attr( $html, $id, $caption, $title, $align, $url, $size, $
 	if ( isset( $image->ID ) && ! empty( $image->ID ) ) {
 		$args = array( 'longdesc' => $image->ID );
 		/* The referrer is the post that the image is inserted into. */
-		if ( isset( $_REQUEST['post_id'] ) ) {
-			$args['referrer'] = (int) $_REQUEST['post_id'];
+		if ( isset( $_REQUEST['post_id'] ) || get_the_ID() ) {
+			$id = ( isset( $_REQUEST['post_id'] ) ) ? $_REQUEST['post_id'] : get_the_ID();
+			$args['referrer'] = intval( $id );
 		}
 		if ( ! empty( $image->post_content ) ) {
 			$search  = '<img ';
