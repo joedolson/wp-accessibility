@@ -43,3 +43,7 @@ li.back {
 #wpa_settings_page ul ul {
 	margin: 1em 2em;
 }
+
+#wpa_settings_page .hndle, .settings_page_wp-accessibility-wp-accessibility .hndle {
+	cursor: auto !important;
+}
