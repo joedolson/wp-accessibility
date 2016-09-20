@@ -981,7 +981,7 @@ function longdesc_add_attr( $html, $id, $caption, $title, $align, $url, $size, $
 		}
 		if ( ! empty( $image->post_content ) ) {
 			$search  = '<img ';
-			$replace = '<img tabindex="-1" id="' . esc_attr( longdesc_return_anchor( $image->ID ) ) . '" longdesc="' . esc_url( add_query_arg( $args, home_url() ) ) . '"';
+			$replace = '<img tabindex="-1" id="' . esc_attr( longdesc_return_anchor( $image->ID ) ) . '" longdesc="' . esc_url( add_query_arg( $args, home_url() ) ) . '" ';
 			$html    = str_replace( $search, $replace, $html );
 		}
 	}

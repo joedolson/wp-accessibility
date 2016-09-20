@@ -60,6 +60,11 @@ Translating my plug-ins is always appreciated. Visit <a href="https://translate.
 
 [Suggest a change!](https://github.com/joedolson/wp-accessibility/)
 
+= 1.5.7 =
+
+* Bug fix: Missing space in featured img HTML
+* Bug fix: Switch main heading to H1
+
 = 1.5.6 =
 
 * Feature: Add support for longdesc in featured images.
