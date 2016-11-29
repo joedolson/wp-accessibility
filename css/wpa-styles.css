@@ -38,6 +38,8 @@ li.back {
 .wpa-support-me a:hover, .wpa-support-me a:focus {
     text-decoration: none;
 	background: #fff;
+	color: #007eb3;
+	text-shadow: none;
 }
 
 #wpa_settings_page ul ul {
