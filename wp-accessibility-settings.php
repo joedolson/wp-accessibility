@@ -633,6 +633,16 @@ function wpa_admin_menu() {
 				</div>
 			</div>
 		</div>
+
+		<div class="ui-sortable meta-box-sortables">
+			<div class="postbox">
+				<h2 class='hndle'><?php _e( 'Access Monitor', 'wp-accessibility' ); ?></h2>
+
+				<div class="inside">
+					<p><?php printf( __( 'Try using <a href="%s">Access Monitor</a> to do scheduled and on-demand evaluations of your web site accessibility.', 'wp-accessibility' ), 'https://wordpress.org/plugins/access-monitor/' ) ?></p>
+				</div>
+			</div>
+		</div>
 		
 		<div class="ui-sortable meta-box-sortables">
 			<div class="postbox">
@@ -653,29 +663,14 @@ function wpa_admin_menu() {
 
 		<div class="ui-sortable meta-box-sortables">
 			<div class="postbox">
-				<h2 class='hndle'><?php _e( 'Contributing References', 'wp-accessibility' ); ?></h2>
-
-				<div class="inside">
-					<ul>
-						<li><a href="http://www.accessibleculture.org/articles/2010/08/continue-reading-links-in-wordpress/">Continue Reading Links in WordPress</a></li>
-						<li><a href="http://www.mothereffingtoolconfuser.com">Mother Effing Tool Confuser</a></li>
-						<li><a href="http://wordpress.org/extend/plugins/remove-title-attributes/">Remove Title Attributes</a></li>
-						<li><a href="http://accessites.org/site/2008/11/wordpress-and-accessibility/#comment-2926">WordPress and Accessibility (Comment)</a></li>
-						<li><a href="http://wordpress.org/extend/plugins/img-title-removal/">IMG Title Removal</a></li>
-						<li><a href="https://github.com/clrux/a11y">Accessibility Toolbar</a></li>
-						<li><a href="https://wordpress.org/plugins/long-description-for-image-attachments/">WordPress Long Description</a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
-
-		<div class="ui-sortable meta-box-sortables">
-			<div class="postbox">
 				<h2 class='hndle'><?php _e( 'Customization Notes', 'wp-accessibility' ); ?></h2>
 
 				<div class="inside">
 					<p>
-						<?php _e( 'It is almost impossible for the Accessibility Toolbar to guarantee a good result for large text or high contrast modes. Author your own high-contrast styles by placing a stylesheet called <code>a11y-contrast.css</code> in your Theme\'s stylesheet directory.', 'wp-accessibility' ); ?>
+						<?php _e( 'It is almost impossible for the Accessibility Toolbar to guarantee a good result for large text or high contrast modes.', 'wp-accessibility' ); ?>
+					</p>
+					<p>
+						<?php _e( 'Author high-contrast styles by placing a stylesheet called <code>a11y-contrast.css</code> in your Theme\'s stylesheet directory.', 'wp-accessibility' ); ?>
 					</p>
 
 					<p>
@@ -709,6 +704,26 @@ function wpa_admin_menu() {
 			</div>
 		</div>
 		<?php } ?>		
+		
+
+		<div class="ui-sortable meta-box-sortables">
+			<div class="postbox">
+				<h2 class='hndle'><?php _e( 'Contributing References', 'wp-accessibility' ); ?></h2>
+
+				<div class="inside">
+					<ul>
+						<li><a href="http://www.accessibleculture.org/articles/2010/08/continue-reading-links-in-wordpress/">Continue Reading Links in WordPress</a></li>
+						<li><a href="http://www.mothereffingtoolconfuser.com">Mother Effing Tool Confuser</a></li>
+						<li><a href="http://wordpress.org/extend/plugins/remove-title-attributes/">Remove Title Attributes</a></li>
+						<li><a href="http://accessites.org/site/2008/11/wordpress-and-accessibility/#comment-2926">WordPress and Accessibility (Comment)</a></li>
+						<li><a href="http://wordpress.org/extend/plugins/img-title-removal/">IMG Title Removal</a></li>
+						<li><a href="https://github.com/clrux/a11y">Accessibility Toolbar</a></li>
+						<li><a href="https://wordpress.org/plugins/long-description-for-image-attachments/">WordPress Long Description</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		
 		
 	</div>
 </div>
