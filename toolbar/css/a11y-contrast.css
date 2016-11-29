@@ -26,6 +26,14 @@
     body > div {
         outline: 1px solid #fff;
     }
+	
+	body div.a11y-toolbar {
+		outline: none;
+	}
+	
+	body div.a11y-toolbar .offscreen {
+		outline: 1px solid #fff; 
+	}
 
     a, abbr, acronym, address, article, aside, b, basefont, bdi, big,
     blink, blockquote, body, button, canvas, caption, center, cite, code,

@@ -95,13 +95,16 @@
 
 .a11y-toolbar .offscreen, .a11y_stylesheet_path {
     position: absolute !important;
-    clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
     clip: rect(1px, 1px, 1px, 1px);
+	clip-path: polygon(0px 0px, 0px 0px,0px 0px, 0px 0px);	
+	white-space: nowrap;
     padding: 0 !important;
     border: 0 !important;
     height: 1px !important;
     width: 1px !important;
     overflow: hidden;
+	-webkit-transition: width .3s, clip .3s, clip-path .3s, background-color .5s;
+	transition: width .3s, clip .3s, clip-path .3s, background-color .5s;
 }
 
 /* a11y toolbar RTL */
@@ -140,14 +143,17 @@
 
 .a11y-toolbar button:hover .offscreen, .a11y-toolbar button:focus .offscreen {
 	height: auto !important;
-	width: 10em !important;
+	width: 12em !important;
 	clip: unset !important;
+	clip-path: unset !important;
 	color: #333;
-	background: #ffe; 
-	padding: 3px;
+	background: #ffd; 
+	padding: 2px;
 	box-shadow: 0 0 1px #000;
-	border-radius: 3px;
-	font-size: 14px;
+	border-radius: 2px;
+	font-size: 13px;
+	text-transform: none;
+	font-family: Arial;
 	top: 25%;
 	display: block;
 }
