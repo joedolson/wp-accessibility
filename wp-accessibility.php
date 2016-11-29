@@ -829,7 +829,7 @@ $plugins_string
         <input type='checkbox' name='has_donated' id='has_donated' value='on' /> <label for='has_donated'>" . sprintf( __( 'I <a href="%1$s">made a donation</a> to help support this plugin', 'wp-accessibility' ), 'http://www.joedolson.com/donate/' ) . "</label>
         </p>
         <p>
-        <label for='support_request'>" . __( 'Support Request:', 'wp-accessibility' ) . "</label><br /><textarea name='support_request' required id='support_request' cols='80' rows='10'>" . stripslashes( $request ) . "</textarea>
+        <label for='support_request'>" . __( 'Support Request:', 'wp-accessibility' ) . "</label><br /><textarea name='support_request' required id='support_request' cols='80' rows='10' class='widefat'>" . stripslashes( $request ) . "</textarea>
 		</p>
 		<p>
 		<input type='submit' value='" . __( 'Send Support Request', 'wp-accessibility' ) . "' name='wpa_support' class='button-primary' />
