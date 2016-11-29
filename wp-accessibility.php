@@ -101,15 +101,13 @@ function wpa_javascript() {
 }
 
 function wpa_admin_stylesheet() {
-	if ( get_option( 'wpa_admin_css' ) == 'on' ) {
-		if ( file_exists( get_stylesheet_directory() . '/wp-admin.css' ) ) {
-			$file = get_stylesheet_directory_uri() . '/wp-admin.css';
-		} else {
-			$file = plugins_url( 'css/wp-admin.css', __FILE__ );
-		}
+	
+	if ( file_exists( get_stylesheet_directory() . '/wp-admin.css' ) ) {
+		$file = get_stylesheet_directory_uri() . '/wp-admin.css';
 		wp_register_style( 'wp-a11y-css', $file );
 		wp_enqueue_style( 'wp-a11y-css' );
 	}
+	
 	if ( get_option( 'wpa_row_actions' ) == 'on' ) {
 		if ( file_exists( get_stylesheet_directory() . '/wp-admin-row-actions.css' ) ) {
 			$file = get_stylesheet_directory_uri() . '/wp-admin-row-actions.css';
@@ -438,7 +436,7 @@ function wpa_stylesheet() {
 	if ( get_option( 'wpa_toolbar_size' ) && get_option( 'wpa_toolbar' ) == 'on' ) {
 		echo "
 <style type='text/css'>
-.a11y-toolbar ul li a {
+.a11y-toolbar ul li button {
 	font-size: " . get_option( 'wpa_toolbar_size' ) . " !important;
 }
 </style>";
@@ -828,10 +826,10 @@ $plugins_string
 		<input type='checkbox' name='has_read_faq' id='has_read_faq' value='on' /> <label for='has_read_faq'>" . sprintf( __( 'I have read <a href="%1$s">the FAQ for this plug-in</a> <span>(required)</span>', 'wp-accessibility' ), 'http://www.joedolson.com/wp-accessibility/faqs/' ) . "</label>
         </p>
         <p>
-        <input type='checkbox' name='has_donated' id='has_donated' value='on' /> <label for='has_donated'>" . sprintf( __( 'I <a href="%1$s">made a donation to help support this plug-in</a>', 'wp-accessibility' ), 'http://www.joedolson.com/donate/' ) . "</label>
+        <input type='checkbox' name='has_donated' id='has_donated' value='on' /> <label for='has_donated'>" . sprintf( __( 'I <a href="%1$s">made a donation</a> to help support this plugin', 'wp-accessibility' ), 'http://www.joedolson.com/donate/' ) . "</label>
         </p>
         <p>
-        <label for='support_request'>" . __( 'Support Request:', 'wp-accessibility' ) . "</label><br /><textarea name='support_request' required aria-required='true' id='support_request' cols='80' rows='10'>" . stripslashes( $request ) . "</textarea>
+        <label for='support_request'>" . __( 'Support Request:', 'wp-accessibility' ) . "</label><br /><textarea name='support_request' required id='support_request' cols='80' rows='10'>" . stripslashes( $request ) . "</textarea>
 		</p>
 		<p>
 		<input type='submit' value='" . __( 'Send Support Request', 'wp-accessibility' ) . "' name='wpa_support' class='button-primary' />
@@ -1001,6 +999,7 @@ function wpa_accessible_theme() {
 	return false;
 }
 
+/*
 add_action( 'init', 'wpa_dismiss_notice' );
 function wpa_dismiss_notice() {
 	if ( isset( $_GET['dismiss'] ) && $_GET['dismiss'] == 'update' ) {
@@ -1016,6 +1015,7 @@ function wpa_update_notice() {
 		echo "<div class='updated fade'><p>" . sprintf( __( 'Have you seen my new accessibility plug-in? <a href="%1$s">Check out Access Monitor</a>! &nbsp; &nbsp; <a href="%2$s">Dismiss Notice<span class="dashicons dashicons-no" aria-hidden="true"></span></a>', 'wp-accessibility' ), $access_monitor, $dismiss ) . "</p></div>";
 	}
 }
+*/
 
 add_filter( 'manage_media_columns', 'wpa_media_columns' );
 add_action( 'manage_media_custom_column', 'wpa_media_value', 10, 2 );

@@ -72,7 +72,6 @@ function wpa_update_settings() {
 			$wpa_focus                   = ( isset( $_POST['wpa_focus'] ) ) ? 'on' : '';
 			$wpa_focus_color             = ( isset( $_POST['wpa_focus_color'] ) ) ? str_replace( '#', '', $_POST['wpa_focus_color'] ) : '';
 			$wpa_continue                = ( isset( $_POST['wpa_continue'] ) ) ? $_POST['wpa_continue'] : 'Continue Reading';
-			$wpa_admin_css               = ( isset( $_POST['wpa_admin_css'] ) ) ? 'on' : '';
 			$wpa_row_actions             = ( isset( $_POST['wpa_row_actions'] ) ) ? 'on' : '';
 			$wpa_diagnostics             = ( isset( $_POST['wpa_diagnostics'] ) ) ? 'on' : '';
 			$wpa_insert_roles            = ( isset( $_POST['wpa_insert_roles'] ) ) ? 'on' : '';
@@ -90,7 +89,6 @@ function wpa_update_settings() {
 			update_option( 'wpa_focus', $wpa_focus );
 			update_option( 'wpa_focus_color', $wpa_focus_color );
 			update_option( 'wpa_continue', $wpa_continue );
-			update_option( 'wpa_admin_css', $wpa_admin_css );
 			update_option( 'wpa_row_actions', $wpa_row_actions );
 			update_option( 'wpa_diagnostics', $wpa_diagnostics );
 			update_option( 'wpa_insert_roles', $wpa_insert_roles );
@@ -378,12 +376,6 @@ function wpa_admin_menu() {
 									echo 'checked="checked" ';
 								} ?>/> <label
 									for="wpa_longdesc_featured"><?php _e( 'Support <code>longdesc</code> on featured images', 'wp-accessibility' ); ?></label>
-							</li>
-							<li><input type="checkbox" id="wpa_admin_css"
-									   name="wpa_admin_css" <?php if ( get_option( 'wpa_admin_css' ) == "on" ) {
-									echo 'checked="checked" ';
-								} ?>/> <label
-									for="wpa_admin_css"><?php _e( 'Enable WordPress Admin stylesheet', 'wp-accessibility' ); ?></label>
 							</li>
 							<li><input type="checkbox" id="wpa_row_actions"
 									   name="wpa_row_actions" <?php if ( get_option( 'wpa_row_actions' ) == "on" ) {
