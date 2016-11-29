@@ -62,6 +62,13 @@ Translating my plug-ins is always appreciated. Visit <a href="https://translate.
 
 = 1.5.7 =
 
+* Remove menu role from toolbar
+* Fixed toolbar button font size adjustment
+* Updated screen reader text class to include clip-path and whitespace
+* Minor toolbar design tweaks
+* Removed WordPress admin stylesheet (obsolete)
+* Misc display fixes in settings
+* Remove 'Access Monitor' admin notice
 * Bug fix: Missing space in featured img HTML
 * Bug fix: Switch main heading to H1
 
