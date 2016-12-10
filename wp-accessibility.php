@@ -3,7 +3,7 @@
 Plugin Name: WP Accessibility
 Plugin URI: http://www.joedolson.com/wp-accessibility/
 Description: Helps improve accessibility in your WordPress site, like removing title attributes.
-Version: 1.5.7
+Version: 1.5.8
 Author: Joe Dolson
 Text Domain: wp-accessibility
 Domain Path: /lang
@@ -44,7 +44,7 @@ function add_wpa_admin_menu() {
 
 // ACTIVATION
 function wpa_install() {
-	$wpa_version = '1.5.7';
+	$wpa_version = '1.5.8';
 	if ( get_option( 'wpa_installed' ) != 'true' ) {
 		add_option( 'rta_from_nav_menu', 'on' );
 		add_option( 'rta_from_page_lists', 'on' );
@@ -120,6 +120,7 @@ function wpa_admin_stylesheet() {
 }
 
 function wpa_admin_js() {
+	return;
 } // just a placeholder
 
 add_action( 'admin_head', 'wpa_admin_stylesheet' );
@@ -242,8 +243,8 @@ function wpa_toolbar_html() {
 	$grayscale        = __( 'Toggle Grayscale', 'wp-accessibility' );
 	$fontsize         = __( 'Toggle Font size', 'wp-accessibility' );
 	$enable_grayscale = ( get_option( 'wpa_toolbar_gs' ) == 'on' ) ? true : false;
-	$enable_contrast  = ( get_option( 'wpa_toolbar_fs' ) == 'off' ) ? false : true;
-	$enable_fontsize   = ( get_option( 'wpa_toolbar_ct' ) == 'off' ) ? false : true;
+	$enable_contrast  = ( get_option( 'wpa_toolbar_ct' ) == 'off' ) ? false : true;
+	$enable_fontsize   = ( get_option( 'wpa_toolbar_fs' ) == 'off' ) ? false : true;
 	$responsive       = ( get_option( 'wpa_toolbar_mobile' ) == 'on' ) ? 'a11y-responsive ' : '';
 	$toolbar          = '
 <!-- a11y toolbar widget -->
