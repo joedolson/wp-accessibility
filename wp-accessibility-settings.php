@@ -229,7 +229,7 @@ function wpa_admin_menu() {
 											for="wpa_toolbar_fs"><?php _e( 'Exclude font size toggle from Accessibility toolbar', 'wp-accessibility' ); ?></label>
 									</li>
 									<li><input type="checkbox" id="wpa_toolbar_ct"
-											   name="wpa_toolbar_ct" <?php if ( get_option( 'wpa_toolbar_ct' ) == "on" ) {
+											   name="wpa_toolbar_ct" <?php if ( get_option( 'wpa_toolbar_ct' ) == "off" ) {
 											echo 'checked="checked" ';
 										} ?>/> <label
 											for="wpa_toolbar_ct"><?php _e( 'Exclude contrast toggle from Accessibility toolbar', 'wp-accessibility' ); ?></label>
