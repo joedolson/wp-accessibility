@@ -3,7 +3,7 @@
 Plugin Name: WP Accessibility
 Plugin URI: http://www.joedolson.com/wp-accessibility/
 Description: Helps improve accessibility in your WordPress site, like removing title attributes.
-Version: 1.5.8
+Version: 1.5.9
 Author: Joe Dolson
 Text Domain: wp-accessibility
 Domain Path: /lang
@@ -44,7 +44,7 @@ function add_wpa_admin_menu() {
 
 // ACTIVATION
 function wpa_install() {
-	$wpa_version = '1.5.8';
+	$wpa_version = '1.5.9';
 	if ( get_option( 'wpa_installed' ) != 'true' ) {
 		add_option( 'rta_from_nav_menu', 'on' );
 		add_option( 'rta_from_page_lists', 'on' );
