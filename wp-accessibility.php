@@ -268,6 +268,12 @@ function wpa_toolbar_html() {
 }
 
 function wpa_toolbar_js() {
+	// Toolbar does not work on Edge. Disable unless I solve the issue.
+	$user_agent = ( isset( $_SERVER['HTTP_USER_AGENT'] ) ) ? $_SERVER['HTTP_USER_AGENT'] : '';
+	if ( preg_match( '/Edge/i', $user_agent ) ) {
+		return;
+	}
+	
 	$contrast         = __( 'Toggle High Contrast', 'wp-accessibility' );
 	$grayscale        = __( 'Toggle Grayscale', 'wp-accessibility' );
 	$fontsize         = __( 'Toggle Font size', 'wp-accessibility' );
