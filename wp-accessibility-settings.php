@@ -13,22 +13,9 @@ function wpa_update_settings() {
 			die( "Security check failed" );
 		}
 		if ( isset( $_POST['action'] ) && $_POST['action'] == 'rta' ) {
-			$rta_from_nav_menu           = ( isset( $_POST['rta_from_nav_menu'] ) ) ? 'on' : '';
-			$rta_from_page_lists         = ( isset( $_POST['rta_from_page_lists'] ) ) ? 'on' : '';
-			$rta_from_category_lists     = ( isset( $_POST['rta_from_category_lists'] ) ) ? 'on' : '';
-			$rta_from_archive_links      = ( isset( $_POST['rta_from_archive_links'] ) ) ? 'on' : '';
 			$rta_from_tag_clouds         = ( isset( $_POST['rta_from_tag_clouds'] ) ) ? 'on' : '';
-			$rta_from_category_links     = ( isset( $_POST['rta_from_category_links'] ) ) ? 'on' : '';
-			$rta_from_post_edit_links    = ( isset( $_POST['rta_from_post_edit_links'] ) ) ? 'on' : '';
-			$rta_from_edit_comment_links = ( isset( $_POST['rta_from_edit_comment_links'] ) ) ? 'on' : '';
-			update_option( 'rta_from_nav_menu', $rta_from_nav_menu );
-			update_option( 'rta_from_page_lists', $rta_from_page_lists );
-			update_option( 'rta_from_category_lists', $rta_from_category_lists );
-			update_option( 'rta_from_archive_links', $rta_from_archive_links );
 			update_option( 'rta_from_tag_clouds', $rta_from_tag_clouds );
-			update_option( 'rta_from_category_links', $rta_from_category_links );
-			update_option( 'rta_from_post_edit_links', $rta_from_post_edit_links );
-			update_option( 'rta_from_edit_comment_links', $rta_from_edit_comment_links );
+			
 			$message = __( "Remove Title Attributes Settings Updated", 'wp-accessibility' );
 
 			return "<div class='updated'><p>" . $message . "</p></div>";
@@ -419,77 +406,17 @@ function wpa_admin_menu() {
 				<h2 class='hndle'><?php _e( 'Remove Title Attributes', 'wp-accessibility' ); ?></h2>
 
 				<div class="inside">
-				<?php wpa_accessible_theme(); ?>
-					<p>
-						<?php _e( 'As of WordPress 4.0, the only globally added title attributes are in the WordPress tag cloud, showing the number of posts with that tag, and on the categories list, if the category has a term description.', 'wp-accessibility' ); ?>
-					</p>
+					<?php wpa_accessible_theme(); ?>
 					<form method="post"
 					      action="<?php echo admin_url( 'options-general.php?page=wp-accessibility/wp-accessibility.php' ); ?>">
 						<fieldset>
 							<legend><?php _e( 'Remove title attributes from:', 'wp-accessibility' ); ?></legend>
 							<ul>
-								<?php if ( version_compare( get_bloginfo( 'version' ), '3.8', '<' ) ) { ?>
-								<li>
-									<input type="checkbox" id="rta_from_nav_menu"
-										name="rta_from_nav_menu" <?php if ( get_option( 'rta_from_nav_menu' ) == "on" ) {
-										echo 'checked="checked" ';
-									} ?>/> <label
-										for="rta_from_nav_menu"><?php _e( 'Nav menus', 'wp-accessibility' ); ?>
-										(<?php echo ( version_compare( get_bloginfo( 'version' ), '3.8', '>=' ) ) ? __( 'Obsolete since WordPress 3.8', 'wp-accessibility' ) : ''; ?>
-										)</label></li>
-								<li>
-									<input type="checkbox" id="rta_from_page_lists"
-										name="rta_from_page_lists" <?php if ( get_option( 'rta_from_page_lists' ) == "on" ) {
-										echo 'checked="checked" ';
-									} ?>/> <label
-										for="rta_from_page_lists"><?php _e( 'Page lists', 'wp-accessibility' ); ?>
-										(<?php echo ( version_compare( get_bloginfo( 'version' ), '3.8', '>=' ) ) ? __( 'Obsolete since WordPress 3.8', 'wp-accessibility' ) : ''; ?>
-										)</label></li>
-								<li>
-									<input type="checkbox" id="rta_from_category_links"
-										name="rta_from_category_links" <?php if ( get_option( 'rta_from_category_links' ) == "on" ) {
-										echo 'checked="checked" ';
-									} ?>/> <label
-										for="rta_from_category_links"><?php _e( 'Category links', 'wp-accessibility' ); ?>
-										(<?php echo ( version_compare( get_bloginfo( 'version' ), '3.8', '>=' ) ) ? __( 'Obsolete since WordPress 3.8', 'wp-accessibility' ) : ''; ?>
-										)</label></li>
-								<li>
-									<input type="checkbox" id="rta_from_post_edit_links"
-										name="rta_from_post_edit_links" <?php if ( get_option( 'rta_from_post_edit_links' ) == "on" ) {
-										echo 'checked="checked" ';
-									} ?>/> <label
-										for="rta_from_post_edit_links"><?php _e( 'Post edit links', 'wp-accessibility' ); ?>
-										(<?php echo ( version_compare( get_bloginfo( 'version' ), '3.8', '>=' ) ) ? __( 'Obsolete since WordPress 3.8', 'wp-accessibility' ) : ''; ?>
-										)</label></li>
-								<li>
-									<input type="checkbox" id="rta_from_edit_comment_links"
-										name="rta_from_edit_comment_links" <?php if ( get_option( 'rta_from_edit_comment_links' ) == "on" ) {
-										echo 'checked="checked" ';
-									} ?>/> <label
-										for="rta_from_edit_comment_links"><?php _e( 'Edit comment links', 'wp-accessibility' ); ?>
-										(<?php echo ( version_compare( get_bloginfo( 'version' ), '3.8', '>=' ) ) ? __( 'Obsolete since WordPress 3.8', 'wp-accessibility' ) : ''; ?>
-										)</label></li>	
-								<?php } ?>							
-								<?php if ( version_compare( get_bloginfo( 'version' ), '4.0', '<' ) ) { ?>								
-								<li><input type="checkbox" id="rta_from_category_lists"
-								           name="rta_from_category_lists" <?php if ( get_option( 'rta_from_category_lists' ) == "on" ) {
-										echo 'checked="checked" ';
-									} ?>/> <label
-										for="rta_from_category_lists"><?php _e( 'Category lists', 'wp-accessibility' ); ?></label>
-								</li>
-			
-								<?php } ?>
 								<li><input type="checkbox" id="rta_from_tag_clouds"
 								           name="rta_from_tag_clouds" <?php if ( get_option( 'rta_from_tag_clouds' ) == "on" ) {
 										echo 'checked="checked" ';
 									} ?>/> <label
 										for="rta_from_tag_clouds"><?php _e( 'Tag clouds', 'wp-accessibility' ); ?></label>
-								</li>
-								<li><input type="checkbox" id="rta_from_archive_links"
-								           name="rta_from_archive_links" <?php if ( get_option( 'rta_from_archive_links' ) == "on" ) {
-										echo 'checked="checked" ';
-									} ?>/> <label
-										for="rta_from_archive_links"><?php _e( 'Archive links', 'wp-accessibility' ); ?></label>
 								</li>	
 							</ul>
 						</fieldset>

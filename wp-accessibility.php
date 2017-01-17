@@ -564,30 +564,8 @@ function wpa_admin_styles() {
 	}
 }
 
-// Obsolete with 3.8: (nav menus, page lists, edit post links, edit comment links, category links)
-if ( get_option( 'rta_from_nav_menu' ) == 'on' && version_compare( get_bloginfo( 'version' ), '3.8.0', '<' ) ) {
-	add_filter( 'wp_nav_menu', 'wpa_remove_title_attributes' );
-}
-if ( get_option( 'rta_from_page_lists' ) == 'on' && version_compare( get_bloginfo( 'version' ), '3.8.0', '<' ) ) {
-	add_filter( 'wp_list_pages', 'wpa_remove_title_attributes' );
-}
-if ( get_option( 'rta_from_category_lists' ) == 'on' ) {
-	add_filter( 'wp_list_categories', 'wpa_remove_title_attributes' );
-}
-if ( get_option( 'rta_from_archive_links' ) == 'on' ) {
-	add_filter( 'get_archives_link', 'wpa_remove_title_attributes' );
-}
 if ( get_option( 'rta_from_tag_clouds' ) == 'on' ) {
 	add_filter( 'wp_tag_cloud', 'wpa_remove_title_attributes' );
-}
-if ( get_option( 'rta_from_category_links' && version_compare( get_bloginfo( 'version' ), '3.8.0', '<' ) ) == 'on' ) {
-	add_filter( 'the_category', 'wpa_remove_title_attributes' );
-}
-if ( get_option( 'rta_from_post_edit_links' && version_compare( get_bloginfo( 'version' ), '3.8.0', '<' ) ) == 'on' ) {
-	add_filter( 'edit_post_link', 'wpa_remove_title_attributes' );
-}
-if ( get_option( 'rta_from_edit_comment_links' && version_compare( get_bloginfo( 'version' ), '3.8.0', '<' ) ) == 'on' ) {
-	add_filter( 'edit_comment_link', 'wpa_remove_title_attributes' );
 }
 
 function wpa_remove_title_attributes( $output ) {
