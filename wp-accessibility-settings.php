@@ -577,6 +577,7 @@ function wpa_admin_menu() {
 
 				<div class="inside">
 					<ul>
+						<li><a href="http://make.wordpress.org/accessibility/wp-accessibility-plugin/">Documentation</a></li>
 						<li><a href="http://make.wordpress.org/accessibility/">Make WordPress: Accessibility</a></li>
 						<li><a href="https://make.wordpress.org/themes/handbook/review/accessibility/">WordPress Theme Accessibility Guidelines</a></li>
 						<li><a href="http://make.wordpress.org/support/user-manual/web-publishing/accessibility/">WordPress
