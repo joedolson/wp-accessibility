@@ -679,7 +679,7 @@ $plugins_string
 			if ( $has_donated == 'Donor' ) {
 				echo "<div class='message updated'><p>" . __( 'Thank you for supporting the continuing development of this plug-in! I\'ll get back to you as soon as I can.', 'wp-accessibility' ) . "</p></div>";
 			} else {
-				echo "<div class='message updated'><p>" . __( 'I cannot provide  support, but will treat your request as a bug report, and will incorporate any permanent solutions I discover into the plug-in.', 'wp-accessibility' ) . "</p></div>";
+				echo "<div class='message updated'><p>" . __( 'I cannot provide support, but will treat your request as a bug report, and will incorporate any permanent solutions I discover into the plug-in.', 'wp-accessibility' ) . "</p></div>";
 			}
 		}
 	}
@@ -903,7 +903,7 @@ function wpa_media_value( $column, $id ) {
 			case 'image/jpeg':
 			case 'image/png':
 			case 'image/gif':
-				$alt = get_post_meta( $id, '_wp_attachment_image_alt', true );
+				$alt    = get_post_meta( $id, '_wp_attachment_image_alt', true );
 				$no_alt = get_post_meta( $id, '_no_alt', true );
 				if ( !$alt && !$no_alt ) {
 					echo '<span class="missing"><span class="dashicons dashicons-no" aria-hidden="true"></span> <a href="'.get_edit_post_link( $id ).'#attachment_alt">'.__( 'Add <code>alt</code> text', 'wp-accessibility' ).'</a></span>';

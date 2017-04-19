@@ -60,6 +60,11 @@ Translating my plug-ins is always appreciated. Visit <a href="https://translate.
 
 [Suggest a change!](https://github.com/joedolson/wp-accessibility/)
 
+= 1.5.11 =
+
+* Bug fix: incorrect CSS style reference on longdesc template
+* 
+
 = 1.5.10 =
 
 * Disable Toolbar on Edge due to page not found bug.

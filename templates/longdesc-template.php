@@ -11,7 +11,7 @@
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<title><?php the_title(); ?></title>
 	<link rel="stylesheet" type="text/css" href="<?php print get_stylesheet_uri(); ?>">
-	<link rel="stylesheet" type="text/css" href="<?php print plugins_url( '/wp-accessibility/wpa-style.css' ); ?>">
+	<link rel="stylesheet" type="text/css" href="<?php print plugins_url( '/wp-accessibility/css/wpa-style.css' ); ?>">
 </head>
 <body>
 <div id="longdesc" class="template-longdesc">
