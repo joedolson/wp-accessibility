@@ -221,11 +221,11 @@ function wpa_admin_menu() {
 										} ?>/> <label
 											for="wpa_toolbar_ct"><?php _e( 'Exclude contrast toggle from Accessibility toolbar', 'wp-accessibility' ); ?></label>
 									</li>
-									<li><input type="checkbox" id="wpa_toolbar_gs"
+									<li><input type="checkbox" aria-describedby="wpa_toolbar_gs_note" id="wpa_toolbar_gs"
 											   name="wpa_toolbar_gs" <?php if ( get_option( 'wpa_toolbar_gs' ) == "on" ) {
 											echo 'checked="checked" ';
 										} ?>/> <label
-											for="wpa_toolbar_gs"><?php _e( 'Include grayscale toggle with Accessibility toolbar', 'wp-accessibility' ); ?></label>
+											for="wpa_toolbar_gs"><?php _e( 'Include grayscale toggle with Accessibility toolbar', 'wp-accessibility' ); ?></label><br /><em id="wpa_toolbar_gs_note"><?php _e( 'The grayscale toggle is only intended for testing, and will appear only for logged-in administrators', 'wp-accessibility' ); ?></em>
 									</li>									
 								</ul>
 							</li>
