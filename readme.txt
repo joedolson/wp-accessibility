@@ -63,7 +63,9 @@ Translating my plug-ins is always appreciated. Visit <a href="https://translate.
 = 1.5.11 =
 
 * Bug fix: incorrect CSS style reference on longdesc template
-* 
+* Re-enable Toolbar on Edge (slightly different from other browsers, but functional.)
+* Hide grayscale from non-admins.
+* Add note reflecting above
 
 = 1.5.10 =
 
