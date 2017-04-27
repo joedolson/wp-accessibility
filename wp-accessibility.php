@@ -170,6 +170,9 @@ function wpacc_enqueue_scripts() {
 	if ( get_option( 'wpa_longdesc' ) == 'jquery' ) {
 		wp_enqueue_script( 'longdesc.button', plugins_url( 'js/longdesc.button.js', __FILE__ ), array( 'jquery' ), '1.0', true );
 	}
+	if ( get_option( 'wpa_current_menu' ) == 'on' ) {	
+		wp_enqueue_script( 'current.menu', plugins_url( 'js/current-menu-item.js', __FILE__ ), array( 'jquery' ), '1.0', true );
+	}
 }
 
 add_action( 'wp_enqueue_scripts', 'wpa_stylesheet' );

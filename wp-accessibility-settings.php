@@ -53,6 +53,7 @@ function wpa_update_settings() {
 			$wpa_tabindex                = ( isset( $_POST['wpa_tabindex'] ) ) ? 'on' : '';
 			$wpa_underline               = ( isset( $_POST['wpa_underline'] ) ) ? 'on' : '';
 			$wpa_longdesc                = ( isset( $_POST['wpa_longdesc'] ) ) ? esc_attr( $_POST['wpa_longdesc'] ) : 'false';
+			$wpa_current_menu            = ( isset( $_POST['wpa_current_menu'] ) ) ? esc_attr( $_POST['wpa_current_menu'] ) : '';
 			$wpa_longdesc_featured       = ( isset( $_POST['wpa_longdesc_featured'] ) ) ? esc_attr( $_POST['wpa_longdesc_featured'] ) : 'false';
 			$wpa_image_titles            = ( isset( $_POST['wpa_image_titles'] ) ) ? 'on' : '';
 			$wpa_more                    = ( isset( $_POST['wpa_more'] ) ) ? 'on' : '';
@@ -70,6 +71,7 @@ function wpa_update_settings() {
 			update_option( 'wpa_tabindex', $wpa_tabindex );
 			update_option( 'wpa_underline', $wpa_underline );
 			update_option( 'wpa_longdesc', $wpa_longdesc );
+			update_option( 'wpa_current_menu', $wpa_current_menu );
 			update_option( 'wpa_longdesc_featured', $wpa_longdesc_featured );
 			update_option( 'wpa_image_titles', $wpa_image_titles );
 			update_option( 'wpa_more', $wpa_more );
@@ -391,6 +393,12 @@ function wpa_admin_menu() {
 									for="wpa_focus_color"><?php _e( 'Outline color (hexadecimal, optional)', 'wp-accessibility' ); ?></label><input
 									type="text" id="wpa_focus_color" name="wpa_focus_color"
 									value="#<?php esc_attr_e( get_option( 'wpa_focus_color' ) ); ?>"/></li>
+							<li><input type="checkbox" id="wpa_current_menu"
+									   name="wpa_current_menu" <?php if ( get_option( 'wpa_current_menu' ) == "on" ) {
+									echo 'checked="checked" ';
+								} ?>/> <label
+									for="wpa_current_menu"><?php _e( 'Non-visually identify currently active menu item', 'wp-accessibility' ); ?></label>
+								</li>									
 						</ul>
 						<p>
 							<input type="hidden" name="_wpnonce" value="<?php echo wp_create_nonce( 'wpa-nonce' ); ?>"/>
