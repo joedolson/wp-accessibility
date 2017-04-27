@@ -66,6 +66,7 @@ Translating my plug-ins is always appreciated. Visit <a href="https://translate.
 * Re-enable Toolbar on Edge (slightly different from other browsers, but functional.)
 * Hide grayscale from non-admins.
 * Add note reflecting above
+* Add feature: identify current menu item
 
 = 1.5.10 =
 
