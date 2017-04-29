@@ -12,8 +12,8 @@ function wpa_toolbar_html( $type = 'widget' ) {
 	$is_rtl           = ( is_rtl() ) ? ' rtl' : ' ltr';
 	$is_right         = ( get_option( 'wpa_toolbar_right' ) == 'on' ) ? ' right' : ' left';
 	$toolbar_type     = ( $type == 'widget' ) ? 'a11y-toolbar-widget' : 'a11y-toolbar';
-	$control_type     = ( $type == 'button' ) ? 'a href="#" role="button"' : 'button type="button"'; // button control does not work in Edge.
-	$closure          = ( $type == 'button' ) ? 'a' : 'button';  // button control does not work in Edge
+	$control_type     = ( $type != 'button' ) ? 'a href="#" role="button"' : 'button type="button"'; // button control does not work in Edge.
+	$closure          = ( $type != 'button' ) ? 'a' : 'button';  // button control does not work in Edge
 	$toolbar          = '
 <!-- a11y toolbar widget -->
 <div class="' . $responsive . ' ' . $is_rtl . ' ' . $is_right . ' ' . $toolbar_type . '">
@@ -45,7 +45,7 @@ function wpa_toolbar_js() {
 	$responsive       = ( get_option( 'wpa_toolbar_mobile' ) == 'on' ) ? 'a11y-responsive ' : 'a11y-non-responsive ';	
 		
 	if ( preg_match( '/Edge/i', $user_agent ) ) {
-		echo wpa_toolbar_html( 'button' );
+		echo wpa_toolbar_html( 'js' );
 		echo "<script type='text/javascript'>
 		//<![CDATA[
 		(function( $ ) { 'use strict';
