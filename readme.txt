@@ -4,7 +4,7 @@ Donate link: http://www.joedolson.com/donate/
 Tags: title, accessibility, accessible, navigation, wcag, a11y, section508, focus, alt text, labels, aria
 Requires at least: 3.4.2
 Tested up to: 4.7
-Stable tag: 1.5.10
+Stable tag: 1.6.0
 Text Domain: wp-accessibility
 License: GPLv2 or later
 
@@ -60,7 +60,13 @@ Translating my plug-ins is always appreciated. Visit <a href="https://translate.
 
 [Suggest a change!](https://github.com/joedolson/wp-accessibility/)
 
-= 1.5.11 =
+= 1.6.1 =
+
+* Fixed changelog, which read 1.5.11 instead of 1.6.0
+* Fixed logic in widget version of toolbar so wouldn't use buttons unless requested
+* 
+
+= 1.6.0 =
 
 * Bug fix: incorrect CSS style reference on longdesc template
 * Re-enable Toolbar on Edge (slightly different from other browsers, but functional.)
