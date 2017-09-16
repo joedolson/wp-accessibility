@@ -3,7 +3,7 @@
 Plugin Name: WP Accessibility
 Plugin URI: http://www.joedolson.com/wp-accessibility/
 Description: Helps improve accessibility in your WordPress site, like removing title attributes.
-Version: 1.6.0
+Version: 1.6.1
 Author: Joe Dolson
 Text Domain: wp-accessibility
 Domain Path: /lang
@@ -63,7 +63,7 @@ function wpa_write_js() {
 
 // ACTIVATION
 function wpa_install() {
-	$wpa_version = '1.6.0';
+	$wpa_version = '1.6.1';
 	if ( get_option( 'wpa_installed' ) != 'true' ) {
 		add_option( 'rta_from_nav_menu', 'on' );
 		add_option( 'rta_from_page_lists', 'on' );
@@ -290,20 +290,20 @@ function wpa_jquery_asl() {
 		if ( $extra != '' && ! wpa_is_url( $extra ) ) {
 			$extra = "#$extra";
 		}
-		$extra_text = stripslashes( get_option( 'asl_extra_text' ) );
-		$content    = str_replace( '#', '', esc_attr( get_option( 'asl_content' ) ) );
-		$nav        = str_replace( '#', '', esc_attr( get_option( 'asl_navigation' ) ) );
-		$sitemap    = esc_url( get_option( 'asl_sitemap' ) );
-		$html .= ( $content != '' ) ? "<a href=\"#$content\">" . __( 'Skip to content', 'wp-accessibility' ) . "</a> " : '';
-		$html .= ( $nav != '' ) ? "<a href=\"#$nav\">" . __( 'Skip to navigation', 'wp-accessibility' ) . "</a> " : '';
-		$html .= ( $sitemap != '' ) ? "<a href=\"$sitemap\">" . __( 'Site map', 'wp-accessibility' ) . "</a> " : '';
-		$html .= ( $extra != '' && $extra_text != '' ) ? "<a href=\"$extra\">$extra_text</a> " : '';
-		$is_rtl = ( is_rtl() ) ? '-rtl' : '-ltr';
-		$skiplinks = __( 'Skip links', 'wp-accessibility' );
-		$output = ( $html != '' ) ? "<div class=\"$visibility$is_rtl\" id=\"skiplinks\" role=\"navigation\" aria-label=\"$skiplinks\">$html</div>" : '';
+		$extra_text   = stripslashes( get_option( 'asl_extra_text' ) );
+		$content      = str_replace( '#', '', esc_attr( get_option( 'asl_content' ) ) );
+		$nav          = str_replace( '#', '', esc_attr( get_option( 'asl_navigation' ) ) );
+		$sitemap      = esc_url( get_option( 'asl_sitemap' ) );
+		$html        .= ( $content != '' ) ? "<a href=\"#$content\">" . __( 'Skip to content', 'wp-accessibility' ) . "</a> " : '';
+		$html        .= ( $nav != '' ) ? "<a href=\"#$nav\">" . __( 'Skip to navigation', 'wp-accessibility' ) . "</a> " : '';
+		$html        .= ( $sitemap != '' ) ? "<a href=\"$sitemap\">" . __( 'Site map', 'wp-accessibility' ) . "</a> " : '';
+		$html        .= ( $extra != '' && $extra_text != '' ) ? "<a href=\"$extra\">$extra_text</a> " : '';
+		$is_rtl       = ( is_rtl() ) ? '-rtl' : '-ltr';
+		$skiplinks    = __( 'Skip links', 'wp-accessibility' );
+		$output       = ( $html != '' ) ? "<div class=\"$visibility$is_rtl\" id=\"skiplinks\" role=\"navigation\" aria-label=\"$skiplinks\">$html</div>" : '';
 		// attach skiplinks HTML; set tabindex on #content area to -1
-		$focusable = ( $content != '' ) ? "$('#$content').attr('tabindex','-1');" : '';
-		$focusable .= ( $nav != '' ) ? "$('#$nav').attr('tabindex','-1');" : '';
+		$focusable    = ( $content != '' ) ? "$('#$content').attr('tabindex','-1');" : '';
+		$focusable   .= ( $nav != '' ) ? "$('#$nav').attr('tabindex','-1');" : '';
 		$skiplinks_js = ( $output ) ? "$('body').prepend('$output'); $focusable" : '';
 	}
 	// attach language to html element

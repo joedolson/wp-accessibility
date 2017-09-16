@@ -3,8 +3,8 @@ Contributors: joedolson
 Donate link: http://www.joedolson.com/donate/
 Tags: title, accessibility, accessible, navigation, wcag, a11y, section508, focus, alt text, labels, aria
 Requires at least: 3.4.2
-Tested up to: 4.7
-Stable tag: 1.6.0
+Tested up to: 4.8
+Stable tag: 1.6.1
 Text Domain: wp-accessibility
 License: GPLv2 or later
 
@@ -59,12 +59,15 @@ Translating my plug-ins is always appreciated. Visit <a href="https://translate.
 = Future =
 
 [Suggest a change!](https://github.com/joedolson/wp-accessibility/)
+* Conflict with NextGen gallery to explore
+* Gutenberg: filter colors in cover text?
+* 
 
 = 1.6.1 =
 
 * Fixed changelog, which read 1.5.11 instead of 1.6.0
 * Fixed logic in widget version of toolbar so wouldn't use buttons unless requested
-* 
+* Update 'tested to' version.
 
 = 1.6.0 =
 
