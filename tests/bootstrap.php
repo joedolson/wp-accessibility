@@ -23,7 +23,7 @@ require_once $_tests_dir . '/includes/functions.php';
  * Manually load the plugin being tested.
  */
 function _manually_load_plugin() {
-	require dirname( dirname( __FILE__ ) ) . '/src/my-calendar.php';
+	require dirname( dirname( __FILE__ ) ) . '/src/wp-accessibility.php';
 }
 tests_add_filter( 'muplugins_loaded', '_manually_load_plugin' );
 
