@@ -1,6 +1,10 @@
 <?php
 
-add_action( 'widgets_init', create_function( '', 'return register_widget("wp_accessibility_toolbar");' ) );
+add_action( 'widgets_init', 'wpa_register_toolbar_widget' );
+function wpa_register_toolbar_widget() {
+	register_widget("wp_accessibility_toolbar");
+}
+
 class wp_accessibility_toolbar extends WP_Widget {
 	function __construct() {
 		parent::__construct( false, $name = __( 'Accessibility Toolbar', 'wp-accessibility' ), array( 'customize_selective_refresh' => true ) );
@@ -21,7 +25,7 @@ class wp_accessibility_toolbar extends WP_Widget {
 		?>
 		<p>
 			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'wp-accessibility' ); ?></label>
-			<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php esc_attr_e( $title ); ?>"/>
+			<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>"/>
 		</p>
 	<?php		
 	}

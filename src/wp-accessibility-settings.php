@@ -2,7 +2,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
-} // Exit if accessed directly
+}
 
 
 function wpa_update_settings() {
@@ -10,7 +10,7 @@ function wpa_update_settings() {
 	if ( ! empty( $_POST ) ) {
 		$nonce = $_REQUEST['_wpnonce'];
 		if ( ! wp_verify_nonce( $nonce, 'wpa-nonce' ) ) {
-			die( "Security check failed" );
+			die( 'Security check failed' );
 		}
 		if ( isset( $_POST['action'] ) && $_POST['action'] == 'rta' ) {
 			$rta_from_tag_clouds         = ( isset( $_POST['rta_from_tag_clouds'] ) ) ? 'on' : '';
@@ -18,7 +18,7 @@ function wpa_update_settings() {
 			
 			$message = __( "Remove Title Attributes Settings Updated", 'wp-accessibility' );
 
-			return "<div class='updated'><p>" . $message . "</p></div>";
+			return "<div class='updated'><p>" . $message . '</p></div>';
 		}
 		if ( isset( $_POST['action'] ) && $_POST['action'] == 'asl' ) {
 			$asl_enable         = ( isset( $_POST['asl_enable'] ) ) ? 'on' : '';
@@ -84,7 +84,7 @@ function wpa_update_settings() {
 			update_option( 'wpa_complementary_container', $wpa_complementary_container );
 			$message = __( "Miscellaneous Accessibility Settings Updated", 'wp-accessibility' );
 
-			return "<div class='updated'><p>" . $message . "</p></div>";
+			return "<div class='updated'><p>" . $message . '</p></div>';
 		}
 		
 		if ( isset( $_POST['action'] ) && $_POST['action'] == 'toolbar' ) {
@@ -110,7 +110,7 @@ function wpa_update_settings() {
 			update_option( 'wpa_toolbar_mobile', $wpa_toolbar_mobile );	
 			$message = __( "Toolbar Settings Updated", 'wp-accessibility' );
 
-			return "<div class='updated'><p>" . $message . "</p></div>";
+			return "<div class='updated'><p>" . $message . '</p></div>';
 		}	
 	} else {
 		return;
@@ -154,26 +154,26 @@ function wpa_admin_menu() {
 								<li><label
 										for="asl_content"><?php _e( 'Skip to Content link target (ID of your main content container)', 'wp-accessibility' ); ?></label>
 									<input type="text" id="asl_content" name="asl_content"
-									       value="<?php esc_attr_e( get_option( 'asl_content' ) ); ?>"/></li>
+									       value="<?php echo esc_attr( get_option( 'asl_content' ) ); ?>"/></li>
 								<li><label
 										for="asl_navigation"><?php _e( 'Skip to Navigation link target (ID of your main navigation container)', 'wp-accessibility' ); ?></label>
 									<input type="text" id="asl_navigation" name="asl_navigation"
-									       value="<?php esc_attr_e( get_option( 'asl_navigation' ) ); ?>"/></li>
+									       value="<?php echo esc_attr( get_option( 'asl_navigation' ) ); ?>"/></li>
 								<li><label
 										for="asl_sitemap"><?php _e( 'Site Map link target (URL for your site map)', 'wp-accessibility' ); ?></label><input
 										type="text" id="asl_sitemap" name="asl_sitemap" size="44"
-										value="<?php esc_attr_e( get_option( 'asl_sitemap' ) ); ?>"/></li>
+										value="<?php echo esc_attr( get_option( 'asl_sitemap' ) ); ?>"/></li>
 								<li><label
 										for="asl_extra_target"><?php _e( 'Add your own link (link or container ID)', 'wp-accessibility' ); ?></label>
 									<input type="text" id="asl_extra_target" name="asl_extra_target"
-									       value="<?php esc_attr_e( get_option( 'asl_extra_target' ) ); ?>"/> <label
+									       value="<?php echo esc_attr( get_option( 'asl_extra_target' ) ); ?>"/> <label
 										for="asl_extra_text"><?php _e( 'Link text for your link', 'wp-accessibility' ); ?></label>
 									<input type="text" id="asl_extra_text" name="asl_extra_text"
-									       value="<?php esc_attr_e( get_option( 'asl_extra_text' ) ); ?>"/></li>
+									       value="<?php echo esc_attr( get_option( 'asl_extra_text' ) ); ?>"/></li>
 								<li><label
 										for="asl_styles_focus"><?php _e( 'Styles for Skiplinks when they have focus', 'wp-accessibility' ); ?></label><br/>
 									<textarea name='asl_styles_focus' id='asl_styles_focus' cols='60'
-									          rows='4'><?php esc_attr_e( stripslashes( get_option( 'asl_styles_focus' ) ) ); ?></textarea>
+									          rows='4'><?php echo esc_attr( stripslashes( get_option( 'asl_styles_focus' ) ) ); ?></textarea>
 								</li>
 								<?php if ( get_option( 'asl_visible' ) != 'on' ) {
 									$disabled = " disabled='disabled' style='background: #eee;'";
@@ -232,7 +232,7 @@ function wpa_admin_menu() {
 								</ul>
 							</li>
 							<li>
-								<label for="wpa_toolbar_default"><?php _e( 'Toolbar location (ID attribute)', 'wp-accessibility' ); ?></label> <input type="text" id="wpa_toolbar_default" name="wpa_toolbar_default" value="<?php esc_attr_e( get_option( 'wpa_toolbar_default' ) ); ?>" />
+								<label for="wpa_toolbar_default"><?php _e( 'Toolbar location (ID attribute)', 'wp-accessibility' ); ?></label> <input type="text" id="wpa_toolbar_default" name="wpa_toolbar_default" value="<?php echo esc_attr( get_option( 'wpa_toolbar_default' ) ); ?>" />
 							</li>							
 							<?php
 							$size = get_option( 'wpa_toolbar_size' );
@@ -305,7 +305,7 @@ function wpa_admin_menu() {
 								} ?>/> <label
 									for="wpa_more"><?php _e( 'Add post title to "more" links.', 'wp-accessibility' ); ?></label>
 								<label for="wpa_continue"><?php _e( 'Continue reading text', 'wp-accessibility' ); ?></label>
-								<input type="text" id="wpa_continue" name="wpa_continue" value="<?php esc_attr_e( get_option( 'wpa_continue' ) ); ?>"/></li>
+								<input type="text" id="wpa_continue" name="wpa_continue" value="<?php echo esc_attr( get_option( 'wpa_continue' ) ); ?>"/></li>
 							<li><input type="checkbox" id="wpa_insert_roles"
 									   name="wpa_insert_roles" <?php if ( get_option( 'wpa_insert_roles' ) == "on" ) {
 									echo 'checked="checked" ';
@@ -313,7 +313,7 @@ function wpa_admin_menu() {
 									for="wpa_insert_roles"><?php _e( 'Add landmark roles to HTML5 structural elements', 'wp-accessibility' ); ?></label><br/><label
 									for="wpa_complementary_container"><?php _e( 'ID for complementary role', 'wp-accessibility' ); ?></label><input
 									type="text" id="wpa_complementary_container" name="wpa_complementary_container"
-									value="#<?php esc_attr_e( get_option( 'wpa_complementary_container' ) ); ?>"/>
+									value="#<?php echo esc_attr( get_option( 'wpa_complementary_container' ) ); ?>"/>
 							</li>
 							<li>
 								<input type="checkbox" id="wpa_labels" name="wpa_labels" <?php checked( get_option( 'wpa_labels'), 'on' ); ?> /> <label for='wpa_labels'><?php _e( 'Automatically Label WordPress search form and comment forms', 'wp-accessibility' ); ?></label>
@@ -392,7 +392,7 @@ function wpa_admin_menu() {
 								<label
 									for="wpa_focus_color"><?php _e( 'Outline color (hexadecimal, optional)', 'wp-accessibility' ); ?></label><input
 									type="text" id="wpa_focus_color" name="wpa_focus_color"
-									value="#<?php esc_attr_e( get_option( 'wpa_focus_color' ) ); ?>"/></li>
+									value="#<?php echo esc_attr( get_option( 'wpa_focus_color' ) ); ?>"/></li>
 							<li><input type="checkbox" id="wpa_current_menu"
 									   name="wpa_current_menu" <?php if ( get_option( 'wpa_current_menu' ) == "on" ) {
 									echo 'checked="checked" ';
@@ -457,7 +457,7 @@ function wpa_admin_menu() {
 					if ( $l_contrast ) {
 						$results = "
 			<div class='updated notice'>";
-						$results .= "<p class=\"stats wcag2\">" . sprintf( __( 'Luminosity Contrast Ratio for <code>#%2$s</code> and <code>#%3$s</code> is <strong>%1$s</strong> (Threshold: greater than 7:1 for AAA, 4.5:1 for AA)', 'wp-accessibility' ), $l_contrast, $hex1, $hex2 ) . "</p><p>";
+						$results .= "<p class=\"stats wcag2\">" . sprintf( __( 'Luminosity Contrast Ratio for <code>#%2$s</code> and <code>#%3$s</code> is <strong>%1$s</strong> (Threshold: greater than 7:1 for AAA, 4.5:1 for AA)', 'wp-accessibility' ), $l_contrast, $hex1, $hex2 ) . '</p><p>';
 						if ( $luminance_raw >= 7 ) {
 							$results .= __( "The colors compared <strong>pass</strong> the relative luminosity test at level AAA.", 'wp-accessibility' );
 						}
@@ -492,13 +492,13 @@ function wpa_admin_menu() {
 									<div id="fore"></div>
 									<label
 										for="color1"><?php _e( 'Foreground color', 'wp-accessibility' ); ?></label><br/><input
-										type="text" name="color" value="#<?php esc_attr_e( $hex1 ); ?>" size="34" id="color1"/>
+										type="text" name="color" value="#<?php echo esc_attr( $hex1 ); ?>" size="34" id="color1"/>
 								</li>
 								<li class='back'>
 									<div id="back"></div>
 									<label
 										for="color2"><?php _e( 'Background color', 'wp-accessibility' ); ?></label><br/><input
-										type="text" name="color2" value="#<?php esc_attr_e( $hex2 ); ?>" size="34" id="color2"/>
+										type="text" name="color2" value="#<?php echo esc_attr( $hex2 ); ?>" size="34" id="color2"/>
 								</li>
 							</ul>
 						</fieldset>

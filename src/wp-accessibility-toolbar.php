@@ -37,12 +37,12 @@ function wpa_toolbar_html( $type = 'widget' ) {
 
 function wpa_toolbar_js() {
 	// Toolbar does not work on Edge. Disable unless I solve the issue.
-	$default          = ( get_option( 'wpa_toolbar_default' ) != '' ) ? get_option( 'wpa_toolbar_default' ) : 'body';
-	$location         = apply_filters( 'wpa_move_toolbar', $default );
+	$default    = ( get_option( 'wpa_toolbar_default' ) != '' ) ? get_option( 'wpa_toolbar_default' ) : 'body';
+	$location   = apply_filters( 'wpa_move_toolbar', $default );
 	$user_agent = ( isset( $_SERVER['HTTP_USER_AGENT'] ) ) ? $_SERVER['HTTP_USER_AGENT'] : '';
-	$is_rtl           = ( is_rtl() ) ? ' rtl' : ' ltr';
-	$is_right         = ( get_option( 'wpa_toolbar_right' ) == 'on' ) ? ' right' : ' left';
-	$responsive       = ( get_option( 'wpa_toolbar_mobile' ) == 'on' ) ? 'a11y-responsive ' : 'a11y-non-responsive ';	
+	$is_rtl     = ( is_rtl() ) ? ' rtl' : ' ltr';
+	$is_right   = ( get_option( 'wpa_toolbar_right' ) == 'on' ) ? ' right' : ' left';
+	$responsive = ( get_option( 'wpa_toolbar_mobile' ) == 'on' ) ? 'a11y-responsive ' : 'a11y-non-responsive ';	
 		
 	if ( preg_match( '/Edge/i', $user_agent ) ) {
 		echo wpa_toolbar_html( 'js' );

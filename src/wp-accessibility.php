@@ -424,9 +424,9 @@ function wpa_contrast() {
 	if ( ! empty( $_POST ) ) {
 		$nonce = $_REQUEST['_wpnonce'];
 		if ( ! wp_verify_nonce( $nonce, 'wpa-nonce' ) ) {
-			die( "Security check failed" );
+			die( 'Security check failed' );
 		}
-		if ( isset( $_POST['color'] ) && $_POST['color'] != "" ) {
+		if ( isset( $_POST['color'] ) && $_POST['color'] != '' ) {
 			$fore_color = $_POST['color'];
 			if ( $fore_color[0] == "#" ) {
 				$fore_color = str_replace( '#', '', $fore_color );
@@ -442,7 +442,7 @@ function wpa_contrast() {
 			} else {
 				$echo_hex_fore = 'FFFFFF';
 			}
-			if ( isset( $_POST['color2'] ) && $_POST['color2'] != "" ) {
+			if ( isset( $_POST['color2'] ) && $_POST['color2'] != '' ) {
 				$back_color = $_POST['color2'];
 				if ( $back_color[0] == "#" ) {
 					$back_color = str_replace( '#', '', $back_color );
@@ -558,7 +558,7 @@ function wpa_custom_excerpt_more( $output ) {
 	return $output;
 }
 
-add_action( "admin_head", 'wpa_admin_styles' );
+add_action( 'admin_head', 'wpa_admin_styles' );
 
 function wpa_admin_styles() {
 	if ( isset( $_GET['page'] ) && ( $_GET['page'] == 'wp-accessibility/wp-accessibility.php' ) ) {
@@ -611,10 +611,10 @@ function wpa_get_support_form() {
 
 	// theme data
 	$theme         = wp_get_theme();
-	$theme_name    = $theme->Name;
-	$theme_uri     = $theme->ThemeURI;
-	$theme_parent  = $theme->Template;
-	$theme_version = $theme->Version;
+	$theme_name    = $theme->get( 'Name' );
+	$theme_uri     = $theme->get( 'ThemeURI' );
+	$theme_parent  = $theme->get( 'Template' );
+	$theme_version = $theme->get( 'Version' );
 
 	// plugin data
 	$plugins        = get_plugins();
@@ -658,11 +658,11 @@ $plugins_string
 	if ( isset( $_POST['wpa_support'] ) ) {
 		$nonce = $_REQUEST['_wpnonce'];
 		if ( ! wp_verify_nonce( $nonce, 'wpa-nonce' ) ) {
-			die( "Security check failed" );
+			die( 'Security check failed' );
 		}
 		$request      = ( ! empty( $_POST['support_request'] ) ) ? stripslashes( $_POST['support_request'] ) : false;
-		$has_donated  = ( $_POST['has_donated'] == 'on' ) ? "Donor" : "No donation";
-		$has_read_faq = ( $_POST['has_read_faq'] == 'on' ) ? "Read FAQ" : false;
+		$has_donated  = ( $_POST['has_donated'] == 'on' ) ? 'Donor' : 'No donation';
+		$has_read_faq = ( $_POST['has_read_faq'] == 'on' ) ? 'Read FAQ' : false;
 		$subject      = "WP Accessibility support request. $has_donated";
 		$message      = $request . "\n\n" . $data;
 		// Get the site domain and get rid of www. from pluggable.php
@@ -674,15 +674,15 @@ $plugins_string
 		$from       = "From: \"$current_user->display_name\" <$from_email>\r\nReply-to: \"$current_user->display_name\" <$current_user->user_email>\r\n";
 
 		if ( ! $has_read_faq ) {
-			echo "<div class='message error'><p>" . __( 'Please read the FAQ and other Help documents before making a support request.', 'wp-accessibility' ) . "</p></div>";
+			echo "<div class='message error'><p>" . __( 'Please read the FAQ and other Help documents before making a support request.', 'wp-accessibility' ) . '</p></div>';
 		} else if ( ! $request ) {
-			echo "<div class='message error'><p>" . __( 'Please describe your problem. I\'m not psychic.', 'wp-accessibility' ) . "</p></div>";
+			echo "<div class='message error'><p>" . __( 'Please describe your problem. I\'m not psychic.', 'wp-accessibility' ) . '</p></div>';
 		} else {
 			wp_mail( "plugins@joedolson.com", $subject, $message, $from );
 			if ( $has_donated == 'Donor' ) {
-				echo "<div class='message updated'><p>" . __( 'Thank you for supporting the continuing development of this plug-in! I\'ll get back to you as soon as I can.', 'wp-accessibility' ) . "</p></div>";
+				echo "<div class='message updated'><p>" . __( 'Thank you for supporting the continuing development of this plug-in! I\'ll get back to you as soon as I can.', 'wp-accessibility' ) . '</p></div>';
 			} else {
-				echo "<div class='message updated'><p>" . __( 'I cannot provide support, but will treat your request as a bug report, and will incorporate any permanent solutions I discover into the plug-in.', 'wp-accessibility' ) . "</p></div>";
+				echo "<div class='message updated'><p>" . __( 'I cannot provide support, but will treat your request as a bug report, and will incorporate any permanent solutions I discover into the plug-in.', 'wp-accessibility' ) . '</p></div>';
 			}
 		}
 	}
@@ -886,7 +886,7 @@ function wpa_update_notice() {
 	if ( current_user_can( 'activate_plugins' ) && get_option( 'wpa_update_notice' ) == 0 || ! get_option( 'wpa_update_notice' ) ) {
 		$dismiss = admin_url( 'options-general.php?page=wp-accessibility/wp-accessibility.php&dismiss=update' );
 		$access_monitor = "https://wordpress.org/plugins/access-monitor/";
-		echo "<div class='updated fade'><p>" . sprintf( __( 'Have you seen my new accessibility plug-in? <a href="%1$s">Check out Access Monitor</a>! &nbsp; &nbsp; <a href="%2$s">Dismiss Notice<span class="dashicons dashicons-no" aria-hidden="true"></span></a>', 'wp-accessibility' ), $access_monitor, $dismiss ) . "</p></div>";
+		echo "<div class='updated fade'><p>" . sprintf( __( 'Have you seen my new accessibility plug-in? <a href="%1$s">Check out Access Monitor</a>! &nbsp; &nbsp; <a href="%2$s">Dismiss Notice<span class="dashicons dashicons-no" aria-hidden="true"></span></a>', 'wp-accessibility' ), $access_monitor, $dismiss ) . '</p></div>';
 	}
 }
 */
@@ -908,7 +908,7 @@ function wpa_media_value( $column, $id ) {
 			case 'image/gif':
 				$alt    = get_post_meta( $id, '_wp_attachment_image_alt', true );
 				$no_alt = get_post_meta( $id, '_no_alt', true );
-				if ( !$alt && !$no_alt ) {
+				if ( ! $alt && !$no_alt ) {
 					echo '<span class="missing"><span class="dashicons dashicons-no" aria-hidden="true"></span> <a href="'.get_edit_post_link( $id ).'#attachment_alt">'.__( 'Add <code>alt</code> text', 'wp-accessibility' ).'</a></span>';
 				} else {
 					if ( $no_alt == 1 ) {
