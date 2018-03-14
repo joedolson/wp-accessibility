@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @license   GPLv2 or later
  * @version   1.0
  */
-class wp_accessibility_toolbar extends WP_Widget {
+class Wp_Accessibility_Toolbar extends WP_Widget {
 	/**
 	 * Construct widget.
 	 */
@@ -42,7 +42,10 @@ class wp_accessibility_toolbar extends WP_Widget {
 	 * @param array $instance Widget settings.
 	 */
 	function widget( $args, $instance ) {
-		extract( $args );
+		$before_widget = $args['before_widget'];
+		$after_widget  = $args['after_widget'];
+		$before_title  = $args['before_title'];
+		$after_title   = $args['after_title'];
 
 		$title = apply_filters( 'widget_title', ( empty( $instance['title'] ) ? false : $instance['title'] ), $instance, $args );
 		echo $before_widget;
@@ -53,6 +56,8 @@ class wp_accessibility_toolbar extends WP_Widget {
 
 	/**
 	 * Form to construct widget settings.
+	 *
+	 * @param array $instance Current widget settings.
 	 */
 	function form( $instance ) {
 		$title = ( isset( $instance['title'] ) ) ? esc_attr( $instance['title'] ) : '';
@@ -73,8 +78,8 @@ class wp_accessibility_toolbar extends WP_Widget {
 	 * @return array updated settings.
 	 */
 	function update( $new_instance, $old_instance ) {
-		$instance           = $old_instance;
-		$instance['title']  = strip_tags( $new_instance['title'] );
+		$instance          = $old_instance;
+		$instance['title'] = strip_tags( $new_instance['title'] );
 
 		return $instance;
 	}

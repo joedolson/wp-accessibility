@@ -11,15 +11,32 @@
  * Plugin Name: WP Accessibility
  * Plugin URI: http://www.joedolson.com/wp-accessibility/
  * Description: Helps improve accessibility in your WordPress site, like removing title attributes.
- * Version: 1.6.1
  * Author: Joe Dolson
+ * Author URI: http://www.joedolson.com/ 
  * Text Domain: wp-accessibility
- * Domain Path: /lang
+ * Domain Path: /lang 
  * License:     GPL-2.0+
- * License URI: http://www.gnu.org/license/gpl-2.0.txt
- * Author URI: http://www.joedolson.com/
- * Copyright 2012-2017 Joe Dolson (joe@joedolson.com)
+ * License URI: http://www.gnu.org/license/gpl-2.0.txt 
+ * Version: 1.6.1 
  */
+
+ /*
+	Copyright 2012-2018  Joe Dolson (email : joe@joedolson.com)
+
+	This program is free software; you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation; either version 2 of the License, or
+	(at your option) any later version.
+
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+
+	You should have received a copy of the GNU General Public License
+	along with this program; if not, write to the Free Software
+	Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+*/
 
 include( dirname( __FILE__ ) . '/wp-accessibility-settings.php' );
 include( dirname( __FILE__ ) . '/class-wp-accessibility-toolbar.php' );
@@ -113,7 +130,7 @@ add_filter( 'plugin_action_links', 'wpa_plugin_action', 10, 2 );
 function wpa_plugin_action( $links, $file ) {
 	if ( plugin_basename( dirname( __FILE__ ) . '/wp-accessibility.php' ) == $file ) {
 		$admin_url = admin_url( 'options-general.php?page=wp-accessibility/wp-accessibility.php' );
-		$links[]   = "<a href='$admin_url'>" . __( 'Accessibility Settings', 'wp-accessibility' ) . "</a>";
+		$links[]   = "<a href='$admin_url'>" . __( 'Accessibility Settings', 'wp-accessibility' ) . '</a>';
 	}
 
 	return $links;
@@ -285,7 +302,7 @@ function wpa_css() {
 		";
 	}
 	if ( 'on' == get_option( 'wpa_focus' ) ) {
-		$color   = ( '' != get_option( 'wpa_focus_color' ) ) ? " #" . get_option( 'wpa_focus_color' ) : '';
+		$color   = ( '' != get_option( 'wpa_focus_color' ) ) ? ' #' . get_option( 'wpa_focus_color' ) : '';
 		$styles .= "
 		:focus { outline: 1px solid$color!important; }
 		";
@@ -320,12 +337,12 @@ function wpa_jquery_asl() {
 	$tabindex     = false;
 	$longdesc     = false;
 	$visibility   = ( 'on' == get_option( 'asl_visible' ) ) ? 'wpa-visible' : 'wpa-hide';
-	if ( 'on' ==  get_option( 'asl_enable' ) ) {
+	if ( 'on' == get_option( 'asl_enable' ) ) {
 		$html = '';
 		// set up skiplinks.
 		$extra = get_option( 'asl_extra_target' );
 		$extra = ( wpa_is_url( $extra ) ) ? esc_url( $extra ) : str_replace( '#', '', esc_attr( $extra ) );
-		if ( $extra != '' && ! wpa_is_url( $extra ) ) {
+		if ( '' != $extra && ! wpa_is_url( $extra ) ) {
 			$extra = "#$extra";
 		}
 		$extra_text = stripslashes( get_option( 'asl_extra_text' ) );
@@ -715,8 +732,6 @@ function wpa_remove_title_attributes( $output ) {
 
 /**
  * Create support form.
- *
- * @return String request form.
  */
 function wpa_get_support_form() {
 	global $current_user, $wpa_version;
@@ -819,8 +834,9 @@ $plugins_string
 		<p>
 		<code>' . __( 'From:', 'wp-accessibility' ) . " \"$current_user->display_name\" &lt;$current_user->user_email&gt;</code>
 		</p>
-		<p>
-		<input type='checkbox' name='has_read_faq' id='has_read_faq' value='on' /> <label for='has_read_faq'>" . sprintf( __( 'I have read <a href="%1$s">the FAQ for this plug-in</a> <span>(required)</span>', 'wp-accessibility' ), 'http://www.joedolson.com/wp-accessibility/faqs/' ) . "</label></p>
+		<p>";
+		// Translators: Frequently Asked Questions URL.
+	echo "<input type='checkbox' name='has_read_faq' id='has_read_faq' value='on' /> <label for='has_read_faq'>" . sprintf( __( 'I have read <a href="%s">the FAQ for this plug-in</a> <span>(required)</span>', 'wp-accessibility' ), 'http://www.joedolson.com/wp-accessibility/faqs/' ) . "</label></p>
 		<p>
 		<input type='checkbox' name='has_donated' id='has_donated' value='on' /> <label for='has_donated'>";
 		// Translators: Donation URL.
@@ -1002,7 +1018,7 @@ add_filter( 'image_send_to_editor', 'longdesc_add_attr', 10, 8 );
  */
 function wpa_accessible_theme() {
 	$theme = wp_get_theme();
-	$tags = $theme->get( 'Tags' );
+	$tags  = $theme->get( 'Tags' );
 	if ( is_array( $tags ) && in_array( 'accessibility-ready', $tags ) ) {
 		return true;
 	}
@@ -1042,7 +1058,7 @@ function wpa_media_value( $column, $id ) {
 				$alt    = get_post_meta( $id, '_wp_attachment_image_alt', true );
 				$no_alt = get_post_meta( $id, '_no_alt', true );
 				if ( ! $alt && ! $no_alt ) {
-					echo '<span class="missing"><span class="dashicons dashicons-no" aria-hidden="true"></span> <a href="' . get_edit_post_link( $id ).'#attachment_alt">' . __( 'Add <code>alt</code> text', 'wp-accessibility' ) . '</a></span>';
+					echo '<span class="missing"><span class="dashicons dashicons-no" aria-hidden="true"></span> <a href="' . get_edit_post_link( $id ) . '#attachment_alt">' . __( 'Add <code>alt</code> text', 'wp-accessibility' ) . '</a></span>';
 				} else {
 					if ( 1 == $no_alt ) {
 						echo '<span class="ok"><span class="dashicons dashicons-yes" aria-hidden="true"></span> ' . __( 'Decorative', 'wp-accessibility' ) . '</span>';
@@ -1063,7 +1079,7 @@ add_filter( 'attachment_fields_to_edit', 'wpa_insert_alt_verification', 10, 2 );
 /**
  * Insert custom fields into attachment editor for alt verification.
  *
- * @param array $form_fields Existing form fields.
+ * @param array  $form_fields Existing form fields.
  * @param object $post Media attachment object.
  *
  * @return array New form fields.
@@ -1122,10 +1138,10 @@ function wpa_alt_attribute( $html, $id, $caption, $title, $align, $url, $size, $
 	// Get data for the image attachment.
 	$noalt = get_post_meta( $id, '_no_alt', true );
 	// Get the original title to compare to alt.
-	$title = get_the_title( $id );
+	$title   = get_the_title( $id );
 	$warning = false;
 	if ( 1 == $noalt ) {
-		$html = str_replace( 'alt="'.$alt.'"', 'alt=""', $html );
+		$html = str_replace( 'alt="' . $alt . '"', 'alt=""', $html );
 	}
 	if ( ( '' == $alt || $alt == $title ) && 1 != $noalt ) {
 		if ( $alt == $title ) {
@@ -1155,5 +1171,5 @@ add_action( 'widgets_init', 'wpa_register_toolbar_widget' );
  * Register toolbar widget.
  */
 function wpa_register_toolbar_widget() {
-	register_widget( 'wp_accessibility_toolbar' );
+	register_widget( 'Wp_Accessibility_Toolbar' );
 }

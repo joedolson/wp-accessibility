@@ -24,7 +24,7 @@ function wpa_toolbar_html( $type = 'widget' ) {
 	$enable_grayscale = ( 'on' == get_option( 'wpa_toolbar_gs' ) && current_user_can( 'manage_options' ) ) ? true : false;
 	$enable_contrast  = ( 'off' == get_option( 'wpa_toolbar_ct' ) ) ? false : true;
 	$enable_fontsize  = ( 'off' == get_option( 'wpa_toolbar_fs' ) ) ? false : true;
-	$responsive       = ( 'on' ==  get_option( 'wpa_toolbar_mobile' ) ) ? 'a11y-responsive ' : '';
+	$responsive       = ( 'on' == get_option( 'wpa_toolbar_mobile' ) ) ? 'a11y-responsive ' : '';
 	$is_rtl           = ( is_rtl() ) ? ' rtl' : ' ltr';
 	$is_right         = ( 'on' == get_option( 'wpa_toolbar_right' ) ) ? ' right' : ' left';
 	$toolbar_type     = ( 'widget' == $type ) ? 'a11y-toolbar-widget' : 'a11y-toolbar';
@@ -35,13 +35,13 @@ function wpa_toolbar_html( $type = 'widget' ) {
 <div class="' . $responsive . ' ' . $is_rtl . ' ' . $is_right . ' ' . $toolbar_type . '">
 	<ul>';
 	if ( $enable_contrast ) {
-		$toolbar .= '<li><' . $control_type . ' class="a11y-toggle-contrast toggle-contrast" id="is_normal_contrast" aria-pressed="false"><span class="offscreen">'.$contrast.'</span><span class="aticon aticon-adjust" aria-hidden="true"></span></' . $closure . '></li>';
+		$toolbar .= '<li><' . $control_type . ' class="a11y-toggle-contrast toggle-contrast" id="is_normal_contrast" aria-pressed="false"><span class="offscreen">' . $contrast . '</span><span class="aticon aticon-adjust" aria-hidden="true"></span></' . $closure . '></li>';
 	}
 	if ( $enable_grayscale ) {
-		$toolbar .= '<li><' . $control_type . ' class="a11y-toggle-grayscale toggle-grayscale" id="is_normal_color" aria-pressed="false"><span class="offscreen">'.$grayscale.'</span><span class="aticon aticon-tint" aria-hidden="true"></span></' . $closure . '></li>';
+		$toolbar .= '<li><' . $control_type . ' class="a11y-toggle-grayscale toggle-grayscale" id="is_normal_color" aria-pressed="false"><span class="offscreen">' . $grayscale . '</span><span class="aticon aticon-tint" aria-hidden="true"></span></' . $closure . '></li>';
 	}
 	if ( $enable_fontsize ) {
-		$toolbar .= '<li><' . $control_type . ' class="a11y-toggle-fontsize toggle-fontsize" id="is_normal_fontsize" aria-pressed="false"><span class="offscreen">'.$fontsize.'</span><span class="aticon aticon-font" aria-hidden="true"></span></' . $closure . '></li>';
+		$toolbar .= '<li><' . $control_type . ' class="a11y-toggle-fontsize toggle-fontsize" id="is_normal_fontsize" aria-pressed="false"><span class="offscreen">' . $fontsize . '</span><span class="aticon aticon-font" aria-hidden="true"></span></' . $closure . '></li>';
 	}
 	$toolbar .= '
 	</ul>
@@ -53,8 +53,6 @@ function wpa_toolbar_html( $type = 'widget' ) {
 
 /**
  * Generate Toolbar as JS.
- *
- * @return string `script` with JS to generate toolbar.
  */
 function wpa_toolbar_js() {
 	// Toolbar does not work on Edge. Disable unless I solve the issue.
@@ -102,7 +100,7 @@ function wpa_toolbar_js() {
 		if ( get_option( 'wpa_toolbar' ) == 'on' && $enable_fontsize ) {
 			echo "insert_a11y_toolbar += '<li class=\"a11y-toolbar-list-item\"><button type=\"button\" class=\"a11y-toggle-fontsize toggle-fontsize\" id=\"is_normal_fontsize\" aria-pressed=\"false\"><span class=\"offscreen\">$fontsize</span><span class=\"aticon aticon-font\" aria-hidden=\"true\"></span></button></li>';";
 		}
-	echo "
+		echo "
 	insert_a11y_toolbar += '</ul>';
 	insert_a11y_toolbar += '</div>';
 	insert_a11y_toolbar += '<!-- // a11y toolbar -->';

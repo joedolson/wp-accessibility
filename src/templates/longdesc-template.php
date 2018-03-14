@@ -2,7 +2,7 @@
 /**
  * Longdesc display template.
  *
- * The goal for this template is to provide the simplest possible interface to view the long description. 
+ * The goal for this template is to provide the simplest possible interface to view the long description.
  * If you replace the template, I recommend against including your peripheral design, such as navigation.
  * The purpose of the long description is to get the description and return to your previous context.
  *
@@ -12,6 +12,7 @@
  * @license  GPLv2 or later
  * @link     https://www.joedolson.com/wp-accessibility/
  */
+
 ?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>

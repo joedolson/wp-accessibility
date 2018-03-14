@@ -8,6 +8,7 @@
  * @license  GPLv2 or later
  * @link     https://www.joedolson.com/wp-accessibility/
  */
+
 if ( ! defined( 'ABSPATH' ) && ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit();
 } else {

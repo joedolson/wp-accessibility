@@ -214,7 +214,7 @@ function wpa_admin_menu() {
 							<input type="hidden" name="action" value="asl"/>
 						</p>
 
-						<p><input type="submit" name="wpa-settings" class="button-primary" value="<?php _e( 'Update Skiplink Settings', 'wp-accessibility' ) ?>"/></p>
+						<p><input type="submit" name="wpa-settings" class="button-primary" value="<?php _e( 'Update Skiplink Settings', 'wp-accessibility' ); ?>"/></p>
 					</form>
 					<?php
 					}
@@ -287,7 +287,7 @@ function wpa_admin_menu() {
 							<input type="hidden" name="action" value="toolbar" />
 						</p>
 
-						<p><input type="submit" name="wpa-settings" class="button-primary" value="<?php _e( 'Update Toolbar Settings', 'wp-accessibility' ) ?>"/></p>
+						<p><input type="submit" name="wpa-settings" class="button-primary" value="<?php _e( 'Update Toolbar Settings', 'wp-accessibility' ); ?>"/></p>
 					</form>
 				</div>
 			</div>
@@ -298,7 +298,7 @@ function wpa_admin_menu() {
 					<form method="post" action="<?php echo admin_url( 'options-general.php?page=wp-accessibility/wp-accessibility.php' ); ?>">
 						<ul>
 							<?php
-							if ( !wpa_accessible_theme() ) {
+							if ( ! wpa_accessible_theme() ) {
 							?>
 							<li>
 								<input type="checkbox" id="wpa_lang" name="wpa_lang" <?php checked( get_option( 'wpa_lang' ), 'on' ); ?>/>
@@ -382,7 +382,7 @@ function wpa_admin_menu() {
 							<input type="hidden" name="action" value="misc"/>
 						</p>
 
-						<p><input type="submit" name="wpa-settings" class="button-primary" value="<?php _e( 'Update Miscellaneous Settings', 'wp-accessibility' ) ?>"/></p>
+						<p><input type="submit" name="wpa-settings" class="button-primary" value="<?php _e( 'Update Miscellaneous Settings', 'wp-accessibility' ); ?>"/></p>
 					</form>
 				</div>
 			</div>
@@ -405,7 +405,7 @@ function wpa_admin_menu() {
 							<input type="hidden" name="action" value="rta"/>
 						</p>
 
-						<p><input type="submit" name="wpa-settings" class="button-primary" value="<?php _e( 'Update Title Attribute Settings', 'wp-accessibility' ) ?>"/></p>
+						<p><input type="submit" name="wpa-settings" class="button-primary" value="<?php _e( 'Update Title Attribute Settings', 'wp-accessibility' ); ?>"/></p>
 					</form>
 				</div>
 			</div>
@@ -427,6 +427,7 @@ function wpa_admin_menu() {
 					}
 					if ( $l_contrast ) {
 						$results  = "<div class='updated notice'>";
+						// Translators: Contrast ratio, foreground Hex color, background Hex color.
 						$results .= "<p class=\"stats wcag2\">" . sprintf( __( 'Luminosity Contrast Ratio for <code>#%2$s</code> and <code>#%3$s</code> is <strong>%1$s</strong> (Threshold: greater than 7:1 for AAA, 4.5:1 for AA)', 'wp-accessibility' ), $l_contrast, $hex1, $hex2 ) . '</p><p>';
 						if ( $luminance_raw >= 7 ) {
 							$results .= __( 'The colors compared <strong>pass</strong> the relative luminosity test at level AAA.', 'wp-accessibility' );
@@ -474,7 +475,7 @@ function wpa_admin_menu() {
 							<input type="hidden" name="action" value="contrast"/>
 						</p>
 
-						<p><input type="submit" name="wpa-settings" class="button-primary" value="<?php _e( 'Check Color Contrast', 'wp-accessibility' ) ?>"/></p>
+						<p><input type="submit" name="wpa-settings" class="button-primary" value="<?php _e( 'Check Color Contrast', 'wp-accessibility' ); ?>"/></p>
 					</form>
 				</div>
 			</div>
@@ -486,8 +487,7 @@ function wpa_admin_menu() {
 					<p>
 					<?php
 					// Translators: URL to donate.
-					printf( __( 'Please, consider <a href="%s">making a donation</a> to support WP Accessibility!', 'wp-accessibility' )
-					, "https://www.joedolson.com/donate/" );
+					printf( __( 'Please, consider <a href="%s">making a donation</a> to support WP Accessibility!', 'wp-accessibility' ), 'https://www.joedolson.com/donate/' );
 					?>
 					</p>
 				</div>
@@ -506,8 +506,7 @@ function wpa_admin_menu() {
 
 				<div class="inside">
 					<p>
-						<a href="https://twitter.com/intent/follow?screen_name=joedolson" class="twitter-follow-button"
-						   data-size="small" data-related="joedolson">Follow @joedolson</a>
+						<a href="https://twitter.com/intent/follow?screen_name=joedolson" class="twitter-follow-button" data-size="small" data-related="joedolson">Follow @joedolson</a>
 						<script>!function (d, s, id) {
 								var js, fjs = d.getElementsByTagName(s)[0];
 								if (!d.getElementById(id)) {
@@ -543,7 +542,7 @@ function wpa_admin_menu() {
 				<div class="inside">
 					<p>
 					<?php
-					// Translators: URL to visit Access Monitor at WordPress.org
+					// Translators: URL to visit Access Monitor at WordPress.org.
 					printf( __( 'Try using <a href="%s">Access Monitor</a> to do scheduled and on-demand evaluations of your web site accessibility.', 'wp-accessibility' ), 'https://wordpress.org/plugins/access-monitor/' );
 					?>
 					</p>
@@ -605,7 +604,7 @@ function wpa_admin_menu() {
 					<p>
 					<?php
 					// Translators: URL to read about the accessibility ready tag requirements.
-					printf( __( 'Read more about the <a href="%s">WordPress accessibility-ready tag</a>', 'wp-accessibility' ), "https://make.wordpress.org/themes/handbook/review/accessibility/" );
+					printf( __( 'Read more about the <a href="%s">WordPress accessibility-ready tag</a>', 'wp-accessibility' ), 'https://make.wordpress.org/themes/handbook/review/accessibility/' );
 					?>
 					</p>
 				</div>
