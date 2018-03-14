@@ -426,9 +426,9 @@ function wpa_admin_menu() {
 						$l_contrast = false;
 					}
 					if ( $l_contrast ) {
-						$results  = "<div class='updated notice'>";
+						$results = "<div class='updated notice'>";
 						// Translators: Contrast ratio, foreground Hex color, background Hex color.
-						$results .= "<p class=\"stats wcag2\">" . sprintf( __( 'Luminosity Contrast Ratio for <code>#%2$s</code> and <code>#%3$s</code> is <strong>%1$s</strong> (Threshold: greater than 7:1 for AAA, 4.5:1 for AA)', 'wp-accessibility' ), $l_contrast, $hex1, $hex2 ) . '</p><p>';
+						$results .= '<p class="stats wcag2">' . sprintf( __( 'Luminosity Contrast Ratio for %2$s and %3$s is %1$s (Threshold: greater than 7:1 for AAA, 4.5:1 for AA)', 'wp-accessibility' ), '<strong>' . $l_contrast . '</strong>', '<code>#' . $hex1 . '</code>', '<code>#' . $hex2 . '</code>' ) . '</p><p>';
 						if ( $luminance_raw >= 7 ) {
 							$results .= __( 'The colors compared <strong>pass</strong> the relative luminosity test at level AAA.', 'wp-accessibility' );
 						}

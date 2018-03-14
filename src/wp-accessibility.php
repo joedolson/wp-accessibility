@@ -12,12 +12,12 @@
  * Plugin URI: http://www.joedolson.com/wp-accessibility/
  * Description: Helps improve accessibility in your WordPress site, like removing title attributes.
  * Author: Joe Dolson
- * Author URI: http://www.joedolson.com/ 
+ * Author URI: http://www.joedolson.com/
  * Text Domain: wp-accessibility
- * Domain Path: /lang 
+ * Domain Path: /lang
  * License:     GPL-2.0+
- * License URI: http://www.gnu.org/license/gpl-2.0.txt 
- * Version: 1.6.1 
+ * License URI: http://www.gnu.org/license/gpl-2.0.txt
+ * Version: 1.6.1
  */
 
  /*
