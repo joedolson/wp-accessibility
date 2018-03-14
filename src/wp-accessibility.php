@@ -2,9 +2,9 @@
 /**
  * WP Accessibility
  *
- * @package     MyCalendar
+ * @package     WP Accessibility
  * @author      Joe Dolson
- * @copyright   2009-2018 Joe Dolson
+ * @copyright   2012-2018 Joe Dolson
  * @license     GPL-2.0+
  *
  * @wordpress-plugin
@@ -22,7 +22,7 @@
  */
 
 include( dirname( __FILE__ ) . '/wp-accessibility-settings.php' );
-include( dirname( __FILE__ ) . '/wp-accessibility-widget.php' );
+include( dirname( __FILE__ ) . '/class-wp-accessibility-toolbar.php' );
 include( dirname( __FILE__ ) . '/wp-accessibility-toolbar.php' );
 register_activation_hook( __FILE__, 'wpa_install' );
 
@@ -48,17 +48,17 @@ function add_wpa_admin_menu() {
  */
 function wpa_write_js() {
 	global $current_screen;
-	if ( $current_screen->base == 'settings_page_wp-accessibility/wp-accessibility' ) {
+	if ( 'settings_page_wp-accessibility/wp-accessibility' == $current_screen->base ) {
 		?>
-		<script>
-			//<![CDATA[
-			(function ($) {
-				'use strict';
-				$('#fore').farbtastic('#color1');
-				$('#back').farbtastic('#color2');
-			}(jQuery));
-			//]]>
-		</script>
+<script>
+	//<![CDATA[
+	(function ($) {
+		'use strict';
+		$('#fore').farbtastic('#color1');
+		$('#back').farbtastic('#color2');
+	}(jQuery));
+	//]]>
+</script>
 	<?php
 	}
 }
@@ -97,7 +97,7 @@ function wpa_install() {
  * Check current version and upgrade if needed.
  */
 function wpa_check_version() {
-	// upgrade for version 1.3.0
+	// upgrade for version 1.3.0.
 	if ( version_compare( get_option( 'wpa_version' ), '1.3.0', '<' ) ) {
 		add_option( 'wpa_longdesc', 'jquery' );
 	}
@@ -111,9 +111,9 @@ add_filter( 'plugin_action_links', 'wpa_plugin_action', 10, 2 );
  * @param string $file File name.
  */
 function wpa_plugin_action( $links, $file ) {
-	if ( $file == plugin_basename( dirname( __FILE__ ) . '/wp-accessibility.php' ) ) {
+	if ( plugin_basename( dirname( __FILE__ ) . '/wp-accessibility.php' ) == $file ) {
 		$admin_url = admin_url( 'options-general.php?page=wp-accessibility/wp-accessibility.php' );
-		$links[]   = "<a href='$admin_url'>" . __( 'Accessibility Settings', 'wp-accessibility', 'wp-accessibility' ) . "</a>";
+		$links[]   = "<a href='$admin_url'>" . __( 'Accessibility Settings', 'wp-accessibility' ) . "</a>";
 	}
 
 	return $links;
@@ -125,7 +125,7 @@ add_action( 'admin_enqueue_scripts', 'wpa_admin_js' );
  **/
 function wpa_admin_js() {
 	global $current_screen;
-	if ( $current_screen->base == 'settings_page_wp-accessibility/wp-accessibility' ) {
+	if ( 'settings_page_wp-accessibility/wp-accessibility' == $current_screen->base ) {
 		wp_enqueue_script( 'farbtastic' );
 	}
 }
@@ -170,9 +170,9 @@ function wpacc_enqueue_scripts() {
 	if ( 'on' == get_option( 'wpa_labels' ) ) {
 		wp_enqueue_script( 'wpa-labels', plugins_url( 'js/wpa.labels.js', __FILE__ ), array( 'jquery' ), '1.0', true );
 		$labels = array(
-			's'      => __( 'Search', 'wp-accessibility' ),
-			'author' => __( 'Name', 'wp-accessibility' ),
-			'email'  => __( 'Email', 'wp-accessibility' ),
+			's'       => __( 'Search', 'wp-accessibility' ),
+			'author'  => __( 'Name', 'wp-accessibility' ),
+			'email'   => __( 'Email', 'wp-accessibility' ),
 			'url'     => __( 'Website', 'wp-accessibility' ),
 			'comment' => __( 'Comment', 'wp-accessibility' ),
 		);
@@ -203,16 +203,16 @@ function wpa_stylesheet() {
 	$toolbar = apply_filters( 'wpa_toolbar_css', plugins_url( 'toolbar/css/a11y.css', __FILE__ ) );
 	wp_register_style( 'ui-a11y.css', $toolbar, array( 'ui-font.css' ) );
 	$fontsize_stylesheet = ( 'on' == get_option( 'wpa_alternate_fontsize' ) ) ? 'a11y-fontsize-alt' : 'a11y-fontsize';
-	$fontsize            = apply_filters( 'wpa_fontsize_css', plugins_url( 'toolbar/css/'. $fontsize_stylesheet . '.css', __FILE__ ) );
+	$fontsize            = apply_filters( 'wpa_fontsize_css', plugins_url( 'toolbar/css/' . $fontsize_stylesheet . '.css', __FILE__ ) );
 	wp_register_style( 'ui-fontsize.css', $fontsize );
 	// Only enable styles when required by options.
 	if ( get_option( 'wpa_toolbar_size' ) && 'on' == get_option( 'wpa_toolbar' ) ) {
 		echo "
 <style type='text/css'>
 .a11y-toolbar ul li button {
-	font-size: " . get_option( 'wpa_toolbar_size' ) . " !important;
+	font-size: " . get_option( 'wpa_toolbar_size' ) . ' !important;
 }
-</style>";
+</style>';
 	}
 	if ( 'link' == get_option( 'wpa_longdesc' ) || 'jquery' == get_option( 'wpa_longdesc' ) || 'on' == get_option( 'asl_enable' ) ) {
 		wp_enqueue_style( 'wpa-style' );
@@ -260,15 +260,16 @@ function wpa_css() {
 	$styles = '';
 	if ( get_option( 'asl_enable' ) == 'on' ) {
 		$focus = get_option( 'asl_styles_focus' );
-		// these styles are derived from the WordPress skip link defaults
-		$default_focus = "background-color: #f1f1f1; box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.6); clip: auto; color: #21759b; display: block; font-size: 14px; font-weight: bold; height: auto; line-height: normal; padding: 15px 23px 14px; position: absolute; left: 5px; top: 5px; text-decoration: none; text-transform: none; width: auto; z-index: 100000;";
+		// these styles are derived from the WordPress skip link defaults.
+		$default_focus = 'background-color: #f1f1f1; box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.6); clip: auto; color: #21759b; display: block; font-size: 14px; font-weight: bold; height: auto; line-height: normal; padding: 15px 23px 14px; position: absolute; left: 5px; top: 5px; text-decoration: none; text-transform: none; width: auto; z-index: 100000;';
 		if ( ! $focus ) {
 			$focus = $default_focus;
 		} else {
 			$focus = $default_focus . $focus;
 		}
 		$passive = get_option( 'asl_styles_passive' );
-		$vis     = $invis = '';
+		$vis     = '';
+		$invis   = '';
 		// If links are visible, "hover" is a focus style, otherwise, it's a passive style.
 		if ( 'on' == get_option( 'asl_visible' ) ) {
 			$vis = '#skiplinks a:hover,';
@@ -284,7 +285,7 @@ function wpa_css() {
 		";
 	}
 	if ( 'on' == get_option( 'wpa_focus' ) ) {
-		$color = ( '' != get_option( 'wpa_focus_color' ) ) ? " #" . get_option( 'wpa_focus_color' ) : '';
+		$color   = ( '' != get_option( 'wpa_focus_color' ) ) ? " #" . get_option( 'wpa_focus_color' ) : '';
 		$styles .= "
 		:focus { outline: 1px solid$color!important; }
 		";
@@ -313,11 +314,15 @@ add_action( 'wp_footer', 'wpa_jquery_asl', 100 );
  * Generate JS needed for options.
  */
 function wpa_jquery_asl() {
-	$skiplinks_js = $targets = $lang_js = $tabindex = $longdesc = false;
-	$visibility   = ( get_option( 'asl_visible' ) == 'on' ) ? 'wpa-visible' : 'wpa-hide';
-	if ( get_option( 'asl_enable' ) == 'on' ) {
+	$skiplinks_js = false;
+	$targets      = false;
+	$lang_js      = false;
+	$tabindex     = false;
+	$longdesc     = false;
+	$visibility   = ( 'on' == get_option( 'asl_visible' ) ) ? 'wpa-visible' : 'wpa-hide';
+	if ( 'on' ==  get_option( 'asl_enable' ) ) {
 		$html = '';
-		// set up skiplinks
+		// set up skiplinks.
 		$extra = get_option( 'asl_extra_target' );
 		$extra = ( wpa_is_url( $extra ) ) ? esc_url( $extra ) : str_replace( '#', '', esc_attr( $extra ) );
 		if ( $extra != '' && ! wpa_is_url( $extra ) ) {
@@ -327,16 +332,16 @@ function wpa_jquery_asl() {
 		$content    = str_replace( '#', '', esc_attr( get_option( 'asl_content' ) ) );
 		$nav        = str_replace( '#', '', esc_attr( get_option( 'asl_navigation' ) ) );
 		$sitemap    = esc_url( get_option( 'asl_sitemap' ) );
-		$html      .= ( $content != '' ) ? "<a href=\"#$content\">" . __( 'Skip to content', 'wp-accessibility' ) . "</a> " : '';
-		$html      .= ( $nav != '' ) ? "<a href=\"#$nav\">" . __( 'Skip to navigation', 'wp-accessibility' ) . "</a> " : '';
-		$html      .= ( $sitemap != '' ) ? "<a href=\"$sitemap\">" . __( 'Site map', 'wp-accessibility' ) . "</a> " : '';
-		$html      .= ( $extra != '' && $extra_text != '' ) ? "<a href=\"$extra\">$extra_text</a> " : '';
+		$html      .= ( '' != $content ) ? "<a href=\"#$content\">" . __( 'Skip to content', 'wp-accessibility' ) . '</a> ' : '';
+		$html      .= ( '' != $nav ) ? "<a href=\"#$nav\">" . __( 'Skip to navigation', 'wp-accessibility' ) . '</a> ' : '';
+		$html      .= ( '' != $sitemap ) ? "<a href=\"$sitemap\">" . __( 'Site map', 'wp-accessibility' ) . '</a> ' : '';
+		$html      .= ( '' != $extra && '' != $extra_text ) ? "<a href=\"$extra\">$extra_text</a> " : '';
 		$is_rtl     = ( is_rtl() ) ? '-rtl' : '-ltr';
 		$skiplinks  = __( 'Skip links', 'wp-accessibility' );
-		$output     = ( $html != '' ) ? "<div class=\"$visibility$is_rtl\" id=\"skiplinks\" role=\"navigation\" aria-label=\"$skiplinks\">$html</div>" : '';
-		// Attach skiplinks HTML; set tabindex on #content area to -1.
-		$focusable    = ( $content != '' ) ? "$('#$content').attr('tabindex','-1');" : '';
-		$focusable   .= ( $nav != '' ) ? "$('#$nav').attr('tabindex','-1');" : '';
+		$output     = ( '' != $html ) ? "<div class=\"$visibility$is_rtl\" id=\"skiplinks\" role=\"navigation\" aria-label=\"$skiplinks\">$html</div>" : '';
+		// Attach skiplinks HTML; set tab index on #content area to -1.
+		$focusable    = ( '' != $content ) ? "$('#$content').attr('tabindex','-1');" : '';
+		$focusable   .= ( '' != $nav ) ? "$('#$nav').attr('tabindex','-1');" : '';
 		$skiplinks_js = ( $output ) ? "$('body').prepend('$output'); $focusable" : '';
 	}
 	// Attach language to html element.
@@ -347,9 +352,9 @@ function wpa_jquery_asl() {
 	}
 	// Force links to open in the same window.
 	$underline_target = apply_filters( 'wpa_underline_target', 'a' );
-	$targets          = ( get_option( 'wpa_target' ) == 'on' ) ? "$('a').removeAttr('target');" : '';
-	$tabindex         = ( get_option( 'wpa_tabindex' ) == 'on' ) ? "$('input,a,select,textarea,button').removeAttr('tabindex');" : '';
-	$underlines       = ( get_option( 'wpa_underline' ) == 'on' ) ? "$('$underline_target').css( 'text-decoration','underline' );$('$underline_target').on( 'focusin mouseenter', function() { $(this).css( 'text-decoration','none' ); });$('$underline_target').on( 'focusout mouseleave', function() { $(this).css( 'text-decoration','underline' ); } );" : '';
+	$targets          = ( 'on' == get_option( 'wpa_target' ) ) ? "$('a').removeAttr('target');" : '';
+	$tabindex         = ( 'on' == get_option( 'wpa_tabindex' ) ) ? "$('input,a,select,textarea,button').removeAttr('tabindex');" : '';
+	$underlines       = ( 'on' == get_option( 'wpa_underline' ) ) ? "$('$underline_target').css( 'text-decoration','underline' );$('$underline_target').on( 'focusin mouseenter', function() { $(this).css( 'text-decoration','none' ); });$('$underline_target').on( 'focusout mouseleave', function() { $(this).css( 'text-decoration','underline' ); } );" : '';
 
 	$display = ( $skiplinks_js || $targets || $lang_js || $tabindex || $longdesc ) ? true : false;
 	if ( $display ) {
@@ -375,7 +380,7 @@ add_action( 'admin_bar_menu', 'wpa_logout_item', 11 );
  * Add adminbar menu logout.
  *
  * @link http://www.coolfields.co.uk/2013/02/wordpress-permanently-visible-log-out-link-plugin-version-0-1/
- * @param object $adminbar Admin bar object.
+ * @param object $admin_bar Admin bar object.
  */
 function wpa_logout_item( $admin_bar ) {
 	if ( ! is_user_logged_in() ) {
@@ -524,7 +529,7 @@ function wpa_contrast() {
 					$back_color = str_replace( '#', '', $back_color );
 				}
 				if ( 3 == strlen( $back_color ) ) {
-					$color6char = $back_color[0] . $back_color[0];
+					$color6char  = $back_color[0] . $back_color[0];
 					$color6char .= $back_color[1] . $back_color[1];
 					$color6char .= $back_color[2] . $back_color[2];
 					$back_color  = $color6char;
@@ -576,7 +581,7 @@ if ( 'on' == get_option( 'wpa_search' ) ) {
  */
 function wpa_filter( $query ) {
 	if ( ! is_admin() ) {
-		if ( isset( $_GET['s'] ) && NULL == trim( $_GET['s'] ) && ( $query->is_main_query() ) ) {
+		if ( isset( $_GET['s'] ) && null == trim( $_GET['s'] ) && ( $query->is_main_query() ) ) {
 			$query->query_vars['s'] = '&#32;';
 			$query->set( 'is_search', 1 );
 			add_action( 'template_include', 'wpa_search_error' );
@@ -613,7 +618,7 @@ if ( 'on' == get_option( 'wpa_image_titles' ) ) {
  *
  * @param string $content A block of content in an image, post thumbnail, or post content.
  *
- * @param return string $content minus title attributes.
+ * @return string $content minus title attributes.
  */
 function wpa_image_titles( $content ) {
 	$results = array();
@@ -639,7 +644,7 @@ if ( 'on' == get_option( 'wpa_more' ) ) {
  * @return string HTML link & text.
  */
 function wpa_continue_reading( $id ) {
-	return '<a class="continue" href="' . get_permalink( $id ) . '">' . get_option( 'wpa_continue' ) . "<span> " . get_the_title( $id ) . "</span></a>";
+	return '<a class="continue" href="' . get_permalink( $id ) . '">' . get_option( 'wpa_continue' ) . '<span> ' . get_the_title( $id ) . '</span></a>';
 }
 
 /**
@@ -685,7 +690,7 @@ add_action( 'admin_head', 'wpa_admin_styles' );
  * Enqueue admin stylesheets.
  */
 function wpa_admin_styles() {
-	if ( isset( $_GET['page'] ) && ( $_GET['page'] == 'wp-accessibility/wp-accessibility.php' ) ) {
+	if ( isset( $_GET['page'] ) && ( 'wp-accessibility/wp-accessibility.php' == $_GET['page'] ) ) {
 		wp_enqueue_style( 'farbtastic' );
 		echo '<link type="text/css" rel="stylesheet" href="' . plugins_url( 'css/wpa-styles.css', __FILE__ ) . '" />';
 	}
@@ -708,6 +713,11 @@ function wpa_remove_title_attributes( $output ) {
 	return $output;
 }
 
+/**
+ * Create support form.
+ *
+ * @return String request form.
+ */
 function wpa_get_support_form() {
 	global $current_user, $wpa_version;
 	$current_user = wp_get_current_user();
@@ -788,7 +798,7 @@ $plugins_string
 
 		if ( ! $has_read_faq ) {
 			echo "<div class='message error'><p>" . __( 'Please read the FAQ and other Help documents before making a support request.', 'wp-accessibility' ) . '</p></div>';
-		} else if ( ! $request ) {
+		} elseif ( ! $request ) {
 			echo "<div class='message error'><p>" . __( 'Please describe your problem. I\'m not psychic.', 'wp-accessibility' ) . '</p></div>';
 		} else {
 			wp_mail( 'plugins@joedolson.com', $subject, $message, $from );
@@ -805,14 +815,16 @@ $plugins_string
 	<form method='post' action='$admin_url'>
 		<div><input type='hidden' name='_wpnonce' value='" . wp_create_nonce( 'wpa-nonce' ) . "' /></div>
 		<div>";
-	echo "
+	echo '
 		<p>
-		<code>" . __( 'From:', 'wp-accessibility' ) . " \"$current_user->display_name\" &lt;$current_user->user_email&gt;</code>
+		<code>' . __( 'From:', 'wp-accessibility' ) . " \"$current_user->display_name\" &lt;$current_user->user_email&gt;</code>
 		</p>
 		<p>
 		<input type='checkbox' name='has_read_faq' id='has_read_faq' value='on' /> <label for='has_read_faq'>" . sprintf( __( 'I have read <a href="%1$s">the FAQ for this plug-in</a> <span>(required)</span>', 'wp-accessibility' ), 'http://www.joedolson.com/wp-accessibility/faqs/' ) . "</label></p>
 		<p>
-		<input type='checkbox' name='has_donated' id='has_donated' value='on' /> <label for='has_donated'>" . sprintf( __( 'I <a href="%1$s">made a donation</a> to help support this plugin', 'wp-accessibility' ), 'http://www.joedolson.com/donate/' ) . "</label>
+		<input type='checkbox' name='has_donated' id='has_donated' value='on' /> <label for='has_donated'>";
+		// Translators: Donation URL.
+	echo sprintf( __( 'I <a href="%s">made a donation</a> to help support this plugin', 'wp-accessibility' ), 'https://www.joedolson.com/donate/' ) . "</label>
 		</p>
 		<p>
 		<label for='support_request'>" . __( 'Support Request:', 'wp-accessibility' ) . "</label><br /><textarea name='support_request' required id='support_request' cols='80' rows='10' class='widefat'>" . stripslashes( $request ) . "</textarea>
@@ -932,7 +944,8 @@ function longdesc_template() {
  * Create anchor id for linking from a Long Description to referring post.
  * Also creates an anchor to return from Long Description page.
  *
- * @param int ID of the post which contains an image with a longdesc attribute.
+ * @param int $id ID of the post which contains an image with a longdesc attribute.
+ *
  * @return string
  * @since 2010-09-26
  */
@@ -1020,7 +1033,7 @@ function wpa_media_columns( $columns ) {
  * @return String alt attribute status for this object.
  */
 function wpa_media_value( $column, $id ) {
-	if ( $column == 'wpa_data' ) {
+	if ( 'wpa_data' == $column ) {
 		$mime = get_post_mime_type( $id );
 		switch ( $mime ) {
 			case 'image/jpeg':
@@ -1029,12 +1042,12 @@ function wpa_media_value( $column, $id ) {
 				$alt    = get_post_meta( $id, '_wp_attachment_image_alt', true );
 				$no_alt = get_post_meta( $id, '_no_alt', true );
 				if ( ! $alt && ! $no_alt ) {
-					echo '<span class="missing"><span class="dashicons dashicons-no" aria-hidden="true"></span> <a href="'.get_edit_post_link( $id ).'#attachment_alt">'.__( 'Add <code>alt</code> text', 'wp-accessibility' ).'</a></span>';
+					echo '<span class="missing"><span class="dashicons dashicons-no" aria-hidden="true"></span> <a href="' . get_edit_post_link( $id ).'#attachment_alt">' . __( 'Add <code>alt</code> text', 'wp-accessibility' ) . '</a></span>';
 				} else {
 					if ( 1 == $no_alt ) {
-						echo '<span class="ok"><span class="dashicons dashicons-yes" aria-hidden="true"></span> '.__( 'Decorative', 'wp-accessibility' ).'</span>';
+						echo '<span class="ok"><span class="dashicons dashicons-yes" aria-hidden="true"></span> ' . __( 'Decorative', 'wp-accessibility' ) . '</span>';
 					} else {
-						echo '<span class="ok"><span class="dashicons dashicons-yes" aria-hidden="true"></span> '.__( 'Has <code>alt</code>', 'wp-accessibility' ).'</span>';
+						echo '<span class="ok"><span class="dashicons dashicons-yes" aria-hidden="true"></span> ' . __( 'Has <code>alt</code>', 'wp-accessibility' ) . '</span>';
 					}
 				}
 				break;
@@ -1058,14 +1071,14 @@ add_filter( 'attachment_fields_to_edit', 'wpa_insert_alt_verification', 10, 2 );
 function wpa_insert_alt_verification( $form_fields, $post ) {
 	$mime = get_post_mime_type( $post->ID );
 	if ( 'image/jpeg' == $mime || 'image/png' == $mime || 'image/gif' == $mime ) {
-		$no_alt  = get_post_meta( $post->ID, '_no_alt', true );
-		$alt     = get_post_meta( $post->ID, '_wp_attachment_image_alt', true );
-		$checked = checked( $no_alt, 1, false );
+		$no_alt                = get_post_meta( $post->ID, '_no_alt', true );
+		$alt                   = get_post_meta( $post->ID, '_wp_attachment_image_alt', true );
+		$checked               = checked( $no_alt, 1, false );
 		$form_fields['no_alt'] = array(
 			'label' => __( 'Decorative', 'wp-accessibility' ),
 			'input' => 'html',
 			'value' => 1,
-			'html'  => "<input name='attachments[$post->ID][no_alt]' id='attachments-$post->ID-no_alt' value='1' type='checkbox' aria-describedby='wpa_help' $checked /> <em class='help' id='wpa_help'>" . __( 'All images must either have an alt attribute or be declared as decorative.', 'wp-accessibility' ) . '</em>'
+			'html'  => "<input name='attachments[$post->ID][no_alt]' id='attachments-$post->ID-no_alt' value='1' type='checkbox' aria-describedby='wpa_help' $checked /> <em class='help' id='wpa_help'>" . __( 'All images must either have an alt attribute or be declared as decorative.', 'wp-accessibility' ) . '</em>',
 		);
 	}
 	return $form_fields;
@@ -1117,10 +1130,10 @@ function wpa_alt_attribute( $html, $id, $caption, $title, $align, $url, $size, $
 	if ( ( '' == $alt || $alt == $title ) && 1 != $noalt ) {
 		if ( $alt == $title ) {
 			$warning = __( 'The alt text for this image is the same as the title. In most cases, that means that the alt attribute has been automatically provided from the image file name.', 'wp-accessibility' );
-			$image = 'alt-same.png';
+			$image   = 'alt-same.png';
 		} else {
 			$warning = __( 'This image requires alt text, but the alt text is currently blank. Either add alt text or mark the image as decorative.', 'wp-accessibility' );
-			$image = 'alt-missing.png';
+			$image   = 'alt-missing.png';
 		}
 	}
 	if ( $warning ) {
@@ -1135,4 +1148,12 @@ add_action( 'init', 'wpa_add_editor_styles' );
  */
 function wpa_add_editor_styles() {
 	add_editor_style( plugins_url( 'css/editor-style.css', __FILE__ ) );
+}
+
+add_action( 'widgets_init', 'wpa_register_toolbar_widget' );
+/**
+ * Register toolbar widget.
+ */
+function wpa_register_toolbar_widget() {
+	register_widget( 'wp_accessibility_toolbar' );
 }
