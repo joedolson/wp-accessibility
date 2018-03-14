@@ -20,7 +20,7 @@
  * Version: 1.6.1
  */
 
- /*
+/*
 	Copyright 2012-2018  Joe Dolson (email : joe@joedolson.com)
 
 	This program is free software; you can redistribute it and/or modify
