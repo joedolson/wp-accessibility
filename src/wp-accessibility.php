@@ -169,7 +169,7 @@ function wpacc_enqueue_scripts() {
 	}
 	if ( 'on' == get_option( 'wpa_labels' ) ) {
 		wp_enqueue_script( 'wpa-labels', plugins_url( 'js/wpa.labels.js', __FILE__ ), array( 'jquery' ), '1.0', true );
-		$labels = array( 
+		$labels = array(
 			's'      => __( 'Search', 'wp-accessibility' ),
 			'author' => __( 'Name', 'wp-accessibility' ),
 			'email'  => __( 'Email', 'wp-accessibility' ),
@@ -240,7 +240,7 @@ function wpa_admin_stylesheet() {
 		wp_register_style( 'wp-a11y-css', $file );
 		wp_enqueue_style( 'wp-a11y-css' );
 	}
-	
+
 	if ( 'on' == get_option( 'wpa_row_actions' ) ) {
 		if ( file_exists( get_stylesheet_directory() . '/wp-admin-row-actions.css' ) ) {
 			$file = get_stylesheet_directory_uri() . '/wp-admin-row-actions.css';
@@ -350,7 +350,7 @@ function wpa_jquery_asl() {
 	$targets          = ( get_option( 'wpa_target' ) == 'on' ) ? "$('a').removeAttr('target');" : '';
 	$tabindex         = ( get_option( 'wpa_tabindex' ) == 'on' ) ? "$('input,a,select,textarea,button').removeAttr('tabindex');" : '';
 	$underlines       = ( get_option( 'wpa_underline' ) == 'on' ) ? "$('$underline_target').css( 'text-decoration','underline' );$('$underline_target').on( 'focusin mouseenter', function() { $(this).css( 'text-decoration','none' ); });$('$underline_target').on( 'focusout mouseleave', function() { $(this).css( 'text-decoration','underline' ); } );" : '';
-	
+
 	$display = ( $skiplinks_js || $targets || $lang_js || $tabindex || $longdesc ) ? true : false;
 	if ( $display ) {
 		$script = "
@@ -373,7 +373,7 @@ function wpa_jquery_asl() {
 add_action( 'admin_bar_menu', 'wpa_logout_item', 11 );
 /**
  * Add adminbar menu logout.
- * 
+ *
  * @link http://www.coolfields.co.uk/2013/02/wordpress-permanently-visible-log-out-link-plugin-version-0-1/
  * @param object $adminbar Admin bar object.
  */
@@ -406,33 +406,54 @@ function wp_diagnostic_css( $mce_css ) {
 	return $mce_css;
 }
 
+/**
+ * Measure the relative luminosity between two RGB values.
+ *
+ * @param int $r Red value 1.
+ * @param int $r2 Red value 2.
+ * @param int $g Green value 1.
+ * @param int $g2 Green value 2.
+ * @param int $b Blue value 1.
+ * @param int $b2 Blue value 2.
+ *
+ * @return luminosity ratio.
+ */
 function wpa_luminosity( $r, $r2, $g, $g2, $b, $b2 ) {
-	$RsRGB = $r / 255;
-	$GsRGB = $g / 255;
-	$BsRGB = $b / 255;
-	$R     = ( $RsRGB <= 0.03928 ) ? $RsRGB / 12.92 : pow( ( $RsRGB + 0.055 ) / 1.055, 2.4 );
-	$G     = ( $GsRGB <= 0.03928 ) ? $GsRGB / 12.92 : pow( ( $GsRGB + 0.055 ) / 1.055, 2.4 );
-	$B     = ( $BsRGB <= 0.03928 ) ? $BsRGB / 12.92 : pow( ( $BsRGB + 0.055 ) / 1.055, 2.4 );
+	$rs_rgb = $r / 255;
+	$gs_rgb = $g / 255;
+	$bs_rgb = $b / 255;
+	$r_new  = ( $rs_rgb <= 0.03928 ) ? $rs_rgb / 12.92 : pow( ( $rs_rgb + 0.055 ) / 1.055, 2.4 );
+	$g_new  = ( $gs_rgb <= 0.03928 ) ? $gs_rgb / 12.92 : pow( ( $gs_rgb + 0.055 ) / 1.055, 2.4 );
+	$b_new  = ( $bs_rgb <= 0.03928 ) ? $bs_rgb / 12.92 : pow( ( $bs_rgb + 0.055 ) / 1.055, 2.4 );
 
-	$RsRGB2 = $r2 / 255;
-	$GsRGB2 = $g2 / 255;
-	$BsRGB2 = $b2 / 255;
-	$R2     = ( $RsRGB2 <= 0.03928 ) ? $RsRGB2 / 12.92 : pow( ( $RsRGB2 + 0.055 ) / 1.055, 2.4 );
-	$G2     = ( $GsRGB2 <= 0.03928 ) ? $GsRGB2 / 12.92 : pow( ( $GsRGB2 + 0.055 ) / 1.055, 2.4 );
-	$B2     = ( $BsRGB2 <= 0.03928 ) ? $BsRGB2 / 12.92 : pow( ( $BsRGB2 + 0.055 ) / 1.055, 2.4 );
+	$rs_rgb2 = $r2 / 255;
+	$gs_rgb2 = $g2 / 255;
+	$bs_rgb2 = $b2 / 255;
+	$r2_new  = ( $rs_rgb2 <= 0.03928 ) ? $rs_rgb2 / 12.92 : pow( ( $rs_rgb2 + 0.055 ) / 1.055, 2.4 );
+	$g2_new  = ( $gs_rgb2 <= 0.03928 ) ? $gs_rgb2 / 12.92 : pow( ( $gs_rgb2 + 0.055 ) / 1.055, 2.4 );
+	$b2_new  = ( $bs_rgb2 <= 0.03928 ) ? $bs_rgb2 / 12.92 : pow( ( $bs_rgb2 + 0.055 ) / 1.055, 2.4 );
 
 	if ( $r + $g + $b <= $r2 + $g2 + $b2 ) {
-		$l2 = ( .2126 * $R + 0.7152 * $G + 0.0722 * $B );
-		$l1 = ( .2126 * $R2 + 0.7152 * $G2 + 0.0722 * $B2 );
+		$l2 = ( .2126 * $r_new + 0.7152 * $g_new + 0.0722 * $b_new );
+		$l1 = ( .2126 * $r2_new + 0.7152 * $b2_new + 0.0722 * $b2_new );
 	} else {
-		$l1 = ( .2126 * $R + 0.7152 * $G + 0.0722 * $B );
-		$l2 = ( .2126 * $R2 + 0.7152 * $G2 + 0.0722 * $B2 );
+		$l1 = ( .2126 * $r_new + 0.7152 * $g_new + 0.0722 * $b_new );
+		$l2 = ( .2126 * $r2_new + 0.7152 * $g2_new + 0.0722 * $b2_new );
 	}
 	$luminosity = round( ( $l1 + 0.05 ) / ( $l2 + 0.05 ), 2 );
 
 	return $luminosity;
 }
 
+/**
+ * Convert an RGB value to a HEX value.
+ *
+ * @param int $r Red value.
+ * @param int $g Green value.
+ * @param int $b Blue value.
+ *
+ * @return Hexadecimal color equivalent.
+ */
 function wpa_rgb2hex( $r, $g = - 1, $b = - 1 ) {
 	if ( is_array( $r ) && sizeof( $r ) == 3 ) {
 		list( $r, $g, $b ) = $r;
@@ -445,13 +466,20 @@ function wpa_rgb2hex( $r, $g = - 1, $b = - 1 ) {
 	$g = dechex( $g < 0 ? 0 : ( $g > 255 ? 255 : $g ) );
 	$b = dechex( $b < 0 ? 0 : ( $b > 255 ? 255 : $b ) );
 
-	$color = ( strlen( $r ) < 2 ? '0' : '' ) . $r;
+	$color  = ( strlen( $r ) < 2 ? '0' : '' ) . $r;
 	$color .= ( strlen( $g ) < 2 ? '0' : '' ) . $g;
 	$color .= ( strlen( $b ) < 2 ? '0' : '' ) . $b;
 
 	return '#' . $color;
 }
 
+/**
+ * Convert a Hexadecimal color value to RGB.
+ *
+ * @param string $color Hexadecimal value for a color.
+ *
+ * @return array of RGB values in R,G,B order.
+ */
 function wpa_hex2rgb( $color ) {
 	$color = str_replace( '#', '', $color );
 	if ( strlen( $color ) != 6 ) {
@@ -465,38 +493,41 @@ function wpa_hex2rgb( $color ) {
 	return $rgb;
 }
 
+/**
+ * Calculate the luminosity ratio between two color values.
+ */
 function wpa_contrast() {
 	if ( ! empty( $_POST ) ) {
 		$nonce = $_REQUEST['_wpnonce'];
 		if ( ! wp_verify_nonce( $nonce, 'wpa-nonce' ) ) {
 			die( 'Security check failed' );
 		}
-		if ( isset( $_POST['color'] ) && $_POST['color'] != '' ) {
+		if ( isset( $_POST['color'] ) && '' != $_POST['color'] ) {
 			$fore_color = $_POST['color'];
-			if ( $fore_color[0] == "#" ) {
+			if ( '#' == $fore_color[0] ) {
 				$fore_color = str_replace( '#', '', $fore_color );
 			}
-			if ( strlen( $fore_color ) == 3 ) {
-				$color6char = $fore_color[0] . $fore_color[0];
+			if ( 3 == strlen( $fore_color ) ) {
+				$color6char  = $fore_color[0] . $fore_color[0];
 				$color6char .= $fore_color[1] . $fore_color[1];
 				$color6char .= $fore_color[2] . $fore_color[2];
-				$fore_color = $color6char;
+				$fore_color  = $color6char;
 			}
 			if ( preg_match( '/^#?([0-9a-f]{1,2}){3}$/i', $fore_color ) ) {
 				$echo_hex_fore = str_replace( '#', '', $fore_color );
 			} else {
 				$echo_hex_fore = 'FFFFFF';
 			}
-			if ( isset( $_POST['color2'] ) && $_POST['color2'] != '' ) {
+			if ( isset( $_POST['color2'] ) && '' != $_POST['color2'] ) {
 				$back_color = $_POST['color2'];
-				if ( $back_color[0] == "#" ) {
+				if ( '#' == $back_color[0] ) {
 					$back_color = str_replace( '#', '', $back_color );
 				}
-				if ( strlen( $back_color ) == 3 ) {
+				if ( 3 == strlen( $back_color ) ) {
 					$color6char = $back_color[0] . $back_color[0];
 					$color6char .= $back_color[1] . $back_color[1];
 					$color6char .= $back_color[2] . $back_color[2];
-					$back_color = $color6char;
+					$back_color  = $color6char;
 				}
 				if ( preg_match( '/^#?([0-9a-f]{1,2}){3}$/i', $back_color ) ) {
 					$echo_hex_back = str_replace( '#', '', $back_color );
@@ -511,14 +542,15 @@ function wpa_contrast() {
 				$rback  = $color2[0];
 				$gback  = $color2[1];
 				$bback  = $color2[2];
-				$colors = array( 'hex1'   => $echo_hex_fore,
-				                 'hex2'   => $echo_hex_back,
-				                 'red1'   => $rfore,
-				                 'green1' => $gfore,
-				                 'blue1'  => $bfore,
-				                 'red2'   => $rback,
-				                 'green2' => $gback,
-				                 'blue2'  => $bback
+				$colors = array(
+					'hex1'   => $echo_hex_fore,
+					'hex2'   => $echo_hex_back,
+					'red1'   => $rfore,
+					'green1' => $gfore,
+					'blue1'  => $bfore,
+					'red2'   => $rback,
+					'green2' => $gback,
+					'blue2'  => $bback,
 				);
 
 				return $colors;
@@ -535,6 +567,13 @@ if ( 'on' == get_option( 'wpa_search' ) ) {
 	add_filter( 'pre_get_posts', 'wpa_filter' );
 }
 
+/**
+ * Filter search queries to ensure that an error page is returned if no results.
+ *
+ * @param object $query Main WP_Query object.
+ *
+ * @return $query.
+ */
 function wpa_filter( $query ) {
 	if ( ! is_admin() ) {
 		if ( isset( $_GET['s'] ) && NULL == trim( $_GET['s'] ) && ( $query->is_main_query() ) ) {
@@ -547,6 +586,13 @@ function wpa_filter( $query ) {
 	return $query;
 }
 
+/**
+ * Locate template for the search error page.
+ *
+ * @param string $template Current template name.
+ *
+ * @return string New template name if changed.
+ */
 function wpa_search_error( $template ) {
 	$search = locate_template( 'search.php' );
 	if ( $search ) {
@@ -556,12 +602,19 @@ function wpa_search_error( $template ) {
 	return $template;
 }
 
-if ( get_option( 'wpa_image_titles' ) == 'on' ) {
+if ( 'on' == get_option( 'wpa_image_titles' ) ) {
 	add_filter( 'the_content', 'wpa_image_titles', 100 );
 	add_filter( 'post_thumbnail_html', 'wpa_image_titles', 100 );
 	add_filter( 'wp_get_attachment_image', 'wpa_image_titles', 100 );
 }
 
+/**
+ * Filter out title attributes on images.
+ *
+ * @param string $content A block of content in an image, post thumbnail, or post content.
+ *
+ * @param return string $content minus title attributes.
+ */
 function wpa_image_titles( $content ) {
 	$results = array();
 	preg_match_all( '|title="[^"]*"|U', $content, $results );
@@ -572,28 +625,52 @@ function wpa_image_titles( $content ) {
 	return $content;
 }
 
-if ( get_option( 'wpa_more' ) == 'on' ) {
+if ( 'on' == get_option( 'wpa_more' ) ) {
 	add_filter( 'get_the_excerpt', 'wpa_custom_excerpt_more', 100 );
 	add_filter( 'excerpt_more', 'wpa_excerpt_more', 100 );
 	add_filter( 'the_content_more_link', 'wpa_content_more', 100 );
 }
 
+/**
+ * Custom "Continue Reading" with post title context.
+ *
+ * @param int $id Post ID.
+ *
+ * @return string HTML link & text.
+ */
 function wpa_continue_reading( $id ) {
 	return '<a class="continue" href="' . get_permalink( $id ) . '">' . get_option( 'wpa_continue' ) . "<span> " . get_the_title( $id ) . "</span></a>";
 }
 
+/**
+ * Add custom continue reading text to excerpts.
+ *
+ * @return Ellipsis + continue reading text.
+ */
 function wpa_excerpt_more() {
 	global $id;
 
 	return '&hellip; ' . wpa_continue_reading( $id );
 }
 
+/**
+ * Add custom continue reading text to content.
+ *
+ * @return continue reading text.
+ */
 function wpa_content_more() {
 	global $id;
 
 	return wpa_continue_reading( $id );
 }
 
+/**
+ * Add custom continue reading text to custom excerpts.
+ *
+ * @param string $output Existing content.
+ *
+ * @return continue reading text.
+ */
 function wpa_custom_excerpt_more( $output ) {
 	if ( has_excerpt() && ! is_attachment() ) {
 		global $id;
@@ -604,7 +681,9 @@ function wpa_custom_excerpt_more( $output ) {
 }
 
 add_action( 'admin_head', 'wpa_admin_styles' );
-
+/**
+ * Enqueue admin stylesheets.
+ */
 function wpa_admin_styles() {
 	if ( isset( $_GET['page'] ) && ( $_GET['page'] == 'wp-accessibility/wp-accessibility.php' ) ) {
 		wp_enqueue_style( 'farbtastic' );
@@ -612,64 +691,53 @@ function wpa_admin_styles() {
 	}
 }
 
-if ( get_option( 'rta_from_tag_clouds' ) == 'on' ) {
+if ( 'on' == get_option( 'rta_from_tag_clouds' ) ) {
 	add_filter( 'wp_tag_cloud', 'wpa_remove_title_attributes' );
 }
 
+/**
+ * Strip title attributes from tag clouds.
+ *
+ * @param string $output Tag Cloud.
+ *
+ * @return string Tag cloud without title attributes.
+ */
 function wpa_remove_title_attributes( $output ) {
 	$output = preg_replace( '/\s*title\s*=\s*(["\']).*?\1/', '', $output );
 
 	return $output;
 }
 
-
-/**
- * Reuse this function next time I deprecate a feature.
- 
-function wpa_deprecated_warning( $context ) {
-	if ( is_user_logged_in() && current_user_can( 'manage_options' ) ) {
-		switch ( $context ) {
-			case 'recent_posts' :
-				return __( 'The WP Accessibility recent posts widget is deprecated. The standard WordPress widget no longer uses title attributes, so this widget is no longer necessary. It will be removed without warning in a future version of WP Accessibility. This warning is only visible to administrators of your site.', 'wp-accessibility' );
-			default:
-				return;
-		}
-	}
-
-	return;
-}
-*/
-
 function wpa_get_support_form() {
 	global $current_user, $wpa_version;
 	$current_user = wp_get_current_user();
-	$request = '';
-	$version = $wpa_version;
-	// send fields for all plugins
+	$request      = '';
+	$version      = $wpa_version;
+	// send fields for all plugins.
 	$wp_version = get_bloginfo( 'version' );
 	$home_url   = home_url();
 	$wp_url     = site_url();
 	$language   = get_bloginfo( 'language' );
 	$charset    = get_bloginfo( 'charset' );
-	// server
+	// server.
 	$php_version = phpversion();
 
-	// theme data
+	// theme data.
 	$theme         = wp_get_theme();
 	$theme_name    = $theme->get( 'Name' );
 	$theme_uri     = $theme->get( 'ThemeURI' );
 	$theme_parent  = $theme->get( 'Template' );
 	$theme_version = $theme->get( 'Version' );
 
-	// plugin data
+	// plugin data.
 	$plugins        = get_plugins();
 	$plugins_string = '';
 	foreach ( array_keys( $plugins ) as $key ) {
 		if ( is_plugin_active( $key ) ) {
-			$plugin         =& $plugins[ $key ];
-			$plugin_name    = $plugin['Name'];
-			$plugin_uri     = $plugin['PluginURI'];
-			$plugin_version = $plugin['Version'];
+			$plugin          =& $plugins[ $key ];
+			$plugin_name     = $plugin['Name'];
+			$plugin_uri      = $plugin['PluginURI'];
+			$plugin_version  = $plugin['Version'];
 			$plugins_string .= "$plugin_name: $plugin_version; $plugin_uri\n";
 		}
 	}
@@ -706,13 +774,13 @@ $plugins_string
 			die( 'Security check failed' );
 		}
 		$request      = ( ! empty( $_POST['support_request'] ) ) ? stripslashes( $_POST['support_request'] ) : false;
-		$has_donated  = ( $_POST['has_donated'] == 'on' ) ? 'Donor' : 'No donation';
-		$has_read_faq = ( $_POST['has_read_faq'] == 'on' ) ? 'Read FAQ' : false;
+		$has_donated  = ( 'on' == $_POST['has_donated'] ) ? 'Donor' : 'No donation';
+		$has_read_faq = ( 'on' == $_POST['has_read_faq'] ) ? 'Read FAQ' : false;
 		$subject      = "WP Accessibility support request. $has_donated";
 		$message      = $request . "\n\n" . $data;
-		// Get the site domain and get rid of www. from pluggable.php
+		// Get the site domain and get rid of www. from pluggable.php.
 		$sitename = strtolower( $_SERVER['SERVER_NAME'] );
-		if ( substr( $sitename, 0, 4 ) == 'www.' ) {
+		if ( 'www.' == substr( $sitename, 0, 4 ) ) {
 			$sitename = substr( $sitename, 4 );
 		}
 		$from_email = 'wordpress@' . $sitename;
@@ -723,8 +791,8 @@ $plugins_string
 		} else if ( ! $request ) {
 			echo "<div class='message error'><p>" . __( 'Please describe your problem. I\'m not psychic.', 'wp-accessibility' ) . '</p></div>';
 		} else {
-			wp_mail( "plugins@joedolson.com", $subject, $message, $from );
-			if ( $has_donated == 'Donor' ) {
+			wp_mail( 'plugins@joedolson.com', $subject, $message, $from );
+			if ( 'Donor' == $has_donated ) {
 				echo "<div class='message updated'><p>" . __( 'Thank you for supporting the continuing development of this plug-in! I\'ll get back to you as soon as I can.', 'wp-accessibility' ) . '</p></div>';
 			} else {
 				echo "<div class='message updated'><p>" . __( 'I cannot provide support, but will treat your request as a bug report, and will incorporate any permanent solutions I discover into the plug-in.', 'wp-accessibility' ) . '</p></div>';
@@ -742,36 +810,41 @@ $plugins_string
 		<code>" . __( 'From:', 'wp-accessibility' ) . " \"$current_user->display_name\" &lt;$current_user->user_email&gt;</code>
 		</p>
 		<p>
-		<input type='checkbox' name='has_read_faq' id='has_read_faq' value='on' /> <label for='has_read_faq'>" . sprintf( __( 'I have read <a href="%1$s">the FAQ for this plug-in</a> <span>(required)</span>', 'wp-accessibility' ), 'http://www.joedolson.com/wp-accessibility/faqs/' ) . "</label>
-        </p>
-        <p>
-        <input type='checkbox' name='has_donated' id='has_donated' value='on' /> <label for='has_donated'>" . sprintf( __( 'I <a href="%1$s">made a donation</a> to help support this plugin', 'wp-accessibility' ), 'http://www.joedolson.com/donate/' ) . "</label>
-        </p>
-        <p>
-        <label for='support_request'>" . __( 'Support Request:', 'wp-accessibility' ) . "</label><br /><textarea name='support_request' required id='support_request' cols='80' rows='10' class='widefat'>" . stripslashes( $request ) . "</textarea>
+		<input type='checkbox' name='has_read_faq' id='has_read_faq' value='on' /> <label for='has_read_faq'>" . sprintf( __( 'I have read <a href="%1$s">the FAQ for this plug-in</a> <span>(required)</span>', 'wp-accessibility' ), 'http://www.joedolson.com/wp-accessibility/faqs/' ) . "</label></p>
+		<p>
+		<input type='checkbox' name='has_donated' id='has_donated' value='on' /> <label for='has_donated'>" . sprintf( __( 'I <a href="%1$s">made a donation</a> to help support this plugin', 'wp-accessibility' ), 'http://www.joedolson.com/donate/' ) . "</label>
+		</p>
+		<p>
+		<label for='support_request'>" . __( 'Support Request:', 'wp-accessibility' ) . "</label><br /><textarea name='support_request' required id='support_request' cols='80' rows='10' class='widefat'>" . stripslashes( $request ) . "</textarea>
 		</p>
 		<p>
 		<input type='submit' value='" . __( 'Send Support Request', 'wp-accessibility' ) . "' name='wpa_support' class='button-primary' />
 		</p>
-		<p>" .
-	     __( 'The following additional information will be sent with your support request:', 'wp-accessibility' )
-	     . "</p>
+		<p>" . __( 'The following additional information will be sent with your support request:', 'wp-accessibility' ) . "</p>
 		<div class='wpa_support'>
-		" . wpautop( $data ) . "
+		" . wpautop( $data ) . '
 		</div>
 		</div>
-	</form>";
+	</form>';
 }
 
-
 add_filter( 'wp_get_attachment_image_attributes', 'wpa_featured_longdesc', 10, 3 );
+/**
+ * Get long descriptions for featured images.
+ *
+ * @param array              $attr Existing image attributes.
+ * @param object             $attachment Current image attachment object.
+ * @param mixed array/string $size Image size shown.
+ *
+ * @return New attributes array.
+ */
 function wpa_featured_longdesc( $attr, $attachment, $size ) {
-	if ( get_option( 'wpa_longdesc_featured' ) == 'on' ) {
+	if ( 'on' == get_option( 'wpa_longdesc_featured' ) ) {
 		$attachment_id = $attachment->ID;
-		$args = array( 'longdesc' => $attachment_id );
-		/* The referrer is the post that the image is inserted into. */
+		$args          = array( 'longdesc' => $attachment_id );
+		// The referrer is the post that the image is inserted into.
 		if ( isset( $_REQUEST['post_id'] ) || get_the_ID() ) {
-			$id = ( isset( $_REQUEST['post_id'] ) ) ? $_REQUEST['post_id'] : get_the_ID();
+			$id               = ( isset( $_REQUEST['post_id'] ) ) ? $_REQUEST['post_id'] : get_the_ID();
 			$args['referrer'] = intval( $id );
 		}
 
@@ -779,17 +852,16 @@ function wpa_featured_longdesc( $attr, $attachment, $size ) {
 		$id     = longdesc_return_anchor( $attachment_id );
 
 		$attr['longdesc'] = $target;
-		$attr['id']      = $id;
+		$attr['id']       = $id;
 	}
-	
+
 	return $attr;
 }
 
 
-/* longdesc support, based on work by Michael Fields (http://wordpress.org/plugins/long-description-for-image-attachments/) */
-
+// longdesc support, based on work by Michael Fields (http://wordpress.org/plugins/long-description-for-image-attachments/).
 define( 'WPA_TEMPLATES', trailingslashit( dirname( __FILE__ ) ) . 'templates/' );
-
+add_action( 'template_redirect', 'longdesc_template' );
 /**
  * Load Template.
  *
@@ -809,53 +881,50 @@ define( 'WPA_TEMPLATES', trailingslashit( dirname( __FILE__ ) ) . 'templates/' )
  * This function is hooked into the "template_redirect"
  * action and terminates script execution.
  *
- * @return    void
- *
- * @since     2010-09-26
- * @alter     2011-03-27
+ * @return void
+ * @link http://wordpress.org/plugins/long-description-for-image-attachments/
+ * @since 2010-09-26
+ * @alter 2011-03-27
  */
 function longdesc_template() {
-
-	/* Return early if there is no reason to proceed. */
+	// Return early if there is no reason to proceed.
 	if ( ! isset( $_GET['longdesc'] ) ) {
 		return;
 	}
 
 	global $post;
 
-	/* Get the image attachment's data. */
+	// Get the image attachment's data.
 	$id   = absint( $_GET['longdesc'] );
 	$post = get_post( $id );
 	if ( is_object( $post ) ) {
 		setup_postdata( $post );
 	}
 
-	/* Attachment must be an image. */
+	// Attachment must be an image.
 	if ( false === strpos( get_post_mime_type(), 'image' ) ) {
 		header( 'HTTP/1.0 404 Not Found' );
 		exit;
 	}
 
-	/* The whole point here is to NOT show an image :) */
+	// The whole point here is to NOT show an image :).
 	remove_filter( 'the_content', 'prepend_attachment' );
 
-	/* Check to see if there is a template in the theme. */
+	// Check to see if there is a template in the theme.
 	$template = locate_template( array( 'longdesc-template.php' ) );
 	if ( ! empty( $template ) ) {
 		require_once( $template );
 		exit;
-	} /* Use plugin's template file. */
+	} // Use plugin's template file.
 	else {
 		require_once( WPA_TEMPLATES . 'longdesc-template.php' );
 		exit;
 	}
 
-	/* You've gone too far! */
+	// You've gone too far. Error case.
 	header( 'HTTP/1.0 404 Not Found' );
 	exit;
 }
-
-add_action( 'template_redirect', 'longdesc_template' );
 
 /**
  * Anchor.
@@ -863,11 +932,9 @@ add_action( 'template_redirect', 'longdesc_template' );
  * Create anchor id for linking from a Long Description to referring post.
  * Also creates an anchor to return from Long Description page.
  *
- * @param     int       ID of the post which contains an image with a longdesc attribute.
- *
- * @return    string
- *
- * @since     2010-09-26
+ * @param int ID of the post which contains an image with a longdesc attribute.
+ * @return string
+ * @since 2010-09-26
  */
 function longdesc_return_anchor( $id ) {
 	return 'longdesc-return-' . $id;
@@ -879,21 +946,29 @@ function longdesc_return_anchor( $id ) {
  * Add longdesc attribute when WordPress sends image to the editor.
  * Also creates an anchor to return from Long Description page.
  *
- * @return    string
+ * @param string $html Image HTML.
+ * @param int    $id Post ID.
+ * @param string $caption Caption text.
+ * @param string $title Image title.
+ * @param string $align Image alignment.
+ * @param string $url Image URL.
+ * @param array  $size Image size.
+ * @param string $alt Image alt attribute.
  *
- * @since     2010-09-20
- * @alter     2011-04-06
+ * @return string
+ *
+ * @since 2010-09-20
+ * @alter 2011-04-06
  */
 function longdesc_add_attr( $html, $id, $caption, $title, $align, $url, $size, $alt ) {
-
-	/* Get data for the image attachment. */
+	// Get data for the image attachment.
 	$image = get_post( $id );
 	global $post_ID;
 	if ( isset( $image->ID ) && ! empty( $image->ID ) ) {
 		$args = array( 'longdesc' => $image->ID );
-		/* The referrer is the post that the image is inserted into. */
+		// The referrer is the post that the image is inserted into.
 		if ( isset( $_REQUEST['post_id'] ) || get_the_ID() ) {
-			$id = ( isset( $_REQUEST['post_id'] ) ) ? $_REQUEST['post_id'] : get_the_ID();
+			$id               = ( isset( $_REQUEST['post_id'] ) ) ? $_REQUEST['post_id'] : get_the_ID();
 			$args['referrer'] = intval( $id );
 		}
 		if ( ! empty( $image->post_content ) ) {
@@ -907,8 +982,11 @@ function longdesc_add_attr( $html, $id, $caption, $title, $align, $url, $size, $
 }
 
 add_filter( 'image_send_to_editor', 'longdesc_add_attr', 10, 8 );
-
-/* Tests whether the current theme is labeled accessibility-ready */
+/**
+ * Tests whether the current theme is labeled accessibility-ready
+ *
+ * @return boolean True if this theme has the tag 'accessibility-ready'.
+ */
 function wpa_accessible_theme() {
 	$theme = wp_get_theme();
 	$tags = $theme->get( 'Tags' );
@@ -918,52 +996,49 @@ function wpa_accessible_theme() {
 	return false;
 }
 
-/*
-add_action( 'init', 'wpa_dismiss_notice' );
-function wpa_dismiss_notice() {
-	if ( isset( $_GET['dismiss'] ) && $_GET['dismiss'] == 'update' ) {
-		update_option( 'wpa_update_notice', 1 );
-	}
-}
-
-add_action( 'admin_notices', 'wpa_update_notice' );
-function wpa_update_notice() {
-	if ( current_user_can( 'activate_plugins' ) && get_option( 'wpa_update_notice' ) == 0 || ! get_option( 'wpa_update_notice' ) ) {
-		$dismiss = admin_url( 'options-general.php?page=wp-accessibility/wp-accessibility.php&dismiss=update' );
-		$access_monitor = "https://wordpress.org/plugins/access-monitor/";
-		echo "<div class='updated fade'><p>" . sprintf( __( 'Have you seen my new accessibility plug-in? <a href="%1$s">Check out Access Monitor</a>! &nbsp; &nbsp; <a href="%2$s">Dismiss Notice<span class="dashicons dashicons-no" aria-hidden="true"></span></a>', 'wp-accessibility' ), $access_monitor, $dismiss ) . '</p></div>';
-	}
-}
-*/
-
 add_filter( 'manage_media_columns', 'wpa_media_columns' );
 add_action( 'manage_media_custom_column', 'wpa_media_value', 10, 2 );
-
+/**
+ * Add column to media column table view indicating images with no alt attribute not also checked as decorative.
+ *
+ * @param array $columns Current table view columns.
+ *
+ * @return columns.
+ */
 function wpa_media_columns( $columns ) {
 	$columns['wpa_data'] = __( 'Accessibility', 'wp-accessibility' );
+
 	return $columns;
 }
 
+/**
+ * Get media values for current item to indicate alt status.
+ *
+ * @param array $column Name of column being checked.
+ * @param int   $id ID of object thiss row belongs to.
+ *
+ * @return String alt attribute status for this object.
+ */
 function wpa_media_value( $column, $id ) {
 	if ( $column == 'wpa_data' ) {
 		$mime = get_post_mime_type( $id );
-		switch ( $mime ) {     
+		switch ( $mime ) {
 			case 'image/jpeg':
 			case 'image/png':
 			case 'image/gif':
 				$alt    = get_post_meta( $id, '_wp_attachment_image_alt', true );
 				$no_alt = get_post_meta( $id, '_no_alt', true );
-				if ( ! $alt && !$no_alt ) {
+				if ( ! $alt && ! $no_alt ) {
 					echo '<span class="missing"><span class="dashicons dashicons-no" aria-hidden="true"></span> <a href="'.get_edit_post_link( $id ).'#attachment_alt">'.__( 'Add <code>alt</code> text', 'wp-accessibility' ).'</a></span>';
 				} else {
-					if ( $no_alt == 1 ) {
-						echo '<span class="ok"><span class="dashicons dashicons-yes" aria-hidden="true"></span> '.__( 'Decorative', 'wp-accessibility' ).'</span>';						
+					if ( 1 == $no_alt ) {
+						echo '<span class="ok"><span class="dashicons dashicons-yes" aria-hidden="true"></span> '.__( 'Decorative', 'wp-accessibility' ).'</span>';
 					} else {
 						echo '<span class="ok"><span class="dashicons dashicons-yes" aria-hidden="true"></span> '.__( 'Has <code>alt</code>', 'wp-accessibility' ).'</span>';
 					}
 				}
 				break;
-			default: 
+			default:
 				echo '<span class="non-image">' . __( 'N/A', 'wp-accessibility' ) . '</span>';
 				break;
 		}
@@ -972,44 +1047,74 @@ function wpa_media_value( $column, $id ) {
 }
 
 add_filter( 'attachment_fields_to_edit', 'wpa_insert_alt_verification', 10, 2 );
+/**
+ * Insert custom fields into attachment editor for alt verification.
+ *
+ * @param array $form_fields Existing form fields.
+ * @param object $post Media attachment object.
+ *
+ * @return array New form fields.
+ */
 function wpa_insert_alt_verification( $form_fields, $post ) {
 	$mime = get_post_mime_type( $post->ID );
-	if ( $mime == 'image/jpeg' || $mime == 'image/png' || $mime == 'image/gif' ) {
-		$no_alt = get_post_meta( $post->ID, '_no_alt', true );
-		$alt = get_post_meta( $post->ID, '_wp_attachment_image_alt', true );
+	if ( 'image/jpeg' == $mime || 'image/png' == $mime || 'image/gif' == $mime ) {
+		$no_alt  = get_post_meta( $post->ID, '_no_alt', true );
+		$alt     = get_post_meta( $post->ID, '_wp_attachment_image_alt', true );
 		$checked = checked( $no_alt, 1, false );
-		$form_fields['no_alt'] = array( 
+		$form_fields['no_alt'] = array(
 			'label' => __( 'Decorative', 'wp-accessibility' ),
 			'input' => 'html',
 			'value' => 1,
-			'html'  => "<input name='attachments[$post->ID][no_alt]' id='attachments-$post->ID-no_alt' value='1' type='checkbox' aria-describedby='wpa_help' $checked /> <em class='help' id='wpa_help'>" . __( 'All images must either have an alt attribute or be declared as decorative.', 'wp-accessibility' ) . "</em>"
+			'html'  => "<input name='attachments[$post->ID][no_alt]' id='attachments-$post->ID-no_alt' value='1' type='checkbox' aria-describedby='wpa_help' $checked /> <em class='help' id='wpa_help'>" . __( 'All images must either have an alt attribute or be declared as decorative.', 'wp-accessibility' ) . '</em>'
 		);
 	}
 	return $form_fields;
 }
 
 add_filter( 'attachment_fields_to_save', 'wpa_save_alt_verification', 10, 2 );
+/**
+ * Save custom alt fields when attachment updated.
+ *
+ * @param array $post $post data.
+ * @param array $attachment Attachment data.
+ *
+ * @return $post
+ */
 function wpa_save_alt_verification( $post, $attachment ) {
 	if ( isset( $attachment['no_alt'] ) ) {
 		update_post_meta( $post['ID'], '_no_alt', 1 );
 	} else {
 		delete_post_meta( $post['ID'], '_no_alt' );
 	}
-	
+
 	return $post;
 }
 
 add_filter( 'image_send_to_editor', 'wpa_alt_attribute', 10, 8 );
+/**
+ * Filter output when image is submitted to the editor. Check for alt attributes, and modify output.
+ *
+ * @param string $html Image HTML.
+ * @param int    $id Post ID.
+ * @param string $caption Caption text.
+ * @param string $title Image title.
+ * @param string $align Image alignment.
+ * @param string $url Image URL.
+ * @param array  $size Image size.
+ * @param string $alt Image alt attribute.
+ *
+ * @return string Image output.
+ */
 function wpa_alt_attribute( $html, $id, $caption, $title, $align, $url, $size, $alt ) {
-	/* Get data for the image attachment. */
+	// Get data for the image attachment.
 	$noalt = get_post_meta( $id, '_no_alt', true );
-	/* Get the original title to compare to alt */
+	// Get the original title to compare to alt.
 	$title = get_the_title( $id );
 	$warning = false;
-	if ( $noalt == 1 ) {
+	if ( 1 == $noalt ) {
 		$html = str_replace( 'alt="'.$alt.'"', 'alt=""', $html );
 	}
-	if ( ( $alt == '' || $alt == $title ) && $noalt != 1 ) {
+	if ( ( '' == $alt || $alt == $title ) && 1 != $noalt ) {
 		if ( $alt == $title ) {
 			$warning = __( 'The alt text for this image is the same as the title. In most cases, that means that the alt attribute has been automatically provided from the image file name.', 'wp-accessibility' );
 			$image = 'alt-same.png';
@@ -1025,6 +1130,9 @@ function wpa_alt_attribute( $html, $id, $caption, $title, $align, $url, $size, $
 }
 
 add_action( 'init', 'wpa_add_editor_styles' );
+/**
+ * Enqueue custom editor styles for WP Accessibility. Used in display of img replacements.
+ */
 function wpa_add_editor_styles() {
-    add_editor_style( plugins_url( 'css/editor-style.css', __FILE__ ) );
+	add_editor_style( plugins_url( 'css/editor-style.css', __FILE__ ) );
 }
