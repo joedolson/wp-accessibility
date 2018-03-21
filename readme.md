@@ -2,7 +2,7 @@
 
 Improving the Accessibility of your WordPress site.
 
-[![Build Status](https://travis-ci.org/joedolson/wp-accessibility.svg)](https://travis-ci.org/joedolson/wp-accessibility)
+[![Build Status](https://travis-ci.org/joedolson/wp-accessibility.svg)](https://travis-ci.org/joedolson/wp-accessibility) [![License](https://img.shields.io/badge/license-GPL--2.0%2B-green.svg)]
 
 ## WP Accessibility Build Environment
 

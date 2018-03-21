@@ -58,10 +58,13 @@ Translating my plug-ins is always appreciated. Visit <a href="https://translate.
 
 = Future =
 
-[Suggest a change!](https://github.com/joedolson/wp-accessibility/)
+[Suggest a change!](https://github.com/joedolson/wp-accessibility/issues/)
 * Conflict with NextGen gallery to explore
-* Gutenberg: filter colors in cover text?
-* 
+
+= 1.6.2 =
+
+* Removed 'ScrollTo' JS.
+*
 
 = 1.6.1 =
 

@@ -85,7 +85,7 @@ function wpa_write_js() {
  */
 function wpa_install() {
 	$wpa_version = '1.6.1';
-	if ( get_option( 'wpa_installed' ) != 'true' ) {
+	if ( 'true' != get_option( 'wpa_installed' ) ) {
 		add_option( 'rta_from_nav_menu', 'on' );
 		add_option( 'rta_from_page_lists', 'on' );
 		add_option( 'rta_from_category_lists', 'on' );
@@ -154,7 +154,6 @@ add_action( 'wp_enqueue_scripts', 'wpa_register_scripts' );
 function wpa_register_scripts() {
 	wp_register_script( 'skiplinks.webkit', plugins_url( 'wp-accessibility/js/skiplinks.webkit.js' ) );
 	wp_register_script( 'ui-a11y.js', plugins_url( 'wp-accessibility/toolbar/js/a11y.js' ), array( 'jquery' ), '1.0', true );
-	wp_register_script( 'scrollTo', plugins_url( 'wp-accessibility/toolbar/js/jquery.scrollto.min.js' ), array( 'jquery' ), '1.4.5', true );
 }
 
 add_action( 'wp_enqueue_scripts', 'wpacc_enqueue_scripts' );
@@ -167,7 +166,6 @@ function wpacc_enqueue_scripts() {
 		wp_enqueue_script( 'skiplinks.webkit' );
 	}
 	if ( 'on' == get_option( 'wpa_toolbar' ) || 'on' == get_option( 'wpa_widget_toolbar' ) ) {
-		wp_enqueue_script( 'scrollTo' );
 		wp_enqueue_script( 'ui-a11y.js' );
 		$plugin_path = plugins_url( 'wp-accessibility/toolbar/css/a11y-contrast.css' );
 		if ( file_exists( get_stylesheet_directory() . '/a11y-contrast.css' ) ) {
