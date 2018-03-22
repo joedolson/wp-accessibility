@@ -13,6 +13,48 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+add_action( 'admin_head', 'wpa_admin_styles' );
+/**
+ * Enqueue admin stylesheets.
+ */
+function wpa_admin_styles() {
+	if ( isset( $_GET['page'] ) && ( 'wp-accessibility/wp-accessibility.php' == $_GET['page'] ) ) {
+		wp_enqueue_style( 'farbtastic' );
+		echo '<link type="text/css" rel="stylesheet" href="' . plugins_url( 'css/wpa-styles.css', __FILE__ ) . '" />';
+	}
+}
+
+/**
+ * Write admin JS.
+ */
+function wpa_write_js() {
+	global $current_screen;
+	if ( 'settings_page_wp-accessibility/wp-accessibility' == $current_screen->base ) {
+		?>
+<script>
+	//<![CDATA[
+	(function ($) {
+		'use strict';
+		$('#fore').farbtastic('#color1');
+		$('#back').farbtastic('#color2');
+	}(jQuery));
+	//]]>
+</script>
+	<?php
+	}
+}
+
+add_action( 'admin_enqueue_scripts', 'wpa_admin_js' );
+/**
+ * Enqueue color picker for contrast testing
+ **/
+function wpa_admin_js() {
+	global $current_screen;
+	if ( 'settings_page_wp-accessibility/wp-accessibility' == $current_screen->base ) {
+		wp_enqueue_script( 'farbtastic' );
+	}
+}
+
 /**
  * Update WP Accessibility settings.
  *

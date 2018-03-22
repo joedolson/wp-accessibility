@@ -38,11 +38,13 @@
 	Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-include( dirname( __FILE__ ) . '/wp-accessibility-settings.php' );
-include( dirname( __FILE__ ) . '/class-wp-accessibility-toolbar.php' );
-include( dirname( __FILE__ ) . '/wp-accessibility-toolbar.php' );
-include( dirname( __FILE__ ) . '/wp-accessibility-longdesc.php' );
-include( dirname( __FILE__ ) . '/wp-accessibility-contrast.php' );
+require_once( dirname( __FILE__ ) . '/class-wp-accessibility-toolbar.php' );
+require_once( dirname( __FILE__ ) . '/wp-accessibility-toolbar.php' );
+require_once( dirname( __FILE__ ) . '/wp-accessibility-longdesc.php' );
+require_once( dirname( __FILE__ ) . '/wp-accessibility-alt.php' );
+require_once( dirname( __FILE__ ) . '/wp-accessibility-contrast.php' );
+require_once( dirname( __FILE__ ) . '/wp-accessibility-settings.php' );
+
 register_activation_hook( __FILE__, 'wpa_install' );
 
 add_action( 'plugins_loaded', 'wpa_load_textdomain' );
@@ -60,26 +62,6 @@ add_action( 'admin_menu', 'wpa_admin_menu' );
 function wpa_admin_menu() {
 	add_action( 'admin_print_footer_scripts', 'wpa_write_js' );
 	add_options_page( 'WP Accessibility', 'WP Accessibility', 'manage_options', __FILE__, 'wpa_admin_settings' );
-}
-
-/**
- * Write admin JS.
- */
-function wpa_write_js() {
-	global $current_screen;
-	if ( 'settings_page_wp-accessibility/wp-accessibility' == $current_screen->base ) {
-		?>
-<script>
-	//<![CDATA[
-	(function ($) {
-		'use strict';
-		$('#fore').farbtastic('#color1');
-		$('#back').farbtastic('#color2');
-	}(jQuery));
-	//]]>
-</script>
-	<?php
-	}
 }
 
 /**
@@ -136,17 +118,6 @@ function wpa_plugin_action( $links, $file ) {
 	}
 
 	return $links;
-}
-
-add_action( 'admin_enqueue_scripts', 'wpa_admin_js' );
-/**
- * Enqueue color picker for contrast testing
- **/
-function wpa_admin_js() {
-	global $current_screen;
-	if ( 'settings_page_wp-accessibility/wp-accessibility' == $current_screen->base ) {
-		wp_enqueue_script( 'farbtastic' );
-	}
 }
 
 add_action( 'wp_enqueue_scripts', 'wpa_register_scripts' );
@@ -545,17 +516,6 @@ function wpa_custom_excerpt_more( $output ) {
 	return $output;
 }
 
-add_action( 'admin_head', 'wpa_admin_styles' );
-/**
- * Enqueue admin stylesheets.
- */
-function wpa_admin_styles() {
-	if ( isset( $_GET['page'] ) && ( 'wp-accessibility/wp-accessibility.php' == $_GET['page'] ) ) {
-		wp_enqueue_style( 'farbtastic' );
-		echo '<link type="text/css" rel="stylesheet" href="' . plugins_url( 'css/wpa-styles.css', __FILE__ ) . '" />';
-	}
-}
-
 if ( 'on' == get_option( 'rta_from_tag_clouds' ) ) {
 	add_filter( 'wp_tag_cloud', 'wpa_remove_title_attributes' );
 }
@@ -711,147 +671,6 @@ function wpa_accessible_theme() {
 		return true;
 	}
 	return false;
-}
-
-add_filter( 'manage_media_columns', 'wpa_media_columns' );
-add_action( 'manage_media_custom_column', 'wpa_media_value', 10, 2 );
-/**
- * Add column to media column table view indicating images with no alt attribute not also checked as decorative.
- *
- * @param array $columns Current table view columns.
- *
- * @return columns.
- */
-function wpa_media_columns( $columns ) {
-	$columns['wpa_data'] = __( 'Accessibility', 'wp-accessibility' );
-
-	return $columns;
-}
-
-/**
- * Get media values for current item to indicate alt status.
- *
- * @param array $column Name of column being checked.
- * @param int   $id ID of object thiss row belongs to.
- *
- * @return String alt attribute status for this object.
- */
-function wpa_media_value( $column, $id ) {
-	if ( 'wpa_data' == $column ) {
-		$mime = get_post_mime_type( $id );
-		switch ( $mime ) {
-			case 'image/jpeg':
-			case 'image/png':
-			case 'image/gif':
-				$alt    = get_post_meta( $id, '_wp_attachment_image_alt', true );
-				$no_alt = get_post_meta( $id, '_no_alt', true );
-				if ( ! $alt && ! $no_alt ) {
-					echo '<span class="missing"><span class="dashicons dashicons-no" aria-hidden="true"></span> <a href="' . get_edit_post_link( $id ) . '#attachment_alt">' . __( 'Add <code>alt</code> text', 'wp-accessibility' ) . '</a></span>';
-				} else {
-					if ( 1 == $no_alt ) {
-						echo '<span class="ok"><span class="dashicons dashicons-yes" aria-hidden="true"></span> ' . __( 'Decorative', 'wp-accessibility' ) . '</span>';
-					} else {
-						echo '<span class="ok"><span class="dashicons dashicons-yes" aria-hidden="true"></span> ' . __( 'Has <code>alt</code>', 'wp-accessibility' ) . '</span>';
-					}
-				}
-				break;
-			default:
-				echo '<span class="non-image">' . __( 'N/A', 'wp-accessibility' ) . '</span>';
-				break;
-		}
-	}
-	return $column;
-}
-
-add_filter( 'attachment_fields_to_edit', 'wpa_insert_alt_verification', 10, 2 );
-/**
- * Insert custom fields into attachment editor for alt verification.
- *
- * @param array  $form_fields Existing form fields.
- * @param object $post Media attachment object.
- *
- * @return array New form fields.
- */
-function wpa_insert_alt_verification( $form_fields, $post ) {
-	$mime = get_post_mime_type( $post->ID );
-	if ( 'image/jpeg' == $mime || 'image/png' == $mime || 'image/gif' == $mime ) {
-		$no_alt                = get_post_meta( $post->ID, '_no_alt', true );
-		$alt                   = get_post_meta( $post->ID, '_wp_attachment_image_alt', true );
-		$checked               = checked( $no_alt, 1, false );
-		$form_fields['no_alt'] = array(
-			'label' => __( 'Decorative', 'wp-accessibility' ),
-			'input' => 'html',
-			'value' => 1,
-			'html'  => "<input name='attachments[$post->ID][no_alt]' id='attachments-$post->ID-no_alt' value='1' type='checkbox' aria-describedby='wpa_help' $checked /> <em class='help' id='wpa_help'>" . __( 'All images must either have an alt attribute or be declared as decorative.', 'wp-accessibility' ) . '</em>',
-		);
-	}
-	return $form_fields;
-}
-
-add_filter( 'attachment_fields_to_save', 'wpa_save_alt_verification', 10, 2 );
-/**
- * Save custom alt fields when attachment updated.
- *
- * @param array $post $post data.
- * @param array $attachment Attachment data.
- *
- * @return $post
- */
-function wpa_save_alt_verification( $post, $attachment ) {
-	if ( isset( $attachment['no_alt'] ) ) {
-		update_post_meta( $post['ID'], '_no_alt', 1 );
-	} else {
-		delete_post_meta( $post['ID'], '_no_alt' );
-	}
-
-	return $post;
-}
-
-add_filter( 'image_send_to_editor', 'wpa_alt_attribute', 10, 8 );
-/**
- * Filter output when image is submitted to the editor. Check for alt attributes, and modify output.
- *
- * @param string $html Image HTML.
- * @param int    $id Post ID.
- * @param string $caption Caption text.
- * @param string $title Image title.
- * @param string $align Image alignment.
- * @param string $url Image URL.
- * @param array  $size Image size.
- * @param string $alt Image alt attribute.
- *
- * @return string Image output.
- */
-function wpa_alt_attribute( $html, $id, $caption, $title, $align, $url, $size, $alt ) {
-	// Get data for the image attachment.
-	$noalt = get_post_meta( $id, '_no_alt', true );
-	// Get the original title to compare to alt.
-	$title   = get_the_title( $id );
-	$warning = false;
-	if ( 1 == $noalt ) {
-		$html = str_replace( 'alt="' . $alt . '"', 'alt=""', $html );
-	}
-	if ( ( '' == $alt || $alt == $title ) && 1 != $noalt ) {
-		if ( $alt == $title ) {
-			$warning = __( 'The alt text for this image is the same as the title. In most cases, that means that the alt attribute has been automatically provided from the image file name.', 'wp-accessibility' );
-			$image   = 'alt-same.png';
-		} else {
-			$warning = __( 'This image requires alt text, but the alt text is currently blank. Either add alt text or mark the image as decorative.', 'wp-accessibility' );
-			$image   = 'alt-missing.png';
-		}
-	}
-	if ( $warning ) {
-		return $html . "<img class='wpa-image-missing-alt size-" . esc_attr( $size ) . ' ' . esc_attr( $align ) . "' src='" . plugins_url( "imgs/$image", __FILE__ ) . "' alt='" . esc_attr( $warning ) . "' />";
-	}
-	return $html;
-}
-
-add_action( 'init', 'wpa_add_editor_styles' );
-/**
- * Enqueue custom editor styles for WP Accessibility. Used in display of img replacements.
- */
-function wpa_add_editor_styles() {
-	add_editor_style( plugins_url( 'css/editor-style.css', __FILE__ ) );
 }
 
 add_action( 'widgets_init', 'wpa_register_toolbar_widget' );
