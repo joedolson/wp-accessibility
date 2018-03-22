@@ -6,7 +6,7 @@
  * @package  WP Accessibility
  * @author   Joe Dolson
  * @license  GPLv2 or later
- * @link     https://www.joedolson.com/wp-accessibility/
+ * @link     https://www.joedolson.com/wp-access/
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -34,7 +34,7 @@ function wpa_featured_longdesc( $attr, $attachment, $size ) {
 		}
 
 		$target = add_query_arg( $args, home_url() );
-		$id     = longdesc_return_anchor( $attachment_id );
+		$id     = wpa_longdesc_return_anchor( $attachment_id );
 
 		$attr['longdesc'] = $target;
 		$attr['id']       = $id;
@@ -46,7 +46,7 @@ function wpa_featured_longdesc( $attr, $attachment, $size ) {
 
 // longdesc support, based on work by Michael Fields (http://wordpress.org/plugins/long-description-for-image-attachments/).
 define( 'WPA_TEMPLATES', trailingslashit( dirname( __FILE__ ) ) . 'templates/' );
-add_action( 'template_redirect', 'longdesc_template' );
+add_action( 'template_redirect', 'wpa_longdesc_template' );
 /**
  * Load Template.
  *
@@ -71,7 +71,7 @@ add_action( 'template_redirect', 'longdesc_template' );
  * @since 2010-09-26
  * @alter 2011-03-27
  */
-function longdesc_template() {
+function wpa_longdesc_template() {
 	// Return early if there is no reason to proceed.
 	if ( ! isset( $_GET['longdesc'] ) ) {
 		return;
@@ -122,11 +122,11 @@ function longdesc_template() {
  * @return string
  * @since 2010-09-26
  */
-function longdesc_return_anchor( $id ) {
+function wpa_longdesc_return_anchor( $id ) {
 	return 'longdesc-return-' . $id;
 }
 
-add_filter( 'image_send_to_editor', 'longdesc_add_attr', 10, 8 );
+add_filter( 'image_send_to_editor', 'wpa_longdesc_add_attr', 10, 8 );
 /**
  * Add Attribute.
  *
@@ -147,7 +147,7 @@ add_filter( 'image_send_to_editor', 'longdesc_add_attr', 10, 8 );
  * @since 2010-09-20
  * @alter 2011-04-06
  */
-function longdesc_add_attr( $html, $id, $caption, $title, $align, $url, $size, $alt ) {
+function wpa_longdesc_add_attr( $html, $id, $caption, $title, $align, $url, $size, $alt ) {
 	// Get data for the image attachment.
 	$image = get_post( $id );
 	global $post_ID;
@@ -160,7 +160,7 @@ function longdesc_add_attr( $html, $id, $caption, $title, $align, $url, $size, $
 		}
 		if ( ! empty( $image->post_content ) ) {
 			$search  = '<img ';
-			$replace = '<img tabindex="-1" id="' . esc_attr( longdesc_return_anchor( $image->ID ) ) . '" longdesc="' . esc_url( add_query_arg( $args, home_url() ) ) . '" ';
+			$replace = '<img tabindex="-1" id="' . esc_attr( wpa_longdesc_return_anchor( $image->ID ) ) . '" longdesc="' . esc_url( add_query_arg( $args, home_url() ) ) . '" ';
 			$html    = str_replace( $search, $replace, $html );
 		}
 	}

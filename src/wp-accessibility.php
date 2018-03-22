@@ -59,7 +59,7 @@ add_action( 'admin_menu', 'wpa_admin_menu' );
  */
 function wpa_admin_menu() {
 	add_action( 'admin_print_footer_scripts', 'wpa_write_js' );
-	add_options_page( 'WP Accessibility', 'WP Accessibility', 'manage_options', __FILE__, 'wpa_admin_menu' );
+	add_options_page( 'WP Accessibility', 'WP Accessibility', 'manage_options', __FILE__, 'wpa_admin_settings' );
 }
 
 /**
@@ -412,7 +412,7 @@ function wpa_logout_item( $admin_bar ) {
 	$admin_bar->add_node( $args );
 }
 
-add_filter( 'mce_css', 'wp_diagnostic_css' );
+add_filter( 'mce_css', 'wpa_diagnostic_css' );
 /**
  * Add diagnostic CSS.
  *
@@ -420,7 +420,7 @@ add_filter( 'mce_css', 'wp_diagnostic_css' );
  *
  * @return full string css.
  */
-function wp_diagnostic_css( $mce_css ) {
+function wpa_diagnostic_css( $mce_css ) {
 	if ( get_option( 'wpa_diagnostics' ) == 'on' ) {
 		$mce_css .= ', ' . plugins_url( 'css/diagnostic.css', __FILE__ );
 	}

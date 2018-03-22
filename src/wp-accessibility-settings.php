@@ -133,7 +133,7 @@ function wpa_update_settings() {
 /**
  * Display settings admin page.
  */
-function wpa_admin_menu() {
+function wpa_admin_settings() {
 	echo wpa_update_settings();
 	?>
 	<div class="wrap">
