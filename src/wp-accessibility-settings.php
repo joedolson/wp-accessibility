@@ -299,9 +299,10 @@ function wpa_admin_settings() {
 									<option value=''><?php _e( 'Default size', 'wp-accessibility' ); ?></option>
 									<?php
 									for ( $i = 1; $i <= 2.5; ) {
-										$current       = $i . 'em';
+										$val           = ( $i * 10 ) + 2;
+										$current       = $val;
 										$selected_size = ( $current == $size ) ? ' selected="selected"' : '';
-										echo "<option value='$i" . "em'$selected_size>$i em</option>";
+										echo "<option value='$val'$selected_size>$val px</option>";
 										$i = $i + .1;
 									}
 									?>
@@ -664,7 +665,6 @@ function wpa_admin_settings() {
 						<li><a href="http://www.accessibleculture.org/articles/2010/08/continue-reading-links-in-wordpress/">Continue Reading Links in WordPress</a></li>
 						<li><a href="http://www.mothereffingtoolconfuser.com">Mother Effing Tool Confuser</a></li>
 						<li><a href="http://wordpress.org/extend/plugins/remove-title-attributes/">Remove Title Attributes</a></li>
-						<li><a href="http://accessites.org/site/2008/11/wordpress-and-accessibility/#comment-2926">WordPress and Accessibility (Comment)</a></li>
 						<li><a href="http://wordpress.org/extend/plugins/img-title-removal/">IMG Title Removal</a></li>
 						<li><a href="https://github.com/clrux/a11y">Accessibility Toolbar</a></li>
 						<li><a href="https://wordpress.org/plugins/long-description-for-image-attachments/">WordPress Long Description</a></li>

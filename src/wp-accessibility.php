@@ -17,7 +17,7 @@
  * Domain Path: /lang
  * License:     GPL-2.0+
  * License URI: http://www.gnu.org/license/gpl-2.0.txt
- * Version: 1.6.1
+ * Version: 1.6.2
  */
 
 /*
@@ -68,7 +68,7 @@ function wpa_admin_menu() {
  * Install on activation.
  */
 function wpa_install() {
-	$wpa_version = '1.6.1';
+	$wpa_version = '1.6.2';
 	if ( 'true' != get_option( 'wpa_installed' ) ) {
 		add_option( 'rta_from_nav_menu', 'on' );
 		add_option( 'rta_from_page_lists', 'on' );
@@ -193,12 +193,14 @@ function wpa_stylesheet() {
 	$fontsize_stylesheet = ( 'on' == get_option( 'wpa_alternate_fontsize' ) ) ? 'a11y-fontsize-alt' : 'a11y-fontsize';
 	$fontsize            = apply_filters( 'wpa_fontsize_css', plugins_url( 'toolbar/css/' . $fontsize_stylesheet . '.css', __FILE__ ) );
 	wp_register_style( 'ui-fontsize.css', $fontsize );
+	$toolbar_size = get_option( 'wpa_toolbar_size' );
+	$toolbar_size = ( false === stripos( $toolbar_size, 'em' ) ) ? $toolbar_size . 'px' : $toolbar_size;
 	// Only enable styles when required by options.
 	if ( get_option( 'wpa_toolbar_size' ) && 'on' == get_option( 'wpa_toolbar' ) ) {
 		echo "
 <style type='text/css'>
 .a11y-toolbar ul li button {
-	font-size: " . get_option( 'wpa_toolbar_size' ) . ' !important;
+	font-size: " . $toolbar_size . ' !important;
 }
 </style>';
 	}
