@@ -66,6 +66,7 @@ Translating my plug-ins is always appreciated. Visit <a href="https://translate.
 * Removed 'ScrollTo' JS.
 * Changed toolbar font size setting from em to px for predictability.
 * Updated 'diagnostic.css' to latest version.
+* Removed 'create_function' for PHP 7.2 compatibility.
 * Code updated to conform to WordPress PHP standards
 * Code restructuring. 
 
