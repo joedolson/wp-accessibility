@@ -46,7 +46,10 @@ Learn more! <a href="http://make.wordpress.org/accessibility/wp-accessibility-pl
 
 The plug-in is intended to help with deficiencies commonly found in themes and to solve some issues in WordPress core. It can't correct every problem (by a long shot), but provides tools to fix some issues, supplement the accessibility of your site, or identify problems.
 
-Translating my plug-ins is always appreciated. Visit <a href="https://translate.wordpress.org/projects/wp-plugins/wp-accessibility">the WordPress translations site</a> to get your language into shape!
+= Contribute! =
+
+* <a href="https://translate.wordpress.org/projects/wp-plugins/wp-accessibility">Help Translate WP Accessibility</a>
+* <a href="https://github.com/joedolson/wp-accessibility">Contribute to WP Accessibility</a>
 
 == Installation ==
 
