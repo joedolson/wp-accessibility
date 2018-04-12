@@ -65,6 +65,11 @@ The plug-in is intended to help with deficiencies commonly found in themes and t
 [Suggest a change!](https://github.com/joedolson/wp-accessibility/issues/)
 * Conflict with NextGen gallery to explore
 
+= 1.6.3 =
+
+* Bug fix: incorrect function name
+* Bug fix: don't use POST data directly when value is known 
+
 = 1.6.2 =
 
 * Removed 'ScrollTo' JS.
