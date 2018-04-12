@@ -108,7 +108,7 @@ function wpa_update_settings() {
 			$wpa_tabindex                = ( isset( $_POST['wpa_tabindex'] ) ) ? 'on' : '';
 			$wpa_underline               = ( isset( $_POST['wpa_underline'] ) ) ? 'on' : '';
 			$wpa_longdesc                = ( isset( $_POST['wpa_longdesc'] ) ) ? esc_attr( $_POST['wpa_longdesc'] ) : 'false';
-			$wpa_current_menu            = ( isset( $_POST['wpa_current_menu'] ) ) ? esc_attr( $_POST['wpa_current_menu'] ) : '';
+			$wpa_current_menu            = ( isset( $_POST['wpa_current_menu'] ) ) ? 'on' : '';
 			$wpa_longdesc_featured       = ( isset( $_POST['wpa_longdesc_featured'] ) ) ? esc_attr( $_POST['wpa_longdesc_featured'] ) : 'false';
 			$wpa_image_titles            = ( isset( $_POST['wpa_image_titles'] ) ) ? 'on' : '';
 			$wpa_more                    = ( isset( $_POST['wpa_more'] ) ) ? 'on' : '';
