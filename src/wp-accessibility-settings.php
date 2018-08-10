@@ -40,7 +40,7 @@ function wpa_write_js() {
 	}(jQuery));
 	//]]>
 </script>
-	<?php
+		<?php
 	}
 }
 
@@ -190,13 +190,13 @@ function wpa_admin_settings() {
 				<div class="inside">
 					<?php
 					if ( wpa_accessible_theme() && 'on' != get_option( 'asl_enable' ) ) {
-					?>
+						?>
 					<p>
 						<?php _e( 'Your <code>accessibility-ready</code> theme has skip links built in.', 'wp-accessibility' ); ?>
 					</p>
-					<?php
+						<?php
 					} else {
-					?>
+						?>
 					<form method="post" action="<?php echo admin_url( 'options-general.php?page=wp-accessibility/wp-accessibility.php' ); ?>">
 						<fieldset>
 							<legend><?php _e( 'Configure Skiplinks', 'wp-accessibility' ); ?></legend>
@@ -258,7 +258,7 @@ function wpa_admin_settings() {
 
 						<p><input type="submit" name="wpa-settings" class="button-primary" value="<?php _e( 'Update Skiplink Settings', 'wp-accessibility' ); ?>"/></p>
 					</form>
-					<?php
+						<?php
 					}
 					?>
 				</div>
@@ -342,7 +342,7 @@ function wpa_admin_settings() {
 						<ul>
 							<?php
 							if ( ! wpa_accessible_theme() ) {
-							?>
+								?>
 							<li>
 								<input type="checkbox" id="wpa_lang" name="wpa_lang" <?php checked( get_option( 'wpa_lang' ), 'on' ); ?>/>
 								<label for="wpa_lang"><?php _e( 'Add Site Language and text direction to HTML element', 'wp-accessibility' ); ?></label>
@@ -363,11 +363,11 @@ function wpa_admin_settings() {
 								<input type="checkbox" id="wpa_labels" name="wpa_labels" <?php checked( get_option( 'wpa_labels' ), 'on' ); ?> />
 								<label for='wpa_labels'><?php _e( 'Automatically Label WordPress search form and comment forms', 'wp-accessibility' ); ?></label>
 							</li>
-							<?php
+								<?php
 							} else {
-							?>
+								?>
 								<li><?php _e( '<strong>Four disabled features:</strong> Site language, continue reading text, landmark roles and standard form labels are defined in your <code>accessibility-ready</code> theme.', 'wp-accessibility' ); ?></li>
-							<?php
+								<?php
 							}
 							?>
 							<li>

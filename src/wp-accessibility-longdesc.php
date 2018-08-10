@@ -27,7 +27,7 @@ function wpa_featured_longdesc( $attr, $attachment, $size ) {
 	if ( 'on' == get_option( 'wpa_longdesc_featured' ) ) {
 		$attachment_id = $attachment->ID;
 		if ( '' != strip_tags( $attachment->post_content ) ) {
-			$args          = array( 'longdesc' => $attachment_id );
+			$args = array( 'longdesc' => $attachment_id );
 			// The referrer is the post that the image is inserted into.
 			if ( isset( $_REQUEST['post_id'] ) || get_the_ID() ) {
 				$id               = ( isset( $_REQUEST['post_id'] ) ) ? $_REQUEST['post_id'] : get_the_ID();
@@ -102,8 +102,8 @@ function wpa_longdesc_template() {
 	if ( ! empty( $template ) ) {
 		require_once( $template );
 		exit;
-	} // Use plugin's template file.
-	else {
+	} else {
+		// Use plugin's template file.
 		require_once( WPA_TEMPLATES . 'longdesc-template.php' );
 		exit;
 	}
