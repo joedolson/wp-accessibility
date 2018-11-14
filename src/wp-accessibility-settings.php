@@ -210,22 +210,24 @@ function wpa_admin_settings() {
 									<label for="asl_visible"><?php _e( 'Skiplinks always visible', 'wp-accessibility' ); ?></label>
 								</li>
 								<li>
-									<label for="asl_content"><?php _e( 'Skip to Content link target (ID of your main content container)', 'wp-accessibility' ); ?></label>
-									<input type="text" id="asl_content" name="asl_content" value="<?php echo esc_attr( get_option( 'asl_content' ) ); ?>"/>
+									<label for="asl_content"><?php _e( 'Skip to Content link target (ID of your main content container)', 'wp-accessibility' ); ?></label><br />
+									<input type="text" id="asl_content" name="asl_content" size="44" value="<?php echo esc_attr( get_option( 'asl_content' ) ); ?>"/>
 								</li>
 								<li>
-									<label for="asl_navigation"><?php _e( 'Skip to Navigation link target (ID of your main navigation container)', 'wp-accessibility' ); ?></label>
-									<input type="text" id="asl_navigation" name="asl_navigation" value="<?php echo esc_attr( get_option( 'asl_navigation' ) ); ?>"/>
+									<label for="asl_navigation"><?php _e( 'Skip to Navigation link target (ID of your main navigation container)', 'wp-accessibility' ); ?></label><br />
+									<input type="text" id="asl_navigation" name="asl_navigation" size="44" value="<?php echo esc_attr( get_option( 'asl_navigation' ) ); ?>"/>
 								</li>
 								<li>
-									<label for="asl_sitemap"><?php _e( 'Site Map link target (URL for your site map)', 'wp-accessibility' ); ?></label>
+									<label for="asl_sitemap"><?php _e( 'Site Map link target (URL for your site map)', 'wp-accessibility' ); ?></label><br />
 									<input type="text" id="asl_sitemap" name="asl_sitemap" size="44" value="<?php echo esc_attr( get_option( 'asl_sitemap' ) ); ?>"/>
 								</li>
 								<li>
-									<label for="asl_extra_target"><?php _e( 'Add your own link (link or container ID)', 'wp-accessibility' ); ?></label>
-									<input type="text" id="asl_extra_target" name="asl_extra_target" value="<?php echo esc_attr( get_option( 'asl_extra_target' ) ); ?>"/>
-									<label for="asl_extra_text"><?php _e( 'Link text for your link', 'wp-accessibility' ); ?></label>
-									<input type="text" id="asl_extra_text" name="asl_extra_text" value="<?php echo esc_attr( get_option( 'asl_extra_text' ) ); ?>"/>
+									<label for="asl_extra_target"><?php _e( 'Add your own link (link or container ID)', 'wp-accessibility' ); ?></label><br />
+									<input type="text" id="asl_extra_target" name="asl_extra_target" size="44" value="<?php echo esc_attr( get_option( 'asl_extra_target' ) ); ?>"/>
+								</li>
+								<li>
+									<label for="asl_extra_text"><?php _e( 'Link text for your link', 'wp-accessibility' ); ?></label><br />
+									<input type="text" id="asl_extra_text" name="asl_extra_text" size="44" value="<?php echo esc_attr( get_option( 'asl_extra_text' ) ); ?>"/>
 								</li>
 								<li>
 									<label for="asl_styles_focus"><?php _e( 'Styles for Skiplinks when they have focus', 'wp-accessibility' ); ?></label><br/>
@@ -287,7 +289,7 @@ function wpa_admin_settings() {
 								</ul>
 							</li>
 							<li>
-								<label for="wpa_toolbar_default"><?php _e( 'Toolbar location (ID attribute)', 'wp-accessibility' ); ?></label>
+								<label for="wpa_toolbar_default"><?php _e( 'Toolbar location (ID attribute, such as <code>#header</code>)', 'wp-accessibility' ); ?></label>
 								<input type="text" id="wpa_toolbar_default" name="wpa_toolbar_default" value="<?php echo esc_attr( get_option( 'wpa_toolbar_default' ) ); ?>" />
 							</li>
 							<?php
