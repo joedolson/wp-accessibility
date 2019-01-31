@@ -13,23 +13,29 @@ add_shortcode( 'wpa_toolbar', 'wpa_toolbar_shortcode' );
 /**
  * Output Toolbar shortcode
  *
- * @param array $atts Shortcode attributes.
+ * @param array  $atts Shortcode attributes.
  * @param string $content Contained content.
  *
  * @return string
  */
 function wpa_toolbar_shortcode( $atts, $content ) {
-	$args = shortcode_atts( array(
-		'type'    => 'widget',
-		'control' => 'button',
-	), $atts, 'wpa_toolbar' );
+	$args = shortcode_atts( 
+		array(
+			'type'    => 'widget',
+			'control' => 'button',
+		), 
+		$atts,
+		'wpa_toolbar'
+	);
 
 	return wpa_toolbar_html( $args['type'], $args['control'] );
 }
+
 /**
  * Generate Toolbar as HTML.
  *
- * @param string $type widget, shortcode, or button.
+ * @param string $type widget, shortcode, js generated.
+ * @param string $control Control type: button or not
  *
  * @return string HTML.
  */
