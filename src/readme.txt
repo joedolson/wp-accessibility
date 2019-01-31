@@ -68,6 +68,7 @@ The plug-in is intended to help with deficiencies commonly found in themes and t
 = 1.6.5 =
 
 * Bug fix: Widget output should not be styled.
+* Bug fix: Remove duplicated (current) when both current-menu-item and -page-item present (props loopRW)
 
 = 1.6.4 =
 
