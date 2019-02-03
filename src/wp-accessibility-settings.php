@@ -524,6 +524,16 @@ function wpa_admin_settings() {
 					</form>
 				</div>
 			</div>
+			<div class="postbox" id="privacy">
+				<h2 class='hndle'><?php _e( 'Privacy', 'wp-accessibility' ); ?></h2>
+
+				<div class="inside">
+					<h3><?php _e( 'Cookies', 'wp-accessibility' ); ?></h3>
+					<p><?php _e( 'The accessibility toolbar sets cookies to maintain awareness of the user\'s selected accessibility options. If the toolbar is not in use, WP Accessibility does not set any cookies.', 'wp-accessibility' ); ?></p>
+					<h3><?php _e( 'Information Collected by WP Accessibility', 'wp-accessibility' ); ?></h3>
+					<p><?php _e( 'WP Accessibility does not collect any private information about users or visitors.', 'wp-accessibility' ); ?></p>
+				</div>
+			</div>
 			<div class="postbox" id="get-support">
 				<h2 class='hndle'><?php _e( 'Get Plug-in Support', 'wp-accessibility' ); ?></h2>
 
