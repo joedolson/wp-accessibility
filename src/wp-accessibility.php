@@ -270,8 +270,8 @@ function wpa_css() {
 		$is_rtl     = ( is_rtl() ) ? '-rtl' : '-ltr';
 		$class      = '.' . $visibility . $is_rtl;
 		$styles    .= "
-		$class#skiplinks a, $invis $class#skiplinks a:visited { $passive }
-		$class#skiplinks a:active, $vis $class#skiplinks a:focus { $focus  }
+		$class#skiplinks a, $class$invis $class#skiplinks a:visited { $passive }
+		$class#skiplinks a:active, $class$vis $class#skiplinks a:focus { $focus  }
 		";
 	}
 	if ( 'on' == get_option( 'wpa_focus' ) ) {
