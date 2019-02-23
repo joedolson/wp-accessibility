@@ -258,7 +258,7 @@ function wpa_css() {
 			$focus = $default_focus . $focus;
 		}
 		// Passive default styles derived from WordPress default focus styles
-		$passive_default = 'background-color: #fff; box-shadow: none; clip: auto; color: #333; display: block; font-weight: 600; height: auto; line-height: normal; padding: 15px 23px 14px; position: absolute; left: 6px; top: 7px; text-decoration: none; text-transform: none; width: auto; z-index: 100000;';
+		$default_passive = 'background-color: #fff; box-shadow:  0 0 2px 2px rgba(0, 0, 0, 0.2); clip: auto; color: #333; display: block; font-weight: 600; height: auto; line-height: normal; padding: 15px 23px 14px; position: absolute; left: 6px; top: 7px; text-decoration: none; text-transform: none; width: auto; z-index: 100000;';
 		
 		$passive = get_option( 'asl_styles_passive' );
 		$vis     = '';
@@ -266,7 +266,7 @@ function wpa_css() {
 		// If links are visible, "hover" is a focus style, otherwise, it's a passive style.
 		if ( 'on' == get_option( 'asl_visible' ) ) {
 			$vis     = '#skiplinks a:hover,';
-			$passive = $passive_default . $passive;
+			$passive = $default_passive . $passive;
 		} else {
 			$invis   = '#skiplinks a:hover,';
 			$passive = '';
