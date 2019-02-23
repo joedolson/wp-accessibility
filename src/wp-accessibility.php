@@ -257,9 +257,9 @@ function wpa_css() {
 		} else {
 			$focus = $default_focus . $focus;
 		}
-		// Passive default styles derived from WordPress default focus styles
+		// Passive default styles derived from WordPress default focus styles.
 		$default_passive = 'background-color: #fff; box-shadow:  0 0 2px 2px rgba(0, 0, 0, 0.2); clip: auto; color: #333; display: block; font-weight: 600; height: auto; line-height: normal; padding: 15px 23px 14px; position: absolute; left: 6px; top: 7px; text-decoration: none; text-transform: none; width: auto; z-index: 100000;';
-		
+
 		$passive = get_option( 'asl_styles_passive' );
 		$vis     = '';
 		$invis   = '';
