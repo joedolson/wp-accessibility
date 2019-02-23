@@ -251,7 +251,7 @@ function wpa_css() {
 	if ( get_option( 'asl_enable' ) == 'on' ) {
 		$focus = get_option( 'asl_styles_focus' );
 		// these styles are derived from the WordPress skip link defaults.
-		$default_focus = 'background-color: #f1f1f1; box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.6); clip: auto; color: #21759b; display: block; font-size: 14px; font-weight: bold; height: auto; line-height: normal; padding: 15px 23px 14px; position: absolute; left: 5px; top: 5px; text-decoration: none; text-transform: none; width: auto; z-index: 100000;';
+		$default_focus = 'background-color: #f1f1f1; box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.6); clip: auto; color: #0073aa; display: block; font-weight: 600; height: auto; line-height: normal; padding: 15px 23px 14px; position: absolute; left: 6px; top: 7px; text-decoration: none; text-transform: none; width: auto; z-index: 100000;';
 		if ( ! $focus ) {
 			$focus = $default_focus;
 		} else {
