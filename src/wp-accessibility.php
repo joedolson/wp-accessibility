@@ -257,14 +257,19 @@ function wpa_css() {
 		} else {
 			$focus = $default_focus . $focus;
 		}
+		// Passive default styles derived from WordPress default focus styles
+		$passive_default = 'background-color: #fff; box-shadow: none; clip: auto; color: #333; display: block; font-weight: 600; height: auto; line-height: normal; padding: 15px 23px 14px; position: absolute; left: 6px; top: 7px; text-decoration: none; text-transform: none; width: auto; z-index: 100000;';
+		
 		$passive = get_option( 'asl_styles_passive' );
 		$vis     = '';
 		$invis   = '';
 		// If links are visible, "hover" is a focus style, otherwise, it's a passive style.
 		if ( 'on' == get_option( 'asl_visible' ) ) {
-			$vis = '#skiplinks a:hover,';
+			$vis     = '#skiplinks a:hover,';
+			$passive = $passive_default . $passive;
 		} else {
-			$invis = '#skiplinks a:hover,';
+			$invis   = '#skiplinks a:hover,';
+			$passive = '';
 		}
 		$visibility = ( 'on' == get_option( 'asl_visible' ) ) ? 'wpa-visible' : 'wpa-hide';
 		$is_rtl     = ( is_rtl() ) ? '-rtl' : '-ltr';
