@@ -117,11 +117,4 @@ function eraseCookie(name) {
 		return false;
 	});
 
-	// Sets a -1 tabindex to ALL sections for .focus()-ing
-	var sections = document.getElementsByTagName("section");
-	for (var i = 0, max = sections.length; i < max; i++) {
-		sections[i].setAttribute('tabindex', -1);
-		sections[i].className += ' focusable';
-	}
-	
 } )( jQuery );
