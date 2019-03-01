@@ -251,14 +251,18 @@ function wpa_css() {
 	if ( get_option( 'asl_enable' ) == 'on' ) {
 		$focus = get_option( 'asl_styles_focus' );
 		// these styles are derived from the WordPress skip link defaults.
-		$default_focus = 'background-color: #f1f1f1; box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.6); clip: auto; color: #0073aa; display: block; font-weight: 600; height: auto; line-height: normal; padding: 15px 23px 14px; position: absolute; left: 6px; top: 7px; text-decoration: none; text-transform: none; width: auto; z-index: 100000;';
+		$top = '7px';
+		if ( is_admin_bar_showing() ) {
+			$top = '37px';
+		}
+		$default_focus = 'background-color: #f1f1f1; box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.6); clip: auto; color: #0073aa; display: block; font-weight: 600; height: auto; line-height: normal; padding: 15px 23px 14px; position: absolute; left: 6px; top: ' . $top . '; text-decoration: none; text-transform: none; width: auto; z-index: 100000;';
 		if ( ! $focus ) {
 			$focus = $default_focus;
 		} else {
 			$focus = $default_focus . $focus;
 		}
 		// Passive default styles derived from WordPress default focus styles.
-		$default_passive = 'background-color: #fff; box-shadow:  0 0 2px 2px rgba(0, 0, 0, 0.2); clip: auto; color: #333; display: block; font-weight: 600; height: auto; line-height: normal; padding: 15px 23px 14px; position: absolute; left: 6px; top: 7px; text-decoration: none; text-transform: none; width: auto; z-index: 100000;';
+		$default_passive = 'background-color: #fff; box-shadow:  0 0 2px 2px rgba(0, 0, 0, 0.2); clip: auto; color: #333; display: block; font-weight: 600; height: auto; line-height: normal; padding: 15px 23px 14px; position: absolute; left: 6px; top: ' . $top . '; text-decoration: none; text-transform: none; width: auto; z-index: 100000;';
 
 		$passive = get_option( 'asl_styles_passive' );
 		$vis     = '';
