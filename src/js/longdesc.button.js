@@ -1,9 +1,9 @@
 (function ($) {
-    'use strict';
-    $('img[longdesc]').each(function () {
-        var longdesc = $(this).attr('longdesc');
-        var text = '<span>Long Description</span>';
-        var classes = $(this).attr('class');
+	'use strict';
+	$('img[longdesc]').each(function () {
+		var longdesc = $(this).attr('longdesc');
+		var text = '<span>Long Description</span>';
+		var classes = $(this).attr('class');
 		var class_array = ( Array.isArray(classes) ) ? classes.split(' ') : [];
 		var image_id = '';
 		$.each( class_array, function ( index, value ) {
@@ -23,6 +23,5 @@
 		}, function () {
 			$(this).parent('.wpa-ld').children('.longdesc').hide();
 		});
-    });
+	});
 }(jQuery));
-		

@@ -65,6 +65,13 @@ The plug-in is intended to help with deficiencies commonly found in themes and t
 [Suggest a change!](https://github.com/joedolson/wp-accessibility/issues/)
 * Conflict with NextGen gallery to explore
 
+= 1.6.6 =
+
+* Per request, remove font sizing declaration for skip links. Inherit from site.
+* Add default styles for visible skiplinks, rather than allowing to be unstyled.
+* Remove tabindex application on section element from toolbar JS.
+* Bug fix: automatic labeling injected double labels on fields with no ID and an implicit label.
+
 = 1.6.5 =
 
 * Bug fix: Widget output should not be styled.
