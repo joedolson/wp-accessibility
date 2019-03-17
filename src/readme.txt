@@ -5,7 +5,7 @@ Tags: title, accessibility, accessible, navigation, wcag, a11y, section508, focu
 Requires at least: 3.4.2
 Requires PHP: 5.3
 Tested up to: 5.1
-Stable tag: 1.6.6
+Stable tag: 1.6.7
 Text Domain: wp-accessibility
 License: GPLv2 or later
 
@@ -64,6 +64,10 @@ The plug-in is intended to help with deficiencies commonly found in themes and t
 
 [Suggest a change!](https://github.com/joedolson/wp-accessibility/issues/)
 * Conflict with NextGen gallery to explore
+
+= 1.6.7 =
+
+* Bug fix: error in generated CSS for skiplinks
 
 = 1.6.6 =
 
