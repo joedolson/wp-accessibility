@@ -279,7 +279,7 @@ function wpa_css() {
 			$invis   = $class . '#skiplinks a:hover,';
 			$passive = '';
 		}
-		$styles    .= "
+		$styles .= "
 		$class#skiplinks a, $invis $class#skiplinks a:visited { $passive }
 		$class#skiplinks a:active, $vis $class#skiplinks a:focus { $focus  }
 		";
