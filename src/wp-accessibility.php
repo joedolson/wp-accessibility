@@ -267,20 +267,21 @@ function wpa_css() {
 		$passive = get_option( 'asl_styles_passive' );
 		$vis     = '';
 		$invis   = '';
-		// If links are visible, "hover" is a focus style, otherwise, it's a passive style.
-		if ( 'on' == get_option( 'asl_visible' ) ) {
-			$vis     = '#skiplinks a:hover,';
-			$passive = $default_passive . $passive;
-		} else {
-			$invis   = '#skiplinks a:hover,';
-			$passive = '';
-		}
+
 		$visibility = ( 'on' == get_option( 'asl_visible' ) ) ? 'wpa-visible' : 'wpa-hide';
 		$is_rtl     = ( is_rtl() ) ? '-rtl' : '-ltr';
 		$class      = '.' . $visibility . $is_rtl;
+		// If links are visible, "hover" is a focus style, otherwise, it's a passive style.
+		if ( 'on' == get_option( 'asl_visible' ) ) {
+			$vis     = $class . '#skiplinks a:hover,';
+			$passive = $default_passive . $passive;
+		} else {
+			$invis   = $class . '#skiplinks a:hover,';
+			$passive = '';
+		}
 		$styles    .= "
-		$class#skiplinks a, $class$invis $class#skiplinks a:visited { $passive }
-		$class#skiplinks a:active, $class$vis $class#skiplinks a:focus { $focus  }
+		$class#skiplinks a, $invis $class#skiplinks a:visited { $passive }
+		$class#skiplinks a:active, $vis $class#skiplinks a:focus { $focus  }
 		";
 	}
 	if ( 'on' == get_option( 'wpa_focus' ) ) {
