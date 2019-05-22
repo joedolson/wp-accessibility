@@ -4,8 +4,8 @@ Donate link: http://www.joedolson.com/donate/
 Tags: title, accessibility, accessible, navigation, wcag, a11y, section508, focus, alt text, labels, aria
 Requires at least: 3.4.2
 Requires PHP: 5.3
-Tested up to: 5.1
-Stable tag: 1.6.7
+Tested up to: 5.2
+Stable tag: 1.6.8
 Text Domain: wp-accessibility
 License: GPLv2 or later
 
@@ -64,6 +64,10 @@ The plug-in is intended to help with deficiencies commonly found in themes and t
 
 [Suggest a change!](https://github.com/joedolson/wp-accessibility/issues/)
 * Conflict with NextGen gallery to explore
+
+= 1.6.8 =
+
+* Update to RegEx filtering title attributes to avoid data-title attributes. Thanks to @nextendweb
 
 = 1.6.7 =
 
