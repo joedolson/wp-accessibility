@@ -465,7 +465,7 @@ if ( 'on' == get_option( 'wpa_image_titles' ) ) {
  */
 function wpa_image_titles( $content ) {
 	$results = array();
-	preg_match_all( '|title="[^"]*"|U', $content, $results );
+	preg_match_all( '|[\s]title="[^"]*"|U', $content, $results );
 	foreach ( $results[0] as $img ) {
 		$content = str_replace( $img, '', $content );
 	}
