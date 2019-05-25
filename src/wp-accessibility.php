@@ -69,7 +69,7 @@ function wpa_admin_menu() {
  */
 function wpa_install() {
 	$wpa_version = '1.6.8';
-	if ( 'true' != get_option( 'wpa_installed' ) ) {
+	if ( 'true' !== get_option( 'wpa_installed' ) ) {
 		add_option( 'rta_from_nav_menu', 'on' );
 		add_option( 'rta_from_page_lists', 'on' );
 		add_option( 'rta_from_category_lists', 'on' );
@@ -112,7 +112,7 @@ add_filter( 'plugin_action_links', 'wpa_plugin_action', 10, 2 );
  * @param string $file File name.
  */
 function wpa_plugin_action( $links, $file ) {
-	if ( plugin_basename( dirname( __FILE__ ) . '/wp-accessibility.php' ) == $file ) {
+	if ( plugin_basename( dirname( __FILE__ ) . '/wp-accessibility.php' ) === $file ) {
 		$admin_url = admin_url( 'options-general.php?page=wp-accessibility/wp-accessibility.php' );
 		$links[]   = "<a href='$admin_url'>" . __( 'Accessibility Settings', 'wp-accessibility' ) . '</a>';
 	}
@@ -135,10 +135,10 @@ add_action( 'wp_enqueue_scripts', 'wpacc_enqueue_scripts' );
  */
 function wpacc_enqueue_scripts() {
 	wp_enqueue_script( 'jquery' );
-	if ( 'on' == get_option( 'asl_enable' ) ) {
+	if ( 'on' === get_option( 'asl_enable' ) ) {
 		wp_enqueue_script( 'skiplinks.webkit' );
 	}
-	if ( 'on' == get_option( 'wpa_toolbar' ) || 'on' == get_option( 'wpa_widget_toolbar' ) ) {
+	if ( 'on' === get_option( 'wpa_toolbar' ) || 'on' === get_option( 'wpa_widget_toolbar' ) ) {
 		wp_enqueue_script( 'ui-a11y.js' );
 		$plugin_path = plugins_url( 'wp-accessibility/toolbar/css/a11y-contrast.css' );
 		if ( file_exists( get_stylesheet_directory() . '/a11y-contrast.css' ) ) {
@@ -146,7 +146,7 @@ function wpacc_enqueue_scripts() {
 		}
 		wp_localize_script( 'ui-a11y.js', 'a11y_stylesheet_path', $plugin_path );
 	}
-	if ( 'on' == get_option( 'wpa_insert_roles' ) ) {
+	if ( 'on' === get_option( 'wpa_insert_roles' ) ) {
 		wp_enqueue_script( 'wpa-complementary', plugins_url( 'js/roles.jquery.js', __FILE__ ), array( 'jquery' ), '1.0', true );
 		if ( get_option( 'wpa_complementary_container' ) ) {
 			$wpa_comp = get_option( 'wpa_complementary_container' );
@@ -155,7 +155,7 @@ function wpacc_enqueue_scripts() {
 		}
 		wp_localize_script( 'wpa-complementary', 'wpaComplementary', $wpa_comp );
 	}
-	if ( 'on' == get_option( 'wpa_labels' ) ) {
+	if ( 'on' === get_option( 'wpa_labels' ) ) {
 		wp_enqueue_script( 'wpa-labels', plugins_url( 'js/wpa.labels.js', __FILE__ ), array( 'jquery' ), '1.0', true );
 		$labels = array(
 			's'       => __( 'Search', 'wp-accessibility' ),
@@ -166,16 +166,16 @@ function wpacc_enqueue_scripts() {
 		);
 		wp_localize_script( 'wpa-labels', 'wpalabels', $labels );
 	}
-	if ( 'on' == get_option( 'wpa_toolbar' ) ) {
+	if ( 'on' === get_option( 'wpa_toolbar' ) ) {
 		add_action( 'wp_footer', 'wpa_toolbar_js' );
 	}
-	if ( 'link' == get_option( 'wpa_longdesc' ) ) {
+	if ( 'link' === get_option( 'wpa_longdesc' ) ) {
 		wp_enqueue_script( 'longdesc.link', plugins_url( 'js/longdesc.link.js', __FILE__ ), array( 'jquery' ), '1.0', true );
 	}
-	if ( 'jquery' == get_option( 'wpa_longdesc' ) ) {
+	if ( 'jquery' === get_option( 'wpa_longdesc' ) ) {
 		wp_enqueue_script( 'longdesc.button', plugins_url( 'js/longdesc.button.js', __FILE__ ), array( 'jquery' ), '1.0', true );
 	}
-	if ( 'on' == get_option( 'wpa_current_menu' ) ) {
+	if ( 'on' === get_option( 'wpa_current_menu' ) ) {
 		wp_enqueue_script( 'current.menu', plugins_url( 'js/current-menu-item.js', __FILE__ ), array( 'jquery' ), '1.0', true );
 	}
 }
@@ -190,13 +190,13 @@ function wpa_stylesheet() {
 	wp_register_style( 'ui-font.css', plugins_url( 'toolbar/fonts/css/a11y-toolbar.css', __FILE__ ) );
 	$toolbar = apply_filters( 'wpa_toolbar_css', plugins_url( 'toolbar/css/a11y.css', __FILE__ ) );
 	wp_register_style( 'ui-a11y.css', $toolbar, array( 'ui-font.css' ) );
-	$fontsize_stylesheet = ( 'on' == get_option( 'wpa_alternate_fontsize' ) ) ? 'a11y-fontsize-alt' : 'a11y-fontsize';
+	$fontsize_stylesheet = ( 'on' === get_option( 'wpa_alternate_fontsize' ) ) ? 'a11y-fontsize-alt' : 'a11y-fontsize';
 	$fontsize            = apply_filters( 'wpa_fontsize_css', plugins_url( 'toolbar/css/' . $fontsize_stylesheet . '.css', __FILE__ ) );
 	wp_register_style( 'ui-fontsize.css', $fontsize );
 	$toolbar_size = get_option( 'wpa_toolbar_size' );
 	$toolbar_size = ( false === stripos( $toolbar_size, 'em' ) ) ? $toolbar_size . 'px' : $toolbar_size;
 	// Only enable styles when required by options.
-	if ( get_option( 'wpa_toolbar_size' ) && 'on' == get_option( 'wpa_toolbar' ) ) {
+	if ( get_option( 'wpa_toolbar_size' ) && 'on' === get_option( 'wpa_toolbar' ) ) {
 		echo "
 <style type='text/css'>
 .a11y-toolbar ul li button {
@@ -204,14 +204,14 @@ function wpa_stylesheet() {
 }
 </style>';
 	}
-	if ( 'link' == get_option( 'wpa_longdesc' ) || 'jquery' == get_option( 'wpa_longdesc' ) || 'on' == get_option( 'asl_enable' ) ) {
+	if ( 'link' === get_option( 'wpa_longdesc' ) || 'jquery' === get_option( 'wpa_longdesc' ) || 'on' === get_option( 'asl_enable' ) ) {
 		wp_enqueue_style( 'wpa-style' );
 	}
-	if ( 'on' == get_option( 'wpa_toolbar' ) || 'on' == get_option( 'wpa_widget_toolbar' ) && ( $toolbar && $fontsize ) ) {
+	if ( 'on' === get_option( 'wpa_toolbar' ) || 'on' === get_option( 'wpa_widget_toolbar' ) && ( $toolbar && $fontsize ) ) {
 		wp_enqueue_style( 'ui-a11y.css' );
 		wp_enqueue_style( 'ui-fontsize.css' );
 	}
-	if ( current_user_can( 'edit_files' ) && 'on' == get_option( 'wpa_diagnostics' ) ) {
+	if ( current_user_can( 'edit_files' ) && 'on' === get_option( 'wpa_diagnostics' ) ) {
 		wp_register_style( 'diagnostic', plugins_url( 'css/diagnostic.css', __FILE__ ) );
 		wp_register_style( 'diagnostic-head', plugins_url( 'css/diagnostic-head.css', __FILE__ ) );
 		wp_enqueue_style( 'diagnostic' );
@@ -231,7 +231,7 @@ function wpa_admin_stylesheet() {
 		wp_enqueue_style( 'wp-a11y-css' );
 	}
 
-	if ( 'on' == get_option( 'wpa_row_actions' ) ) {
+	if ( 'on' === get_option( 'wpa_row_actions' ) ) {
 		if ( file_exists( get_stylesheet_directory() . '/wp-admin-row-actions.css' ) ) {
 			$file = get_stylesheet_directory_uri() . '/wp-admin-row-actions.css';
 		} else {
@@ -248,7 +248,7 @@ add_action( 'wp_head', 'wpa_css' );
  */
 function wpa_css() {
 	$styles = '';
-	if ( get_option( 'asl_enable' ) == 'on' ) {
+	if ( get_option( 'asl_enable' ) === 'on' ) {
 		$focus = get_option( 'asl_styles_focus' );
 		// these styles are derived from the WordPress skip link defaults.
 		$top = '7px';
@@ -268,11 +268,11 @@ function wpa_css() {
 		$vis     = '';
 		$invis   = '';
 
-		$visibility = ( 'on' == get_option( 'asl_visible' ) ) ? 'wpa-visible' : 'wpa-hide';
+		$visibility = ( 'on' === get_option( 'asl_visible' ) ) ? 'wpa-visible' : 'wpa-hide';
 		$is_rtl     = ( is_rtl() ) ? '-rtl' : '-ltr';
 		$class      = '.' . $visibility . $is_rtl;
 		// If links are visible, "hover" is a focus style, otherwise, it's a passive style.
-		if ( 'on' == get_option( 'asl_visible' ) ) {
+		if ( 'on' === get_option( 'asl_visible' ) ) {
 			$vis     = $class . '#skiplinks a:hover,';
 			$passive = $default_passive . $passive;
 		} else {
@@ -284,13 +284,13 @@ function wpa_css() {
 		$class#skiplinks a:active, $vis $class#skiplinks a:focus { $focus  }
 		";
 	}
-	if ( 'on' == get_option( 'wpa_focus' ) ) {
-		$color   = ( '' != get_option( 'wpa_focus_color' ) ) ? ' #' . get_option( 'wpa_focus_color' ) : '';
+	if ( 'on' === get_option( 'wpa_focus' ) ) {
+		$color   = ( false !== (bool) get_option( 'wpa_focus_color' ) ) ? ' #' . get_option( 'wpa_focus_color' ) : '';
 		$styles .= "
 		:focus { outline: 1px solid$color!important; }
 		";
 	}
-	if ( '' != $styles ) {
+	if ( '' !== $styles ) {
 		echo "
 <style type='text/css'>
 	$styles
@@ -319,42 +319,42 @@ function wpa_jquery_asl() {
 	$lang_js      = false;
 	$tabindex     = false;
 	$longdesc     = false;
-	$visibility   = ( 'on' == get_option( 'asl_visible' ) ) ? 'wpa-visible' : 'wpa-hide';
-	if ( 'on' == get_option( 'asl_enable' ) ) {
+	$visibility   = ( 'on' === get_option( 'asl_visible' ) ) ? 'wpa-visible' : 'wpa-hide';
+	if ( 'on' === get_option( 'asl_enable' ) ) {
 		$html = '';
 		// set up skiplinks.
-		$extra = get_option( 'asl_extra_target' );
+		$extra = (string) get_option( 'asl_extra_target' );
 		$extra = ( wpa_is_url( $extra ) ) ? esc_url( $extra ) : str_replace( '#', '', esc_attr( $extra ) );
-		if ( '' != $extra && ! wpa_is_url( $extra ) ) {
+		if ( '' !== $extra && ! wpa_is_url( $extra ) ) {
 			$extra = "#$extra";
 		}
-		$extra_text = stripslashes( get_option( 'asl_extra_text' ) );
+		$extra_text = (string) stripslashes( get_option( 'asl_extra_text' ) );
 		$content    = str_replace( '#', '', esc_attr( get_option( 'asl_content' ) ) );
 		$nav        = str_replace( '#', '', esc_attr( get_option( 'asl_navigation' ) ) );
 		$sitemap    = esc_url( get_option( 'asl_sitemap' ) );
-		$html      .= ( '' != $content ) ? "<a href=\"#$content\">" . __( 'Skip to content', 'wp-accessibility' ) . '</a> ' : '';
-		$html      .= ( '' != $nav ) ? "<a href=\"#$nav\">" . __( 'Skip to navigation', 'wp-accessibility' ) . '</a> ' : '';
-		$html      .= ( '' != $sitemap ) ? "<a href=\"$sitemap\">" . __( 'Site map', 'wp-accessibility' ) . '</a> ' : '';
-		$html      .= ( '' != $extra && '' != $extra_text ) ? "<a href=\"$extra\">$extra_text</a> " : '';
+		$html      .= ( '' !== $content ) ? "<a href=\"#$content\">" . __( 'Skip to content', 'wp-accessibility' ) . '</a> ' : '';
+		$html      .= ( '' !== $nav ) ? "<a href=\"#$nav\">" . __( 'Skip to navigation', 'wp-accessibility' ) . '</a> ' : '';
+		$html      .= ( '' !== $sitemap ) ? "<a href=\"$sitemap\">" . __( 'Site map', 'wp-accessibility' ) . '</a> ' : '';
+		$html      .= ( '' !== $extra && '' !== $extra_text ) ? "<a href=\"$extra\">$extra_text</a> " : '';
 		$is_rtl     = ( is_rtl() ) ? '-rtl' : '-ltr';
 		$skiplinks  = __( 'Skip links', 'wp-accessibility' );
-		$output     = ( '' != $html ) ? "<div class=\"$visibility$is_rtl\" id=\"skiplinks\" role=\"navigation\" aria-label=\"$skiplinks\">$html</div>" : '';
+		$output     = ( '' !== $html ) ? "<div class=\"$visibility$is_rtl\" id=\"skiplinks\" role=\"navigation\" aria-label=\"$skiplinks\">$html</div>" : '';
 		// Attach skiplinks HTML; set tab index on #content area to -1.
-		$focusable    = ( '' != $content ) ? "$('#$content').attr('tabindex','-1');" : '';
-		$focusable   .= ( '' != $nav ) ? "$('#$nav').attr('tabindex','-1');" : '';
+		$focusable    = ( '' !== $content ) ? "$('#$content').attr('tabindex','-1');" : '';
+		$focusable   .= ( '' !== $nav ) ? "$('#$nav').attr('tabindex','-1');" : '';
 		$skiplinks_js = ( $output ) ? "$('body').prepend('$output'); $focusable" : '';
 	}
 	// Attach language to html element.
-	if ( 'on' == get_option( 'wpa_lang' ) ) {
+	if ( 'on' === get_option( 'wpa_lang' ) ) {
 		$lang    = get_bloginfo( 'language' );
 		$dir     = ( is_rtl() ) ? 'rtl' : 'ltr';
 		$lang_js = "$('html').attr( 'lang','$lang' ); $('html').attr( 'dir','$dir' )";
 	}
 	// Force links to open in the same window.
 	$underline_target = apply_filters( 'wpa_underline_target', 'a' );
-	$targets          = ( 'on' == get_option( 'wpa_target' ) ) ? "$('a').removeAttr('target');" : '';
-	$tabindex         = ( 'on' == get_option( 'wpa_tabindex' ) ) ? "$('input,a,select,textarea,button').removeAttr('tabindex');" : '';
-	$underlines       = ( 'on' == get_option( 'wpa_underline' ) ) ? "$('$underline_target').css( 'text-decoration','underline' );$('$underline_target').on( 'focusin mouseenter', function() { $(this).css( 'text-decoration','none' ); });$('$underline_target').on( 'focusout mouseleave', function() { $(this).css( 'text-decoration','underline' ); } );" : '';
+	$targets          = ( 'on' === get_option( 'wpa_target' ) ) ? "$('a').removeAttr('target');" : '';
+	$tabindex         = ( 'on' === get_option( 'wpa_tabindex' ) ) ? "$('input,a,select,textarea,button').removeAttr('tabindex');" : '';
+	$underlines       = ( 'on' === get_option( 'wpa_underline' ) ) ? "$('$underline_target').css( 'text-decoration','underline' );$('$underline_target').on( 'focusin mouseenter', function() { $(this).css( 'text-decoration','none' ); });$('$underline_target').on( 'focusout mouseleave', function() { $(this).css( 'text-decoration','underline' ); } );" : '';
 
 	$display = ( $skiplinks_js || $targets || $lang_js || $tabindex || $longdesc ) ? true : false;
 	if ( $display ) {
@@ -404,14 +404,14 @@ add_filter( 'mce_css', 'wpa_diagnostic_css' );
  * @return full string css.
  */
 function wpa_diagnostic_css( $mce_css ) {
-	if ( get_option( 'wpa_diagnostics' ) == 'on' ) {
+	if ( get_option( 'wpa_diagnostics' ) === 'on' ) {
 		$mce_css .= ', ' . plugins_url( 'css/diagnostic.css', __FILE__ );
 	}
 
 	return $mce_css;
 }
 
-if ( 'on' == get_option( 'wpa_search' ) ) {
+if ( 'on' === get_option( 'wpa_search' ) ) {
 	add_filter( 'pre_get_posts', 'wpa_filter' );
 }
 
@@ -424,7 +424,7 @@ if ( 'on' == get_option( 'wpa_search' ) ) {
  */
 function wpa_filter( $query ) {
 	if ( ! is_admin() ) {
-		if ( isset( $_GET['s'] ) && null == trim( $_GET['s'] ) && ( $query->is_main_query() ) ) {
+		if ( isset( $_GET['s'] ) && null === trim( $_GET['s'] ) && ( $query->is_main_query() ) ) {
 			$query->query_vars['s'] = '&#32;';
 			$query->set( 'is_search', 1 );
 			add_action( 'template_include', 'wpa_search_error' );
@@ -450,7 +450,7 @@ function wpa_search_error( $template ) {
 	return $template;
 }
 
-if ( 'on' == get_option( 'wpa_image_titles' ) ) {
+if ( 'on' === get_option( 'wpa_image_titles' ) ) {
 	add_filter( 'the_content', 'wpa_image_titles', 100 );
 	add_filter( 'post_thumbnail_html', 'wpa_image_titles', 100 );
 	add_filter( 'wp_get_attachment_image', 'wpa_image_titles', 100 );
@@ -473,7 +473,7 @@ function wpa_image_titles( $content ) {
 	return $content;
 }
 
-if ( 'on' == get_option( 'wpa_more' ) ) {
+if ( 'on' === get_option( 'wpa_more' ) ) {
 	add_filter( 'get_the_excerpt', 'wpa_custom_excerpt_more', 100 );
 	add_filter( 'excerpt_more', 'wpa_excerpt_more', 100 );
 	add_filter( 'the_content_more_link', 'wpa_content_more', 100 );
@@ -528,7 +528,7 @@ function wpa_custom_excerpt_more( $output ) {
 	return $output;
 }
 
-if ( 'on' == get_option( 'rta_from_tag_clouds' ) ) {
+if ( 'on' === get_option( 'rta_from_tag_clouds' ) ) {
 	add_filter( 'wp_tag_cloud', 'wpa_remove_title_attributes' );
 }
 
@@ -614,13 +614,13 @@ $plugins_string
 			die( 'Security check failed' );
 		}
 		$request      = ( ! empty( $_POST['support_request'] ) ) ? stripslashes( $_POST['support_request'] ) : false;
-		$has_donated  = ( 'on' == $_POST['has_donated'] ) ? 'Donor' : 'No donation';
-		$has_read_faq = ( 'on' == $_POST['has_read_faq'] ) ? 'Read FAQ' : false;
+		$has_donated  = ( 'on' === $_POST['has_donated'] ) ? 'Donor' : 'No donation';
+		$has_read_faq = ( 'on' === $_POST['has_read_faq'] ) ? 'Read FAQ' : false;
 		$subject      = "WP Accessibility support request. $has_donated";
 		$message      = $request . "\n\n" . $data;
 		// Get the site domain and get rid of www. from pluggable.php.
 		$sitename = strtolower( $_SERVER['SERVER_NAME'] );
-		if ( 'www.' == substr( $sitename, 0, 4 ) ) {
+		if ( 'www.' === substr( $sitename, 0, 4 ) ) {
 			$sitename = substr( $sitename, 4 );
 		}
 		$from_email = 'wordpress@' . $sitename;
@@ -632,7 +632,7 @@ $plugins_string
 			echo "<div class='message error'><p>" . __( 'Please describe your problem.', 'wp-accessibility' ) . '</p></div>';
 		} else {
 			wp_mail( 'plugins@joedolson.com', $subject, $message, $from );
-			if ( 'Donor' == $has_donated ) {
+			if ( 'Donor' === $has_donated ) {
 				echo "<div class='message updated'><p>" . __( 'Thank you for supporting the continuing development of this plug-in! I\'ll get back to you as soon as I can.', 'wp-accessibility' ) . '</p></div>';
 			} else {
 				echo "<div class='message updated'><p>" . __( 'I cannot provide support, but will treat your request as a bug report, and will incorporate any permanent solutions I discover into the plug-in.', 'wp-accessibility' ) . '</p></div>';
@@ -679,7 +679,7 @@ $plugins_string
 function wpa_accessible_theme() {
 	$theme = wp_get_theme();
 	$tags  = $theme->get( 'Tags' );
-	if ( is_array( $tags ) && in_array( 'accessibility-ready', $tags ) ) {
+	if ( is_array( $tags ) && in_array( 'accessibility-ready', $tags, true ) ) {
 		return true;
 	}
 	return false;

@@ -62,7 +62,7 @@ function wpa_luminosity( $r, $r2, $g, $g2, $b, $b2 ) {
  * @return Hexadecimal color equivalent.
  */
 function wpa_rgb2hex( $r, $g = - 1, $b = - 1 ) {
-	if ( is_array( $r ) && sizeof( $r ) == 3 ) {
+	if ( is_array( $r ) && sizeof( $r ) === 3 ) {
 		list( $r, $g, $b ) = $r;
 	}
 	$r = intval( $r );
@@ -89,7 +89,7 @@ function wpa_rgb2hex( $r, $g = - 1, $b = - 1 ) {
  */
 function wpa_hex2rgb( $color ) {
 	$color = str_replace( '#', '', $color );
-	if ( strlen( $color ) != 6 ) {
+	if ( strlen( $color ) !== 6 ) {
 		return array( 0, 0, 0 );
 	}
 	$rgb = array();
@@ -109,12 +109,12 @@ function wpa_contrast() {
 		if ( ! wp_verify_nonce( $nonce, 'wpa-nonce' ) ) {
 			die( 'Security check failed' );
 		}
-		if ( isset( $_POST['color'] ) && '' != $_POST['color'] ) {
+		if ( isset( $_POST['color'] ) && '' !== $_POST['color'] ) {
 			$fore_color = $_POST['color'];
-			if ( '#' == $fore_color[0] ) {
+			if ( '#' === $fore_color[0] ) {
 				$fore_color = str_replace( '#', '', $fore_color );
 			}
-			if ( 3 == strlen( $fore_color ) ) {
+			if ( 3 === strlen( $fore_color ) ) {
 				$color6char  = $fore_color[0] . $fore_color[0];
 				$color6char .= $fore_color[1] . $fore_color[1];
 				$color6char .= $fore_color[2] . $fore_color[2];
@@ -125,12 +125,12 @@ function wpa_contrast() {
 			} else {
 				$echo_hex_fore = 'FFFFFF';
 			}
-			if ( isset( $_POST['color2'] ) && '' != $_POST['color2'] ) {
+			if ( isset( $_POST['color2'] ) && '' !== $_POST['color2'] ) {
 				$back_color = $_POST['color2'];
-				if ( '#' == $back_color[0] ) {
+				if ( '#' === $back_color[0] ) {
 					$back_color = str_replace( '#', '', $back_color );
 				}
-				if ( 3 == strlen( $back_color ) ) {
+				if ( 3 === strlen( $back_color ) ) {
 					$color6char  = $back_color[0] . $back_color[0];
 					$color6char .= $back_color[1] . $back_color[1];
 					$color6char .= $back_color[2] . $back_color[2];

@@ -68,6 +68,7 @@ The plug-in is intended to help with deficiencies commonly found in themes and t
 = 1.6.8 =
 
 * Update to RegEx filtering title attributes to avoid data-title attributes. Thanks to @nextendweb
+* Update PHP test suite to eliminate PHP 5.3 tests.
 
 = 1.6.7 =
 

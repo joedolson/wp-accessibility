@@ -43,15 +43,15 @@ function wpa_toolbar_html( $type = 'widget', $control = 'button' ) {
 	$contrast         = __( 'Toggle High Contrast', 'wp-accessibility' );
 	$grayscale        = __( 'Toggle Grayscale', 'wp-accessibility' );
 	$fontsize         = __( 'Toggle Font size', 'wp-accessibility' );
-	$enable_grayscale = ( 'on' == get_option( 'wpa_toolbar_gs' ) && current_user_can( 'manage_options' ) ) ? true : false;
-	$enable_contrast  = ( 'off' == get_option( 'wpa_toolbar_ct' ) ) ? false : true;
-	$enable_fontsize  = ( 'off' == get_option( 'wpa_toolbar_fs' ) ) ? false : true;
-	$responsive       = ( 'on' == get_option( 'wpa_toolbar_mobile' ) ) ? 'a11y-responsive ' : '';
+	$enable_grayscale = ( 'on' === get_option( 'wpa_toolbar_gs' ) && current_user_can( 'manage_options' ) ) ? true : false;
+	$enable_contrast  = ( 'off' === get_option( 'wpa_toolbar_ct' ) ) ? false : true;
+	$enable_fontsize  = ( 'off' === get_option( 'wpa_toolbar_fs' ) ) ? false : true;
+	$responsive       = ( 'on' === get_option( 'wpa_toolbar_mobile' ) ) ? 'a11y-responsive ' : '';
 	$is_rtl           = ( is_rtl() ) ? ' rtl' : ' ltr';
-	$is_right         = ( 'on' == get_option( 'wpa_toolbar_right' ) ) ? ' right' : ' left';
-	$toolbar_type     = ( 'widget' == $type ) ? 'a11y-toolbar-widget' : 'a11y-toolbar';
-	$control_type     = ( 'button' != $control ) ? 'a href="#" role="button"' : 'button type="button"'; // button control does not work in Edge.
-	$closure          = ( 'button' != $control ) ? 'a' : 'button';  // button control does not work in Edge.
+	$is_right         = ( 'on' === get_option( 'wpa_toolbar_right' ) ) ? ' right' : ' left';
+	$toolbar_type     = ( 'widget' === $type ) ? 'a11y-toolbar-widget' : 'a11y-toolbar';
+	$control_type     = ( 'button' !== $control ) ? 'a href="#" role="button"' : 'button type="button"'; // button control does not work in Edge.
+	$closure          = ( 'button' !== $control ) ? 'a' : 'button';  // button control does not work in Edge.
 	$toolbar          = '
 <!-- a11y toolbar widget -->
 <div class="' . $responsive . ' ' . $is_rtl . ' ' . $is_right . ' ' . $toolbar_type . '">
@@ -78,12 +78,12 @@ function wpa_toolbar_html( $type = 'widget', $control = 'button' ) {
  */
 function wpa_toolbar_js() {
 	// Toolbar does not work on Edge. Disable unless I solve the issue.
-	$default    = ( '' != get_option( 'wpa_toolbar_default' ) ) ? get_option( 'wpa_toolbar_default' ) : 'body';
+	$default    = ( false !== (bool) get_option( 'wpa_toolbar_default' ) ) ? get_option( 'wpa_toolbar_default' ) : 'body';
 	$location   = apply_filters( 'wpa_move_toolbar', $default );
 	$user_agent = ( isset( $_SERVER['HTTP_USER_AGENT'] ) ) ? $_SERVER['HTTP_USER_AGENT'] : '';
 	$is_rtl     = ( is_rtl() ) ? ' rtl' : ' ltr';
-	$is_right   = ( 'on' == get_option( 'wpa_toolbar_right' ) ) ? ' right' : ' left';
-	$responsive = ( 'on' == get_option( 'wpa_toolbar_mobile' ) ) ? 'a11y-responsive ' : 'a11y-non-responsive ';
+	$is_right   = ( 'on' === get_option( 'wpa_toolbar_right' ) ) ? ' right' : ' left';
+	$responsive = ( 'on' === get_option( 'wpa_toolbar_mobile' ) ) ? 'a11y-responsive ' : 'a11y-non-responsive ';
 
 	if ( preg_match( '/Edge/i', $user_agent ) ) {
 		echo wpa_toolbar_html( 'js', 'a' );
@@ -101,9 +101,9 @@ function wpa_toolbar_js() {
 		$contrast         = __( 'Toggle High Contrast', 'wp-accessibility' );
 		$grayscale        = __( 'Toggle Grayscale', 'wp-accessibility' );
 		$fontsize         = __( 'Toggle Font size', 'wp-accessibility' );
-		$enable_grayscale = ( 'on' == get_option( 'wpa_toolbar_gs' ) && current_user_can( 'manage_options' ) ) ? true : false;
-		$enable_fontsize  = ( 'off' == get_option( 'wpa_toolbar_fs' ) ) ? false : true;
-		$enable_contrast  = ( 'off' == get_option( 'wpa_toolbar_ct' ) ) ? false : true;
+		$enable_grayscale = ( 'on' === get_option( 'wpa_toolbar_gs' ) && current_user_can( 'manage_options' ) ) ? true : false;
+		$enable_fontsize  = ( 'off' === get_option( 'wpa_toolbar_fs' ) ) ? false : true;
+		$enable_contrast  = ( 'off' === get_option( 'wpa_toolbar_ct' ) ) ? false : true;
 
 		echo
 		"
@@ -113,13 +113,13 @@ function wpa_toolbar_js() {
 	var insert_a11y_toolbar = '<!-- a11y toolbar -->';
 	insert_a11y_toolbar += '<div class=\"" . $responsive . "a11y-toolbar$is_rtl$is_right\">';
 	insert_a11y_toolbar += '<ul class=\"a11y-toolbar-list\">';";
-		if ( get_option( 'wpa_toolbar' ) == 'on' && $enable_contrast ) {
+		if ( get_option( 'wpa_toolbar' ) === 'on' && $enable_contrast ) {
 			echo "insert_a11y_toolbar += '<li class=\"a11y-toolbar-list-item\"><button type=\"button\" class=\"a11y-toggle-contrast toggle-contrast\" id=\"is_normal_contrast\" aria-pressed=\"false\"><span class=\"offscreen\">$contrast</span><span class=\"aticon aticon-adjust\" aria-hidden=\"true\"></span></button></li>';";
 		}
-		if ( get_option( 'wpa_toolbar' ) == 'on' && $enable_grayscale ) {
+		if ( get_option( 'wpa_toolbar' ) === 'on' && $enable_grayscale ) {
 			echo "insert_a11y_toolbar += '<li class=\"a11y-toolbar-list-item\"><button type=\"button\" class=\"a11y-toggle-grayscale toggle-grayscale\" id=\"is_normal_color\" aria-pressed=\"false\"><span class=\"offscreen\">$grayscale</span><span class=\"aticon aticon-tint\" aria-hidden=\"true\"></span></button></li>';";
 		}
-		if ( get_option( 'wpa_toolbar' ) == 'on' && $enable_fontsize ) {
+		if ( get_option( 'wpa_toolbar' ) === 'on' && $enable_fontsize ) {
 			echo "insert_a11y_toolbar += '<li class=\"a11y-toolbar-list-item\"><button type=\"button\" class=\"a11y-toggle-fontsize toggle-fontsize\" id=\"is_normal_fontsize\" aria-pressed=\"false\"><span class=\"offscreen\">$fontsize</span><span class=\"aticon aticon-font\" aria-hidden=\"true\"></span></button></li>';";
 		}
 		echo "

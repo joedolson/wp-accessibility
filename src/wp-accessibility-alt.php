@@ -37,18 +37,18 @@ function wpa_media_columns( $columns ) {
  * @return String alt attribute status for this object.
  */
 function wpa_media_value( $column, $id ) {
-	if ( 'wpa_data' == $column ) {
+	if ( 'wpa_data' === $column ) {
 		$mime = get_post_mime_type( $id );
 		switch ( $mime ) {
 			case 'image/jpeg':
 			case 'image/png':
 			case 'image/gif':
 				$alt    = get_post_meta( $id, '_wp_attachment_image_alt', true );
-				$no_alt = get_post_meta( $id, '_no_alt', true );
+				$no_alt = (bool) get_post_meta( $id, '_no_alt', true );
 				if ( ! $alt && ! $no_alt ) {
 					echo '<span class="missing"><span class="dashicons dashicons-no" aria-hidden="true"></span> <a href="' . get_edit_post_link( $id ) . '#attachment_alt">' . __( 'Add <code>alt</code> text', 'wp-accessibility' ) . '</a></span>';
 				} else {
-					if ( 1 == $no_alt ) {
+					if ( true === $no_alt ) {
 						echo '<span class="ok"><span class="dashicons dashicons-yes" aria-hidden="true"></span> ' . __( 'Decorative', 'wp-accessibility' ) . '</span>';
 					} else {
 						echo '<span class="ok"><span class="dashicons dashicons-yes" aria-hidden="true"></span> ' . __( 'Has <code>alt</code>', 'wp-accessibility' ) . '</span>';
@@ -74,7 +74,7 @@ add_filter( 'attachment_fields_to_edit', 'wpa_insert_alt_verification', 10, 2 );
  */
 function wpa_insert_alt_verification( $form_fields, $post ) {
 	$mime = get_post_mime_type( $post->ID );
-	if ( 'image/jpeg' == $mime || 'image/png' == $mime || 'image/gif' == $mime ) {
+	if ( 'image/jpeg' === $mime || 'image/png' === $mime || 'image/gif' === $mime ) {
 		$no_alt                = get_post_meta( $post->ID, '_no_alt', true );
 		$alt                   = get_post_meta( $post->ID, '_wp_attachment_image_alt', true );
 		$checked               = checked( $no_alt, 1, false );
@@ -124,15 +124,15 @@ add_filter( 'image_send_to_editor', 'wpa_alt_attribute', 10, 8 );
  */
 function wpa_alt_attribute( $html, $id, $caption, $title, $align, $url, $size, $alt ) {
 	// Get data for the image attachment.
-	$noalt = get_post_meta( $id, '_no_alt', true );
+	$noalt = (bool) get_post_meta( $id, '_no_alt', true );
 	// Get the original title to compare to alt.
 	$title   = get_the_title( $id );
 	$warning = false;
-	if ( 1 == $noalt ) {
+	if ( true === $noalt ) {
 		$html = str_replace( 'alt="' . $alt . '"', 'alt=""', $html );
 	}
-	if ( ( '' == $alt || $alt == $title ) && 1 != $noalt ) {
-		if ( $alt == $title ) {
+	if ( ( '' === $alt || $alt === $title ) && true !== $noalt ) {
+		if ( $alt === $title ) {
 			$warning = __( 'The alt text for this image is the same as the title. In most cases, that means that the alt attribute has been automatically provided from the image file name.', 'wp-accessibility' );
 			$image   = 'alt-same.png';
 		} else {

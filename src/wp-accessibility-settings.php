@@ -18,7 +18,7 @@ add_action( 'admin_head', 'wpa_admin_styles' );
  * Enqueue admin stylesheets.
  */
 function wpa_admin_styles() {
-	if ( isset( $_GET['page'] ) && ( 'wp-accessibility/wp-accessibility.php' == $_GET['page'] ) ) {
+	if ( isset( $_GET['page'] ) && ( 'wp-accessibility/wp-accessibility.php' === $_GET['page'] ) ) {
 		wp_enqueue_style( 'farbtastic' );
 		echo '<link type="text/css" rel="stylesheet" href="' . plugins_url( 'css/wpa-styles.css', __FILE__ ) . '" />';
 	}
@@ -29,7 +29,7 @@ function wpa_admin_styles() {
  */
 function wpa_write_js() {
 	global $current_screen;
-	if ( 'settings_page_wp-accessibility/wp-accessibility' == $current_screen->base ) {
+	if ( 'settings_page_wp-accessibility/wp-accessibility' === $current_screen->base ) {
 		?>
 <script>
 	//<![CDATA[
@@ -50,7 +50,7 @@ add_action( 'admin_enqueue_scripts', 'wpa_admin_js' );
  **/
 function wpa_admin_js() {
 	global $current_screen;
-	if ( 'settings_page_wp-accessibility/wp-accessibility' == $current_screen->base ) {
+	if ( 'settings_page_wp-accessibility/wp-accessibility' === $current_screen->base ) {
 		wp_enqueue_script( 'farbtastic' );
 	}
 }
@@ -67,7 +67,7 @@ function wpa_update_settings() {
 		if ( ! wp_verify_nonce( $nonce, 'wpa-nonce' ) ) {
 			die( 'Security check failed' );
 		}
-		if ( isset( $_POST['action'] ) && 'rta' == $_POST['action'] ) {
+		if ( isset( $_POST['action'] ) && 'rta' === $_POST['action'] ) {
 			$rta_from_tag_clouds = ( isset( $_POST['rta_from_tag_clouds'] ) ) ? 'on' : '';
 			update_option( 'rta_from_tag_clouds', $rta_from_tag_clouds );
 
@@ -75,7 +75,7 @@ function wpa_update_settings() {
 
 			return "<div class='updated'><p>" . $message . '</p></div>';
 		}
-		if ( isset( $_POST['action'] ) && 'asl' == $_POST['action'] ) {
+		if ( isset( $_POST['action'] ) && 'asl' === $_POST['action'] ) {
 			$asl_enable         = ( isset( $_POST['asl_enable'] ) ) ? 'on' : '';
 			$asl_content        = ( isset( $_POST['asl_content'] ) ) ? $_POST['asl_content'] : '';
 			$asl_navigation     = ( isset( $_POST['asl_navigation'] ) ) ? $_POST['asl_navigation'] : '';
@@ -92,7 +92,7 @@ function wpa_update_settings() {
 			update_option( 'asl_extra_target', $asl_extra_target );
 			update_option( 'asl_extra_text', $asl_extra_text );
 			update_option( 'asl_visible', $asl_visible );
-			$notice = ( 'asl' == $asl_visible ) ? '<p>' . __( 'WP Accessibility does not provide any styles for visible skiplinks. You can still set the look of the links using the textareas provided, but all other layout must be assigned in your theme.', 'wp-accessibility' ) . '</p>' : '';
+			$notice = ( 'asl' === $asl_visible ) ? '<p>' . __( 'WP Accessibility does not provide any styles for visible skiplinks. You can still set the look of the links using the textareas provided, but all other layout must be assigned in your theme.', 'wp-accessibility' ) . '</p>' : '';
 
 			update_option( 'asl_styles_focus', $asl_styles_focus );
 			update_option( 'asl_styles_passive', $asl_styles_passive );
@@ -100,7 +100,7 @@ function wpa_update_settings() {
 
 			return "<div class='updated'><p>" . $message . "</p>$notice</div>";
 		}
-		if ( isset( $_POST['action'] ) && 'misc' == $_POST['action'] ) {
+		if ( isset( $_POST['action'] ) && 'misc' === $_POST['action'] ) {
 			$wpa_lang                    = ( isset( $_POST['wpa_lang'] ) ) ? 'on' : '';
 			$wpa_target                  = ( isset( $_POST['wpa_target'] ) ) ? 'on' : '';
 			$wpa_labels                  = ( isset( $_POST['wpa_labels'] ) ) ? 'on' : '';
@@ -142,7 +142,7 @@ function wpa_update_settings() {
 			return "<div class='updated'><p>" . $message . '</p></div>';
 		}
 
-		if ( isset( $_POST['action'] ) && 'toolbar' == $_POST['action'] ) {
+		if ( isset( $_POST['action'] ) && 'toolbar' === $_POST['action'] ) {
 			$wpa_toolbar            = ( isset( $_POST['wpa_toolbar'] ) ) ? 'on' : '';
 			$wpa_toolbar_size       = ( isset( $_POST['wpa_toolbar_size'] ) ) ? $_POST['wpa_toolbar_size'] : '';
 			$wpa_alternate_fontsize = ( isset( $_POST['wpa_alternate_fontsize'] ) ) ? 'on' : '';
@@ -189,7 +189,7 @@ function wpa_admin_settings() {
 
 				<div class="inside">
 					<?php
-					if ( wpa_accessible_theme() && 'on' != get_option( 'asl_enable' ) ) {
+					if ( wpa_accessible_theme() && 'on' !== get_option( 'asl_enable' ) ) {
 						?>
 					<p>
 						<?php _e( 'Your <code>accessibility-ready</code> theme has skip links built in.', 'wp-accessibility' ); ?>
@@ -234,7 +234,7 @@ function wpa_admin_settings() {
 									<textarea name='asl_styles_focus' id='asl_styles_focus' cols='60' rows='4'><?php echo esc_attr( stripslashes( get_option( 'asl_styles_focus' ) ) ); ?></textarea>
 								</li>
 								<?php
-								if ( 'on' != get_option( 'asl_visible' ) ) {
+								if ( 'on' !== get_option( 'asl_visible' ) ) {
 									$disabled = " disabled='disabled' style='background: #eee;'";
 									$note     = ' ' . __( '(Not currently visible)', 'wp-accessibility' );
 								} else {
@@ -293,7 +293,7 @@ function wpa_admin_settings() {
 								<input type="text" id="wpa_toolbar_default" name="wpa_toolbar_default" value="<?php echo esc_attr( get_option( 'wpa_toolbar_default' ) ); ?>" />
 							</li>
 							<?php
-							$size = get_option( 'wpa_toolbar_size' );
+							$size = absint( get_option( 'wpa_toolbar_size' ) );
 							?>
 							<li>
 								<label for="wpa_toolbar_size"><?php _e( 'Toolbar font size', 'wp-accessibility' ); ?></label>
@@ -303,7 +303,7 @@ function wpa_admin_settings() {
 									for ( $i = 1; $i <= 2.5; ) {
 										$val           = ( $i * 10 ) + 2;
 										$current       = $val;
-										$selected_size = ( $current == $size ) ? ' selected="selected"' : '';
+										$selected_size = ( $current === $size ) ? ' selected="selected"' : '';
 										echo "<option value='$val'$selected_size>$val px</option>";
 										$i = $i + .1;
 									}

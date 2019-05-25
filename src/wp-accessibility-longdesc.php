@@ -24,9 +24,9 @@ add_filter( 'wp_get_attachment_image_attributes', 'wpa_featured_longdesc', 10, 3
  * @return New attributes array.
  */
 function wpa_featured_longdesc( $attr, $attachment, $size ) {
-	if ( 'on' == get_option( 'wpa_longdesc_featured' ) ) {
+	if ( 'on' === get_option( 'wpa_longdesc_featured' ) ) {
 		$attachment_id = $attachment->ID;
-		if ( '' != strip_tags( $attachment->post_content ) ) {
+		if ( false !== (bool) strip_tags( $attachment->post_content ) ) {
 			$args = array( 'longdesc' => $attachment_id );
 			// The referrer is the post that the image is inserted into.
 			if ( isset( $_REQUEST['post_id'] ) || get_the_ID() ) {
@@ -160,7 +160,7 @@ function wpa_longdesc_add_attr( $html, $id, $caption, $title, $align, $url, $siz
 			$id               = ( isset( $_REQUEST['post_id'] ) ) ? $_REQUEST['post_id'] : get_the_ID();
 			$args['referrer'] = intval( $id );
 		}
-		if ( '' != strip_tags( $image->post_content ) ) {
+		if ( false !== (bool) strip_tags( $image->post_content ) ) {
 			$search  = '<img ';
 			$replace = '<img tabindex="-1" id="' . esc_attr( wpa_longdesc_return_anchor( $image->ID ) ) . '" longdesc="' . esc_url( add_query_arg( $args, home_url() ) ) . '" ';
 			$html    = str_replace( $search, $replace, $html );
