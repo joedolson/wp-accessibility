@@ -175,9 +175,7 @@ function wpacc_enqueue_scripts() {
 	if ( 'jquery' === get_option( 'wpa_longdesc' ) ) {
 		wp_enqueue_script( 'longdesc.button', plugins_url( 'js/longdesc.button.js', __FILE__ ), array( 'jquery' ), '1.0', true );
 	}
-	if ( 'on' === get_option( 'wpa_current_menu' ) ) {
-		wp_enqueue_script( 'current.menu', plugins_url( 'js/current-menu-item.js', __FILE__ ), array( 'jquery' ), '1.0', true );
-	}
+	wp_enqueue_script( 'current.menu', plugins_url( 'js/current-menu-item.js', __FILE__ ), array( 'jquery' ), '1.0', true );
 }
 
 add_action( 'wp_enqueue_scripts', 'wpa_stylesheet' );
@@ -424,7 +422,7 @@ if ( 'on' === get_option( 'wpa_search' ) ) {
  */
 function wpa_filter( $query ) {
 	if ( ! is_admin() ) {
-		if ( isset( $_GET['s'] ) && null === trim( $_GET['s'] ) && ( $query->is_main_query() ) ) {
+		if ( isset( $_GET['s'] ) && '' === trim( $_GET['s'] ) && ( $query->is_main_query() ) ) {
 			$query->query_vars['s'] = '&#32;';
 			$query->set( 'is_search', 1 );
 			add_action( 'template_include', 'wpa_search_error' );
