@@ -108,7 +108,6 @@ function wpa_update_settings() {
 			$wpa_tabindex                = ( isset( $_POST['wpa_tabindex'] ) ) ? 'on' : '';
 			$wpa_underline               = ( isset( $_POST['wpa_underline'] ) ) ? 'on' : '';
 			$wpa_longdesc                = ( isset( $_POST['wpa_longdesc'] ) ) ? esc_attr( $_POST['wpa_longdesc'] ) : 'false';
-			$wpa_current_menu            = ( isset( $_POST['wpa_current_menu'] ) ) ? 'on' : '';
 			$wpa_longdesc_featured       = ( isset( $_POST['wpa_longdesc_featured'] ) ) ? esc_attr( $_POST['wpa_longdesc_featured'] ) : 'false';
 			$wpa_image_titles            = ( isset( $_POST['wpa_image_titles'] ) ) ? 'on' : '';
 			$wpa_more                    = ( isset( $_POST['wpa_more'] ) ) ? 'on' : '';
@@ -126,7 +125,6 @@ function wpa_update_settings() {
 			update_option( 'wpa_tabindex', $wpa_tabindex );
 			update_option( 'wpa_underline', $wpa_underline );
 			update_option( 'wpa_longdesc', $wpa_longdesc );
-			update_option( 'wpa_current_menu', $wpa_current_menu );
 			update_option( 'wpa_longdesc_featured', $wpa_longdesc_featured );
 			update_option( 'wpa_image_titles', $wpa_image_titles );
 			update_option( 'wpa_more', $wpa_more );
@@ -300,7 +298,7 @@ function wpa_admin_settings() {
 								<select name='wpa_toolbar_size' id='wpa_toolbar_size'>
 									<option value=''><?php _e( 'Default size', 'wp-accessibility' ); ?></option>
 									<?php
-									for ( $i = 1; $i <= 2.5; ) {
+									for ( $i = 1.2; $i <= 3.8; ) {
 										$val           = ( $i * 10 ) + 2;
 										$current       = $val;
 										$selected_size = ( $current === $size ) ? ' selected="selected"' : '';
@@ -402,7 +400,7 @@ function wpa_admin_settings() {
 							</li>
 							<li>
 								<input type="checkbox" id="wpa_row_actions" name="wpa_row_actions" <?php checked( get_option( 'wpa_row_actions' ), 'on' ); ?>/>
-								<label for="wpa_row_actions"><?php _e( 'Make row actions always visible', 'wp-accessibility' ); ?></label>
+								<label for="wpa_row_actions"><?php _e( 'Make admin row actions always visible', 'wp-accessibility' ); ?></label>
 							</li>
 							<li>
 								<input type="checkbox" id="wpa_image_titles" name="wpa_image_titles" <?php checked( get_option( 'wpa_image_titles' ), 'on' ); ?>/>
@@ -417,10 +415,6 @@ function wpa_admin_settings() {
 								<label for="wpa_focus"><?php _e( 'Add outline to elements on keyboard focus', 'wp-accessibility' ); ?></label>
 								<label for="wpa_focus_color"><?php _e( 'Outline color (hexadecimal, optional)', 'wp-accessibility' ); ?></label>
 								<input type="text" id="wpa_focus_color" name="wpa_focus_color" value="#<?php echo esc_attr( get_option( 'wpa_focus_color' ) ); ?>"/></li>
-							<li>
-								<input type="checkbox" id="wpa_current_menu" name="wpa_current_menu" <?php checked( get_option( 'wpa_current_menu' ), 'on' ); ?>/>
-								<label for="wpa_current_menu"><?php _e( 'Non-visually identify currently active menu item', 'wp-accessibility' ); ?></label>
-							</li>
 						</ul>
 						<p>
 							<input type="hidden" name="_wpnonce" value="<?php echo wp_create_nonce( 'wpa-nonce' ); ?>"/>
