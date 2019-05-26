@@ -69,6 +69,8 @@ The plug-in is intended to help with deficiencies commonly found in themes and t
 
 * Update to RegEx filtering title attributes to avoid data-title attributes. Thanks to @nextendweb
 * Update PHP test suite to eliminate PHP 5.3 tests.
+* Higher min/max sizes for toolbar buttons
+* Remove setting for aria-current; now always enabled. 
 
 = 1.6.7 =
 
