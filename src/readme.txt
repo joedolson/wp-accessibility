@@ -65,6 +65,10 @@ The plug-in is intended to help with deficiencies commonly found in themes and t
 [Suggest a change!](https://github.com/joedolson/wp-accessibility/issues/)
 * Conflict with NextGen gallery to explore
 
+= 1.6.10 =
+
+* Based on support for screen-reader-text class and current support for aria-current, shifting to aria only.
+
 = 1.6.9 =
 
 * Different JS for aria-current; previous version could only work on a single element, not a collection.
