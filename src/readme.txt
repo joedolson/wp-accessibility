@@ -26,6 +26,7 @@ All features can be disabled according to your theme's needs. For advanced users
 * Add a toolbar toggling between high contrast, large print, and desaturated (grayscale) views of your theme.
 * Add a long description to images. Use the image's "Description" field to add long descriptions.
 * Enforcement for alt attributes on images.
+* Easily identify images without alt attributes in the Media Library
 
 = Accessibility Issues fixed by WP Accessibility: =
 
