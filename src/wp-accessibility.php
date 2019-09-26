@@ -622,7 +622,7 @@ $plugins_string
 			$sitename = substr( $sitename, 4 );
 		}
 		$from_email = 'wordpress@' . $sitename;
-		$from       = "From: \"$current_user->display_name\" <$from_email>\r\nReply-to: \"$current_user->display_name\" <$current_user->user_email>\r\n";
+		$from       = "From: $current_user->display_name <$from_email>\r\nReply-to: $current_user->display_name <$current_user->user_email>\r\n";
 
 		if ( ! $has_read_faq ) {
 			echo "<div class='message error'><p>" . __( 'Please read the FAQ and other Help documents before making a support request.', 'wp-accessibility' ) . '</p></div>';
