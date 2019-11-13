@@ -39,6 +39,10 @@ function wpa_media_columns( $columns ) {
 function wpa_media_value( $column, $id ) {
 	if ( 'wpa_data' === $column ) {
 		$mime = get_post_mime_type( $id );
+		$invalid_values = array(
+			'""',
+			"''",
+		);
 		switch ( $mime ) {
 			case 'image/jpeg':
 			case 'image/png':
@@ -50,6 +54,8 @@ function wpa_media_value( $column, $id ) {
 				} else {
 					if ( true === $no_alt ) {
 						echo '<span class="ok"><span class="dashicons dashicons-yes" aria-hidden="true"></span> ' . __( 'Decorative', 'wp-accessibility' ) . '</span>';
+					} else if ( in_array( $alt, $invalid_values, true ) ) {
+						echo '<span class="missing"><span class="dashicons dashicons-no" aria-hidden="true"></span> ' . __( 'Invalid', 'wp-accessibility' ) . '</span>';
 					} else {
 						echo '<span class="ok"><span class="dashicons dashicons-yes" aria-hidden="true"></span> ' . __( 'Has <code>alt</code>', 'wp-accessibility' ) . '</span>';
 					}
