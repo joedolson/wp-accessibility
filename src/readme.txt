@@ -69,7 +69,6 @@ The plug-in is intended to help with deficiencies commonly found in themes and t
 = 1.6.11 =
 
 * Add: test for specific common types of invalid alt attribute and label as invalid.
-* 
 
 = 1.6.10 =
 
