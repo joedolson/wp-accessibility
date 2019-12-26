@@ -17,7 +17,7 @@
  * Domain Path: /lang
  * License:     GPL-2.0+
  * License URI: http://www.gnu.org/license/gpl-2.0.txt
- * Version: 1.6.10
+ * Version: 1.6.11
  */
 
 /*
@@ -68,7 +68,7 @@ function wpa_admin_menu() {
  * Install on activation.
  */
 function wpa_install() {
-	$wpa_version = '1.6.10';
+	$wpa_version = '1.6.11';
 	if ( 'true' !== get_option( 'wpa_installed' ) ) {
 		add_option( 'rta_from_nav_menu', 'on' );
 		add_option( 'rta_from_page_lists', 'on' );
@@ -125,7 +125,6 @@ add_action( 'wp_enqueue_scripts', 'wpa_register_scripts' );
  * Register jQuery scripts.
  */
 function wpa_register_scripts() {
-	wp_register_script( 'skiplinks.webkit', plugins_url( 'wp-accessibility/js/skiplinks.webkit.js' ) );
 	wp_register_script( 'ui-a11y.js', plugins_url( 'wp-accessibility/toolbar/js/a11y.js' ), array( 'jquery' ), '1.0', true );
 }
 
@@ -247,7 +246,7 @@ add_action( 'wp_head', 'wpa_css' );
 function wpa_css() {
 	$styles = '';
 	if ( get_option( 'asl_enable' ) === 'on' ) {
-		$focus = get_option( 'asl_styles_focus' );
+		$focus = wp_kses( get_option( 'asl_styles_focus' ), array(), array() );
 		// these styles are derived from the WordPress skip link defaults.
 		$top = '7px';
 		if ( is_admin_bar_showing() ) {
@@ -262,7 +261,7 @@ function wpa_css() {
 		// Passive default styles derived from WordPress default focus styles.
 		$default_passive = 'background-color: #fff; box-shadow:  0 0 2px 2px rgba(0, 0, 0, 0.2); clip: auto; color: #333; display: block; font-weight: 600; height: auto; line-height: normal; padding: 15px 23px 14px; position: absolute; left: 6px; top: ' . $top . '; text-decoration: none; text-transform: none; width: auto; z-index: 100000;';
 
-		$passive = get_option( 'asl_styles_passive' );
+		$passive = wp_kses( get_option( 'asl_styles_passive' ), array(), array() );
 		$vis     = '';
 		$invis   = '';
 
