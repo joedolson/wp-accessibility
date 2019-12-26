@@ -90,17 +90,17 @@ function wpa_toolbar_js() {
 	$enable_grayscale = ( 'on' === get_option( 'wpa_toolbar_gs' ) && current_user_can( 'manage_options' ) ) ? 'true' : 'false';
 	$enable_fontsize  = ( 'off' === get_option( 'wpa_toolbar_fs' ) ) ? 'false' : 'true';
 	$enable_contrast  = ( 'off' === get_option( 'wpa_toolbar_ct' ) ) ? 'false' : 'true';
-	
+
 	return array(
-		'location' => $location,
-		'is_rtl'   => $is_rtl,
-		'is_right' => $is_right,
-		'responsive' => $responsive,
-		'contrast'   => $contrast,
-		'grayscale'  => $grayscale,
-		'fontsize'   => $fontsize,
+		'location'         => $location,
+		'is_rtl'           => $is_rtl,
+		'is_right'         => $is_right,
+		'responsive'       => $responsive,
+		'contrast'         => $contrast,
+		'grayscale'        => $grayscale,
+		'fontsize'         => $fontsize,
 		'enable_grayscale' => $enable_grayscale,
-		'enable_fontsize' => $enable_fontsize,
-		'enable_contrast' => $enable_contrast,
+		'enable_fontsize'  => $enable_fontsize,
+		'enable_contrast'  => $enable_contrast,
 	);
 }
