@@ -134,9 +134,6 @@ add_action( 'wp_enqueue_scripts', 'wpacc_enqueue_scripts' );
  */
 function wpacc_enqueue_scripts() {
 	wp_enqueue_script( 'jquery' );
-	if ( 'on' === get_option( 'asl_enable' ) ) {
-		wp_enqueue_script( 'skiplinks.webkit' );
-	}
 	if ( 'on' === get_option( 'wpa_toolbar' ) || 'on' === get_option( 'wpa_widget_toolbar' ) ) {
 		wp_enqueue_script( 'ui-a11y.js' );
 		$plugin_path = plugins_url( 'wp-accessibility/toolbar/css/a11y-contrast.css' );
