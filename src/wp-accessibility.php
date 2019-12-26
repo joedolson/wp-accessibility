@@ -194,12 +194,7 @@ function wpa_stylesheet() {
 	$toolbar_size = ( false === stripos( $toolbar_size, 'em' ) ) ? $toolbar_size . 'px' : $toolbar_size;
 	// Only enable styles when required by options.
 	if ( get_option( 'wpa_toolbar_size' ) && 'on' === get_option( 'wpa_toolbar' ) ) {
-		echo "
-<style type='text/css'>
-.a11y-toolbar ul li button {
-	font-size: " . $toolbar_size . ' !important;
-}
-</style>';
+		wp_add_inline_style( 'ui-a11y.css', '.a11y-toolbar ul li button { font-size: ' . $toolbar_size . ' !important; }' );
 	}
 	if ( 'link' === get_option( 'wpa_longdesc' ) || 'jquery' === get_option( 'wpa_longdesc' ) || 'on' === get_option( 'asl_enable' ) ) {
 		wp_enqueue_style( 'wpa-style' );
