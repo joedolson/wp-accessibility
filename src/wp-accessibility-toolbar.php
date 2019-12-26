@@ -74,13 +74,12 @@ function wpa_toolbar_html( $type = 'widget', $control = 'button' ) {
 }
 
 /**
- * Generate Toolbar as JS.
+ * Generate Toolbar variables for localization in JS.
  */
 function wpa_toolbar_js() {
 	// Toolbar does not work on Edge. Disable unless I solve the issue.
 	$default    = ( false !== (bool) get_option( 'wpa_toolbar_default' ) ) ? get_option( 'wpa_toolbar_default' ) : 'body';
 	$location   = apply_filters( 'wpa_move_toolbar', $default );
-	$user_agent = ( isset( $_SERVER['HTTP_USER_AGENT'] ) ) ? $_SERVER['HTTP_USER_AGENT'] : '';
 	$is_rtl     = ( is_rtl() ) ? ' rtl' : ' ltr';
 	$is_right   = ( 'on' === get_option( 'wpa_toolbar_right' ) ) ? ' right' : ' left';
 	$responsive = ( 'on' === get_option( 'wpa_toolbar_mobile' ) ) ? 'a11y-responsive ' : 'a11y-non-responsive ';
@@ -88,33 +87,20 @@ function wpa_toolbar_js() {
 	$contrast         = __( 'Toggle High Contrast', 'wp-accessibility' );
 	$grayscale        = __( 'Toggle Grayscale', 'wp-accessibility' );
 	$fontsize         = __( 'Toggle Font size', 'wp-accessibility' );
-	$enable_grayscale = ( 'on' === get_option( 'wpa_toolbar_gs' ) && current_user_can( 'manage_options' ) ) ? true : false;
-	$enable_fontsize  = ( 'off' === get_option( 'wpa_toolbar_fs' ) ) ? false : true;
-	$enable_contrast  = ( 'off' === get_option( 'wpa_toolbar_ct' ) ) ? false : true;
-
-	echo
-	"
-<script type='text/javascript'>
-//<![CDATA[
-(function( $ ) { 'use strict';
-	var insert_a11y_toolbar = '<!-- a11y toolbar -->';
-	insert_a11y_toolbar += '<div class=\"" . $responsive . "a11y-toolbar$is_rtl$is_right\">';
-	insert_a11y_toolbar += '<ul class=\"a11y-toolbar-list\">';";
-	if ( get_option( 'wpa_toolbar' ) === 'on' && $enable_contrast ) {
-		echo "insert_a11y_toolbar += '<li class=\"a11y-toolbar-list-item\"><button type=\"button\" class=\"a11y-toggle-contrast toggle-contrast\" id=\"is_normal_contrast\" aria-pressed=\"false\"><span class=\"offscreen\">$contrast</span><span class=\"aticon aticon-adjust\" aria-hidden=\"true\"></span></button></li>';";
-	}
-	if ( get_option( 'wpa_toolbar' ) === 'on' && $enable_grayscale ) {
-		echo "insert_a11y_toolbar += '<li class=\"a11y-toolbar-list-item\"><button type=\"button\" class=\"a11y-toggle-grayscale toggle-grayscale\" id=\"is_normal_color\" aria-pressed=\"false\"><span class=\"offscreen\">$grayscale</span><span class=\"aticon aticon-tint\" aria-hidden=\"true\"></span></button></li>';";
-	}
-	if ( get_option( 'wpa_toolbar' ) === 'on' && $enable_fontsize ) {
-		echo "insert_a11y_toolbar += '<li class=\"a11y-toolbar-list-item\"><button type=\"button\" class=\"a11y-toggle-fontsize toggle-fontsize\" id=\"is_normal_fontsize\" aria-pressed=\"false\"><span class=\"offscreen\">$fontsize</span><span class=\"aticon aticon-font\" aria-hidden=\"true\"></span></button></li>';";
-	}
-	echo "
-	insert_a11y_toolbar += '</ul>';
-	insert_a11y_toolbar += '</div>';
-	insert_a11y_toolbar += '<!-- // a11y toolbar -->';
-	$( document ).find( '$location' ).prepend( insert_a11y_toolbar );
-}(jQuery));
-//]]>
-</script>";
+	$enable_grayscale = ( 'on' === get_option( 'wpa_toolbar_gs' ) && current_user_can( 'manage_options' ) ) ? 'true' : 'false';
+	$enable_fontsize  = ( 'off' === get_option( 'wpa_toolbar_fs' ) ) ? 'false' : 'true';
+	$enable_contrast  = ( 'off' === get_option( 'wpa_toolbar_ct' ) ) ? 'false' : 'true';
+	
+	return array(
+		'location' => $location,
+		'is_rtl'   => $is_rtl,
+		'is_right' => $is_right,
+		'responsive' => $responsive,
+		'contrast'   => $contrast,
+		'grayscale'  => $grayscale,
+		'fontsize'   => $fontsize,
+		'enable_grayscale' => $enable_grayscale,
+		'enable_fontsize' => $enable_fontsize,
+		'enable_contrast' => $enable_contrast,
+	);
 }

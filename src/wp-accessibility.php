@@ -125,6 +125,7 @@ add_action( 'wp_enqueue_scripts', 'wpa_register_scripts' );
  * Register jQuery scripts.
  */
 function wpa_register_scripts() {
+	wp_register_script( 'wpa-toolbar', plugins_url( 'wp-accessibility/js/wpa-toolbar.js' ), array( 'jquery' ), '1.0', true );
 	wp_register_script( 'ui-a11y.js', plugins_url( 'wp-accessibility/toolbar/js/a11y.js' ), array( 'jquery' ), '1.0', true );
 }
 
@@ -135,6 +136,11 @@ add_action( 'wp_enqueue_scripts', 'wpacc_enqueue_scripts' );
 function wpacc_enqueue_scripts() {
 	wp_enqueue_script( 'jquery' );
 	if ( 'on' === get_option( 'wpa_toolbar' ) || 'on' === get_option( 'wpa_widget_toolbar' ) ) {
+		if ( 'on' === get_option( 'wpa_toolbar' ) ) {
+			// Enqueue Toolbar JS if enabled.
+			wp_enqueue_script( 'wpa-toolbar' );
+			wp_localize_script( 'wpa-toolbar', 'wpa', wpa_toolbar_js() );
+		}
 		wp_enqueue_script( 'ui-a11y.js' );
 		$plugin_path = plugins_url( 'wp-accessibility/toolbar/css/a11y-contrast.css' );
 		if ( file_exists( get_stylesheet_directory() . '/a11y-contrast.css' ) ) {
@@ -161,9 +167,6 @@ function wpacc_enqueue_scripts() {
 			'comment' => __( 'Comment', 'wp-accessibility' ),
 		);
 		wp_localize_script( 'wpa-labels', 'wpalabels', $labels );
-	}
-	if ( 'on' === get_option( 'wpa_toolbar' ) ) {
-		add_action( 'wp_footer', 'wpa_toolbar_js' );
 	}
 	if ( 'link' === get_option( 'wpa_longdesc' ) ) {
 		wp_enqueue_script( 'longdesc.link', plugins_url( 'js/longdesc.link.js', __FILE__ ), array( 'jquery' ), '1.0', true );
