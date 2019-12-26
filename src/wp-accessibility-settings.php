@@ -300,7 +300,7 @@ function wpa_admin_settings() {
 									<?php
 									for ( $i = 1.2; $i <= 3.8; ) {
 										$val           = ( $i * 10 ) + 2;
-										$current       = $val;
+										$current       = absint( $val );
 										$selected_size = ( $current === $size ) ? ' selected="selected"' : '';
 										echo "<option value='$val'$selected_size>$val px</option>";
 										$i = $i + .1;
