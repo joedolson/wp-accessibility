@@ -66,6 +66,10 @@ The plug-in is intended to help with deficiencies commonly found in themes and t
 [Suggest a change!](https://github.com/joedolson/wp-accessibility/issues/)
 * Conflict with NextGen gallery to explore
 
+= 1.7.2 =
+
+* Add style to div.aligncenter to control width
+
 = 1.7.1 =
 
 * Bump tested to value.

@@ -29,6 +29,7 @@ div.alignright {
 div.aligncenter {
     display: block;
     margin: 0 auto;
+	width: fit-content;
 }
 
 .wpa-ld a, .wpa-ld button {
