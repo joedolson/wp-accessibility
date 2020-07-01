@@ -15,30 +15,40 @@ WP Accessibility fixes common accessibility issues in your WordPress site.
 
 This plug-in helps with a variety of common accessibility problems in WordPress themes. While most accessibility issues can't be addressed without directly changing your theme, WP Accessibility adds a number of helpful accessibility features with a minimum amount of setup or expert knowledge.
 
+WP Accessibility is not intended to make your site compatible with any accessibility guidelines.
+
 All features can be disabled according to your theme's needs. For advanced users, all of the functions based on modifying stylesheets can be customized using your own custom styles by placing the appropriate stylesheet in your theme directory.
 
-= Accessibility Features added by WP Accessibility: =
+= Theme Accessibility Features added by WP Accessibility =
 
-* Enable skip links with WebKit support by adding JavaScript support to move keyboard focus.
+These are features that address issues caused by inaccessible themes. 
+
 * Add skip links with user-defined targets. (Customizable targets and appearance.)
-* Add language and text direction attributes to your HTML attribute
+* Add language and text direction attributes to your HTML attribute if missing.
 * Add an outline to the keyboard focus state for focusable elements. 
 * Add a long description to images. Use the image's "Description" field to add long descriptions.
-* Enforcement for alt attributes on images.
-* Easily identify images without alt attributes in the Media Library
+* Enforcement for alt attributes on images in the Classic editor.
+* Identify images without alt attributes in the Media Library
+* Add labels to standard WordPress form fields (search, comments)
+* Add post titles to "read more" links.
+* Remove tabindex from elements that are focusable. (Also fixes plugin-caused problems.)
 
-= Accessibility Issues fixed by WP Accessibility: =
+= WordPress Core Accessibility Issues fixed by WP Accessibility =
 
-* Remove the target attribute from links.
+These are features that address issues caused by current or past WordPress core accessibility issues. (Issues added in content, such as target or title attributes, are persistent even when WordPress is updated.) 
+
 * Force a search page error when a search is made with an empty text string. (If your theme has a search.php template.)
-* Remove tabindex from elements that are focusable.
-* Strip title attributes from images inserted into content. 
 * Remove redundant title attributes from page lists, category lists, and archive menus. 
-* Add post titles to standard "read more" links.
 * Address some accessibility issues in the WordPress admin styles
-* Add labels to standard WordPress form fields if missing
+
+Content specific fixes:
+
+* Strip title attributes from images inserted into content. 
+* Remove the target attribute from links.
 
 = Accessibility Tools in WP Accessibility: =
+
+These are tools provided to help you identify issues you may need to fix.
 
 * Test the color contrast between two provided hexadecimal color values.
 * Enable diagnostic CSS to show CSS-detectable problems in visual editor or on front-end of site. 
