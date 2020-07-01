@@ -63,7 +63,6 @@ The plug-in is intended to help with deficiencies commonly found in themes and t
 = Future =
 
 [Suggest a change!](https://github.com/joedolson/wp-accessibility/issues/)
-* Conflict with NextGen gallery to explore
 
 = 1.7.2 =
 

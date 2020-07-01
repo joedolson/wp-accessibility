@@ -38,7 +38,9 @@
 	Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-require_once( dirname( __FILE__ ) . '/wp-accessibility-toolbar.php' );
+if ( 'on' === get_option( 'wpa_toolbar' ) || 'on' === get_option( 'wpa_widget_toolbar' ) ) {
+	require_once( dirname( __FILE__ ) . '/wp-accessibility-toolbar.php' );
+}
 require_once( dirname( __FILE__ ) . '/wp-accessibility-longdesc.php' );
 require_once( dirname( __FILE__ ) . '/wp-accessibility-alt.php' );
 require_once( dirname( __FILE__ ) . '/wp-accessibility-contrast.php' );
