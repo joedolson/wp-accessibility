@@ -23,7 +23,6 @@ All features can be disabled according to your theme's needs. For advanced users
 * Add skip links with user-defined targets. (Customizable targets and appearance.)
 * Add language and text direction attributes to your HTML attribute
 * Add an outline to the keyboard focus state for focusable elements. 
-* Add a toolbar toggling between high contrast, large print, and desaturated (grayscale) views of your theme.
 * Add a long description to images. Use the image's "Description" field to add long descriptions.
 * Enforcement for alt attributes on images.
 * Easily identify images without alt attributes in the Media Library
@@ -39,9 +38,9 @@ All features can be disabled according to your theme's needs. For advanced users
 * Address some accessibility issues in the WordPress admin styles
 * Add labels to standard WordPress form fields if missing
 
-= Accessibility Tools built into WP Accessibility: =
+= Accessibility Tools in WP Accessibility: =
 
-* Show the color contrast between two provided hexadecimal color values.
+* Test the color contrast between two provided hexadecimal color values.
 * Enable diagnostic CSS to show CSS-detectable problems in visual editor or on front-end of site. 
 
 Learn more! <a href="http://make.wordpress.org/accessibility/wp-accessibility-plugin/">Read about the accessibility issues corrected</a> by WP Accessibility!
