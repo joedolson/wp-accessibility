@@ -672,7 +672,6 @@ function wpa_admin_settings() {
 						<li><a href="http://www.mothereffingtoolconfuser.com">Mother Effing Tool Confuser</a></li>
 						<li><a href="http://wordpress.org/extend/plugins/remove-title-attributes/">Remove Title Attributes</a></li>
 						<li><a href="http://wordpress.org/extend/plugins/img-title-removal/">IMG Title Removal</a></li>
-						<li><a href="https://github.com/clrux/a11y">Accessibility Toolbar</a></li>
 						<li><a href="https://wordpress.org/plugins/long-description-for-image-attachments/">WordPress Long Description</a></li>
 					</ul>
 				</div>
