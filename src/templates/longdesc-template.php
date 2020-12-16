@@ -24,7 +24,7 @@
 </head>
 <body>
 <div id="longdesc" class="template-longdesc">
-	<div id="desc_">
+	<div id="desc_<?php the_ID(); ?>">
 		<div id="desc_wp-image-<?php the_ID(); ?>">
 			<?php the_content(); ?>
 		</div>
