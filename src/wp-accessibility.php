@@ -17,7 +17,7 @@
  * Domain Path: /lang
  * License:     GPL-2.0+
  * License URI: http://www.gnu.org/license/gpl-2.0.txt
- * Version: 1.7.3
+ * Version: 1.7.4
  */
 
 /*
@@ -149,9 +149,12 @@ function wpacc_enqueue_scripts() {
 	}
 	if ( 'link' === get_option( 'wpa_longdesc' ) ) {
 		wp_enqueue_script( 'longdesc.link', plugins_url( 'js/longdesc.link.js', __FILE__ ), array( 'jquery' ), '1.0', true );
+		wp_localize_script( 'longdesc.link', 'wparest', get_rest_url( null, 'wp/v2/media' ) );
 	}
 	if ( 'jquery' === get_option( 'wpa_longdesc' ) ) {
 		wp_enqueue_script( 'longdesc.button', plugins_url( 'js/longdesc.button.js', __FILE__ ), array( 'jquery' ), '1.0', true );
+		wp_localize_script( 'longdesc.button', 'wparest', get_rest_url( null, 'wp/v2/media' ) );
+		wp_localize_script( 'longdesc.button', 'wpatext', '<span>' . __( 'Long Description', 'wp-accessibility' ) . '</span>' );
 	}
 	wp_enqueue_script( 'current.menu', plugins_url( 'js/current-menu-item.js', __FILE__ ), array( 'jquery' ), '1.0', true );
 }
