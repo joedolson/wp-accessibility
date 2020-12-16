@@ -179,507 +179,506 @@ function wpa_admin_settings() {
 	<div class="wrap">
 		<h1><?php _e( 'WP Accessibility: Settings', 'wp-accessibility' ); ?></h1>
 
-<div id="wpa_settings_page" class="postbox-container" style="width: 70%">
-	<div class="metabox-holder">
-		<div class="ui-sortable meta-box-sortables">
-			<div class="postbox">
-				<h2 class='hndle'><?php _e( 'Add Skiplinks', 'wp-accessibility' ); ?></h2>
+		<div id="wpa_settings_page" class="postbox-container" style="width: 70%">
+			<div class="metabox-holder">
+				<div class="ui-sortable meta-box-sortables">
+					<div class="postbox">
+						<h2 class='hndle'><?php _e( 'Add Skiplinks', 'wp-accessibility' ); ?></h2>
 
-				<div class="inside">
-					<?php
-					if ( wpa_accessible_theme() && 'on' !== get_option( 'asl_enable' ) ) {
-						?>
-					<p>
-						<?php _e( 'Your <code>accessibility-ready</code> theme has skip links built in.', 'wp-accessibility' ); ?>
-					</p>
-						<?php
-					} else {
-						?>
-					<form method="post" action="<?php echo admin_url( 'options-general.php?page=wp-accessibility/wp-accessibility.php' ); ?>">
-						<fieldset>
-							<legend><?php _e( 'Configure Skiplinks', 'wp-accessibility' ); ?></legend>
-							<ul>
-								<li>
-									<input type="checkbox" id="asl_enable" name="asl_enable" <?php checked( get_option( 'asl_enable' ), 'on' ); ?>/>
-									<label for="asl_enable"><?php _e( 'Enable Skiplinks', 'wp-accessibility' ); ?></label>
-								</li>
-								<li>
-									<input type="checkbox" id="asl_visible" name="asl_visible" <?php checked( get_option( 'asl_visible' ), 'on' ); ?>/>
-									<label for="asl_visible"><?php _e( 'Skiplinks always visible', 'wp-accessibility' ); ?></label>
-								</li>
-								<li>
-									<label for="asl_content"><?php _e( 'Skip to Content link target (ID of your main content container)', 'wp-accessibility' ); ?></label><br />
-									<input type="text" id="asl_content" name="asl_content" size="44" value="<?php echo esc_attr( get_option( 'asl_content' ) ); ?>"/>
-								</li>
-								<li>
-									<label for="asl_navigation"><?php _e( 'Skip to Navigation link target (ID of your main navigation container)', 'wp-accessibility' ); ?></label><br />
-									<input type="text" id="asl_navigation" name="asl_navigation" size="44" value="<?php echo esc_attr( get_option( 'asl_navigation' ) ); ?>"/>
-								</li>
-								<li>
-									<label for="asl_sitemap"><?php _e( 'Site Map link target (URL for your site map)', 'wp-accessibility' ); ?></label><br />
-									<input type="text" id="asl_sitemap" name="asl_sitemap" size="44" value="<?php echo esc_attr( get_option( 'asl_sitemap' ) ); ?>"/>
-								</li>
-								<li>
-									<label for="asl_extra_target"><?php _e( 'Add your own link (link or container ID)', 'wp-accessibility' ); ?></label><br />
-									<input type="text" id="asl_extra_target" name="asl_extra_target" size="44" value="<?php echo esc_attr( get_option( 'asl_extra_target' ) ); ?>"/>
-								</li>
-								<li>
-									<label for="asl_extra_text"><?php _e( 'Link text for your link', 'wp-accessibility' ); ?></label><br />
-									<input type="text" id="asl_extra_text" name="asl_extra_text" size="44" value="<?php echo esc_attr( get_option( 'asl_extra_text' ) ); ?>"/>
-								</li>
-								<li>
-									<label for="asl_styles_focus"><?php _e( 'Styles for Skiplinks when they have focus', 'wp-accessibility' ); ?></label><br/>
-									<textarea name='asl_styles_focus' id='asl_styles_focus' cols='60' rows='4'><?php echo esc_attr( stripslashes( get_option( 'asl_styles_focus' ) ) ); ?></textarea>
-								</li>
-								<?php
-								if ( 'on' !== get_option( 'asl_visible' ) ) {
-									$disabled = " disabled='disabled' style='background: #eee;'";
-									$note     = ' ' . __( '(Not currently visible)', 'wp-accessibility' );
-								} else {
-									$disabled = '';
-									$note     = '';
-								}
-								?>
-								<li>
-									<label for="asl_styles_passive">
-								<?php
-								_e( 'Styles for Skiplinks without focus', 'wp-accessibility' );
-								echo $note;
-								?>
-									</label><br/>
-									<textarea name='asl_styles_passive' id='asl_styles_passive' cols='60' rows='4'<?php echo $disabled; ?>><?php echo stripslashes( get_option( 'asl_styles_passive' ) ); ?></textarea>
-								</li>
-							</ul>
-						</fieldset>
-						<p>
-							<input type="hidden" name="_wpnonce" value="<?php echo wp_create_nonce( 'wpa-nonce' ); ?>"/>
-							<input type="hidden" name="action" value="asl"/>
-						</p>
-
-						<p><input type="submit" name="wpa-settings" class="button-primary" value="<?php _e( 'Update Skiplink Settings', 'wp-accessibility' ); ?>"/></p>
-					</form>
-						<?php
-					}
-					?>
-				</div>
-			</div>
-			<div class="postbox">
-				<h2 id="toolbar" class='hndle'><?php _e( 'Accessibility Toolbar Settings', 'wp-accessibility' ); ?></h2>
-				<div class="inside">
-					<form method="post" action="<?php echo admin_url( 'options-general.php?page=wp-accessibility/wp-accessibility.php' ); ?>">
-						<ul>
-							<li>
-								<input type="checkbox" id="wpa_toolbar" name="wpa_toolbar" <?php checked( get_option( 'wpa_toolbar' ), 'on' ); ?>/>
-								<label for="wpa_toolbar"><?php _e( 'Add Accessibility toolbar with fontsize adjustment and contrast toggle', 'wp-accessibility' ); ?></label>
-								<ul>
-									<li>
-										<input type="checkbox" id="wpa_toolbar_fs" name="wpa_toolbar_fs" <?php checked( get_option( 'wpa_toolbar_fs' ), 'off' ); ?>/>
-										<label for="wpa_toolbar_fs"><?php _e( 'Exclude font size toggle from Accessibility toolbar', 'wp-accessibility' ); ?></label>
-									</li>
-									<li>
-										<input type="checkbox" id="wpa_toolbar_ct" name="wpa_toolbar_ct" <?php checked( get_option( 'wpa_toolbar_ct' ), 'off' ); ?>/>
-										<label for="wpa_toolbar_ct"><?php _e( 'Exclude contrast toggle from Accessibility toolbar', 'wp-accessibility' ); ?></label>
-									</li>
-									<li>
-										<input type="checkbox" aria-describedby="wpa_toolbar_gs_note" id="wpa_toolbar_gs" name="wpa_toolbar_gs" <?php checked( get_option( 'wpa_toolbar_gs' ), 'on' ); ?> />
-										<label for="wpa_toolbar_gs"><?php _e( 'Include grayscale toggle with Accessibility toolbar', 'wp-accessibility' ); ?></label><br /><em id="wpa_toolbar_gs_note"><?php _e( 'The grayscale toggle is only intended for testing, and will appear only for logged-in administrators', 'wp-accessibility' ); ?></em>
-									</li>
-								</ul>
-							</li>
-							<li>
-								<label for="wpa_toolbar_default"><?php _e( 'Toolbar location (ID attribute, such as <code>#header</code>)', 'wp-accessibility' ); ?></label>
-								<input type="text" id="wpa_toolbar_default" name="wpa_toolbar_default" value="<?php echo esc_attr( get_option( 'wpa_toolbar_default' ) ); ?>" />
-							</li>
+						<div class="inside">
 							<?php
-							$size = absint( get_option( 'wpa_toolbar_size' ) );
-							?>
-							<li>
-								<label for="wpa_toolbar_size"><?php _e( 'Toolbar font size', 'wp-accessibility' ); ?></label>
-								<select name='wpa_toolbar_size' id='wpa_toolbar_size'>
-									<option value=''><?php _e( 'Default size', 'wp-accessibility' ); ?></option>
-									<?php
-									for ( $i = 1.2; $i <= 3.8; ) {
-										$val           = ( $i * 10 ) + 2;
-										$current       = absint( $val );
-										$selected_size = ( $current === $size ) ? ' selected="selected"' : '';
-										echo "<option value='$val'$selected_size>$val px</option>";
-										$i = $i + .1;
-									}
-									?>
-								</select>
-							</li>
-							<li>
-								<input type="checkbox" id="wpa_alternate_fontsize" name="wpa_alternate_fontsize" <?php checked( get_option( 'wpa_alternate_fontsize' ), 'on' ); ?>/>
-								<label for="wpa_alternate_fontsize"><?php _e( 'Use alternate font resizing stylesheet', 'wp-accessibility' ); ?></label>
-							</li>
-							<li>
-								<input type="checkbox" id="wpa_widget_toolbar" name="wpa_widget_toolbar" <?php checked( get_option( 'wpa_widget_toolbar' ), 'on' ); ?>/>
-								<label for="wpa_widget_toolbar"><?php _e( 'Support Accessibility toolbar as shortcode or widget', 'wp-accessibility' ); ?></label>
-							</li>
-							<li>
-								<input type="checkbox" id="wpa_toolbar_right" name="wpa_toolbar_right" <?php checked( get_option( 'wpa_toolbar_right' ), 'on' ); ?>/>
-								<label for="wpa_toolbar_right"><?php _e( 'Place toolbar on right side of screen.', 'wp-accessibility' ); ?></label>
-							</li>
-							<li>
-								<input type="checkbox" id="wpa_toolbar_mobile" name="wpa_toolbar_mobile" <?php checked( get_option( 'wpa_toolbar_mobile' ), 'on' ); ?>/>
-								<label for="wpa_toolbar_mobile"><?php _e( 'Hide toolbar on small screens.', 'wp-accessibility' ); ?></label>
-							</li>
-						</ul>
-						<p>
-							<input type="hidden" name="_wpnonce" value="<?php echo wp_create_nonce( 'wpa-nonce' ); ?>"/>
-							<input type="hidden" name="action" value="toolbar" />
-						</p>
-
-						<p><input type="submit" name="wpa-settings" class="button-primary" value="<?php _e( 'Update Toolbar Settings', 'wp-accessibility' ); ?>"/></p>
-					</form>
-				</div>
-			</div>
-			<div class="postbox">
-				<h2 id="contrast" class='hndle'><?php _e( 'Miscellaneous Accessibility Settings', 'wp-accessibility' ); ?></h2>
-
-				<div class="inside">
-					<form method="post" action="<?php echo admin_url( 'options-general.php?page=wp-accessibility/wp-accessibility.php' ); ?>">
-						<ul>
-							<?php
-							if ( ! wpa_accessible_theme() ) {
+							if ( wpa_accessible_theme() && 'on' !== get_option( 'asl_enable' ) ) {
 								?>
-							<li>
-								<input type="checkbox" id="wpa_lang" name="wpa_lang" <?php checked( get_option( 'wpa_lang' ), 'on' ); ?>/>
-								<label for="wpa_lang"><?php _e( 'Add Site Language and text direction to HTML element', 'wp-accessibility' ); ?></label>
-							</li>
-							<li>
-								<input type="checkbox" id="wpa_more" name="wpa_more" <?php checked( get_option( 'wpa_more' ), 'on' ); ?>/>
-								<label for="wpa_more"><?php _e( 'Add post title to "more" links.', 'wp-accessibility' ); ?></label>
-								<label for="wpa_continue"><?php _e( 'Continue reading text', 'wp-accessibility' ); ?></label>
-								<input type="text" id="wpa_continue" name="wpa_continue" value="<?php echo esc_attr( get_option( 'wpa_continue' ) ); ?>"/>
-							</li>
-							<li>
-								<input type="checkbox" id="wpa_insert_roles" name="wpa_insert_roles" <?php checked( get_option( 'wpa_insert_roles' ), 'on' ); ?>/>
-								<label for="wpa_insert_roles"><?php _e( 'Add landmark roles to HTML5 structural elements', 'wp-accessibility' ); ?></label><br/>
-								<label for="wpa_complementary_container"><?php _e( 'ID for complementary role', 'wp-accessibility' ); ?></label>
-								<input type="text" id="wpa_complementary_container" name="wpa_complementary_container" value="#<?php echo esc_attr( get_option( 'wpa_complementary_container' ) ); ?>"/>
-							</li>
-							<li>
-								<input type="checkbox" id="wpa_labels" name="wpa_labels" <?php checked( get_option( 'wpa_labels' ), 'on' ); ?> />
-								<label for='wpa_labels'><?php _e( 'Automatically Label WordPress search form and comment forms', 'wp-accessibility' ); ?></label>
-							</li>
+							<p>
+								<?php _e( 'Your <code>accessibility-ready</code> theme has skip links built in.', 'wp-accessibility' ); ?>
+							</p>
 								<?php
 							} else {
 								?>
-								<li><?php _e( '<strong>Four disabled features:</strong> Site language, continue reading text, landmark roles and standard form labels are defined in your <code>accessibility-ready</code> theme.', 'wp-accessibility' ); ?></li>
+							<form method="post" action="<?php echo admin_url( 'options-general.php?page=wp-accessibility/wp-accessibility.php' ); ?>">
+								<fieldset>
+									<legend><?php _e( 'Configure Skiplinks', 'wp-accessibility' ); ?></legend>
+									<ul>
+										<li>
+											<input type="checkbox" id="asl_enable" name="asl_enable" <?php checked( get_option( 'asl_enable' ), 'on' ); ?>/>
+											<label for="asl_enable"><?php _e( 'Enable Skiplinks', 'wp-accessibility' ); ?></label>
+										</li>
+										<li>
+											<input type="checkbox" id="asl_visible" name="asl_visible" <?php checked( get_option( 'asl_visible' ), 'on' ); ?>/>
+											<label for="asl_visible"><?php _e( 'Skiplinks always visible', 'wp-accessibility' ); ?></label>
+										</li>
+										<li>
+											<label for="asl_content"><?php _e( 'Skip to Content link target (ID of your main content container)', 'wp-accessibility' ); ?></label><br />
+											<input type="text" id="asl_content" name="asl_content" size="44" value="<?php echo esc_attr( get_option( 'asl_content' ) ); ?>"/>
+										</li>
+										<li>
+											<label for="asl_navigation"><?php _e( 'Skip to Navigation link target (ID of your main navigation container)', 'wp-accessibility' ); ?></label><br />
+											<input type="text" id="asl_navigation" name="asl_navigation" size="44" value="<?php echo esc_attr( get_option( 'asl_navigation' ) ); ?>"/>
+										</li>
+										<li>
+											<label for="asl_sitemap"><?php _e( 'Site Map link target (URL for your site map)', 'wp-accessibility' ); ?></label><br />
+											<input type="text" id="asl_sitemap" name="asl_sitemap" size="44" value="<?php echo esc_attr( get_option( 'asl_sitemap' ) ); ?>"/>
+										</li>
+										<li>
+											<label for="asl_extra_target"><?php _e( 'Add your own link (link or container ID)', 'wp-accessibility' ); ?></label><br />
+											<input type="text" id="asl_extra_target" name="asl_extra_target" size="44" value="<?php echo esc_attr( get_option( 'asl_extra_target' ) ); ?>"/>
+										</li>
+										<li>
+											<label for="asl_extra_text"><?php _e( 'Link text for your link', 'wp-accessibility' ); ?></label><br />
+											<input type="text" id="asl_extra_text" name="asl_extra_text" size="44" value="<?php echo esc_attr( get_option( 'asl_extra_text' ) ); ?>"/>
+										</li>
+										<li>
+											<label for="asl_styles_focus"><?php _e( 'Styles for Skiplinks when they have focus', 'wp-accessibility' ); ?></label><br/>
+											<textarea name='asl_styles_focus' id='asl_styles_focus' cols='60' rows='4'><?php echo esc_attr( stripslashes( get_option( 'asl_styles_focus' ) ) ); ?></textarea>
+										</li>
+										<?php
+										if ( 'on' !== get_option( 'asl_visible' ) ) {
+											$disabled = " disabled='disabled' style='background: #eee;'";
+											$note     = ' ' . __( '(Not currently visible)', 'wp-accessibility' );
+										} else {
+											$disabled = '';
+											$note     = '';
+										}
+										?>
+										<li>
+											<label for="asl_styles_passive">
+										<?php
+										_e( 'Styles for Skiplinks without focus', 'wp-accessibility' );
+										echo $note;
+										?>
+											</label><br/>
+											<textarea name='asl_styles_passive' id='asl_styles_passive' cols='60' rows='4'<?php echo $disabled; ?>><?php echo stripslashes( get_option( 'asl_styles_passive' ) ); ?></textarea>
+										</li>
+									</ul>
+								</fieldset>
+								<p>
+									<input type="hidden" name="_wpnonce" value="<?php echo wp_create_nonce( 'wpa-nonce' ); ?>"/>
+									<input type="hidden" name="action" value="asl"/>
+								</p>
+								<p><input type="submit" name="wpa-settings" class="button-primary" value="<?php _e( 'Update Skiplink Settings', 'wp-accessibility' ); ?>"/></p>
+							</form>
 								<?php
 							}
 							?>
-							<li>
-								<input type="checkbox" id="wpa_target" name="wpa_target" <?php checked( get_option( 'wpa_target' ), 'on' ); ?>/>
-								<label for="wpa_target"><?php _e( 'Remove target attribute from links', 'wp-accessibility' ); ?></label>
-							</li>
-							<li>
-								<input type="checkbox" id="wpa_search" name="wpa_search" <?php checked( get_option( 'wpa_search' ), 'on' ); ?>/>
-								<label for="wpa_search"><?php _e( 'Force search error on empty search submission (theme must have search.php template)', 'wp-accessibility' ); ?></label>
-							</li>
-							<li>
-								<input type="checkbox" id="wpa_tabindex" name="wpa_tabindex" <?php checked( get_option( 'wpa_tabindex' ), 'on' ); ?>/>
-								<label for="wpa_tabindex"><?php _e( 'Remove tabindex from focusable elements', 'wp-accessibility' ); ?></label>
-							</li>
-							<li>
-								<input type="checkbox" id="wpa_underline" name="wpa_underline" <?php checked( get_option( 'wpa_underline' ), 'on' ); ?>/>
-								<label for="wpa_underline"><?php _e( 'Force underline on all links', 'wp-accessibility' ); ?></label>
-							</li>
-							<li>
-								<label for="wpa_longdesc"><?php _e( 'Long Description UI', 'wp-accessibility' ); ?></label>
-								<select id="wpa_longdesc" name="wpa_longdesc">
-									<option value='false'<?php selected( get_option( 'wpa_longdesc' ), 'false' ); ?>><?php _e( 'Browser defaults only', 'wp-accessibility' ); ?></option>
-									<option value='link'<?php selected( get_option( 'wpa_longdesc' ), 'link' ); ?>><?php _e( 'Link to description', 'wp-accessibility' ); ?></option>
-									<option value='jquery'<?php selected( get_option( 'wpa_longdesc' ), 'jquery' ); ?>><?php _e( 'Button trigger to overlay image', 'wp-accessibility' ); ?></option>
-								</select>
-							</li>
-							<li>
-								<input type="checkbox" id="wpa_longdesc_featured" name="wpa_longdesc_featured" <?php checked( get_option( 'wpa_longdesc_featured' ), 'on' ); ?>/>
-								<label for="wpa_longdesc_featured"><?php _e( 'Support <code>longdesc</code> on featured images', 'wp-accessibility' ); ?></label>
-							</li>
-							<li>
-								<input type="checkbox" id="wpa_row_actions" name="wpa_row_actions" <?php checked( get_option( 'wpa_row_actions' ), 'on' ); ?>/>
-								<label for="wpa_row_actions"><?php _e( 'Make admin row actions always visible', 'wp-accessibility' ); ?></label>
-							</li>
-							<li>
-								<input type="checkbox" id="wpa_image_titles" name="wpa_image_titles" <?php checked( get_option( 'wpa_image_titles' ), 'on' ); ?>/>
-								<label for="wpa_image_titles"><?php _e( 'Remove title attributes inserted into post content and featured images.', 'wp-accessibility' ); ?></label>
-							</li>
-							<li>
-								<input type="checkbox" id="wpa_diagnostics" name="wpa_diagnostics" <?php checked( get_option( 'wpa_diagnostics' ), 'on' ); ?>/>
-								<label for="wpa_diagnostics"><?php _e( 'Enable diagnostic CSS', 'wp-accessibility' ); ?></label>
-							</li>
-							<li>
-								<input type="checkbox" id="wpa_focus" name="wpa_focus" <?php checked( get_option( 'wpa_focus' ), 'on' ); ?>/>
-								<label for="wpa_focus"><?php _e( 'Add outline to elements on keyboard focus', 'wp-accessibility' ); ?></label>
-								<label for="wpa_focus_color"><?php _e( 'Outline color (hexadecimal, optional)', 'wp-accessibility' ); ?></label>
-								<input type="text" id="wpa_focus_color" name="wpa_focus_color" value="#<?php echo esc_attr( get_option( 'wpa_focus_color' ) ); ?>"/></li>
-						</ul>
-						<p>
-							<input type="hidden" name="_wpnonce" value="<?php echo wp_create_nonce( 'wpa-nonce' ); ?>"/>
-							<input type="hidden" name="action" value="misc"/>
-						</p>
+						</div>
+					</div>
+					<div class="postbox">
+						<h2 id="toolbar" class='hndle'><?php _e( 'Accessibility Toolbar Settings', 'wp-accessibility' ); ?></h2>
+						<div class="inside">
+							<form method="post" action="<?php echo admin_url( 'options-general.php?page=wp-accessibility/wp-accessibility.php' ); ?>">
+								<ul>
+									<li>
+										<input type="checkbox" id="wpa_toolbar" name="wpa_toolbar" <?php checked( get_option( 'wpa_toolbar' ), 'on' ); ?>/>
+										<label for="wpa_toolbar"><?php _e( 'Add Accessibility toolbar with fontsize adjustment and contrast toggle', 'wp-accessibility' ); ?></label>
+										<ul>
+											<li>
+												<input type="checkbox" id="wpa_toolbar_fs" name="wpa_toolbar_fs" <?php checked( get_option( 'wpa_toolbar_fs' ), 'off' ); ?>/>
+												<label for="wpa_toolbar_fs"><?php _e( 'Exclude font size toggle from Accessibility toolbar', 'wp-accessibility' ); ?></label>
+											</li>
+											<li>
+												<input type="checkbox" id="wpa_toolbar_ct" name="wpa_toolbar_ct" <?php checked( get_option( 'wpa_toolbar_ct' ), 'off' ); ?>/>
+												<label for="wpa_toolbar_ct"><?php _e( 'Exclude contrast toggle from Accessibility toolbar', 'wp-accessibility' ); ?></label>
+											</li>
+											<li>
+												<input type="checkbox" aria-describedby="wpa_toolbar_gs_note" id="wpa_toolbar_gs" name="wpa_toolbar_gs" <?php checked( get_option( 'wpa_toolbar_gs' ), 'on' ); ?> />
+												<label for="wpa_toolbar_gs"><?php _e( 'Include grayscale toggle with Accessibility toolbar', 'wp-accessibility' ); ?></label><br /><em id="wpa_toolbar_gs_note"><?php _e( 'The grayscale toggle is only intended for testing, and will appear only for logged-in administrators', 'wp-accessibility' ); ?></em>
+											</li>
+										</ul>
+									</li>
+									<li>
+										<label for="wpa_toolbar_default"><?php _e( 'Toolbar location (ID attribute, such as <code>#header</code>)', 'wp-accessibility' ); ?></label>
+										<input type="text" id="wpa_toolbar_default" name="wpa_toolbar_default" value="<?php echo esc_attr( get_option( 'wpa_toolbar_default' ) ); ?>" />
+									</li>
+									<?php
+									$size = absint( get_option( 'wpa_toolbar_size' ) );
+									?>
+									<li>
+										<label for="wpa_toolbar_size"><?php _e( 'Toolbar font size', 'wp-accessibility' ); ?></label>
+										<select name='wpa_toolbar_size' id='wpa_toolbar_size'>
+											<option value=''><?php _e( 'Default size', 'wp-accessibility' ); ?></option>
+											<?php
+											for ( $i = 1.2; $i <= 3.8; ) {
+												$val           = ( $i * 10 ) + 2;
+												$current       = absint( $val );
+												$selected_size = ( $current === $size ) ? ' selected="selected"' : '';
+												echo "<option value='$val'$selected_size>$val px</option>";
+												$i = $i + .1;
+											}
+											?>
+										</select>
+									</li>
+									<li>
+										<input type="checkbox" id="wpa_alternate_fontsize" name="wpa_alternate_fontsize" <?php checked( get_option( 'wpa_alternate_fontsize' ), 'on' ); ?>/>
+										<label for="wpa_alternate_fontsize"><?php _e( 'Use alternate font resizing stylesheet', 'wp-accessibility' ); ?></label>
+									</li>
+									<li>
+										<input type="checkbox" id="wpa_widget_toolbar" name="wpa_widget_toolbar" <?php checked( get_option( 'wpa_widget_toolbar' ), 'on' ); ?>/>
+										<label for="wpa_widget_toolbar"><?php _e( 'Support Accessibility toolbar as shortcode or widget', 'wp-accessibility' ); ?></label>
+									</li>
+									<li>
+										<input type="checkbox" id="wpa_toolbar_right" name="wpa_toolbar_right" <?php checked( get_option( 'wpa_toolbar_right' ), 'on' ); ?>/>
+										<label for="wpa_toolbar_right"><?php _e( 'Place toolbar on right side of screen.', 'wp-accessibility' ); ?></label>
+									</li>
+									<li>
+										<input type="checkbox" id="wpa_toolbar_mobile" name="wpa_toolbar_mobile" <?php checked( get_option( 'wpa_toolbar_mobile' ), 'on' ); ?>/>
+										<label for="wpa_toolbar_mobile"><?php _e( 'Hide toolbar on small screens.', 'wp-accessibility' ); ?></label>
+									</li>
+								</ul>
+								<p>
+									<input type="hidden" name="_wpnonce" value="<?php echo wp_create_nonce( 'wpa-nonce' ); ?>"/>
+									<input type="hidden" name="action" value="toolbar" />
+								</p>
 
-						<p><input type="submit" name="wpa-settings" class="button-primary" value="<?php _e( 'Update Miscellaneous Settings', 'wp-accessibility' ); ?>"/></p>
-					</form>
-				</div>
-			</div>
-			<div class="postbox">
-				<h2 class='hndle'><?php _e( 'Remove Title Attributes', 'wp-accessibility' ); ?></h2>
+								<p><input type="submit" name="wpa-settings" class="button-primary" value="<?php _e( 'Update Toolbar Settings', 'wp-accessibility' ); ?>"/></p>
+							</form>
+						</div>
+					</div>
+					<div class="postbox">
+						<h2 id="contrast" class='hndle'><?php _e( 'Miscellaneous Accessibility Settings', 'wp-accessibility' ); ?></h2>
 
-				<div class="inside">
-					<?php wpa_accessible_theme(); ?>
-					<form method="post" action="<?php echo admin_url( 'options-general.php?page=wp-accessibility/wp-accessibility.php' ); ?>">
-						<fieldset>
-							<legend><?php _e( 'Remove title attributes from:', 'wp-accessibility' ); ?></legend>
-							<ul>
-								<li><input type="checkbox" id="rta_from_tag_clouds" name="rta_from_tag_clouds" <?php checked( get_option( 'rta_from_tag_clouds' ), 'on' ); ?>/>
-								<label for="rta_from_tag_clouds"><?php _e( 'Tag clouds', 'wp-accessibility' ); ?></label>
-								</li>
-							</ul>
-						</fieldset>
-						<p>
-							<input type="hidden" name="_wpnonce" value="<?php echo wp_create_nonce( 'wpa-nonce' ); ?>"/>
-							<input type="hidden" name="action" value="rta"/>
-						</p>
+						<div class="inside">
+							<form method="post" action="<?php echo admin_url( 'options-general.php?page=wp-accessibility/wp-accessibility.php' ); ?>">
+								<ul>
+									<?php
+									if ( ! wpa_accessible_theme() ) {
+										?>
+									<li>
+										<input type="checkbox" id="wpa_lang" name="wpa_lang" <?php checked( get_option( 'wpa_lang' ), 'on' ); ?>/>
+										<label for="wpa_lang"><?php _e( 'Add Site Language and text direction to HTML element', 'wp-accessibility' ); ?></label>
+									</li>
+									<li>
+										<input type="checkbox" id="wpa_more" name="wpa_more" <?php checked( get_option( 'wpa_more' ), 'on' ); ?>/>
+										<label for="wpa_more"><?php _e( 'Add post title to "more" links.', 'wp-accessibility' ); ?></label>
+										<label for="wpa_continue"><?php _e( 'Continue reading text', 'wp-accessibility' ); ?></label>
+										<input type="text" id="wpa_continue" name="wpa_continue" value="<?php echo esc_attr( get_option( 'wpa_continue' ) ); ?>"/>
+									</li>
+									<li>
+										<input type="checkbox" id="wpa_insert_roles" name="wpa_insert_roles" <?php checked( get_option( 'wpa_insert_roles' ), 'on' ); ?>/>
+										<label for="wpa_insert_roles"><?php _e( 'Add landmark roles to HTML5 structural elements', 'wp-accessibility' ); ?></label><br/>
+										<label for="wpa_complementary_container"><?php _e( 'ID for complementary role', 'wp-accessibility' ); ?></label>
+										<input type="text" id="wpa_complementary_container" name="wpa_complementary_container" value="#<?php echo esc_attr( get_option( 'wpa_complementary_container' ) ); ?>"/>
+									</li>
+									<li>
+										<input type="checkbox" id="wpa_labels" name="wpa_labels" <?php checked( get_option( 'wpa_labels' ), 'on' ); ?> />
+										<label for='wpa_labels'><?php _e( 'Automatically Label WordPress search form and comment forms', 'wp-accessibility' ); ?></label>
+									</li>
+										<?php
+									} else {
+										?>
+										<li><?php _e( '<strong>Four disabled features:</strong> Site language, continue reading text, landmark roles and standard form labels are defined in your <code>accessibility-ready</code> theme.', 'wp-accessibility' ); ?></li>
+										<?php
+									}
+									?>
+									<li>
+										<input type="checkbox" id="wpa_target" name="wpa_target" <?php checked( get_option( 'wpa_target' ), 'on' ); ?>/>
+										<label for="wpa_target"><?php _e( 'Remove target attribute from links', 'wp-accessibility' ); ?></label>
+									</li>
+									<li>
+										<input type="checkbox" id="wpa_search" name="wpa_search" <?php checked( get_option( 'wpa_search' ), 'on' ); ?>/>
+										<label for="wpa_search"><?php _e( 'Force search error on empty search submission (theme must have search.php template)', 'wp-accessibility' ); ?></label>
+									</li>
+									<li>
+										<input type="checkbox" id="wpa_tabindex" name="wpa_tabindex" <?php checked( get_option( 'wpa_tabindex' ), 'on' ); ?>/>
+										<label for="wpa_tabindex"><?php _e( 'Remove tabindex from focusable elements', 'wp-accessibility' ); ?></label>
+									</li>
+									<li>
+										<input type="checkbox" id="wpa_underline" name="wpa_underline" <?php checked( get_option( 'wpa_underline' ), 'on' ); ?>/>
+										<label for="wpa_underline"><?php _e( 'Force underline on all links', 'wp-accessibility' ); ?></label>
+									</li>
+									<li>
+										<label for="wpa_longdesc"><?php _e( 'Long Description UI', 'wp-accessibility' ); ?></label>
+										<select id="wpa_longdesc" name="wpa_longdesc">
+											<option value='false'<?php selected( get_option( 'wpa_longdesc' ), 'false' ); ?>><?php _e( 'Browser defaults only', 'wp-accessibility' ); ?></option>
+											<option value='link'<?php selected( get_option( 'wpa_longdesc' ), 'link' ); ?>><?php _e( 'Link to description', 'wp-accessibility' ); ?></option>
+											<option value='jquery'<?php selected( get_option( 'wpa_longdesc' ), 'jquery' ); ?>><?php _e( 'Button trigger to overlay image', 'wp-accessibility' ); ?></option>
+										</select>
+									</li>
+									<li>
+										<input type="checkbox" id="wpa_longdesc_featured" name="wpa_longdesc_featured" <?php checked( get_option( 'wpa_longdesc_featured' ), 'on' ); ?>/>
+										<label for="wpa_longdesc_featured"><?php _e( 'Support <code>longdesc</code> on featured images', 'wp-accessibility' ); ?></label>
+									</li>
+									<li>
+										<input type="checkbox" id="wpa_row_actions" name="wpa_row_actions" <?php checked( get_option( 'wpa_row_actions' ), 'on' ); ?>/>
+										<label for="wpa_row_actions"><?php _e( 'Make admin row actions always visible', 'wp-accessibility' ); ?></label>
+									</li>
+									<li>
+										<input type="checkbox" id="wpa_image_titles" name="wpa_image_titles" <?php checked( get_option( 'wpa_image_titles' ), 'on' ); ?>/>
+										<label for="wpa_image_titles"><?php _e( 'Remove title attributes inserted into post content and featured images.', 'wp-accessibility' ); ?></label>
+									</li>
+									<li>
+										<input type="checkbox" id="wpa_diagnostics" name="wpa_diagnostics" <?php checked( get_option( 'wpa_diagnostics' ), 'on' ); ?>/>
+										<label for="wpa_diagnostics"><?php _e( 'Enable diagnostic CSS', 'wp-accessibility' ); ?></label>
+									</li>
+									<li>
+										<input type="checkbox" id="wpa_focus" name="wpa_focus" <?php checked( get_option( 'wpa_focus' ), 'on' ); ?>/>
+										<label for="wpa_focus"><?php _e( 'Add outline to elements on keyboard focus', 'wp-accessibility' ); ?></label>
+										<label for="wpa_focus_color"><?php _e( 'Outline color (hexadecimal, optional)', 'wp-accessibility' ); ?></label>
+										<input type="text" id="wpa_focus_color" name="wpa_focus_color" value="#<?php echo esc_attr( get_option( 'wpa_focus_color' ) ); ?>"/></li>
+								</ul>
+								<p>
+									<input type="hidden" name="_wpnonce" value="<?php echo wp_create_nonce( 'wpa-nonce' ); ?>"/>
+									<input type="hidden" name="action" value="misc"/>
+								</p>
 
-						<p><input type="submit" name="wpa-settings" class="button-primary" value="<?php _e( 'Update Title Attribute Settings', 'wp-accessibility' ); ?>"/></p>
-					</form>
-				</div>
-			</div>
-			<div class="postbox">
-				<h2 class='hndle'><?php _e( 'Color Contrast Tester', 'wp-accessibility' ); ?></h2>
+								<p><input type="submit" name="wpa-settings" class="button-primary" value="<?php _e( 'Update Miscellaneous Settings', 'wp-accessibility' ); ?>"/></p>
+							</form>
+						</div>
+					</div>
+					<div class="postbox">
+						<h2 class='hndle'><?php _e( 'Remove Title Attributes', 'wp-accessibility' ); ?></h2>
 
-				<div class="inside">
-					<?php
-					$colors = wpa_contrast();
-					if ( $colors ) {
-						$l_contrast    = wpa_luminosity( $colors['red1'], $colors['red2'], $colors['green1'], $colors['green2'], $colors['blue1'], $colors['blue2'] ) . ':1';
-						$luminance_raw = wpa_luminosity( $colors['red1'], $colors['red2'], $colors['green1'], $colors['green2'], $colors['blue1'], $colors['blue2'] );
-						$hex1          = esc_attr( $colors['hex1'] );
-						$hex2          = esc_attr( $colors['hex2'] );
-					} else {
-						$hex1       = '';
-						$hex2       = '';
-						$l_contrast = false;
-					}
-					if ( $l_contrast ) {
-						$results = "<div class='updated notice'>";
-						// Translators: Contrast ratio, foreground Hex color, background Hex color.
-						$results .= '<p class="stats wcag2">' . sprintf( __( 'Luminosity Contrast Ratio for %2$s and %3$s is %1$s (Threshold: greater than 7:1 for AAA, 4.5:1 for AA)', 'wp-accessibility' ), '<strong>' . $l_contrast . '</strong>', '<code>#' . $hex1 . '</code>', '<code>#' . $hex2 . '</code>' ) . '</p><p>';
-						if ( $luminance_raw >= 7 ) {
-							$results .= __( 'The colors compared <strong>pass</strong> the relative luminosity test at level AAA.', 'wp-accessibility' );
-						}
-						if ( $luminance_raw >= 4.5 && $luminance_raw < 7 ) {
-							$results .= __( 'The colors compared <strong>pass</strong> the relative luminosity test at level AA.', 'wp-accessibility' );
-						}
-						if ( $luminance_raw >= 3 && $luminance_raw < 4.5 ) {
-							$results .= __( 'The colors compared pass the relative luminosity test <strong>only when used in large print</strong> situations (greater than 18pt text or 14pt bold text.)', 'wp-accessibility' );
-						}
-						if ( $luminance_raw < 3 ) {
-							$results .= __( 'The colors compared <strong>do not pass</strong> the relative luminosity test.', 'wp-accessibility' );
-						}
-						$results .= " <a href='#contrast'>" . __( 'Test another set of colors', 'wp-accessibility' ) . '</a>';
-						$results .= '</p>';
-						$results .= "
-				<div class=\"views\">
-					<p class='large' style=\"font-size: 2em; line-height: 1.4;color: #$hex1;background: #$hex2;border: 3px solid #$hex1\">Large Print Example</p>
-					<p class='small' style=\"font-size: .9em;color: #$hex1;background: #$hex2;border: 3px solid #$hex1\">Small Print Example</p>
-					<p class='large' style=\"font-size: 2em; line-height: 1.4;color: #$hex2;background: #$hex1;border: 3px solid #$hex2\">Large Print Example (Inverted)</p>
-					<p class='small' style=\"font-size: .9em;color: #$hex2;background: #$hex1;border: 3px solid #$hex2\">Small Print Example (Inverted)</p>
-				</div>
-			</div>";
-						echo $results;
-					}
-					?>
-					<form method="post" action="<?php echo admin_url( 'options-general.php?page=wp-accessibility/wp-accessibility.php' ); ?>">
-						<fieldset>
-							<legend><?php _e( 'Test of relative luminosity', 'wp-accessibility' ); ?></legend>
-							<ul>
-								<li class='fore'>
-									<div id="fore"></div>
-									<label for="color1"><?php _e( 'Foreground color', 'wp-accessibility' ); ?></label><br/>
-									<input type="text" name="color" value="#<?php echo esc_attr( $hex1 ); ?>" size="34" id="color1"/>
-								</li>
-								<li class='back'>
-									<div id="back"></div>
-									<label for="color2"><?php _e( 'Background color', 'wp-accessibility' ); ?></label><br/>
-									<input type="text" name="color2" value="#<?php echo esc_attr( $hex2 ); ?>" size="34" id="color2"/>
-								</li>
-							</ul>
-						</fieldset>
-						<p>
-							<input type="hidden" name="_wpnonce" value="<?php echo wp_create_nonce( 'wpa-nonce' ); ?>"/>
-							<input type="hidden" name="action" value="contrast"/>
-						</p>
+						<div class="inside">
+							<?php wpa_accessible_theme(); ?>
+							<form method="post" action="<?php echo admin_url( 'options-general.php?page=wp-accessibility/wp-accessibility.php' ); ?>">
+								<fieldset>
+									<legend><?php _e( 'Remove title attributes from:', 'wp-accessibility' ); ?></legend>
+									<ul>
+										<li><input type="checkbox" id="rta_from_tag_clouds" name="rta_from_tag_clouds" <?php checked( get_option( 'rta_from_tag_clouds' ), 'on' ); ?>/>
+										<label for="rta_from_tag_clouds"><?php _e( 'Tag clouds', 'wp-accessibility' ); ?></label>
+										</li>
+									</ul>
+								</fieldset>
+								<p>
+									<input type="hidden" name="_wpnonce" value="<?php echo wp_create_nonce( 'wpa-nonce' ); ?>"/>
+									<input type="hidden" name="action" value="rta"/>
+								</p>
 
-						<p><input type="submit" name="wpa-settings" class="button-primary" value="<?php _e( 'Check Color Contrast', 'wp-accessibility' ); ?>"/></p>
-					</form>
-				</div>
-			</div>
-			<div class="postbox" id="privacy">
-				<h2 class='hndle'><?php _e( 'Privacy', 'wp-accessibility' ); ?></h2>
+								<p><input type="submit" name="wpa-settings" class="button-primary" value="<?php _e( 'Update Title Attribute Settings', 'wp-accessibility' ); ?>"/></p>
+							</form>
+						</div>
+					</div>
+					<div class="postbox">
+						<h2 class='hndle'><?php _e( 'Color Contrast Tester', 'wp-accessibility' ); ?></h2>
 
-				<div class="inside">
-					<h3><?php _e( 'Cookies', 'wp-accessibility' ); ?></h3>
-					<p><?php _e( 'The accessibility toolbar sets cookies to maintain awareness of the user\'s selected accessibility options. If the toolbar is not in use, WP Accessibility does not set any cookies.', 'wp-accessibility' ); ?></p>
-					<h3><?php _e( 'Information Collected by WP Accessibility', 'wp-accessibility' ); ?></h3>
-					<p><?php _e( 'WP Accessibility does not collect any private information about users or visitors.', 'wp-accessibility' ); ?></p>
-				</div>
-			</div>
-			<div class="postbox" id="get-support">
-				<h2 class='hndle'><?php _e( 'Get Plug-in Support', 'wp-accessibility' ); ?></h2>
-
-				<div class="inside">
-				<div class='wpa-support-me'>
-					<p>
-					<?php
-					// Translators: URL to donate.
-					printf( __( 'Please, consider <a href="%s">making a donation</a> to support WP Accessibility!', 'wp-accessibility' ), 'https://www.joedolson.com/donate/' );
-					?>
-					</p>
-				</div>
-				<?php wpa_get_support_form(); ?>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-
-<div class="postbox-container" style="width:20%">
-	<div class="metabox-holder">
-		<div class="ui-sortable meta-box-sortables">
-			<div class="postbox">
-				<h2 class='hndle'><?php _e( 'Support this Plugin', 'wp-accessibility' ); ?></h2>
-
-				<div class="inside">
-					<p>
-						<a href="https://twitter.com/intent/follow?screen_name=joedolson" class="twitter-follow-button" data-size="small" data-related="joedolson">Follow @joedolson</a>
-						<script>!function (d, s, id) {
-								var js, fjs = d.getElementsByTagName(s)[0];
-								if (!d.getElementById(id)) {
-									js = d.createElement(s);
-									js.id = id;
-									js.src = "https://platform.twitter.com/widgets.js";
-									fjs.parentNode.insertBefore(js, fjs);
+						<div class="inside">
+							<?php
+							$colors = wpa_contrast();
+							if ( $colors ) {
+								$l_contrast    = wpa_luminosity( $colors['red1'], $colors['red2'], $colors['green1'], $colors['green2'], $colors['blue1'], $colors['blue2'] ) . ':1';
+								$luminance_raw = wpa_luminosity( $colors['red1'], $colors['red2'], $colors['green1'], $colors['green2'], $colors['blue1'], $colors['blue2'] );
+								$hex1          = esc_attr( $colors['hex1'] );
+								$hex2          = esc_attr( $colors['hex2'] );
+							} else {
+								$hex1       = '';
+								$hex2       = '';
+								$l_contrast = false;
+							}
+							if ( $l_contrast ) {
+								$results = "<div class='updated notice'>";
+								// Translators: Contrast ratio, foreground Hex color, background Hex color.
+								$results .= '<p class="stats wcag2">' . sprintf( __( 'Luminosity Contrast Ratio for %2$s and %3$s is %1$s (Threshold: greater than 7:1 for AAA, 4.5:1 for AA)', 'wp-accessibility' ), '<strong>' . $l_contrast . '</strong>', '<code>#' . $hex1 . '</code>', '<code>#' . $hex2 . '</code>' ) . '</p><p>';
+								if ( $luminance_raw >= 7 ) {
+									$results .= __( 'The colors compared <strong>pass</strong> the relative luminosity test at level AAA.', 'wp-accessibility' );
 								}
-							}(document, "script", "twitter-wjs");</script>
-					</p>
-					<p><?php _e( "If you've found WP Accessibility useful, then please <a href='https://wordpress.org/plugins/wp-accessibility/'>rate it five stars</a>, <a href='https://www.joedolson.com/donate/'>make a donation</a>, or <a href='https://translate.wordpress.org/projects/wp-plugins/wp-accessibility'>help with translation</a>.", 'wp-accessibility' ); ?></p>
+								if ( $luminance_raw >= 4.5 && $luminance_raw < 7 ) {
+									$results .= __( 'The colors compared <strong>pass</strong> the relative luminosity test at level AA.', 'wp-accessibility' );
+								}
+								if ( $luminance_raw >= 3 && $luminance_raw < 4.5 ) {
+									$results .= __( 'The colors compared pass the relative luminosity test <strong>only when used in large print</strong> situations (greater than 18pt text or 14pt bold text.)', 'wp-accessibility' );
+								}
+								if ( $luminance_raw < 3 ) {
+									$results .= __( 'The colors compared <strong>do not pass</strong> the relative luminosity test.', 'wp-accessibility' );
+								}
+								$results .= " <a href='#contrast'>" . __( 'Test another set of colors', 'wp-accessibility' ) . '</a>';
+								$results .= '</p>';
+								$results .= "
+						<div class=\"views\">
+							<p class='large' style=\"font-size: 2em; line-height: 1.4;color: #$hex1;background: #$hex2;border: 3px solid #$hex1\">Large Print Example</p>
+							<p class='small' style=\"font-size: .9em;color: #$hex1;background: #$hex2;border: 3px solid #$hex1\">Small Print Example</p>
+							<p class='large' style=\"font-size: 2em; line-height: 1.4;color: #$hex2;background: #$hex1;border: 3px solid #$hex2\">Large Print Example (Inverted)</p>
+							<p class='small' style=\"font-size: .9em;color: #$hex2;background: #$hex1;border: 3px solid #$hex2\">Small Print Example (Inverted)</p>
+						</div>
+					</div>";
+								echo $results;
+							}
+							?>
+							<form method="post" action="<?php echo admin_url( 'options-general.php?page=wp-accessibility/wp-accessibility.php' ); ?>">
+								<fieldset>
+									<legend><?php _e( 'Test of relative luminosity', 'wp-accessibility' ); ?></legend>
+									<ul>
+										<li class='fore'>
+											<div id="fore"></div>
+											<label for="color1"><?php _e( 'Foreground color', 'wp-accessibility' ); ?></label><br/>
+											<input type="text" name="color" value="#<?php echo esc_attr( $hex1 ); ?>" size="34" id="color1"/>
+										</li>
+										<li class='back'>
+											<div id="back"></div>
+											<label for="color2"><?php _e( 'Background color', 'wp-accessibility' ); ?></label><br/>
+											<input type="text" name="color2" value="#<?php echo esc_attr( $hex2 ); ?>" size="34" id="color2"/>
+										</li>
+									</ul>
+								</fieldset>
+								<p>
+									<input type="hidden" name="_wpnonce" value="<?php echo wp_create_nonce( 'wpa-nonce' ); ?>"/>
+									<input type="hidden" name="action" value="contrast"/>
+								</p>
 
-					<div>
-						<p><?php _e( '<a href="http://www.joedolson.com/donate/">Make a donation today!</a> Your donation counts - donate any amount to help keep this plug-in running!', 'wp-accessibility' ); ?></p>
+								<p><input type="submit" name="wpa-settings" class="button-primary" value="<?php _e( 'Check Color Contrast', 'wp-accessibility' ); ?>"/></p>
+							</form>
+						</div>
+					</div>
+					<div class="postbox" id="privacy">
+						<h2 class='hndle'><?php _e( 'Privacy', 'wp-accessibility' ); ?></h2>
 
-						<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
-							<div>
-								<input type="hidden" name="cmd" value="_s-xclick"/>
-								<input type="hidden" name="hosted_button_id" value="QK9MXYGQKYUZY"/>
-								<input type="image" src="https://www.paypal.com/en_US/i/btn/btn_donate_LG.gif" name="submit" alt="Donate"/>
-								<img alt="" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1"/>
-							</div>
-						</form>
+						<div class="inside">
+							<h3><?php _e( 'Cookies', 'wp-accessibility' ); ?></h3>
+							<p><?php _e( 'The accessibility toolbar sets cookies to maintain awareness of the user\'s selected accessibility options. If the toolbar is not in use, WP Accessibility does not set any cookies.', 'wp-accessibility' ); ?></p>
+							<h3><?php _e( 'Information Collected by WP Accessibility', 'wp-accessibility' ); ?></h3>
+							<p><?php _e( 'WP Accessibility does not collect any private information about users or visitors.', 'wp-accessibility' ); ?></p>
+						</div>
+					</div>
+					<div class="postbox" id="get-support">
+						<h2 class='hndle'><?php _e( 'Get Plug-in Support', 'wp-accessibility' ); ?></h2>
+
+						<div class="inside">
+						<div class='wpa-support-me'>
+							<p>
+							<?php
+							// Translators: URL to donate.
+							printf( __( 'Please, consider <a href="%s">making a donation</a> to support WP Accessibility!', 'wp-accessibility' ), 'https://www.joedolson.com/donate/' );
+							?>
+							</p>
+						</div>
+						<?php wpa_get_support_form(); ?>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 
-		<div class="ui-sortable meta-box-sortables">
-			<div class="postbox">
-				<h2 class='hndle'><?php _e( 'Access Monitor', 'wp-accessibility' ); ?></h2>
+		<div class="postbox-container" style="width:20%">
+			<div class="metabox-holder">
+				<div class="ui-sortable meta-box-sortables">
+					<div class="postbox">
+						<h2 class='hndle'><?php _e( 'Support this Plugin', 'wp-accessibility' ); ?></h2>
 
-				<div class="inside">
-					<p>
-					<?php
-					// Translators: URL to visit Access Monitor at WordPress.org.
-					printf( __( 'Try using <a href="%s">Access Monitor</a> to do scheduled and on-demand evaluations of your web site accessibility.', 'wp-accessibility' ), 'https://wordpress.org/plugins/access-monitor/' );
-					?>
-					</p>
+						<div class="inside">
+							<p>
+								<a href="https://twitter.com/intent/follow?screen_name=joedolson" class="twitter-follow-button" data-size="small" data-related="joedolson">Follow @joedolson</a>
+								<script>!function (d, s, id) {
+										var js, fjs = d.getElementsByTagName(s)[0];
+										if (!d.getElementById(id)) {
+											js = d.createElement(s);
+											js.id = id;
+											js.src = "https://platform.twitter.com/widgets.js";
+											fjs.parentNode.insertBefore(js, fjs);
+										}
+									}(document, "script", "twitter-wjs");</script>
+							</p>
+							<p><?php _e( "If you've found WP Accessibility useful, then please <a href='https://wordpress.org/plugins/wp-accessibility/'>rate it five stars</a>, <a href='https://www.joedolson.com/donate/'>make a donation</a>, or <a href='https://translate.wordpress.org/projects/wp-plugins/wp-accessibility'>help with translation</a>.", 'wp-accessibility' ); ?></p>
+
+							<div>
+								<p><?php _e( '<a href="http://www.joedolson.com/donate/">Make a donation today!</a> Your donation counts - donate any amount to help keep this plug-in running!', 'wp-accessibility' ); ?></p>
+
+								<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+									<div>
+										<input type="hidden" name="cmd" value="_s-xclick"/>
+										<input type="hidden" name="hosted_button_id" value="QK9MXYGQKYUZY"/>
+										<input type="image" src="https://www.paypal.com/en_US/i/btn/btn_donate_LG.gif" name="submit" alt="Donate"/>
+										<img alt="" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1"/>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
 				</div>
+
+				<div class="ui-sortable meta-box-sortables">
+					<div class="postbox">
+						<h2 class='hndle'><?php _e( 'Access Monitor', 'wp-accessibility' ); ?></h2>
+
+						<div class="inside">
+							<p>
+							<?php
+							// Translators: URL to visit Access Monitor at WordPress.org.
+							printf( __( 'Try using <a href="%s">Access Monitor</a> to do scheduled and on-demand evaluations of your web site accessibility.', 'wp-accessibility' ), 'https://wordpress.org/plugins/access-monitor/' );
+							?>
+							</p>
+						</div>
+					</div>
+				</div>
+
+				<div class="ui-sortable meta-box-sortables">
+					<div class="postbox">
+						<h2 class='hndle'><?php _e( 'Accessibility References', 'wp-accessibility' ); ?></h2>
+
+						<div class="inside">
+							<ul>
+								<li><a href="http://make.wordpress.org/accessibility/wp-accessibility-plugin/">Documentation</a></li>
+								<li><a href="http://make.wordpress.org/accessibility/">Make WordPress: Accessibility</a></li>
+								<li><a href="https://make.wordpress.org/themes/handbook/review/accessibility/">WordPress Theme Accessibility Guidelines</a></li>
+								<li><a href="http://make.wordpress.org/support/user-manual/web-publishing/accessibility/">WordPress User Manual: Accessibility</a></li>
+								<li><a href="https://www.joedolson.com/tools/color-contrast.php">Test Color Contrast</a></li>
+								<li><a href="http://wave.webaim.org/">WAVE: Web accessibility evaluation tool</a></li>
+								<li><a href="https://www.linkedin.com/learning/wordpress-accessibility-2/">WordPress Accessibility at LinkedIn Learning</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+
+				<div class="ui-sortable meta-box-sortables">
+					<div class="postbox">
+						<h2 class='hndle'><?php _e( 'Customization Notes', 'wp-accessibility' ); ?></h2>
+
+						<div class="inside">
+							<p>
+							<?php _e( 'It is almost impossible for the Accessibility Toolbar to guarantee a good result for large text or high contrast modes.', 'wp-accessibility' ); ?>
+							</p>
+							<p>
+							<?php _e( 'Author high-contrast styles by placing a stylesheet called <code>a11y-contrast.css</code> in your Theme\'s stylesheet directory.', 'wp-accessibility' ); ?>
+							</p>
+							<p>
+							<?php _e( 'Define custom styles for large print by assigning them in the body class <code>.fontsize</code> in your theme stylesheet.', 'wp-accessibility' ); ?>
+							</p>
+							<p>
+							<?php _e( 'Define a custom long description template by adding the template "longdesc-template.php" to your theme directory.', 'wp-accessibility' ); ?>
+							</p>
+							<p>
+							<?php _e( 'The <a href="#wpa_widget_toolbar">shortcode for the Accessibility toolbar</a> (if enabled) is <code>[wpa_toolbar]</code>', 'wp-accessibility' ); ?>
+							</p>
+						</div>
+					</div>
+				</div>
+
+				<?php if ( wpa_accessible_theme() ) { ?>
+				<div class="ui-sortable meta-box-sortables">
+					<div class="postbox">
+						<h2 class='hndle'><?php _e( 'Your Theme', 'wp-accessibility' ); ?></h2>
+
+						<div class="inside">
+							<p>
+							<?php _e( "You're using a theme reviewed as <code>accessibility-ready</code> by the WordPress theme review team. Some options have been disabled in WP Accessibility because your theme has taken care of that issue.", 'wp-accessibility' ); ?>
+							</p>
+							<p>
+							<?php
+							// Translators: URL to read about the accessibility ready tag requirements.
+							printf( __( 'Read more about the <a href="%s">WordPress accessibility-ready tag</a>', 'wp-accessibility' ), 'https://make.wordpress.org/themes/handbook/review/accessibility/' );
+							?>
+							</p>
+						</div>
+					</div>
+				</div>
+				<?php } ?>
+
+
+				<div class="ui-sortable meta-box-sortables">
+					<div class="postbox">
+						<h2 class='hndle'><?php _e( 'Contributing References', 'wp-accessibility' ); ?></h2>
+
+						<div class="inside">
+							<ul>
+								<li><a href="http://www.accessibleculture.org/articles/2010/08/continue-reading-links-in-wordpress/">Continue Reading Links in WordPress</a></li>
+								<li><a href="http://www.mothereffingtoolconfuser.com">Mother Effing Tool Confuser</a></li>
+								<li><a href="https://wordpress.org/extend/plugins/remove-title-attributes/">Remove Title Attributes</a></li>
+								<li><a href="https://wordpress.org/extend/plugins/img-title-removal/">IMG Title Removal</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+
+
 			</div>
 		</div>
-
-		<div class="ui-sortable meta-box-sortables">
-			<div class="postbox">
-				<h2 class='hndle'><?php _e( 'Accessibility References', 'wp-accessibility' ); ?></h2>
-
-				<div class="inside">
-					<ul>
-						<li><a href="http://make.wordpress.org/accessibility/wp-accessibility-plugin/">Documentation</a></li>
-						<li><a href="http://make.wordpress.org/accessibility/">Make WordPress: Accessibility</a></li>
-						<li><a href="https://make.wordpress.org/themes/handbook/review/accessibility/">WordPress Theme Accessibility Guidelines</a></li>
-						<li><a href="http://make.wordpress.org/support/user-manual/web-publishing/accessibility/">WordPress User Manual: Accessibility</a></li>
-						<li><a href="https://www.joedolson.com/tools/color-contrast.php">Test Color Contrast</a></li>
-						<li><a href="http://wave.webaim.org/">WAVE: Web accessibility evaluation tool</a></li>
-						<li><a href="https://www.linkedin.com/learning/wordpress-accessibility-2/">WordPress Accessibility at LinkedIn Learning</a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
-
-		<div class="ui-sortable meta-box-sortables">
-			<div class="postbox">
-				<h2 class='hndle'><?php _e( 'Customization Notes', 'wp-accessibility' ); ?></h2>
-
-				<div class="inside">
-					<p>
-					<?php _e( 'It is almost impossible for the Accessibility Toolbar to guarantee a good result for large text or high contrast modes.', 'wp-accessibility' ); ?>
-					</p>
-					<p>
-					<?php _e( 'Author high-contrast styles by placing a stylesheet called <code>a11y-contrast.css</code> in your Theme\'s stylesheet directory.', 'wp-accessibility' ); ?>
-					</p>
-					<p>
-					<?php _e( 'Define custom styles for large print by assigning them in the body class <code>.fontsize</code> in your theme stylesheet.', 'wp-accessibility' ); ?>
-					</p>
-					<p>
-					<?php _e( 'Define a custom long description template by adding the template "longdesc-template.php" to your theme directory.', 'wp-accessibility' ); ?>
-					</p>
-					<p>
-					<?php _e( 'The <a href="#wpa_widget_toolbar">shortcode for the Accessibility toolbar</a> (if enabled) is <code>[wpa_toolbar]</code>', 'wp-accessibility' ); ?>
-					</p>
-				</div>
-			</div>
-		</div>
-
-		<?php if ( wpa_accessible_theme() ) { ?>
-		<div class="ui-sortable meta-box-sortables">
-			<div class="postbox">
-				<h2 class='hndle'><?php _e( 'Your Theme', 'wp-accessibility' ); ?></h2>
-
-				<div class="inside">
-					<p>
-					<?php _e( "You're using a theme reviewed as <code>accessibility-ready</code> by the WordPress theme review team. Some options have been disabled in WP Accessibility because your theme has taken care of that issue.", 'wp-accessibility' ); ?>
-					</p>
-					<p>
-					<?php
-					// Translators: URL to read about the accessibility ready tag requirements.
-					printf( __( 'Read more about the <a href="%s">WordPress accessibility-ready tag</a>', 'wp-accessibility' ), 'https://make.wordpress.org/themes/handbook/review/accessibility/' );
-					?>
-					</p>
-				</div>
-			</div>
-		</div>
-		<?php } ?>
-
-
-		<div class="ui-sortable meta-box-sortables">
-			<div class="postbox">
-				<h2 class='hndle'><?php _e( 'Contributing References', 'wp-accessibility' ); ?></h2>
-
-				<div class="inside">
-					<ul>
-						<li><a href="http://www.accessibleculture.org/articles/2010/08/continue-reading-links-in-wordpress/">Continue Reading Links in WordPress</a></li>
-						<li><a href="http://www.mothereffingtoolconfuser.com">Mother Effing Tool Confuser</a></li>
-						<li><a href="https://wordpress.org/extend/plugins/remove-title-attributes/">Remove Title Attributes</a></li>
-						<li><a href="https://wordpress.org/extend/plugins/img-title-removal/">IMG Title Removal</a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
-
-
-	</div>
-</div>
 
 	</div>
 	<?php
