@@ -2,8 +2,8 @@
 	'use strict';
 	$('img[longdesc]').each(function () {
 		var longdesc = $(this).attr('longdesc');
-		var text = '<span>Long Description</span>';
-		var classes = $(this).attr('class');
+		var img = $(this);
+		var classes = img.attr('class');
 		var class_array = ( Array.isArray(classes) ) ? classes.split(' ') : [];
 		var image_id = '';
 		$.each( class_array, function ( index, value ) {
@@ -11,15 +11,15 @@
 				image_id = value;
 			}
 		});
-		$(this).attr('class', '');
-		$(this).wrap('<div class="wpa-ld" />')
-		$(this).parent('.wpa-ld').addClass(classes);
-		$(this).parent('.wpa-ld').append('<div class="longdesc" aria-live="assertive"></div>');
-		$(this).parent('.wpa-ld').append('<button>' + text + '</button>');
-		var container = $(this).parent('.wpa-ld').children('.longdesc');
+		img.attr('class', '');
+		img.wrap('<div class="wpa-ld" />')
+		img.parent('.wpa-ld').addClass(classes);
+		img.parent('.wpa-ld').append('<div class="longdesc" aria-live="assertive"></div>');
+		img.parent('.wpa-ld').append('<button>' + wpatext + '</button>');
+		var container = img.parent('.wpa-ld').children('.longdesc');
 		container.hide();
 		container.load( longdesc + ' #desc_' + image_id );
-		$(this).parent('.wpa-ld').children('button').on( 'click', function(e) {
+		img.parent('.wpa-ld').children('button').on( 'click', function(e) {
 			e.preventDefault();
 			var visible = container.is( ':visible' );
 			if ( visible ) {
@@ -29,4 +29,53 @@
 			}
 		});
 	});
+
+	$( 'figure.is-style-longdesc' ).each(function() {
+		var img = $(this).find( 'img' );
+		wpa_load_image( img );
+	});
+
+	function wpa_draw_longdesc( img, image_id, longdesc ) {
+		var classes = img.attr('class');
+		var class_array = ( Array.isArray(classes) ) ? classes.split(' ') : [];
+		img.attr('class', '').attr('longdesc', longdesc );
+		img.attr('id','longdesc-return-' + image_id );
+		img.wrap('<div class="wpa-ld" />')
+		img.parent('.wpa-ld').addClass(classes);
+		img.parent('.wpa-ld').append('<div class="longdesc" aria-live="assertive"></div>');
+		img.parent('.wpa-ld').append('<button>' + wpatext + '</button>');
+		var container = img.parent('.wpa-ld').children('.longdesc');
+		container.hide();
+		container.load( longdesc + ' #desc_' + image_id );
+		console.log( longdesc + ' #desc_' + image_id );
+		img.parent('.wpa-ld').children('button').on( 'click', function(e) {
+			e.preventDefault();
+			var visible = container.is( ':visible' );
+			if ( visible ) {
+				container.hide();
+			} else {
+				container.show(150);
+			}
+		});
+	}
+
+	function wpa_load_image( img ) {
+		var id = img.attr( 'class' ).replace( 'wp-image-', '' );
+		var api = wparest + '/' + id;
+
+		$.get( api )
+			.done( function( response ) {
+				var attachment = {
+					attachment: response
+				}
+
+				var url = new URL( response.link );
+				url.searchParams.set( 'longdesc', id );
+				url.toString();
+				wpa_draw_longdesc( img, id, url );
+			})
+			.fail( function() {
+				alert( 'cannot load media' )
+			});
+	}
 }(jQuery));
