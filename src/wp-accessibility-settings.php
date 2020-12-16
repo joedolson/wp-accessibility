@@ -566,10 +566,10 @@ function wpa_admin_settings() {
 								}
 							}(document, "script", "twitter-wjs");</script>
 					</p>
-					<p><?php _e( "If you've found WP Accessibility useful, then please consider <a href='http://wordpress.org/extend/plugins/wp-accessibility/'>rating it five stars</a>, <a href='http://www.joedolson.com/donate/'>making a donation</a>, or <a href='https://translate.wordpress.org/projects/wp-plugins/wp-accessibility'>helping with translation</a>.", 'wp-accessibility' ); ?></p>
+					<p><?php _e( "If you've found WP Accessibility useful, then please <a href='https://wordpress.org/plugins/wp-accessibility/'>rate it five stars</a>, <a href='https://www.joedolson.com/donate/'>make a donation</a>, or <a href='https://translate.wordpress.org/projects/wp-plugins/wp-accessibility'>help with translation</a>.", 'wp-accessibility' ); ?></p>
 
 					<div>
-						<p><?php _e( '<a href="http://www.joedolson.com/donate/">Make a donation today!</a> Your donation counts - donate $5, $20, or $100 and help me keep this plug-in running!', 'wp-accessibility' ); ?></p>
+						<p><?php _e( '<a href="http://www.joedolson.com/donate/">Make a donation today!</a> Your donation counts - donate any amount to help keep this plug-in running!', 'wp-accessibility' ); ?></p>
 
 						<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
 							<div>
@@ -608,10 +608,10 @@ function wpa_admin_settings() {
 						<li><a href="http://make.wordpress.org/accessibility/wp-accessibility-plugin/">Documentation</a></li>
 						<li><a href="http://make.wordpress.org/accessibility/">Make WordPress: Accessibility</a></li>
 						<li><a href="https://make.wordpress.org/themes/handbook/review/accessibility/">WordPress Theme Accessibility Guidelines</a></li>
-						<li><a href="http://make.wordpress.org/support/user-manual/web-publishing/accessibility/">WordPress
-								User Manual: Accessibility</a></li>
+						<li><a href="http://make.wordpress.org/support/user-manual/web-publishing/accessibility/">WordPress User Manual: Accessibility</a></li>
 						<li><a href="https://www.joedolson.com/tools/color-contrast.php">Test Color Contrast</a></li>
 						<li><a href="http://wave.webaim.org/">WAVE: Web accessibility evaluation tool</a></li>
+						<li><a href="https://www.linkedin.com/learning/wordpress-accessibility-2/">WordPress Accessibility at LinkedIn Learning</a></li>
 					</ul>
 				</div>
 			</div>
@@ -670,9 +670,8 @@ function wpa_admin_settings() {
 					<ul>
 						<li><a href="http://www.accessibleculture.org/articles/2010/08/continue-reading-links-in-wordpress/">Continue Reading Links in WordPress</a></li>
 						<li><a href="http://www.mothereffingtoolconfuser.com">Mother Effing Tool Confuser</a></li>
-						<li><a href="http://wordpress.org/extend/plugins/remove-title-attributes/">Remove Title Attributes</a></li>
-						<li><a href="http://wordpress.org/extend/plugins/img-title-removal/">IMG Title Removal</a></li>
-						<li><a href="https://wordpress.org/plugins/long-description-for-image-attachments/">WordPress Long Description</a></li>
+						<li><a href="https://wordpress.org/extend/plugins/remove-title-attributes/">Remove Title Attributes</a></li>
+						<li><a href="https://wordpress.org/extend/plugins/img-title-removal/">IMG Title Removal</a></li>
 					</ul>
 				</div>
 			</div>
