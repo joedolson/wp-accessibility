@@ -8,5 +8,5 @@
 		$(this).parent('.wpa-ld').addClass(classes);
 		$(this).attr('alt', '').attr('class', '');
 		$(this).parent('.wpa-ld').append('<a href="' + longdesc + '" class="longdesc-link">Description<span> of' + alt + '</span></a>');
-    });
+	});
 }(jQuery));
