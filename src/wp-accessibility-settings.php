@@ -183,7 +183,7 @@ function wpa_admin_settings() {
 	<div class="metabox-holder">
 		<div class="ui-sortable meta-box-sortables">
 			<div class="postbox">
-				<h2 class='hndle'><?php _e( 'Add Skiplinks', 'wp-accessibility' ); ?></h2>
+				<h2><?php _e( 'Add Skiplinks', 'wp-accessibility' ); ?></h2>
 
 				<div class="inside">
 					<?php
@@ -264,7 +264,7 @@ function wpa_admin_settings() {
 				</div>
 			</div>
 			<div class="postbox">
-				<h2 id="toolbar" class='hndle'><?php _e( 'Accessibility Toolbar Settings', 'wp-accessibility' ); ?></h2>
+				<h2 id="toolbar"><?php _e( 'Accessibility Toolbar Settings', 'wp-accessibility' ); ?></h2>
 				<div class="inside">
 					<form method="post" action="<?php echo admin_url( 'options-general.php?page=wp-accessibility/wp-accessibility.php' ); ?>">
 						<ul>
@@ -335,7 +335,7 @@ function wpa_admin_settings() {
 				</div>
 			</div>
 			<div class="postbox">
-				<h2 id="contrast" class='hndle'><?php _e( 'Miscellaneous Accessibility Settings', 'wp-accessibility' ); ?></h2>
+				<h2 id="contrast"><?php _e( 'Miscellaneous Accessibility Settings', 'wp-accessibility' ); ?></h2>
 
 				<div class="inside">
 					<form method="post" action="<?php echo admin_url( 'options-general.php?page=wp-accessibility/wp-accessibility.php' ); ?>">
@@ -426,7 +426,7 @@ function wpa_admin_settings() {
 				</div>
 			</div>
 			<div class="postbox">
-				<h2 class='hndle'><?php _e( 'Remove Title Attributes', 'wp-accessibility' ); ?></h2>
+				<h2><?php _e( 'Remove Title Attributes', 'wp-accessibility' ); ?></h2>
 
 				<div class="inside">
 					<?php wpa_accessible_theme(); ?>
@@ -449,7 +449,7 @@ function wpa_admin_settings() {
 				</div>
 			</div>
 			<div class="postbox">
-				<h2 class='hndle'><?php _e( 'Color Contrast Tester', 'wp-accessibility' ); ?></h2>
+				<h2><?php _e( 'Color Contrast Tester', 'wp-accessibility' ); ?></h2>
 
 				<div class="inside">
 					<?php
@@ -519,7 +519,7 @@ function wpa_admin_settings() {
 				</div>
 			</div>
 			<div class="postbox" id="privacy">
-				<h2 class='hndle'><?php _e( 'Privacy', 'wp-accessibility' ); ?></h2>
+				<h2><?php _e( 'Privacy', 'wp-accessibility' ); ?></h2>
 
 				<div class="inside">
 					<h3><?php _e( 'Cookies', 'wp-accessibility' ); ?></h3>
@@ -529,7 +529,7 @@ function wpa_admin_settings() {
 				</div>
 			</div>
 			<div class="postbox" id="get-support">
-				<h2 class='hndle'><?php _e( 'Get Plug-in Support', 'wp-accessibility' ); ?></h2>
+				<h2><?php _e( 'Get Plug-in Support', 'wp-accessibility' ); ?></h2>
 
 				<div class="inside">
 				<div class='wpa-support-me'>
@@ -551,7 +551,7 @@ function wpa_admin_settings() {
 	<div class="metabox-holder">
 		<div class="ui-sortable meta-box-sortables">
 			<div class="postbox">
-				<h2 class='hndle'><?php _e( 'Support this Plugin', 'wp-accessibility' ); ?></h2>
+				<h2><?php _e( 'Support this Plugin', 'wp-accessibility' ); ?></h2>
 
 				<div class="inside">
 					<p>
@@ -586,7 +586,7 @@ function wpa_admin_settings() {
 
 		<div class="ui-sortable meta-box-sortables">
 			<div class="postbox">
-				<h2 class='hndle'><?php _e( 'Access Monitor', 'wp-accessibility' ); ?></h2>
+				<h2><?php _e( 'Access Monitor', 'wp-accessibility' ); ?></h2>
 
 				<div class="inside">
 					<p>
@@ -601,7 +601,7 @@ function wpa_admin_settings() {
 
 		<div class="ui-sortable meta-box-sortables">
 			<div class="postbox">
-				<h2 class='hndle'><?php _e( 'Accessibility References', 'wp-accessibility' ); ?></h2>
+				<h2><?php _e( 'Accessibility References', 'wp-accessibility' ); ?></h2>
 
 				<div class="inside">
 					<ul>
@@ -619,7 +619,7 @@ function wpa_admin_settings() {
 
 		<div class="ui-sortable meta-box-sortables">
 			<div class="postbox">
-				<h2 class='hndle'><?php _e( 'Customization Notes', 'wp-accessibility' ); ?></h2>
+				<h2><?php _e( 'Customization Notes', 'wp-accessibility' ); ?></h2>
 
 				<div class="inside">
 					<p>
@@ -644,7 +644,7 @@ function wpa_admin_settings() {
 		<?php if ( wpa_accessible_theme() ) { ?>
 		<div class="ui-sortable meta-box-sortables">
 			<div class="postbox">
-				<h2 class='hndle'><?php _e( 'Your Theme', 'wp-accessibility' ); ?></h2>
+				<h2><?php _e( 'Your Theme', 'wp-accessibility' ); ?></h2>
 
 				<div class="inside">
 					<p>
@@ -664,7 +664,7 @@ function wpa_admin_settings() {
 
 		<div class="ui-sortable meta-box-sortables">
 			<div class="postbox">
-				<h2 class='hndle'><?php _e( 'Contributing References', 'wp-accessibility' ); ?></h2>
+				<h2><?php _e( 'Contributing References', 'wp-accessibility' ); ?></h2>
 
 				<div class="inside">
 					<ul>
