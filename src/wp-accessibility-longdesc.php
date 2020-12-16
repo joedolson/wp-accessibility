@@ -169,3 +169,15 @@ function wpa_longdesc_add_attr( $html, $id, $caption, $title, $align, $url, $siz
 
 	return $html;
 }
+
+/**
+ * Core function. Add reference style for long description.
+ */
+register_block_style(
+	'core/image',
+	array(
+		'name'         => 'longdesc',
+		'label'        => __( 'Has Long Description', 'wp-accessibility' ),
+		'style_handle' => 'longdesc-style',
+	)
+);
