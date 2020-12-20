@@ -43,6 +43,8 @@ function wpa_media_value( $column, $id ) {
 			'""',
 			"''",
 			'&nbsp;',
+			' ',
+			'-',
 		);
 		switch ( $mime ) {
 			case 'image/jpeg':
