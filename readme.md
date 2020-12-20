@@ -2,16 +2,16 @@
 
 Improving the Accessibility of your WordPress site.
 
-[![Build Status](https://travis-ci.org/joedolson/wp-accessibility.svg)](https://travis-ci.org/joedolson/wp-accessibility) [![License](https://img.shields.io/badge/license-GPL--2.0%2B-green.svg)](https://www.gnu.org/license/gpl-2.0.html)
+![PHP tests](https://github.com/joedolson/wp-accessibility/workflows/PHP%20tests/badge.svg)  [![License](https://img.shields.io/badge/license-GPL--2.0%2B-green.svg)](https://www.gnu.org/license/gpl-2.0.html)
 
 ## WP Accessibility Build Environment
 
 * Donate link: https://www.joedolson.com/donate/
 * Tags: accessibility, WordPress  
 * Requires at least: 4.4  
-* Tested up to: 5.5
+* Tested up to: 5.6
 * Requires PHP: 5.3
-* Stable tag: `1.7.3`
+* Stable tag: `1.7.5`
 * License: GPLv2 or later  
 * License URI: http://www.gnu.org/licenses/gpl-2.0.html  
 
