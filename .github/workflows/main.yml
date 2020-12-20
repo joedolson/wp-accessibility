@@ -1,0 +1,43 @@
+name: PHP tests
+
+on:
+    push:
+        paths:
+        - '**.php'
+
+jobs:
+  run:
+    runs-on: ${{ matrix.operating-system }}
+    strategy:
+      matrix:
+        operating-system: [ubuntu-latest]
+        php-versions: ['7.2', '7.3', '7.4']
+    name: PHP ${{ matrix.php-versions }} Test on ${{ matrix.operating-system }}
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - uses: getong/mariadb-action@v1.1
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php-versions }}
+        extensions: mbstring, intl #optional, setup extensions
+        coverage: xdebug #optional, setup coverage driver
+        tools: composer:v1
+
+    - name: Check PHP Version
+      run: php -v
+
+    - name: Composer install
+      run: composer install --optimize-autoloader --prefer-dist
+    
+    - name: Install WP Tests
+      run: bash bin/install-wp-tests.sh wordpress_test root '' 127.0.0.1
+
+    - name: PHPCS check
+      run: ./vendor/bin/phpcs
+
+    - name: phpunit tests
+      run: ./vendor/bin/phpunit
