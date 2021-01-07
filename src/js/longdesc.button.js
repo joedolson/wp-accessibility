@@ -4,7 +4,7 @@
 		var longdesc = $(this).attr('longdesc');
 		var img = $(this);
 		var classes = img.attr('class');
-		var class_array = ( Array.isArray(classes) ) ? classes.split(' ') : [];
+		var class_array = img.attr('class').match(/\S+/g);
 		var image_id = '';
 		$.each( class_array, function ( index, value ) {
 			if ( value.match( /wp-image-/gi ) ) {
@@ -37,7 +37,6 @@
 
 	function wpa_draw_longdesc( img, image_id, longdesc ) {
 		var classes = img.attr('class');
-		var class_array = ( Array.isArray(classes) ) ? classes.split(' ') : [];
 		img.attr('class', '').attr('longdesc', longdesc );
 		img.attr('id','longdesc-return-' + image_id );
 		img.wrap('<div class="wpa-ld" />')
