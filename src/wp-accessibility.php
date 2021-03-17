@@ -4,7 +4,7 @@
  *
  * @package     WP Accessibility
  * @author      Joe Dolson
- * @copyright   2012-2020 Joe Dolson
+ * @copyright   2012-2021 Joe Dolson
  * @license     GPL-2.0+
  *
  * @wordpress-plugin
@@ -17,11 +17,11 @@
  * Domain Path: /lang
  * License:     GPL-2.0+
  * License URI: http://www.gnu.org/license/gpl-2.0.txt
- * Version: 1.7.6
+ * Version: 1.7.7
  */
 
 /*
-	Copyright 2012-2020  Joe Dolson (email : joe@joedolson.com)
+	Copyright 2012-2021  Joe Dolson (email : joe@joedolson.com)
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -69,7 +69,7 @@ function wpa_admin_menu() {
  * Install on activation.
  */
 function wpa_install() {
-	$wpa_version = '1.7.6';
+	$wpa_version = '1.7.7';
 	if ( 'true' !== get_option( 'wpa_installed' ) ) {
 		add_option( 'rta_from_nav_menu', 'on' );
 		add_option( 'rta_from_page_lists', 'on' );
@@ -134,6 +134,9 @@ function wpacc_enqueue_scripts() {
 		} else {
 			$wpa_comp = false;
 		}
+		$wpa_comp = array(
+			'container' => $wpa_comp,
+		);
 		wp_localize_script( 'wpa-complementary', 'wpaComplementary', $wpa_comp );
 	}
 	if ( 'on' === get_option( 'wpa_labels' ) ) {
@@ -149,12 +152,24 @@ function wpacc_enqueue_scripts() {
 	}
 	if ( 'link' === get_option( 'wpa_longdesc' ) ) {
 		wp_enqueue_script( 'longdesc.link', plugins_url( 'js/longdesc.link.js', __FILE__ ), array( 'jquery' ), '1.0', true );
-		wp_localize_script( 'longdesc.link', 'wparest', get_rest_url( null, 'wp/v2/media' ) );
+		wp_localize_script(
+			'longdesc.link',
+			'wparest',
+			array(
+				'url' => get_rest_url( null, 'wp/v2/media' ),
+			)
+		);
 	}
 	if ( 'jquery' === get_option( 'wpa_longdesc' ) ) {
 		wp_enqueue_script( 'longdesc.button', plugins_url( 'js/longdesc.button.js', __FILE__ ), array( 'jquery' ), '1.0', true );
-		wp_localize_script( 'longdesc.button', 'wparest', get_rest_url( null, 'wp/v2/media' ) );
-		wp_localize_script( 'longdesc.button', 'wpatext', '<span>' . __( 'Long Description', 'wp-accessibility' ) . '</span>' );
+		wp_localize_script(
+			'longdesc.button',
+			'wparest',
+			array(
+				'url'  => get_rest_url( null, 'wp/v2/media' ),
+				'text' => '<span>' . __( 'Long Description', 'wp-accessibility' ) . '</span>',
+			)
+		);
 	}
 	wp_enqueue_script( 'current.menu', plugins_url( 'js/current-menu-item.js', __FILE__ ), array( 'jquery' ), '1.0', true );
 }

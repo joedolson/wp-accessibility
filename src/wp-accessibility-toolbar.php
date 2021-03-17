@@ -49,7 +49,10 @@ function wpa_toolbar_enqueue_scripts() {
 	if ( file_exists( get_stylesheet_directory() . '/a11y-contrast.css' ) ) {
 		$plugin_path = get_stylesheet_directory_uri() . '/a11y-contrast.css';
 	}
-	wp_localize_script( 'ui-a11y', 'a11y_stylesheet_path', $plugin_path );
+	$plugin_path = array(
+		'path' => $plugin_path,
+	);
+	wp_localize_script( 'ui-a11y', 'wpa11y', $plugin_path );
 
 	// Font files for toolbar.
 	wp_register_style( 'ui-font', plugins_url( 'toolbar/fonts/css/a11y-toolbar.css', __FILE__ ) );

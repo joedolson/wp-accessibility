@@ -41,7 +41,7 @@ function eraseCookie(name) {
 	
 	if (readCookie('a11y-high-contrast')) {
 		$('body').addClass('contrast');
-		$('head').append($("<link href='" + a11y_stylesheet_path + "' id='highContrastStylesheet' rel='stylesheet' type='text/css' />"));
+		$('head').append($("<link href='" + wpa11y.path + "' id='highContrastStylesheet' rel='stylesheet' type='text/css' />"));
 		$('#is_normal_contrast').attr('id', 'is_high_contrast').attr('aria-pressed', true).addClass('active');
 		$('.a11y-toolbar ul li a i').addClass('icon-white');
 	}
@@ -67,7 +67,7 @@ function eraseCookie(name) {
 
 	$('.toggle-contrast').on('click', function (e) {
 		if ($(this).attr('id') == "is_normal_contrast") {
-			$('head').append($("<link href='" + a11y_stylesheet_path + "' id='highContrastStylesheet' rel='stylesheet' type='text/css' />"));
+			$('head').append($("<link href='" + wpa11y.path + "' id='highContrastStylesheet' rel='stylesheet' type='text/css' />"));
 			$('body').addClass('contrast');
 			$(this).attr('id', 'is_high_contrast').attr('aria-pressed', true).addClass('active');
 			createCookie('a11y-high-contrast', '1');

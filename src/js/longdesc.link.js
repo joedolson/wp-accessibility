@@ -37,7 +37,7 @@
 
 	function wpa_load_image( img ) {
 		var id = img.attr( 'class' ).replace( 'wp-image-', '' );
-		var api = wparest + '/' + id;
+		var api = wparest.url + '/' + id;
 
 		$.get( api )
 			.done( function( response ) {

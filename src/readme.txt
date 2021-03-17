@@ -74,6 +74,10 @@ The plug-in is intended to help with deficiencies commonly found in themes and t
 
 [Suggest a change!](https://github.com/joedolson/wp-accessibility/issues/)
 
+= 1.7.7 =
+
+* Bug fix: Correct usage of wp_localize_script arguments.
+
 = 1.7.6 =
 
 * Bug fix: Broken class array query in longdesc.

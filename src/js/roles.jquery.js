@@ -13,8 +13,8 @@
 		$(this).attr('role', 'contentinfo');
 	});
 	$('input[name=s]').parents('form').attr('role', 'search');
-	if (wpaComplementary != false) {
-		$('#' + wpaComplementary).each(function () {
+	if (wpaComplementary.container != false) {
+		$('#' + wpaComplementary.container).each(function () {
 			$(this).attr('role', 'complementary');
 		});
 	}

@@ -15,7 +15,7 @@
 		img.wrap('<div class="wpa-ld" />')
 		img.parent('.wpa-ld').addClass(classes);
 		img.parent('.wpa-ld').append('<div class="longdesc" aria-live="assertive"></div>');
-		img.parent('.wpa-ld').append('<button>' + wpatext + '</button>');
+		img.parent('.wpa-ld').append('<button>' + wparest.text + '</button>');
 		var container = img.parent('.wpa-ld').children('.longdesc');
 		container.hide();
 		container.load( longdesc + ' #desc_' + image_id );
@@ -42,7 +42,7 @@
 		img.wrap('<div class="wpa-ld" />')
 		img.parent('.wpa-ld').addClass(classes);
 		img.parent('.wpa-ld').append('<div class="longdesc" aria-live="assertive"></div>');
-		img.parent('.wpa-ld').append('<button>' + wpatext + '</button>');
+		img.parent('.wpa-ld').append('<button>' + wparest.text + '</button>');
 		var container = img.parent('.wpa-ld').children('.longdesc');
 		container.hide();
 		container.load( longdesc + ' #desc_' + image_id );
@@ -60,7 +60,7 @@
 
 	function wpa_load_image( img ) {
 		var id = img.attr( 'class' ).replace( 'wp-image-', '' );
-		var api = wparest + '/' + id;
+		var api = wparest.url + '/' + id;
 
 		$.get( api )
 			.done( function( response ) {
