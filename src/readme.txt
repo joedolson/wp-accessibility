@@ -77,6 +77,9 @@ The plug-in is intended to help with deficiencies commonly found in themes and t
 = 1.7.7 =
 
 * Bug fix: Correct usage of wp_localize_script arguments.
+* Change: Modernization of CSS for toolbar.
+* Change: Add outline offset for forced focus states.
+* 
 
 = 1.7.6 =
 
