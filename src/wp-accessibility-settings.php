@@ -297,7 +297,7 @@ function wpa_admin_settings() {
 										<select name='wpa_toolbar_size' id='wpa_toolbar_size'>
 											<option value=''><?php _e( 'Default size', 'wp-accessibility' ); ?></option>
 											<?php
-											for ( $i = 1.2; $i <= 3.8; ) {
+											for ( $i = 1.6; $i <= 3.8; ) {
 												$val           = ( $i * 10 ) + 2;
 												$current       = absint( $val );
 												$selected_size = ( $current === $size ) ? ' selected="selected"' : '';
