@@ -44,11 +44,14 @@
 				var attachment = {
 					attachment: response
 				}
-
-				var url = new URL( response.link );
-				url.searchParams.set( 'longdesc', id );
-				url.toString();
-				wpa_draw_longdesc( img, id, url );
+				var rawdesc = response.description.rendered;
+				rawdesc = rawdesc.replace(/(<([^>]+)>)/gi, '').trim();
+				if ( '' !== rawdesc ) {
+					var url = new URL( response.link );
+					url.searchParams.set( 'longdesc', id );
+					url.toString();
+					wpa_draw_longdesc( img, id, url );
+				}
 			})
 			.fail( function() {
 				alert( 'cannot load media' )

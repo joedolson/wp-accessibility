@@ -46,7 +46,6 @@
 		var container = img.parent('.wpa-ld').children('.longdesc');
 		container.hide();
 		container.load( longdesc + ' #desc_' + image_id );
-		console.log( longdesc + ' #desc_' + image_id );
 		img.parent('.wpa-ld').children('button').on( 'click', function(e) {
 			e.preventDefault();
 			var visible = container.is( ':visible' );
@@ -67,11 +66,14 @@
 				var attachment = {
 					attachment: response
 				}
-
-				var url = new URL( response.link );
-				url.searchParams.set( 'longdesc', id );
-				url.toString();
-				wpa_draw_longdesc( img, id, url );
+				var rawdesc = response.description.rendered;
+				rawdesc = rawdesc.replace(/(<([^>]+)>)/gi, '').trim();
+				if ( '' !== rawdesc ) {
+					var url = new URL( response.link );
+					url.searchParams.set( 'longdesc', id );
+					url.toString();
+					wpa_draw_longdesc( img, id, url );
+				}
 			})
 			.fail( function() {
 				alert( 'cannot load media' )

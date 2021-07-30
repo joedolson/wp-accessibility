@@ -160,7 +160,7 @@ function wpa_longdesc_add_attr( $html, $id, $caption, $title, $align, $url, $siz
 			$id               = ( isset( $_REQUEST['post_id'] ) ) ? $_REQUEST['post_id'] : get_the_ID();
 			$args['referrer'] = intval( $id );
 		}
-		if ( false !== (bool) strip_tags( $image->post_content ) ) {
+		if ( '' !== trim( strip_tags( $image->post_content ) ) ) {
 			$search  = '<img ';
 			$replace = '<img tabindex="-1" id="' . esc_attr( wpa_longdesc_return_anchor( $image->ID ) ) . '" longdesc="' . esc_url( add_query_arg( $args, home_url() ) ) . '" ';
 			$html    = str_replace( $search, $replace, $html );
