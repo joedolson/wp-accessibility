@@ -77,6 +77,7 @@ The plug-in is intended to help with deficiencies commonly found in themes and t
 = 1.7.8 =
 
 * Bug fix: Avoid showing longdesc interface if no description defined.
+* Bug fix: Update screen reader text classes from antiquated versions.
 * 
 
 = 1.7.7 =

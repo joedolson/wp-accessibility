@@ -353,12 +353,6 @@ function wpa_admin_settings() {
 										<input type="text" id="wpa_continue" name="wpa_continue" value="<?php echo esc_attr( get_option( 'wpa_continue' ) ); ?>"/>
 									</li>
 									<li>
-										<input type="checkbox" id="wpa_insert_roles" name="wpa_insert_roles" <?php checked( get_option( 'wpa_insert_roles' ), 'on' ); ?>/>
-										<label for="wpa_insert_roles"><?php _e( 'Add landmark roles to HTML5 structural elements', 'wp-accessibility' ); ?></label><br/>
-										<label for="wpa_complementary_container"><?php _e( 'ID for complementary role', 'wp-accessibility' ); ?></label>
-										<input type="text" id="wpa_complementary_container" name="wpa_complementary_container" value="#<?php echo esc_attr( get_option( 'wpa_complementary_container' ) ); ?>"/>
-									</li>
-									<li>
 										<input type="checkbox" id="wpa_labels" name="wpa_labels" <?php checked( get_option( 'wpa_labels' ), 'on' ); ?> />
 										<label for='wpa_labels'><?php _e( 'Automatically Label WordPress search form and comment forms', 'wp-accessibility' ); ?></label>
 									</li>

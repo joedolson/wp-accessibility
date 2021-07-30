@@ -127,17 +127,8 @@ add_action( 'wp_enqueue_scripts', 'wpacc_enqueue_scripts' );
  */
 function wpacc_enqueue_scripts() {
 	wp_enqueue_script( 'jquery' );
-	if ( 'on' === get_option( 'wpa_insert_roles' ) ) {
-		wp_enqueue_script( 'wpa-complementary', plugins_url( 'js/roles.jquery.js', __FILE__ ), array( 'jquery' ), '1.0', true );
-		if ( get_option( 'wpa_complementary_container' ) ) {
-			$wpa_comp = get_option( 'wpa_complementary_container' );
-		} else {
-			$wpa_comp = false;
-		}
-		$wpa_comp = array(
-			'container' => $wpa_comp,
-		);
-		wp_localize_script( 'wpa-complementary', 'wpaComplementary', $wpa_comp );
+	if ( ! is_admin() && current_user_can( 'manage_options' ) && isset( $_GET['wpa_inspect'] ) ) {
+		wp_enqueue_script( 'wpa-inspect', plugins_url( 'js/inspector.js', __FILE__ ), array( 'jquery' ), '1.0', true );
 	}
 	if ( 'on' === get_option( 'wpa_labels' ) ) {
 		wp_enqueue_script( 'wpa-labels', plugins_url( 'js/wpa.labels.js', __FILE__ ), array( 'jquery' ), '1.0', true );
