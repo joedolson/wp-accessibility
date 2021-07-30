@@ -133,8 +133,6 @@ function wpa_update_settings() {
 			update_option( 'wpa_continue', $wpa_continue );
 			update_option( 'wpa_row_actions', $wpa_row_actions );
 			update_option( 'wpa_diagnostics', $wpa_diagnostics );
-			update_option( 'wpa_insert_roles', $wpa_insert_roles );
-			update_option( 'wpa_complementary_container', $wpa_complementary_container );
 			$message = __( 'Miscellaneous Accessibility Settings Updated', 'wp-accessibility' );
 
 			return "<div class='updated'><p>" . $message . '</p></div>';

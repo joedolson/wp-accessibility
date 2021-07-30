@@ -194,16 +194,6 @@ function wpa_admin_stylesheet() {
 		wp_register_style( 'wp-a11y-css', $file );
 		wp_enqueue_style( 'wp-a11y-css' );
 	}
-
-	if ( 'on' === get_option( 'wpa_row_actions' ) ) {
-		if ( file_exists( get_stylesheet_directory() . '/wp-admin-row-actions.css' ) ) {
-			$file = get_stylesheet_directory_uri() . '/wp-admin-row-actions.css';
-		} else {
-			$file = plugins_url( 'css/wp-admin-row-actions.css', __FILE__ );
-		}
-		wp_register_style( 'wp-row-actions', $file );
-		wp_enqueue_style( 'wp-row-actions' );
-	}
 }
 
 add_action( 'wp_head', 'wpa_css' );
