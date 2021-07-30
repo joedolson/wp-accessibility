@@ -1,114 +1,143 @@
+.wpa-hide-ltr#skiplinks a, .wpa-hide-ltr#skiplinks a:hover, .wpa-hide-ltr#skiplinks a:visited,
 .wpa-hide-rtl#skiplinks a, .wpa-hide-rtl#skiplinks a:hover, .wpa-hide-rtl#skiplinks a:visited {
-    position: absolute !important;
-    right: -999em;
+	border: 0;
+	clip: rect(1px, 1px, 1px, 1px);
+	clip-path: inset(50%);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+	word-wrap: normal !important;
 }
 
-.wpa-hide-ltr#skiplinks a, .wpa-hide-ltr#skiplinks a:hover, .wpa-hide-ltr#skiplinks a:visited {
-    position: absolute !important;
-    left: -999em;
-}
-
-.wpa-hide#skiplinks a:active, .wpa-hide#skiplinks a:focus {
-    position: absolute;
+.wpa-hide-ltr#skiplinks a:focus,
+.wpa-hide-rtl#skiplinks a:focus {
+	background-color: #eee;
+	clip: auto !important;
+	clip-path: none;
+	color: #444;
+	display: block;
+	font-size: 1em;
+	height: auto;
+	left: 5px;
+	line-height: normal;
+	padding: 15px 23px 14px;
+	text-decoration: none;
+	top: 5px;
+	width: auto;
+	z-index: 100000; /* Above WP toolbar. */
 }
 
 .wpa-ld {
-    display: inline-block;
-    position: relative;
+	display: inline-block;
+	position: relative;
 }
 
 /* basic support for themes that don't define alignleft and alignright for non-image elements. */
 div.alignleft {
-    float: left;
+	float: left;
 }
 
 div.alignright {
-    float: right;
+	float: right;
 }
 
 div.aligncenter {
-    display: block;
-    margin: 0 auto;
+	display: block;
+	margin: 0 auto;
 	width: fit-content;
 }
 
 .wpa-ld a, .wpa-ld button {
-    bottom: 2px;
-    left: 2px;
-    position: absolute;
-    line-height: 1;
-    min-width: 1em;
+	bottom: 2px;
+	left: 2px;
+	position: absolute;
+	line-height: 1;
+	min-width: 1em;
 }
 
 .wpa-ld img {
-    display: block;
+	display: block;
 }
 
 .wpa-ld button, .wpa-ld button:active, .wpa-ld button:focus, .wpa-ld button:hover {
-    border: 1px solid #777;
-    border-radius: 2px;
-    z-index: 10;
+	border: 1px solid #777;
+	border-radius: 2px;
+	z-index: 10;
 }
 
 .wpa-ld .longdesc {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    overflow-y: scroll;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    background: rgba(255, 255, 255, .95);
-    padding: 1.5em;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	overflow-y: scroll;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	background: rgba(255, 255, 255, .95);
+	padding: 1.5em;
 }
 
 .wpa-ld button, .wpa-ld button:active, .wpa-ld button:focus, .wpa-ld button:hover, .wpa-ld a {
-    font-size: .9em;
-    font-weight: 400;
-    background: rgba(255, 255, 255, .7) !important;
-    padding: 0;
-    color: #000 !important;
-    text-shadow: 1px 1px #ccc;
+	font-size: .9em;
+	font-weight: 400;
+	background: rgba(255, 255, 255, .7) !important;
+	padding: 0;
+	color: #000 !important;
+	text-shadow: 1px 1px #ccc;
 }
 
 .wpa-ld button:before {
-    content: 'i';
-    font-style: italic;
-    font-family: serif;
-}
+	content: 'i';
+	font-style: italic;
+	font-family: serif;
+	}
 
 .wpa-ld button:focus, .wpa-ld button:hover {
-    background: rgba(0, 0, 0, .75) !important;
-    color: #fff !important;
-    border: 1px solid #000 !important;
-    cursor: pointer;
+	background: rgba(0, 0, 0, .75) !important;
+	color: #fff !important;
+	border: 1px solid #000 !important;
+	cursor: pointer;
 }
 
 .wpa-ld button:focus {
-    padding: 6px;
+	padding: 6px;
 }
 
 .wpa-ld button span, .longdesc-link span {
-    position: absolute !important;
-    height: 1px;
-    width: 1px;
-    overflow: hidden;
-    clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
-    clip: rect(1px, 1px, 1px, 1px);
+	position: absolute !important;
+	height: 1px;
+	width: 1px;
+	overflow: hidden;
+	clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+	clip: rect(1px, 1px, 1px, 1px);
 }
 
 .template-longdesc {
-    text-align: left;
-    line-height: 1.5;
-    width: 100%;
-    max-width: 50em;
-    padding: 2em;
-    margin: 1em auto;
-    background: #fdfdfd;
-    color: #333;
-    box-shadow: 0 0 5px;
-    font-size: 1.4em;
+	text-align: left;
+	line-height: 1.5;
+	width: 100%;
+	max-width: 50em;
+	padding: 2em;
+	margin: 1em auto;
+	background: #fdfdfd;
+	color: #333;
+	box-shadow: 0 0 5px;
+	font-size: 1.4em;
 }
 
-label.wpa-screen-reader-text { position: absolute!important; clip: rect(1px,1px,1px,1px); overflow: hidden; color: #000; background: #fff; width: 1px; height: 1px; }
+label.wpa-screen-reader-text {
+	border: 0;
+	clip: rect(1px, 1px, 1px, 1px);
+	clip-path: inset(50%);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+	word-wrap: normal !important;
+}
