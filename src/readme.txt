@@ -5,7 +5,7 @@ Tags: title, accessibility, accessible, navigation, wcag, a11y, section508, focu
 Requires at least: 3.4.2
 Requires PHP: 5.6
 Tested up to: 5.8
-Stable tag: 1.7.7
+Stable tag: 1.7.8
 Text Domain: wp-accessibility
 License: GPLv2 or later
 
@@ -38,8 +38,7 @@ These are features that address issues caused by inaccessible themes.
 These are features that address issues caused by current or past WordPress core accessibility issues. (Issues added in content, such as target or title attributes, are persistent even when WordPress is updated.) 
 
 * Force a search page error when a search is made with an empty text string. (If your theme has a search.php template.)
-* Remove redundant title attributes from page lists, category lists, and archive menus. 
-* Address some accessibility issues in the WordPress admin styles
+* Remove redundant title attributes from tag clouds.
 
 Content specific fixes:
 

@@ -17,7 +17,7 @@
  * Domain Path: /lang
  * License:     GPL-2.0+
  * License URI: http://www.gnu.org/license/gpl-2.0.txt
- * Version: 1.7.7
+ * Version: 1.7.8
  */
 
 /*
@@ -69,16 +69,9 @@ function wpa_admin_menu() {
  * Install on activation.
  */
 function wpa_install() {
-	$wpa_version = '1.7.7';
+	$wpa_version = '1.7.8';
 	if ( 'true' !== get_option( 'wpa_installed' ) ) {
-		add_option( 'rta_from_nav_menu', 'on' );
-		add_option( 'rta_from_page_lists', 'on' );
-		add_option( 'rta_from_category_lists', 'on' );
-		add_option( 'rta_from_archive_links', 'on' );
 		add_option( 'rta_from_tag_clouds', 'on' );
-		add_option( 'rta_from_category_links', 'on' );
-		add_option( 'rta_from_post_edit_links', 'on' );
-		add_option( 'rta_from_edit_comment_links', 'on' );
 		add_option( 'asl_styles_focus', '' );
 		add_option( 'asl_styles_passive', '' );
 		add_option( 'wpa_target', 'on' );
