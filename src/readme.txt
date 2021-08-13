@@ -80,6 +80,9 @@ The plug-in is intended to help with deficiencies commonly found in themes and t
 * Bug fix: Update screen reader text classes from antiquated versions.
 * Removal: Adding role attributes to HTML5 structures is no longer significant.
 * Removal: Remove option to make row actions visible. Now available via screen options in core.
+* Removal: Remove tabindex=-1 on skiplink targets. No longer required.
+* Improvement: Catch more potentially invalid or suspicious alt text patterns.
+* Refactor: Move footer scripts into external JS file.
 
 = 1.7.7 =
 
