@@ -45,6 +45,7 @@ function wpa_media_value( $column, $id ) {
 			'&nbsp;',
 			' ',
 			'-',
+			'--',
 		);
 		switch ( $mime ) {
 			case 'image/jpeg':
@@ -57,8 +58,10 @@ function wpa_media_value( $column, $id ) {
 				} else {
 					if ( true === $no_alt ) {
 						echo '<span class="ok"><span class="dashicons dashicons-yes" aria-hidden="true"></span> ' . __( 'Decorative', 'wp-accessibility' ) . '</span>';
-					} elseif ( in_array( $alt, $invalid_values, true ) ) {
-						echo '<span class="missing"><span class="dashicons dashicons-no" aria-hidden="true"></span> ' . __( 'Invalid', 'wp-accessibility' ) . '</span>';
+					} elseif ( in_array( $alt, $invalid_values, true ) || ctype_punct( $alt ) || ctype_space( $alt ) ) {
+						echo '<span class="missing"><span class="dashicons dashicons-no" aria-hidden="true"></span> <a href="' . get_edit_post_link( $id ) . '#attachment_alt">' . __( 'Invalid <code>alt</code>', 'wp-accessibility' ) . '</a></span>';
+					} else if ( wpa_suspicious_alt( $alt ) ) {
+						echo '<span class="missing"><span class="dashicons dashicons-no" aria-hidden="true"></span> <a href="' . get_edit_post_link( $id ) . '#attachment_alt">' . __( 'Suspicious <code>alt</code>', 'wp-accessibility' ) . '</a></span>';
 					} else {
 						echo '<span class="ok"><span class="dashicons dashicons-yes" aria-hidden="true"></span> ' . __( 'Has <code>alt</code>', 'wp-accessibility' ) . '</span>';
 					}
@@ -70,6 +73,38 @@ function wpa_media_value( $column, $id ) {
 		}
 	}
 	return $column;
+}
+
+/**
+ * Check whether an alt attribute contains suspect strings.
+ *
+ * @param string $alt Alt attribute.
+ *
+ * @return bool
+ */
+function wpa_suspicious_alt( $alt ) {
+	$case_insensitive = array(
+		'logo',
+		'image',
+	);
+	$case_insensitive = apply_filters( 'wpa_case_insensitive', $case_insensitive );
+	$case_sensitive   = array(
+		'DSC',
+		'IMG',
+	);
+	$case_sensitive   = apply_filters( 'wpa_case_sensitive', $case_sensitive );
+	foreach( $case_insensitive as $term ) {
+		if ( false !== stripos( $alt, $term ) ) {
+			return true;
+		}
+	}
+	foreach( $case_sensitive as $term ) {
+		if ( false !== strpos( $alt, $term ) ) {
+			return true;
+		}
+	}
+
+	return false;
 }
 
 add_filter( 'attachment_fields_to_edit', 'wpa_insert_alt_verification', 10, 2 );
