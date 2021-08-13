@@ -126,10 +126,6 @@ add_action( 'wp_enqueue_scripts', 'wpacc_enqueue_scripts' );
  * Enqueue accessibility scripts dependent on options.
  */
 function wpacc_enqueue_scripts() {
-	wp_enqueue_script( 'jquery' );
-	if ( ! is_admin() && current_user_can( 'manage_options' ) && isset( $_GET['wpa_inspect'] ) ) {
-		wp_enqueue_script( 'wpa-inspect', plugins_url( 'js/inspector.js', __FILE__ ), array( 'jquery' ), '1.0', true );
-	}
 	if ( 'on' === get_option( 'wpa_labels' ) ) {
 		wp_enqueue_script( 'wpa-labels', plugins_url( 'js/wpa.labels.js', __FILE__ ), array( 'jquery' ), '1.0', true );
 		$labels = array(
@@ -263,20 +259,15 @@ function wpa_is_url( $url ) {
 	return preg_match( '|^http(s)?://[a-z0-9-]+(.[a-z0-9-]+)*(:[0-9]+)?(/.*)?$|i', $url );
 }
 
-add_action( 'wp_footer', 'wpa_jquery_asl', 100 );
+add_action( 'wp_enqueue_scripts', 'wpa_jquery_asl', 100 );
 /**
- * Generate JS needed for options.
+ * Enqueue JS needed for WP Accessibility options.
  */
 function wpa_jquery_asl() {
-	$skiplinks_js = false;
-	$targets      = false;
-	$lang_js      = false;
-	$tabindex     = false;
-	$longdesc     = false;
 	$visibility   = ( 'on' === get_option( 'asl_visible' ) ) ? 'wpa-visible' : 'wpa-hide';
 	if ( 'on' === get_option( 'asl_enable' ) ) {
 		$html = '';
-		// set up skiplinks.
+		// BUild skiplinks.
 		$extra = (string) get_option( 'asl_extra_target' );
 		$extra = ( wpa_is_url( $extra ) ) ? esc_url( $extra ) : str_replace( '#', '', esc_attr( $extra ) );
 		if ( '' !== $extra && ! wpa_is_url( $extra ) ) {
@@ -293,39 +284,27 @@ function wpa_jquery_asl() {
 		$is_rtl     = ( is_rtl() ) ? '-rtl' : '-ltr';
 		$skiplinks  = __( 'Skip links', 'wp-accessibility' );
 		$output     = ( '' !== $html ) ? "<div class=\"$visibility$is_rtl\" id=\"skiplinks\" role=\"navigation\" aria-label=\"$skiplinks\">$html</div>" : '';
-		// Attach skiplinks HTML; set tab index on #content area to -1.
-		$focusable    = ( '' !== $content ) ? "$('#$content').attr('tabindex','-1');" : '';
-		$focusable   .= ( '' !== $nav ) ? "$('#$nav').attr('tabindex','-1');" : '';
-		$skiplinks_js = ( $output ) ? "$('body').prepend('$output'); $focusable" : '';
 	}
-	// Attach language to html element.
-	if ( 'on' === get_option( 'wpa_lang' ) ) {
-		$lang    = get_bloginfo( 'language' );
-		$dir     = ( is_rtl() ) ? 'rtl' : 'ltr';
-		$lang_js = "$('html').attr( 'lang','$lang' ); $('html').attr( 'dir','$dir' )";
-	}
-	// Force links to open in the same window.
-	$underline_target = apply_filters( 'wpa_underline_target', 'a' );
-	$targets          = ( 'on' === get_option( 'wpa_target' ) ) ? "$('a').removeAttr('target');" : '';
-	$tabindex         = ( 'on' === get_option( 'wpa_tabindex' ) ) ? "$('input,a,select,textarea,button').removeAttr('tabindex');" : '';
-	$underlines       = ( 'on' === get_option( 'wpa_underline' ) ) ? "$('$underline_target').css( 'text-decoration','underline' );$('$underline_target').on( 'focusin mouseenter', function() { $(this).css( 'text-decoration','none' ); });$('$underline_target').on( 'focusout mouseleave', function() { $(this).css( 'text-decoration','underline' ); } );" : '';
 
-	$display = ( $skiplinks_js || $targets || $lang_js || $tabindex || $longdesc ) ? true : false;
-	if ( $display ) {
-		$script = "
-<script type='text/javascript'>
-//<![CDATA[
-(function( $ ) { 'use strict';
-	$skiplinks_js
-	$targets
-	$lang_js
-	$tabindex
-	$underlines
-}(jQuery));
-//]]>
-</script>";
-		echo $script;
-	}
+	wp_enqueue_script( 'wp-accessibility', plugins_url( 'js/wp-accessibility.js', __FILE__ ), array( 'jquery' ), '1.0', true );
+	wp_localize_script(
+		'wp-accessibility',
+		'wpa',
+		array(
+			'skiplinks' => array(
+				'enabled' => ( 'on' === get_option( 'asl_enable' ) ) ? true : false,
+				'output'  => $output,
+			),
+			'target'    => ( 'on' === get_option( 'wpa_target' ) ) ? true : false,
+			'tabindex'  => ( 'on' === get_option( 'wpa_tabindex' ) ) ? true : false,
+			'underline' => array(
+				'enabled' => ( 'on' === get_option( 'wpa_underline' ) ) ? true : false,
+				'target'  => apply_filters( 'wpa_underline_target', 'a' ),
+			),
+			'dir'       => ( is_rtl() ) ? 'rtl' : 'ltr',
+			'lang'      => get_bloginfo( 'language' ),
+		)
+	);
 }
 
 // courtesy of Graham Armfield (modified).
