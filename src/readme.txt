@@ -79,7 +79,7 @@ The plug-in is intended to help with deficiencies commonly found in themes and t
 * Bug fix: Avoid showing longdesc interface if no description defined.
 * Bug fix: Update screen reader text classes from antiquated versions.
 * Removal: Adding role attributes to HTML5 structures is no longer significant.
-* 
+* Removal: Remove option to make row actions visible. Now available via screen options in core.
 
 = 1.7.7 =
 

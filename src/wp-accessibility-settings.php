@@ -114,7 +114,6 @@ function wpa_update_settings() {
 			$wpa_focus                   = ( isset( $_POST['wpa_focus'] ) ) ? 'on' : '';
 			$wpa_focus_color             = ( isset( $_POST['wpa_focus_color'] ) ) ? str_replace( '#', '', $_POST['wpa_focus_color'] ) : '';
 			$wpa_continue                = ( isset( $_POST['wpa_continue'] ) ) ? $_POST['wpa_continue'] : 'Continue Reading';
-			$wpa_row_actions             = ( isset( $_POST['wpa_row_actions'] ) ) ? 'on' : '';
 			$wpa_diagnostics             = ( isset( $_POST['wpa_diagnostics'] ) ) ? 'on' : '';
 			$wpa_insert_roles            = ( isset( $_POST['wpa_insert_roles'] ) ) ? 'on' : '';
 			$wpa_complementary_container = ( isset( $_POST['wpa_complementary_container'] ) ) ? str_replace( '#', '', $_POST['wpa_complementary_container'] ) : '';
@@ -131,7 +130,6 @@ function wpa_update_settings() {
 			update_option( 'wpa_focus', $wpa_focus );
 			update_option( 'wpa_focus_color', $wpa_focus_color );
 			update_option( 'wpa_continue', $wpa_continue );
-			update_option( 'wpa_row_actions', $wpa_row_actions );
 			update_option( 'wpa_diagnostics', $wpa_diagnostics );
 			$message = __( 'Miscellaneous Accessibility Settings Updated', 'wp-accessibility' );
 
@@ -388,10 +386,6 @@ function wpa_admin_settings() {
 									<li>
 										<input type="checkbox" id="wpa_longdesc_featured" name="wpa_longdesc_featured" <?php checked( get_option( 'wpa_longdesc_featured' ), 'on' ); ?>/>
 										<label for="wpa_longdesc_featured"><?php _e( 'Support <code>longdesc</code> on featured images', 'wp-accessibility' ); ?></label>
-									</li>
-									<li>
-										<input type="checkbox" id="wpa_row_actions" name="wpa_row_actions" <?php checked( get_option( 'wpa_row_actions' ), 'on' ); ?>/>
-										<label for="wpa_row_actions"><?php _e( 'Make admin row actions always visible', 'wp-accessibility' ); ?></label>
 									</li>
 									<li>
 										<input type="checkbox" id="wpa_image_titles" name="wpa_image_titles" <?php checked( get_option( 'wpa_image_titles' ), 'on' ); ?>/>
