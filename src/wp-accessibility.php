@@ -257,7 +257,7 @@ add_action( 'wp_enqueue_scripts', 'wpa_jquery_asl', 100 );
  * Enqueue JS needed for WP Accessibility options.
  */
 function wpa_jquery_asl() {
-	$visibility   = ( 'on' === get_option( 'asl_visible' ) ) ? 'wpa-visible' : 'wpa-hide';
+	$visibility = ( 'on' === get_option( 'asl_visible' ) ) ? 'wpa-visible' : 'wpa-hide';
 	if ( 'on' === get_option( 'asl_enable' ) ) {
 		$html = '';
 		// BUild skiplinks.

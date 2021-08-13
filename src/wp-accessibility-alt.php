@@ -60,7 +60,7 @@ function wpa_media_value( $column, $id ) {
 						echo '<span class="ok"><span class="dashicons dashicons-yes" aria-hidden="true"></span> ' . __( 'Decorative', 'wp-accessibility' ) . '</span>';
 					} elseif ( in_array( $alt, $invalid_values, true ) || ctype_punct( $alt ) || ctype_space( $alt ) ) {
 						echo '<span class="missing"><span class="dashicons dashicons-no" aria-hidden="true"></span> <a href="' . get_edit_post_link( $id ) . '#attachment_alt">' . __( 'Invalid <code>alt</code>', 'wp-accessibility' ) . '</a></span>';
-					} else if ( wpa_suspicious_alt( $alt ) ) {
+					} elseif ( wpa_suspicious_alt( $alt ) ) {
 						echo '<span class="missing"><span class="dashicons dashicons-no" aria-hidden="true"></span> <a href="' . get_edit_post_link( $id ) . '#attachment_alt">' . __( 'Suspicious <code>alt</code>', 'wp-accessibility' ) . '</a></span>';
 					} else {
 						echo '<span class="ok"><span class="dashicons dashicons-yes" aria-hidden="true"></span> ' . __( 'Has <code>alt</code>', 'wp-accessibility' ) . '</span>';
@@ -93,12 +93,12 @@ function wpa_suspicious_alt( $alt ) {
 		'IMG',
 	);
 	$case_sensitive   = apply_filters( 'wpa_case_sensitive', $case_sensitive );
-	foreach( $case_insensitive as $term ) {
+	foreach ( $case_insensitive as $term ) {
 		if ( false !== stripos( $alt, $term ) ) {
 			return true;
 		}
 	}
-	foreach( $case_sensitive as $term ) {
+	foreach ( $case_sensitive as $term ) {
 		if ( false !== strpos( $alt, $term ) ) {
 			return true;
 		}
