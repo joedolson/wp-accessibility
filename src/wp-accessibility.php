@@ -258,6 +258,7 @@ add_action( 'wp_enqueue_scripts', 'wpa_jquery_asl', 100 );
  */
 function wpa_jquery_asl() {
 	$visibility = ( 'on' === get_option( 'asl_visible' ) ) ? 'wpa-visible' : 'wpa-hide';
+	$output     = '';
 	if ( 'on' === get_option( 'asl_enable' ) ) {
 		$html = '';
 		// BUild skiplinks.
