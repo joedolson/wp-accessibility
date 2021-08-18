@@ -11,6 +11,11 @@
 				image_id = value;
 			}
 		});
+		// Secondary check for image ID, if not in classes.
+		if ( '' === image_id ) {
+			var imgId = img.attr( 'id' );
+			image_id = imgId.replace( 'longdesc-return-', '' );
+		}
 		img.attr('class', '');
 		img.wrap('<div class="wpa-ld" />')
 		img.parent('.wpa-ld').addClass(classes);

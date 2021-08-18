@@ -73,6 +73,10 @@ The plug-in is intended to help with deficiencies commonly found in themes and t
 
 [Suggest a change!](https://github.com/joedolson/wp-accessibility/issues/)
 
+= 1.7.10 =
+
+* Bug fix: If attachment ID not in classes, get from img ID attribute.
+
 = 1.7.9 =
 
 * Bug fix: potentially undeclared variable in 1.7.8.

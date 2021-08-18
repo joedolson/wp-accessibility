@@ -79,6 +79,11 @@ div.aligncenter {
 	box-sizing: border-box;
 	background: rgba(255, 255, 255, .95);
 	padding: 1.5em;
+	text-align: left;
+}
+
+.rtl .wpa-ld .longdesc {
+	text-align: right;
 }
 
 .wpa-ld button, .wpa-ld button:active, .wpa-ld button:focus, .wpa-ld button:hover, .wpa-ld a {
