@@ -253,7 +253,7 @@ function wpa_admin_settings() {
 									<input type="hidden" name="_wpnonce" value="<?php echo wp_create_nonce( 'wpa-nonce' ); ?>"/>
 									<input type="hidden" name="action" value="asl"/>
 								</p>
-								<p><input type="submit" name="wpa-settings" class="button-primary" value="<?php _e( 'Update Skiplink Settings', 'wp-accessibility' ); ?>"/></p>
+								<p><input type="submit" name="wpa-settings" class="button-primary" value="<?php esc_html_e( 'Update Skiplink Settings', 'wp-accessibility' ); ?>"/></p>
 							</form>
 								<?php
 							}
@@ -261,9 +261,9 @@ function wpa_admin_settings() {
 						</div>
 					</div>
 					<div class="postbox">
-						<h2 id="toolbar" class='hndle'><?php _e( 'Accessibility Toolbar Settings', 'wp-accessibility' ); ?></h2>
+						<h2 id="toolbar" class='hndle'><?php esc_html_e( 'Accessibility Toolbar Settings', 'wp-accessibility' ); ?></h2>
 						<div class="inside">
-							<form method="post" action="<?php echo admin_url( 'options-general.php?page=wp-accessibility/wp-accessibility.php' ); ?>">
+							<form method="post" action="<?php echo esc_url( admin_url( 'options-general.php?page=wp-accessibility/wp-accessibility.php' ) ); ?>">
 								<ul>
 									<li>
 										<input type="checkbox" id="wpa_toolbar" name="wpa_toolbar" <?php checked( get_option( 'wpa_toolbar' ), 'on' ); ?>/>
@@ -408,8 +408,8 @@ function wpa_admin_settings() {
 										<input type="text" id="wpa_focus_color" name="wpa_focus_color" value="#<?php echo esc_attr( get_option( 'wpa_focus_color' ) ); ?>"/></li>
 								</ul>
 								<p>
-									<input type="hidden" name="_wpnonce" value="<?php echo wp_create_nonce( 'wpa-nonce' ); ?>"/>
-									<input type="hidden" name="action" value="misc"/>
+									<input type="hidden" name="_wpnonce" value="<?php echo wp_create_nonce( 'wpa-nonce' ); ?>" />
+									<input type="hidden" name="action" value="misc" />
 								</p>
 
 								<p><input type="submit" name="wpa-settings" class="button-primary" value="<?php _e( 'Update Miscellaneous Settings', 'wp-accessibility' ); ?>"/></p>
@@ -431,8 +431,8 @@ function wpa_admin_settings() {
 									</ul>
 								</fieldset>
 								<p>
-									<input type="hidden" name="_wpnonce" value="<?php echo wp_create_nonce( 'wpa-nonce' ); ?>"/>
-									<input type="hidden" name="action" value="rta"/>
+									<input type="hidden" name="_wpnonce" value="<?php echo wp_create_nonce( 'wpa-nonce' ); ?>" />
+									<input type="hidden" name="action" value="rta" />
 								</p>
 
 								<p><input type="submit" name="wpa-settings" class="button-primary" value="<?php _e( 'Update Title Attribute Settings', 'wp-accessibility' ); ?>"/></p>
@@ -501,8 +501,8 @@ function wpa_admin_settings() {
 									</ul>
 								</fieldset>
 								<p>
-									<input type="hidden" name="_wpnonce" value="<?php echo wp_create_nonce( 'wpa-nonce' ); ?>"/>
-									<input type="hidden" name="action" value="contrast"/>
+									<input type="hidden" name="_wpnonce" value="<?php echo wp_create_nonce( 'wpa-nonce' ); ?>" />
+									<input type="hidden" name="action" value="contrast" />
 								</p>
 
 								<p><input type="submit" name="wpa-settings" class="button-primary" value="<?php _e( 'Check Color Contrast', 'wp-accessibility' ); ?>"/></p>

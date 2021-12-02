@@ -110,9 +110,9 @@ function wpa_toolbar_shortcode( $atts, $content ) {
  * @return string HTML.
  */
 function wpa_toolbar_html( $type = 'widget', $control = 'button' ) {
-	$contrast         = __( 'Toggle High Contrast', 'wp-accessibility' );
-	$grayscale        = __( 'Toggle Grayscale', 'wp-accessibility' );
-	$fontsize         = __( 'Toggle Font size', 'wp-accessibility' );
+	$contrast         = esc_html__( 'Toggle High Contrast', 'wp-accessibility' );
+	$grayscale        = esc_html__( 'Toggle Grayscale', 'wp-accessibility' );
+	$fontsize         = esc_html__( 'Toggle Font size', 'wp-accessibility' );
 	$enable_grayscale = ( 'on' === get_option( 'wpa_toolbar_gs' ) && current_user_can( 'manage_options' ) ) ? true : false;
 	$enable_contrast  = ( 'off' === get_option( 'wpa_toolbar_ct' ) ) ? false : true;
 	$enable_fontsize  = ( 'off' === get_option( 'wpa_toolbar_fs' ) ) ? false : true;
@@ -153,9 +153,9 @@ function wpa_toolbar_js() {
 	$is_right   = ( 'on' === get_option( 'wpa_toolbar_right' ) ) ? 'right' : 'left';
 	$responsive = ( 'on' === get_option( 'wpa_toolbar_mobile' ) ) ? 'a11y-responsive' : 'a11y-non-responsive';
 
-	$contrast         = __( 'Toggle High Contrast', 'wp-accessibility' );
-	$grayscale        = __( 'Toggle Grayscale', 'wp-accessibility' );
-	$fontsize         = __( 'Toggle Font size', 'wp-accessibility' );
+	$contrast         = esc_html__( 'Toggle High Contrast', 'wp-accessibility' );
+	$grayscale        = esc_html__( 'Toggle Grayscale', 'wp-accessibility' );
+	$fontsize         = esc_html__( 'Toggle Font size', 'wp-accessibility' );
 	$enable_grayscale = ( 'on' === get_option( 'wpa_toolbar_gs' ) && current_user_can( 'manage_options' ) ) ? 'true' : 'false';
 	$enable_fontsize  = ( 'off' === get_option( 'wpa_toolbar_fs' ) ) ? 'false' : 'true';
 	$enable_contrast  = ( 'off' === get_option( 'wpa_toolbar_ct' ) ) ? 'false' : 'true';
