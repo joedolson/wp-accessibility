@@ -11,7 +11,7 @@ jobs:
     strategy:
       matrix:
         operating-system: [ubuntu-latest]
-        php-versions: ['7.2', '7.3', '7.4']
+        php-versions: ['7.2', '7.3', '7.4','8.0','8.1']
     name: PHP ${{ matrix.php-versions }} Test on ${{ matrix.operating-system }}
     steps:
     - name: Checkout
@@ -32,12 +32,6 @@ jobs:
 
     - name: Composer install
       run: composer install --optimize-autoloader --prefer-dist
-    
-    - name: Install WP Tests
-      run: bash bin/install-wp-tests.sh wordpress_test root '' 127.0.0.1
 
     - name: PHPCS check
-      run: ./vendor/bin/phpcs
-
-    - name: phpunit tests
-      run: ./vendor/bin/phpunit
+      run: ./vendor/bin/phpcs --ignore=*EDD_SL_Plugin_Updater.php*,*Authorizenet.php*,*/gateways/lib/*,*class.iCalReader.php*,*my-calendar-authnet.php*
