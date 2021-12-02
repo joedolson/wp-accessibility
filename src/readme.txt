@@ -5,7 +5,7 @@ Tags: title, accessibility, accessible, navigation, wcag, a11y, section508, focu
 Requires at least: 3.4.2
 Requires PHP: 5.6
 Tested up to: 5.8
-Stable tag: 1.7.10
+Stable tag: 1.7.11
 Text Domain: wp-accessibility
 License: GPLv2 or later
 
@@ -72,6 +72,12 @@ The plug-in is intended to help with deficiencies commonly found in themes and t
 = Future =
 
 [Suggest a change!](https://github.com/joedolson/wp-accessibility/issues/)
+
+= 1.7.11 =
+
+* Bug fix: Better handling of invalid toolbar attachment points.
+* Change: Use title casing for Skip to Content link to clarify pronunciation by JAWS.
+* New: Option to disable full screen block editor by default.
 
 = 1.7.10 =
 
