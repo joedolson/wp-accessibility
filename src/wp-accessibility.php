@@ -271,7 +271,7 @@ function wpa_jquery_asl() {
 		$content    = str_replace( '#', '', esc_attr( get_option( 'asl_content' ) ) );
 		$nav        = str_replace( '#', '', esc_attr( get_option( 'asl_navigation' ) ) );
 		$sitemap    = esc_url( get_option( 'asl_sitemap' ) );
-		$html      .= ( '' !== $content ) ? "<a href=\"#$content\">" . __( 'Skip to content', 'wp-accessibility' ) . '</a> ' : '';
+		$html      .= ( '' !== $content ) ? "<a href=\"#$content\">" . __( 'Skip to Content', 'wp-accessibility' ) . '</a> ' : '';
 		$html      .= ( '' !== $nav ) ? "<a href=\"#$nav\">" . __( 'Skip to navigation', 'wp-accessibility' ) . '</a> ' : '';
 		$html      .= ( '' !== $sitemap ) ? "<a href=\"$sitemap\">" . __( 'Site map', 'wp-accessibility' ) . '</a> ' : '';
 		$html      .= ( '' !== $extra && '' !== $extra_text ) ? "<a href=\"$extra\">$extra_text</a> " : '';
@@ -611,3 +611,14 @@ function wpa_accessible_theme() {
 	}
 	return false;
 }
+
+/**
+ * Disable full screen block editor by default.
+ */
+function wpa_disable_editor_fullscreen_by_default() {
+	if ( 'on' === get_option( 'wpa_disable_fullscreen' ) ) {
+		$script = "window.onload = function() { const isFullscreenMode = wp.data.select( 'core/edit-post' ).isFeatureActive( 'fullscreenMode' ); if ( isFullscreenMode ) { wp.data.dispatch( 'core/edit-post' ).toggleFeature( 'fullscreenMode' ); } }";
+		wp_add_inline_script( 'wp-blocks', $script );
+	}
+}
+add_action( 'enqueue_block_editor_assets', 'wpa_disable_editor_fullscreen_by_default' );
