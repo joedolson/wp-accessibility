@@ -115,6 +115,7 @@ function wpa_update_settings() {
 			$wpa_focus_color             = ( isset( $_POST['wpa_focus_color'] ) ) ? str_replace( '#', '', $_POST['wpa_focus_color'] ) : '';
 			$wpa_continue                = ( isset( $_POST['wpa_continue'] ) ) ? $_POST['wpa_continue'] : 'Continue Reading';
 			$wpa_diagnostics             = ( isset( $_POST['wpa_diagnostics'] ) ) ? 'on' : '';
+			$wpa_disable_fullscreen      = ( isset( $_POST['wpa_disable_fullscreen'] ) ) ? 'on' : '';
 			$wpa_insert_roles            = ( isset( $_POST['wpa_insert_roles'] ) ) ? 'on' : '';
 			$wpa_complementary_container = ( isset( $_POST['wpa_complementary_container'] ) ) ? str_replace( '#', '', $_POST['wpa_complementary_container'] ) : '';
 			update_option( 'wpa_lang', $wpa_lang );
@@ -131,6 +132,7 @@ function wpa_update_settings() {
 			update_option( 'wpa_focus_color', $wpa_focus_color );
 			update_option( 'wpa_continue', $wpa_continue );
 			update_option( 'wpa_diagnostics', $wpa_diagnostics );
+			update_option( 'wpa_disable_fullscreen', $wpa_disable_fullscreen );
 			$message = __( 'Miscellaneous Accessibility Settings Updated', 'wp-accessibility' );
 
 			return "<div class='updated'><p>" . $message . '</p></div>';
@@ -394,6 +396,10 @@ function wpa_admin_settings() {
 									<li>
 										<input type="checkbox" id="wpa_diagnostics" name="wpa_diagnostics" <?php checked( get_option( 'wpa_diagnostics' ), 'on' ); ?>/>
 										<label for="wpa_diagnostics"><?php _e( 'Enable diagnostic CSS', 'wp-accessibility' ); ?></label>
+									</li>
+									<li>
+										<input type="checkbox" id="wpa_disable_fullscreen" name="wpa_disable_fullscreen" <?php checked( get_option( 'wpa_disable_fullscreen' ), 'on' ); ?>/>
+										<label for="wpa_disable_fullscreen"><?php _e( 'Disable fullscreen block editor by default', 'wp-accessibility' ); ?></label>
 									</li>
 									<li>
 										<input type="checkbox" id="wpa_focus" name="wpa_focus" <?php checked( get_option( 'wpa_focus' ), 'on' ); ?>/>
