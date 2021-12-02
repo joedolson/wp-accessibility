@@ -17,6 +17,9 @@
 	a11y_toolbar.innerHTML = insert_a11y_toolbar;
 
 	var insertionPoint = document.querySelector( wpa.location );
-	insertionPoint.insertAdjacentElement( 'afterbegin', a11y_toolbar );
-	//$( document ).find( wpa.location ).prepend( insert_a11y_toolbar );
+	if ( null !== insertionPoint ) {
+		insertionPoint.insertAdjacentElement( 'afterbegin', a11y_toolbar );
+	} else {
+		console.log( 'WP Accessibility Toolbar insertion point not valid.' );
+	}
 })();
