@@ -261,7 +261,7 @@ function wpa_jquery_asl() {
 	$output     = '';
 	if ( 'on' === get_option( 'asl_enable' ) ) {
 		$html = '';
-		// BUild skiplinks.
+		// Build skiplinks.
 		$extra = (string) get_option( 'asl_extra_target' );
 		$extra = ( wpa_is_url( $extra ) ) ? esc_url( $extra ) : str_replace( '#', '', esc_attr( $extra ) );
 		if ( '' !== $extra && ! wpa_is_url( $extra ) ) {
@@ -414,7 +414,7 @@ if ( 'on' === get_option( 'wpa_more' ) ) {
  * @return string HTML link & text.
  */
 function wpa_continue_reading( $id ) {
-	return '<a class="continue" href="' . get_permalink( $id ) . '">' . get_option( 'wpa_continue' ) . '<span> ' . get_the_title( $id ) . '</span></a>';
+	return '<a class="continue" href="' . esc_url( get_permalink( $id ) ) . '">' . get_option( 'wpa_continue' ) . '<span> ' . get_the_title( $id ) . '</span></a>';
 }
 
 /**
@@ -569,7 +569,7 @@ $plugins_string
 	$admin_url = admin_url( 'options-general.php?page=wp-accessibility/wp-accessibility.php' );
 
 	echo "
-	<form method='post' action='$admin_url'>
+	<form method='post' action='" . esc_url( $admin_url ) . "'>
 		<div><input type='hidden' name='_wpnonce' value='" . wp_create_nonce( 'wpa-nonce' ) . "' /></div>
 		<div>";
 	echo '
@@ -585,7 +585,7 @@ $plugins_string
 	echo sprintf( __( 'I <a href="%s">made a donation</a> to help support this plugin', 'wp-accessibility' ), 'https://www.joedolson.com/donate/' ) . "</label>
 		</p>
 		<p>
-		<label for='support_request'>" . __( 'Support Request:', 'wp-accessibility' ) . "</label><br /><textarea name='support_request' required id='support_request' cols='80' rows='10' class='widefat'>" . stripslashes( $request ) . "</textarea>
+		<label for='support_request'>" . __( 'Support Request:', 'wp-accessibility' ) . "</label><br /><textarea name='support_request' required id='support_request' cols='80' rows='10' class='widefat'>" . esc_textarea( stripslashes( $request ) ) . "</textarea>
 		</p>
 		<p>
 		<input type='submit' value='" . __( 'Send Support Request', 'wp-accessibility' ) . "' name='wpa_support' class='button-primary' />
