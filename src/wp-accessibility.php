@@ -271,10 +271,10 @@ function wpa_jquery_asl() {
 		$content    = str_replace( '#', '', esc_attr( get_option( 'asl_content' ) ) );
 		$nav        = str_replace( '#', '', esc_attr( get_option( 'asl_navigation' ) ) );
 		$sitemap    = esc_url( get_option( 'asl_sitemap' ) );
-		$html      .= ( '' !== $content ) ? "<a href=\"#$content\">" . __( 'Skip to Content', 'wp-accessibility' ) . '</a> ' : '';
-		$html      .= ( '' !== $nav ) ? "<a href=\"#$nav\">" . __( 'Skip to navigation', 'wp-accessibility' ) . '</a> ' : '';
-		$html      .= ( '' !== $sitemap ) ? "<a href=\"$sitemap\">" . __( 'Site map', 'wp-accessibility' ) . '</a> ' : '';
-		$html      .= ( '' !== $extra && '' !== $extra_text ) ? "<a href=\"$extra\">$extra_text</a> " : '';
+		$html      .= ( '' !== $content ) ? "<a href=\"#$content\" class='no-scroll'>" . __( 'Skip to Content', 'wp-accessibility' ) . '</a> ' : '';
+		$html      .= ( '' !== $nav ) ? "<a href=\"#$nav\" class='no-scroll'>" . __( 'Skip to navigation', 'wp-accessibility' ) . '</a> ' : '';
+		$html      .= ( '' !== $sitemap ) ? "<a href=\"$sitemap\" class='no-scroll'>" . __( 'Site map', 'wp-accessibility' ) . '</a> ' : '';
+		$html      .= ( '' !== $extra && '' !== $extra_text ) ? "<a href=\"$extra\" class='no-scroll'>$extra_text</a> " : '';
 		$is_rtl     = ( is_rtl() ) ? '-rtl' : '-ltr';
 		$skiplinks  = __( 'Skip links', 'wp-accessibility' );
 		$output     = ( '' !== $html ) ? "<div class=\"$visibility$is_rtl\" id=\"skiplinks\" role=\"navigation\" aria-label=\"$skiplinks\">$html</div>" : '';
