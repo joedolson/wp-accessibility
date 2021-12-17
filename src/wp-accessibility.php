@@ -277,7 +277,7 @@ function wpa_jquery_asl() {
 		$html      .= ( '' !== $extra && '' !== $extra_text ) ? "<a href=\"$extra\" class='no-scroll'>$extra_text</a> " : '';
 		$is_rtl     = ( is_rtl() ) ? '-rtl' : '-ltr';
 		$skiplinks  = __( 'Skip links', 'wp-accessibility' );
-		$output     = ( '' !== $html ) ? "<div class=\"$visibility$is_rtl\" id=\"skiplinks\" role=\"navigation\" aria-label=\"$skiplinks\">$html</div>" : '';
+		$output     = ( '' !== $html ) ? "<div class=\"$visibility$is_rtl\" id=\"skiplinks\" role=\"navigation\" aria-label=\"" . esc_attr( $skiplinks ) . "\">$html</div>" : '';
 	}
 
 	wp_enqueue_script( 'wp-accessibility', plugins_url( 'js/wp-accessibility.js', __FILE__ ), array( 'jquery' ), '1.0', true );
