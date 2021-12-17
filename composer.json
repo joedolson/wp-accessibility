@@ -3,7 +3,7 @@
     "description": "WP Accessibility WordPress Plugin",
     "keywords": ["wordpress", "plugin", "theme", "accessibility"],
     "homepage": "https://joedolson.com",
-    "license": "GPL-3.0+",
+    "license": "GPL-3.0-or-later",
     "authors": [{
         "name": "Joe Dolson",
         "email": "plugins@joedolson.com",
