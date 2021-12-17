@@ -560,13 +560,13 @@ $plugins_string
 		if ( ! wp_verify_nonce( $nonce, 'wpa-nonce' ) ) {
 			die( 'Security check failed' );
 		}
-		$request      = ( ! empty( $_POST['support_request'] ) ) ? stripslashes( $_POST['support_request'] ) : false;
+		$request      = ( ! empty( $_POST['support_request'] ) ) ? sanitize_textarea_field( stripslashes( $_POST['support_request'] ) ) : false;
 		$has_donated  = ( 'on' === $_POST['has_donated'] ) ? 'Donor' : 'No donation';
 		$has_read_faq = ( 'on' === $_POST['has_read_faq'] ) ? 'Read FAQ' : false;
 		$subject      = "WP Accessibility support request. $has_donated";
 		$message      = $request . "\n\n" . $data;
 		// Get the site domain and get rid of www. from pluggable.php.
-		$sitename = strtolower( $_SERVER['SERVER_NAME'] );
+		$sitename = sanitize_text_field( strtolower( $_SERVER['SERVER_NAME'] ) );
 		if ( 'www.' === substr( $sitename, 0, 4 ) ) {
 			$sitename = substr( $sitename, 4 );
 		}
