@@ -326,7 +326,7 @@ add_filter( 'posts_clauses', 'wpa_search_attachment_alt', 20, 2 );
 /**
  * Allow users to search alt attributes in the media library.
  *
- * @param array $clauses WordPress post query clauses.
+ * @param array  $clauses WordPress post query clauses.
  * @param object $query WordPress query object.
  *
  * @return array
