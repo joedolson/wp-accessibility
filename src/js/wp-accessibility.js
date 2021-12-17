@@ -14,6 +14,14 @@
 		$('html').attr( 'dir', wpa.dir );
 	}
 
+	var viewport = document.querySelector( 'meta[name="viewport"]' );
+	if ( viewport ) {
+		var conditions = viewport.getAttribute( 'content' );
+		if ( conditions.search(/user-scalable=no/g) ) {
+			conditions = conditions.replace( 'user-scalable=no', 'user-scalable=yes' );
+			viewport.setAttribute( 'content', conditions );
+		}
+	}
 	if ( wpa.target ) {
 		$('a:not(.wpa-allow-target)').removeAttr( 'target' );
 	}
