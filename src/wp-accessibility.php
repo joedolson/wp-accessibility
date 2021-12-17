@@ -322,6 +322,21 @@ function wpa_logout_item( $admin_bar ) {
 	$admin_bar->add_node( $args );
 }
 
+add_filter( 'posts_clauses', 'wpa_search_attachment_alt', 20, 2 );
+/**
+ * Allow users to search alt attributes in the media library.
+ */
+function wpa_search_attachment_alt( $clauses, $query ) {
+	if ( is_admin() && 'on' === get_option( 'wpa_search_alt' ) ) {
+		global $wpdb;
+		if ( 'attachment' === $query->query['post_type'] && '' !== $query->query_vars['s'] ) {
+			$clauses['join'] = " LEFT JOIN {$wpdb->postmeta} AS sq1 ON ( {$wpdb->posts}.ID = sq1.post_id AND ( sq1.meta_key = '_wp_attached_file' OR sq1.meta_key = '_wp_attachment_image_alt' ) )";
+		}
+	}
+
+	return $clauses;
+}
+
 add_filter( 'mce_css', 'wpa_diagnostic_css' );
 /**
  * Add diagnostic CSS.

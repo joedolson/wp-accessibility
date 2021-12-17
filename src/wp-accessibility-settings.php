@@ -105,6 +105,7 @@ function wpa_update_settings() {
 			$wpa_target                  = ( isset( $_POST['wpa_target'] ) ) ? 'on' : '';
 			$wpa_labels                  = ( isset( $_POST['wpa_labels'] ) ) ? 'on' : '';
 			$wpa_search                  = ( isset( $_POST['wpa_search'] ) ) ? 'on' : '';
+			$wpa_search_alt              = ( isset( $_POST['wpa_search_alt'] ) ) ? 'on' : '';
 			$wpa_tabindex                = ( isset( $_POST['wpa_tabindex'] ) ) ? 'on' : '';
 			$wpa_underline               = ( isset( $_POST['wpa_underline'] ) ) ? 'on' : '';
 			$wpa_longdesc                = ( isset( $_POST['wpa_longdesc'] ) ) ? esc_attr( $_POST['wpa_longdesc'] ) : 'false';
@@ -122,6 +123,7 @@ function wpa_update_settings() {
 			update_option( 'wpa_target', $wpa_target );
 			update_option( 'wpa_labels', $wpa_labels );
 			update_option( 'wpa_search', $wpa_search );
+			update_option( 'wpa_search_alt', $wpa_search_alt );
 			update_option( 'wpa_tabindex', $wpa_tabindex );
 			update_option( 'wpa_underline', $wpa_underline );
 			update_option( 'wpa_longdesc', $wpa_longdesc );
@@ -366,6 +368,10 @@ function wpa_admin_settings() {
 										<label for="wpa_target"><?php _e( 'Remove target attribute from links', 'wp-accessibility' ); ?></label>
 									</li>
 									<li>
+										<input type="checkbox" id="wpa_search_alt" name="wpa_search_alt" <?php checked( get_option( 'wpa_search_alt' ), 'on' ); ?>/>
+										<label for="wpa_search_alt"><?php _e( 'Include alt attribute in media library searches', 'wp-accessibility' ); ?><span><?php _e( '* May cause slow searches on very large media libraries.', 'wp-accessibility' ); ?></span></label> 
+									</li>
+									<li>
 										<input type="checkbox" id="wpa_search" name="wpa_search" <?php checked( get_option( 'wpa_search' ), 'on' ); ?>/>
 										<label for="wpa_search"><?php _e( 'Force search error on empty search submission (theme must have search.php template)', 'wp-accessibility' ); ?></label>
 									</li>
@@ -560,16 +566,9 @@ function wpa_admin_settings() {
 							<p><?php _e( "If you've found WP Accessibility useful, then please <a href='https://wordpress.org/plugins/wp-accessibility/'>rate it five stars</a>, <a href='https://www.joedolson.com/donate/'>make a donation</a>, or <a href='https://translate.wordpress.org/projects/wp-plugins/wp-accessibility'>help with translation</a>.", 'wp-accessibility' ); ?></p>
 
 							<div>
-								<p><?php _e( '<a href="http://www.joedolson.com/donate/">Make a donation today!</a> Your donation counts - donate any amount to help keep this plug-in running!', 'wp-accessibility' ); ?></p>
-
-								<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
-									<div>
-										<input type="hidden" name="cmd" value="_s-xclick"/>
-										<input type="hidden" name="hosted_button_id" value="QK9MXYGQKYUZY"/>
-										<input type="image" src="https://www.paypal.com/en_US/i/btn/btn_donate_LG.gif" name="submit" alt="Donate"/>
-										<img alt="" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1"/>
-									</div>
-								</form>
+								<p class="wpa-donate">
+									<a href="https://www.joedolson.com/donate/"><?php _e( 'Support WP Accessibility', 'wp-accessibility' ); ?></a>
+								</p>
 							</div>
 						</div>
 					</div>

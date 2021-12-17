@@ -11,6 +11,33 @@
     font-weight: 700;
 }
 
+#wpa_settings_page label span {
+	background: #0000000a;
+	padding: 2px;
+	margin-left: .5em;
+}
+
+.wpa-donate a {
+	font-size: 1.2rem;
+	padding: .5rem .1rem .6rem;
+	background: #233c7f;
+	color: #fff;
+	border: 2px solid #79b3e1;
+	display: block;
+	text-align: center;
+	text-decoration: none;
+	border-radius: 5px;
+}
+
+.wpa-donate a:hover {
+	text-decoration: underline;
+}
+
+p.wpa-donate {
+	margin: 1em 0 0;
+}
+
+
 li.fore {
     float: left;
     width: 200px;

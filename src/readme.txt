@@ -73,6 +73,11 @@ The plug-in is intended to help with deficiencies commonly found in themes and t
 
 [Suggest a change!](https://github.com/joedolson/wp-accessibility/issues/)
 
+= 1.7.12 =
+
+* Bug fix: Improved automatic labeling; checks for existing aria-label or aria-labelledby values.
+* Feature: Option to search media library on alternative text.
+
 = 1.7.11 =
 
 * Bug fix: Better handling of invalid toolbar attachment points.
