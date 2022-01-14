@@ -32,3 +32,7 @@ Bugs or feature development contributions should be made through the [GitHub rep
 Contributors listed only since moving development to GitHub. [Github Contributors](https://github.com/joedolson/wp-accessibility/graphs/contributors)
 
 * [loopRW](https://github.com/loopRW)
+* [boonebgorges](https://github.com/boonebgorges)
+* [cannona](https://github.com/cannona)
+* [CodeJhonny](https://github.com/cannona)
+* [jmdaweb](https://github.com/jmdaweb)
