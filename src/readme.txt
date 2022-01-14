@@ -32,6 +32,7 @@ These are features that address issues caused by inaccessible themes.
 * Add labels to standard WordPress form fields (search, comments)
 * Add post titles to "read more" links.
 * Remove tabindex from elements that are focusable. (Also fixes plugin-caused problems.)
+* Remove user-scalable=no to allow resizing.
 
 = WordPress Core Accessibility Issues fixed by WP Accessibility =
 
@@ -39,6 +40,7 @@ These are features that address issues caused by current or past WordPress core 
 
 * Force a search page error when a search is made with an empty text string. (If your theme has a search.php template.)
 * Remove redundant title attributes from tag clouds.
+* Disable default enabling of full screen block editor.
 
 Content specific fixes:
 
@@ -50,7 +52,8 @@ Content specific fixes:
 These are tools provided to help you identify issues you may need to fix.
 
 * Test the color contrast between two provided hexadecimal color values.
-* Enable diagnostic CSS to show CSS-detectable problems in visual editor or on front-end of site. 
+* Enable diagnostic CSS to show CSS-detectable problems in visual editor or on front-end of site.
+* Search your media library on content in alt text fields.
 
 Learn more! <a href="http://make.wordpress.org/accessibility/wp-accessibility-plugin/">Read about the accessibility issues corrected</a> by WP Accessibility!
 
@@ -76,7 +79,10 @@ The plug-in is intended to help with deficiencies commonly found in themes and t
 = 1.7.12 =
 
 * Bug fix: Improved automatic labeling; checks for existing aria-label or aria-labelledby values.
+* Improved escaping and sanitizing.
+* Change: add 'no-scroll' to skip links to prevent enfold from scrolling.
 * Feature: Option to search media library on alternative text.
+* Feature: Detect and replace user-scalable=no if found.
 
 = 1.7.11 =
 

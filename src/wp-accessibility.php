@@ -4,7 +4,7 @@
  *
  * @package     WP Accessibility
  * @author      Joe Dolson
- * @copyright   2012-2021 Joe Dolson
+ * @copyright   2012-2022 Joe Dolson
  * @license     GPL-2.0+
  *
  * @wordpress-plugin
