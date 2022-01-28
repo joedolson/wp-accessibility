@@ -147,7 +147,7 @@ function wpa_toolbar_html( $type = 'widget', $control = 'button' ) {
  * Generate Toolbar variables for localization in JS.
  */
 function wpa_toolbar_js() {
-	$default    = ( false !== (bool) get_option( 'wpa_toolbar_default' ) ) ? get_option( 'wpa_toolbar_default' ) : 'body';
+	$default    = ( false !== (bool) trim( get_option( 'wpa_toolbar_default' ) ) ) ? get_option( 'wpa_toolbar_default' ) : 'body';
 	$location   = apply_filters( 'wpa_move_toolbar', $default );
 	$is_rtl     = ( is_rtl() ) ? 'rtl' : 'ltr';
 	$is_right   = ( 'on' === get_option( 'wpa_toolbar_right' ) ) ? 'right' : 'left';
