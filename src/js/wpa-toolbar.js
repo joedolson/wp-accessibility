@@ -13,7 +13,7 @@
 		insert_a11y_toolbar += '<li class="a11y-toolbar-list-item"><button type="button" class="a11y-toggle-fontsize toggle-fontsize" id="is_normal_fontsize" aria-pressed="false"><span class="offscreen">' + wpa.fontsize + '</span><span class="aticon aticon-font" aria-hidden="true"></span></button></li>';
 	}
 	insert_a11y_toolbar += '</ul>';
-	a11y_toolbar.classList.add( wpa.response, 'a11y-toolbar', wpa.is_rtl, wpa.is_right );
+	a11y_toolbar.classList.add( wpa.responsive, 'a11y-toolbar', wpa.is_rtl, wpa.is_right );
 	a11y_toolbar.innerHTML = insert_a11y_toolbar;
 
 	var insertionPoint = document.querySelector( wpa.location );
