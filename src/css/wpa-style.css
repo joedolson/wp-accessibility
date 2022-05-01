@@ -54,8 +54,8 @@ div.aligncenter {
 	bottom: 2px;
 	left: 2px;
 	position: absolute;
-	line-height: 1;
-	min-width: 1em;
+	line-height: 1.4;
+	min-width: 24px;
 }
 
 .wpa-ld img {
@@ -87,7 +87,7 @@ div.aligncenter {
 }
 
 .wpa-ld button, .wpa-ld button:active, .wpa-ld button:focus, .wpa-ld button:hover, .wpa-ld a {
-	font-size: .9em;
+	font-size: 1em;
 	font-weight: 400;
 	background: rgba(255, 255, 255, .7) !important;
 	padding: 0;
