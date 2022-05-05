@@ -22,12 +22,14 @@
 			viewport.setAttribute( 'content', conditions );
 		}
 	}
+
 	if ( wpa.target ) {
 		$('a:not(.wpa-allow-target)').removeAttr( 'target' );
 	}
 
 	if ( wpa.tabindex ) {
-		$('input,a,select,textarea,button').removeAttr('tabindex');
+		var focusable = $('input,a,select,textarea,button').not('a:not([href])');
+		focusable.removeAttr('tabindex');
 	}
 
 	if ( wpa.underline.enabled ) {

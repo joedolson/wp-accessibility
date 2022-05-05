@@ -280,7 +280,7 @@ function wpa_jquery_asl() {
 		$output     = ( '' !== $html ) ? "<div class=\"$visibility$is_rtl\" id=\"skiplinks\" role=\"navigation\" aria-label=\"" . esc_attr( $skiplinks ) . "\">$html</div>" : '';
 	}
 
-	wp_enqueue_script( 'wp-accessibility', plugins_url( 'js/wp-accessibility.js', __FILE__ ), array( 'jquery' ), '1.0', true );
+	wp_enqueue_script( 'wp-accessibility', plugins_url( 'js/wp-accessibility.js', __FILE__ ), array( 'jquery' ), '1.0.2', true );
 	wp_localize_script(
 		'wp-accessibility',
 		'wpa',
