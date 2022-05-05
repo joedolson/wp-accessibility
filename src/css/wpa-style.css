@@ -50,6 +50,11 @@ div.aligncenter {
 	width: fit-content;
 }
 
+.wpa-focusable:focus {
+	outline: 1px solid;
+	outline-offset: 1px;
+}
+
 .wpa-ld a, .wpa-ld button {
 	bottom: 2px;
 	left: 2px;

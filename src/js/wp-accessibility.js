@@ -35,8 +35,8 @@
 		// Add tabindex to elements that appear active but are not natively focusable.
 		var fakeButtons = $('div[role="button"]').not('div[tabindex]' );
 		var buttonLinks = $('a[role="button"]').not('a[tabindex],a[href]');
-		fakeButtons.attr( 'tabindex', '0' );
-		buttonLinks.attr( 'tabindex', '0' );
+		fakeButtons.attr( 'tabindex', '0' ).addClass('wpa-focusable');
+		buttonLinks.attr( 'tabindex', '0' ).addClass('wpa-focusable');
 	}
 
 	if ( wpa.underline.enabled ) {
