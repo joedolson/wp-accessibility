@@ -85,6 +85,7 @@ The plug-in is intended to help with deficiencies commonly found in themes and t
 * Change color picker.
 * Make admin responsive.
 * Admin text updates.
+* Return false for accessible theme test if Oxygen Builder active.
 
 = 1.7.14 =
 
