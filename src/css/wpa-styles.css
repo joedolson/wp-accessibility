@@ -1,4 +1,29 @@
 /* Admin styles for WP Accessibility */
+.wpa-settings-wrapper {
+	display: grid;
+	grid-template-columns: 70% 1fr;
+}
+
+@media screen and (max-width: 728px) {
+	.wpa-settings-wrapper {
+		grid-template-columns: auto;
+	}
+}
+
+.notice .views {
+	display: grid;
+	grid-template-columns: repeat( 2, minmax(0,1fr) );
+	column-gap: 20px;
+	row-gap: 20px;
+	align-items: start;
+	margin-bottom: .5em;
+}
+
+.notice .views p {
+	margin: 0;
+	padding: 8px;
+}
+
 #wpa_settings_page .postbox {
     margin: 0 10px 10px 0;
 }
@@ -37,15 +62,10 @@ p.wpa-donate {
 	margin: 1em 0 0;
 }
 
-
-li.fore {
-    float: left;
-    width: 200px;
-    margin-right: 30px;
-}
-
-li.back {
-    margin-left: 230px;
+#contrast-tester {
+	display: flex;
+	flex-wrap: wrap;
+	column-gap: 20px;
 }
 
 .wpa-support-me p {

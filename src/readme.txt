@@ -76,6 +76,12 @@ The plug-in is intended to help with deficiencies commonly found in themes and t
 
 [Suggest a change!](https://github.com/joedolson/wp-accessibility/issues/)
 
+= 1.7.15 =
+
+* Update: tabindex check should not remove tabindex on `a` elements without `href`.
+* Update: check for the button role on elements that are not focusable and add tabindex.
+* Update: Larger longdesc button.
+
 = 1.7.14 =
 
 * Bug fix: incorrectly called variable broke responsive toolbar.

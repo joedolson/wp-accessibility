@@ -61,7 +61,6 @@ add_action( 'admin_menu', 'wpa_admin_menu' );
  * Set up admin menu.
  */
 function wpa_admin_menu() {
-	add_action( 'admin_print_footer_scripts', 'wpa_write_js' );
 	add_options_page( 'WP Accessibility', 'WP Accessibility', 'manage_options', __FILE__, 'wpa_admin_settings' );
 }
 
@@ -90,12 +89,17 @@ function wpa_install() {
 
 /**
  * Check current version and upgrade if needed.
+ *
+ * @return string
  */
 function wpa_check_version() {
 	// upgrade for version 1.3.0.
-	if ( version_compare( get_option( 'wpa_version' ), '1.3.0', '<' ) ) {
+	$version = get_option( 'wpa_version' );
+	if ( version_compare( $version, '1.3.0', '<' ) ) {
 		add_option( 'wpa_longdesc', 'jquery' );
 	}
+
+	return $version;
 }
 
 add_filter( 'plugin_action_links', 'wpa_plugin_action', 10, 2 );
@@ -159,8 +163,9 @@ add_action( 'wp_enqueue_scripts', 'wpa_stylesheet' );
  * Enqueue stylesheets for WP Accessibility.
  */
 function wpa_stylesheet() {
+	$version = wpa_check_version();
 	// Respects SSL, Style.css is relative to the current file.
-	wp_register_style( 'wpa-style', plugins_url( 'css/wpa-style.css', __FILE__ ) );
+	wp_register_style( 'wpa-style', plugins_url( 'css/wpa-style.css', __FILE__ ), array(), $version );
 	if ( 'link' === get_option( 'wpa_longdesc' ) || 'jquery' === get_option( 'wpa_longdesc' ) || 'on' === get_option( 'asl_enable' ) ) {
 		wp_enqueue_style( 'wpa-style' );
 	}
