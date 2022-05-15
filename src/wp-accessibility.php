@@ -501,10 +501,10 @@ function wpa_remove_title_attributes( $output ) {
  * Create support form.
  */
 function wpa_get_support_form() {
-	global $current_user, $wpa_version;
+	global $current_user;
 	$current_user = wp_get_current_user();
 	$request      = '';
-	$version      = $wpa_version;
+	$version      = wpa_check_version();
 	// send fields for all plugins.
 	$wp_version = get_bloginfo( 'version' );
 	$home_url   = home_url();
