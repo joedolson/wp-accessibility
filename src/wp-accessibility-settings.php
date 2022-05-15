@@ -565,7 +565,7 @@ function wpa_admin_settings() {
 
 					<div class="ui-sortable meta-box-sortables">
 						<div class="postbox">
-							<h2 class='hndle'><?php _e( 'Customization Notes', 'wp-accessibility' ); ?></h2>
+							<h2 class='hndle'><?php _e( 'Customization', 'wp-accessibility' ); ?></h2>
 
 							<div class="inside">
 								<p>
