@@ -567,7 +567,6 @@ $plugins_string
 		}
 		$request      = ( ! empty( $_POST['support_request'] ) ) ? sanitize_textarea_field( stripslashes( $_POST['support_request'] ) ) : false;
 		$has_donated  = ( 'on' === $_POST['has_donated'] ) ? 'Donor' : 'No donation';
-		$has_read_faq = ( 'on' === $_POST['has_read_faq'] ) ? 'Read FAQ' : false;
 		$subject      = "WP Accessibility support request. $has_donated";
 		$message      = $request . "\n\n" . $data;
 		// Get the site domain and get rid of www. from pluggable.php.
@@ -578,9 +577,7 @@ $plugins_string
 		$from_email = 'wordpress@' . $sitename;
 		$from       = "From: $current_user->display_name <$from_email>\r\nReply-to: $current_user->display_name <$current_user->user_email>\r\n";
 
-		if ( ! $has_read_faq ) {
-			echo "<div class='message error'><p>" . __( 'Please read the FAQ and other Help documents before making a support request.', 'wp-accessibility' ) . '</p></div>';
-		} elseif ( ! $request ) {
+		if ( ! $request ) {
 			echo "<div class='message error'><p>" . __( 'Please describe your problem.', 'wp-accessibility' ) . '</p></div>';
 		} else {
 			wp_mail( 'plugins@joedolson.com', $subject, $message, $from );
@@ -601,9 +598,6 @@ $plugins_string
 		<p>
 		<code>' . __( 'From:', 'wp-accessibility' ) . " \"$current_user->display_name\" &lt;$current_user->user_email&gt;</code>
 		</p>
-		<p>";
-		// Translators: Frequently Asked Questions URL.
-	echo "<input type='checkbox' name='has_read_faq' id='has_read_faq' value='on' /> <label for='has_read_faq'>" . sprintf( __( 'I have read <a href="%s">the FAQ for this plug-in</a> <span>(required)</span>', 'wp-accessibility' ), 'http://www.joedolson.com/wp-accessibility/faqs/' ) . "</label></p>
 		<p>
 		<input type='checkbox' name='has_donated' id='has_donated' value='on' /> <label for='has_donated'>";
 		// Translators: Donation URL.
