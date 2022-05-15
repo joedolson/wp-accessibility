@@ -624,6 +624,10 @@ $plugins_string
  * @return boolean True if this theme has the tag 'accessibility-ready'.
  */
 function wpa_accessible_theme() {
+	// This is Oxygen Builder, and the active theme test is invalid.
+	if ( defined( 'CT_VERSION' ) ) {
+		return false;
+	}
 	$theme = wp_get_theme();
 	$tags  = $theme->get( 'Tags' );
 	if ( is_array( $tags ) && in_array( 'accessibility-ready', $tags, true ) ) {
