@@ -81,6 +81,9 @@ The plug-in is intended to help with deficiencies commonly found in themes and t
 * Update: tabindex check should not remove tabindex on `a` elements without `href`.
 * Update: check for the button role on elements that are not focusable and add tabindex.
 * Update: Larger longdesc button.
+* Update admin script & css enqueuing.
+* Change color picker.
+* Make admin responsive.
 
 = 1.7.14 =
 

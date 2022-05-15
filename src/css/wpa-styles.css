@@ -4,12 +4,6 @@
 	grid-template-columns: 70% 1fr;
 }
 
-@media screen and (max-width: 728px) {
-	.wpa-settings-wrapper {
-		grid-template-columns: auto;
-	}
-}
-
 .notice .views {
 	display: grid;
 	grid-template-columns: repeat( 2, minmax(0,1fr) );
@@ -25,15 +19,29 @@
 }
 
 #wpa_settings_page .postbox {
-    margin: 0 10px 10px 0;
+	margin: 0 10px 10px 0;
 }
 
+#wpa_settings_page li {
+	margin-bottom: 12px;
+}
+
+@media screen and (max-width: 728px) {
+	.wpa-settings-wrapper {
+		grid-template-columns: auto;
+	}
+	#wpa_settings_page .postbox {
+		margin: 0 0 10px 0;
+	}
+}
+
+
 #wpa_settings_page .meta-box-sortables {
-    min-height: 0;
+	min-height: 0;
 }
 
 #wpa_settings_page legend {
-    font-weight: 700;
+	font-weight: 700;
 }
 
 #wpa_settings_page label span {
@@ -69,21 +77,21 @@ p.wpa-donate {
 }
 
 .wpa-support-me p {
-    font-size: 1.6em;
-    font-weight: 600;
-    background: #007eb3;
-    text-shadow: 1px 1px rgb( 35, 60, 127 );
-    padding: 1em;
-    text-align: center;
-    margin: 0 0 1em;
+	font-size: 1.6em;
+	font-weight: 600;
+	background: #007eb3;
+	text-shadow: 1px 1px rgb( 35, 60, 127 );
+	padding: 1em;
+	text-align: center;
+	margin: 0 0 1em;
 }
 
 .wpa-support-me p, .wpa-support-me a {
-    color: #fff;
+	color: #fff;
 }
 
 .wpa-support-me a:hover, .wpa-support-me a:focus {
-    text-decoration: none;
+	text-decoration: none;
 	background: #fff;
 	color: #007eb3;
 	text-shadow: none;
