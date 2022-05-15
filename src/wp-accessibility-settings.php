@@ -356,9 +356,9 @@ function wpa_admin_settings() {
 											<label for="wpa_underline"><?php _e( 'Force underline on all links', 'wp-accessibility' ); ?></label>
 										</li>
 										<li>
-											<label for="wpa_longdesc"><?php _e( 'Long Description UI', 'wp-accessibility' ); ?></label>
+											<label for="wpa_longdesc"><?php _e( 'Long Description UI', 'wp-accessibility' ); ?></label><br />
 											<select id="wpa_longdesc" name="wpa_longdesc">
-												<option value='false'<?php selected( get_option( 'wpa_longdesc' ), 'false' ); ?>><?php _e( 'Browser defaults only', 'wp-accessibility' ); ?></option>
+												<option value='false'<?php selected( get_option( 'wpa_longdesc' ), 'false' ); ?>><?php _e( 'None', 'wp-accessibility' ); ?></option>
 												<option value='link'<?php selected( get_option( 'wpa_longdesc' ), 'link' ); ?>><?php _e( 'Link to description', 'wp-accessibility' ); ?></option>
 												<option value='jquery'<?php selected( get_option( 'wpa_longdesc' ), 'jquery' ); ?>><?php _e( 'Button trigger to overlay image', 'wp-accessibility' ); ?></option>
 											</select>
