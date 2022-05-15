@@ -548,32 +548,16 @@ function wpa_admin_settings() {
 
 					<div class="ui-sortable meta-box-sortables">
 						<div class="postbox">
-							<h2 class='hndle'><?php _e( 'Access Monitor', 'wp-accessibility' ); ?></h2>
-
-							<div class="inside">
-								<p>
-								<?php
-								// Translators: URL to visit Access Monitor at WordPress.org.
-								printf( __( 'Try using <a href="%s">Access Monitor</a> to do scheduled and on-demand evaluations of your web site accessibility.', 'wp-accessibility' ), 'https://wordpress.org/plugins/access-monitor/' );
-								?>
-								</p>
-							</div>
-						</div>
-					</div>
-
-					<div class="ui-sortable meta-box-sortables">
-						<div class="postbox">
 							<h2 class='hndle'><?php _e( 'Accessibility References', 'wp-accessibility' ); ?></h2>
 
 							<div class="inside">
 								<ul>
-									<li><a href="http://make.wordpress.org/accessibility/wp-accessibility-plugin/">Documentation</a></li>
+									<li><a href="http://make.wordpress.org/accessibility/wp-accessibility-plugin/">Plugin Documentation</a></li>
 									<li><a href="http://make.wordpress.org/accessibility/">Make WordPress: Accessibility</a></li>
 									<li><a href="https://make.wordpress.org/themes/handbook/review/accessibility/">WordPress Theme Accessibility Guidelines</a></li>
-									<li><a href="http://make.wordpress.org/support/user-manual/web-publishing/accessibility/">WordPress User Manual: Accessibility</a></li>
-									<li><a href="https://www.joedolson.com/tools/color-contrast.php">Test Color Contrast</a></li>
+									<li><a href="https://www.joedolson.com/tools/color-contrast.php">Color Contrast Testing</a></li>
 									<li><a href="http://wave.webaim.org/">WAVE: Web accessibility evaluation tool</a></li>
-									<li><a href="https://www.linkedin.com/learning/wordpress-accessibility-2/">WordPress Accessibility at LinkedIn Learning</a></li>
+									<li><a href="https://www.linkedin.com/learning/wordpress-accessibility-2/">WordPress Accessibility course at LinkedIn Learning</a></li>
 								</ul>
 							</div>
 						</div>
@@ -585,16 +569,13 @@ function wpa_admin_settings() {
 
 							<div class="inside">
 								<p>
-								<?php _e( 'It is almost impossible for the Accessibility Toolbar to guarantee a good result for large text or high contrast modes.', 'wp-accessibility' ); ?>
+								<?php _e( 'Custom high-contrast styles go in <code>a11y-contrast.css</code> in your Theme\'s stylesheet directory.', 'wp-accessibility' ); ?>
 								</p>
 								<p>
-								<?php _e( 'Author high-contrast styles by placing a stylesheet called <code>a11y-contrast.css</code> in your Theme\'s stylesheet directory.', 'wp-accessibility' ); ?>
+								<?php _e( 'Set custom styles for large print using the body class <code>.fontsize</code> in your theme styles or the customizer.', 'wp-accessibility' ); ?>
 								</p>
 								<p>
-								<?php _e( 'Define custom styles for large print by assigning them in the body class <code>.fontsize</code> in your theme stylesheet.', 'wp-accessibility' ); ?>
-								</p>
-								<p>
-								<?php _e( 'Define a custom long description template by adding the template "longdesc-template.php" to your theme directory.', 'wp-accessibility' ); ?>
+								<?php _e( 'Set a custom long description template by adding <code>longdesc-template.php</code> to your theme directory.', 'wp-accessibility' ); ?>
 								</p>
 								<p>
 								<?php _e( 'The <a href="#wpa_widget_toolbar">shortcode for the Accessibility toolbar</a> (if enabled) is <code>[wpa_toolbar]</code>', 'wp-accessibility' ); ?>
@@ -610,7 +591,7 @@ function wpa_admin_settings() {
 
 							<div class="inside">
 								<p>
-								<?php _e( "You're using a theme reviewed as <code>accessibility-ready</code> by the WordPress theme review team. Some options have been disabled in WP Accessibility because your theme has taken care of that issue.", 'wp-accessibility' ); ?>
+								<?php _e( "You're using a theme reviewed as <code>accessibility-ready</code> by the WordPress theme review team. Some options have been disabled in WP Accessibility.", 'wp-accessibility' ); ?>
 								</p>
 								<p>
 								<?php
@@ -623,11 +604,9 @@ function wpa_admin_settings() {
 					</div>
 					<?php } ?>
 
-
 					<div class="ui-sortable meta-box-sortables">
 						<div class="postbox">
 							<h2 class='hndle'><?php _e( 'Contributing References', 'wp-accessibility' ); ?></h2>
-
 							<div class="inside">
 								<ul>
 									<li><a href="http://www.accessibleculture.org/articles/2010/08/continue-reading-links-in-wordpress/">Continue Reading Links in WordPress</a></li>
@@ -638,8 +617,6 @@ function wpa_admin_settings() {
 							</div>
 						</div>
 					</div>
-
-
 				</div>
 			</div>
 		</div>
