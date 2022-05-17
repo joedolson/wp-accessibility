@@ -76,6 +76,11 @@ The plug-in is intended to help with deficiencies commonly found in themes and t
 
 [Suggest a change!](https://github.com/joedolson/wp-accessibility/issues/)
 
+= 1.8.1 =
+
+* Update: Fix accessibility issues in longdesc disclosure button.
+* Add: style variations on longdesc disclosure to adjust position. (.top-left, .top-right, .bottom-right)
+
 = 1.8.0 =
 
 * Update: tabindex check should not remove tabindex on `a` elements without `href`.
