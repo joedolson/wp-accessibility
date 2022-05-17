@@ -152,7 +152,7 @@ function wpacc_enqueue_scripts() {
 			'wparest',
 			array(
 				'url'  => get_rest_url( null, 'wp/v2/media' ),
-				'text' => '<span>' . __( 'Long Description', 'wp-accessibility' ) . '</span>',
+				'text' => '<span class="dashicons dashicons-media-text" aria-hidden="true"></span><span class="screen-reader">' . __( 'Long Description', 'wp-accessibility' ) . '</span>',
 			)
 		);
 	}

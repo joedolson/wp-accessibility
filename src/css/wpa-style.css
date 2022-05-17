@@ -1,3 +1,4 @@
+.wpa-ld button span.screen-reader, .longdesc-link span.screen-reader,
 .wpa-hide-ltr#skiplinks a, .wpa-hide-ltr#skiplinks a:hover, .wpa-hide-ltr#skiplinks a:visited,
 .wpa-hide-rtl#skiplinks a, .wpa-hide-rtl#skiplinks a:hover, .wpa-hide-rtl#skiplinks a:visited {
 	border: 0;
@@ -94,36 +95,22 @@ div.aligncenter {
 .wpa-ld button, .wpa-ld button:active, .wpa-ld button:focus, .wpa-ld button:hover, .wpa-ld a {
 	font-size: 1em;
 	font-weight: 400;
-	background: rgba(255, 255, 255, .7) !important;
+	background: rgba(255, 255, 255, .8) !important;
 	padding: 0;
 	color: #000 !important;
-	text-shadow: 1px 1px #ccc;
+	padding: 3px 6px;
+	border-radius: 3px;
 }
 
-.wpa-ld button:before {
-	content: 'i';
-	font-style: italic;
-	font-family: serif;
-	}
+.wpa-ld .dashicons, .wpa-ld .dashicons:before {
+	line-height: inherit;
+}
 
 .wpa-ld button:focus, .wpa-ld button:hover {
-	background: rgba(0, 0, 0, .75) !important;
+	background: rgba(0, 0, 0, .8) !important;
 	color: #fff !important;
 	border: 1px solid #000 !important;
 	cursor: pointer;
-}
-
-.wpa-ld button:focus {
-	padding: 6px;
-}
-
-.wpa-ld button span, .longdesc-link span {
-	position: absolute !important;
-	height: 1px;
-	width: 1px;
-	overflow: hidden;
-	clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
-	clip: rect(1px, 1px, 1px, 1px);
 }
 
 .template-longdesc {

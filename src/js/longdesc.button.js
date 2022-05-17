@@ -46,8 +46,8 @@
 		img.attr('id','longdesc-return-' + image_id );
 		img.wrap('<div class="wpa-ld" />')
 		img.parent('.wpa-ld').addClass(classes);
+		img.parent('.wpa-ld').append('<button aria-expanded="false">' + wparest.text + '</button>');
 		img.parent('.wpa-ld').append('<div class="longdesc" aria-live="assertive"></div>');
-		img.parent('.wpa-ld').append('<button>' + wparest.text + '</button>');
 		var container = img.parent('.wpa-ld').children('.longdesc');
 		container.hide();
 		container.load( longdesc + ' #desc_' + image_id );
@@ -55,8 +55,10 @@
 			e.preventDefault();
 			var visible = container.is( ':visible' );
 			if ( visible ) {
+				$( this ).attr( 'aria-expanded', 'false' );
 				container.hide();
 			} else {
+				$( this ).attr( 'aria-expanded', 'true' );
 				container.show(150);
 			}
 		});
