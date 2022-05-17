@@ -64,6 +64,23 @@ div.aligncenter {
 	min-width: 24px;
 }
 
+.top-left .wpa-ld a, .top-left .wpa-ld button {
+	top: 2px;
+	bottom: auto;
+}
+
+.top-right .wpa-ld a, .top-right .wpa-ld button {
+	top: 2px;
+	right: 2px;
+	left: auto;
+	bottom: auto;
+}
+
+.bottom-right .wpa-ld a, .bottom-right .wpa-ld button {
+	right: 2px;
+	left: auto;
+}
+
 .wpa-ld img {
 	display: block;
 }
