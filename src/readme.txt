@@ -80,6 +80,7 @@ The plug-in is intended to help with deficiencies commonly found in themes and t
 
 * Update: Fix accessibility issues in longdesc disclosure button.
 * Add: style variations on longdesc disclosure to adjust position. (.top-left, .top-right, .bottom-right)
+* Update tested to for WP 6.0.
 
 = 1.8.0 =
 
