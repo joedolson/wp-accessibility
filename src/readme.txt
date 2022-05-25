@@ -4,8 +4,8 @@ Donate link: http://www.joedolson.com/donate/
 Tags: title, accessibility, accessible, navigation, wcag, a11y, section508, focus, alt text, labels, aria
 Requires at least: 3.4.2
 Requires PHP: 5.6
-Tested up to: 5.9
-Stable tag: 1.8.0
+Tested up to: 6.0
+Stable tag: 1.8.1
 Text Domain: wp-accessibility
 License: GPLv2 or later
 
