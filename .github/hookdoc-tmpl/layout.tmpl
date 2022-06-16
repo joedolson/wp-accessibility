@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title><?js= title ?> - My Calendar Hook Doumentation</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+    <link type="text/css" rel="stylesheet" href="styles-docs.css?v=0.1.1">
+</head>
+
+<body<?js if (title === 'Home') { ?> class="home"<?js } ?>>
+
+<div id="main">
+
+    <header><h1 class="page-title"><?js= title ?></h1></header>
+	<main>
+    <?js= content ?>
+	</main>
+    <footer>
+		<a href="https://docs.joedolson.com/my-calendar">My Calendar User Documentation</a> &bull;
+		<a href="https://github.com/joedolson/my-calendar/">My Calendar on GitHub</a> &bull;
+		<a href="https://www.joedolson.com/my-calendar-pro/">Buy My Calendar Pro</a>
+	</footer>
+
+	
+</div>
+
+<nav>
+    <?js= this.nav ?>
+</nav>
+
+<br class="clear">
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
