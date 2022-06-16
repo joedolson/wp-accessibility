@@ -87,12 +87,30 @@ function wpa_suspicious_alt( $alt ) {
 		'logo',
 		'image',
 	);
+	/**
+	 * Filter array of case insensitive strings that make alt text suspicious.
+	 *
+	 * @hook wpa_case_insensitive
+	 *
+	 * @param {array} $case_insensitive Array of strings.
+	 *
+	 * @return array
+	 */
 	$case_insensitive = apply_filters( 'wpa_case_insensitive', $case_insensitive );
 	$case_sensitive   = array(
 		'DSC',
 		'IMG',
 	);
-	$case_sensitive   = apply_filters( 'wpa_case_sensitive', $case_sensitive );
+	/**
+	 * Filter array of case sensitive strings that make alt text suspicious.
+	 *
+	 * @hook wpa_case_sensitive
+	 *
+	 * @param {array} $case_sensitive Array of strings.
+	 *
+	 * @return array
+	 */
+	$case_sensitive = apply_filters( 'wpa_case_sensitive', $case_sensitive );
 	foreach ( $case_insensitive as $term ) {
 		if ( false !== stripos( $alt, $term ) ) {
 			return true;

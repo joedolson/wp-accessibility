@@ -287,6 +287,16 @@ function wpa_jquery_asl() {
 	}
 
 	wp_enqueue_script( 'wp-accessibility', plugins_url( 'js/wp-accessibility.js', __FILE__ ), array( 'jquery' ), '1.0.2', true );
+	/**
+	 * Filter target element selector for underlines. Default `a`.
+	 *
+	 * @hook wpa_underline_target
+	 *
+	 * @param {string} $el Target element selector.
+	 *
+	 * @return string
+	 */
+	$target = apply_filters( 'wpa_underline_target', 'a' );
 	wp_localize_script(
 		'wp-accessibility',
 		'wpa',
@@ -299,7 +309,7 @@ function wpa_jquery_asl() {
 			'tabindex'  => ( 'on' === get_option( 'wpa_tabindex' ) ) ? true : false,
 			'underline' => array(
 				'enabled' => ( 'on' === get_option( 'wpa_underline' ) ) ? true : false,
-				'target'  => apply_filters( 'wpa_underline_target', 'a' ),
+				'target'  => $target,
 			),
 			'dir'       => ( is_rtl() ) ? 'rtl' : 'ltr',
 			'lang'      => get_bloginfo( 'language' ),

@@ -58,12 +58,30 @@ function wpa_toolbar_enqueue_scripts() {
 	wp_register_style( 'ui-font', plugins_url( 'toolbar/fonts/css/a11y-toolbar.css', __FILE__ ) );
 
 	// Toolbar CSS.
+	/**
+	 * Filter URL for toolbar CSS.
+	 *
+	 * @hook wpa_toolbar_css
+	 *
+	 * @param {string} $url URL to stylesheet for accessibility toolbar.
+	 *
+	 * @return string
+	 */
 	$toolbar_styles = apply_filters( 'wpa_toolbar_css', plugins_url( 'toolbar/css/a11y.css', __FILE__ ) );
 	wp_register_style( 'ui-a11y', $toolbar_styles, array( 'ui-font' ) );
 
 	// Font resizing stylesheet.
 	$fontsize_stylesheet = ( 'on' === get_option( 'wpa_alternate_fontsize' ) ) ? 'a11y-fontsize-alt' : 'a11y-fontsize';
-	$fontsize            = apply_filters( 'wpa_fontsize_css', plugins_url( 'toolbar/css/' . $fontsize_stylesheet . '.css', __FILE__ ) );
+	/**
+	 * Filter the URL to the stylesheet controlling large font views.
+	 *
+	 * @hook wpa_fontsize_css
+	 *
+	 * @param {string} $stylesheet URL for increased font size stylesheet.
+	 *
+	 * @return string
+	 */
+	$fontsize = apply_filters( 'wpa_fontsize_css', plugins_url( 'toolbar/css/' . $fontsize_stylesheet . '.css', __FILE__ ) );
 	wp_register_style( 'ui-fontsize.css', $fontsize );
 
 	// Control toolbar font size.
@@ -147,7 +165,16 @@ function wpa_toolbar_html( $type = 'widget', $control = 'button' ) {
  * Generate Toolbar variables for localization in JS.
  */
 function wpa_toolbar_js() {
-	$default    = ( false !== (bool) trim( get_option( 'wpa_toolbar_default' ) ) ) ? get_option( 'wpa_toolbar_default' ) : 'body';
+	$default = ( false !== (bool) trim( get_option( 'wpa_toolbar_default' ) ) ) ? get_option( 'wpa_toolbar_default' ) : 'body';
+	/**
+	 * Filter attachment location of the toolbar. Default `body`.
+	 *
+	 * @hook wpa_move_toolbar
+	 *
+	 * @param {string} $el Target element selector.
+	 *
+	 * @return string
+	 */
 	$location   = apply_filters( 'wpa_move_toolbar', $default );
 	$is_rtl     = ( is_rtl() ) ? 'rtl' : 'ltr';
 	$is_right   = ( 'on' === get_option( 'wpa_toolbar_right' ) ) ? 'right' : 'left';
