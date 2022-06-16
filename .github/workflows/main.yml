@@ -1,37 +1,52 @@
-name: PHP tests
+name: Code Linting
 
 on:
-    push:
-        paths:
-        - '**.php'
+  push:
+    paths:
+      - '.github/workflows/main.yml'
+      - '**.php'
+      - 'phpcs.xml.dist'
+      - 'composer.json'
+      - 'composer.lock'
+  pull_request:
+    branches:
+      - trunk
+    # Only run if PHP-related files changed.
+    paths:
+      - '.github/workflows/main.yml'
+      - '**.php'
+      - 'phpcs.xml.dist'
+      - 'composer.json'
+      - 'composer.lock'
+    types:
+      - opened
+      - reopened
+      - synchronize
 
 jobs:
-  run:
-    runs-on: ${{ matrix.operating-system }}
-    strategy:
-      matrix:
-        operating-system: [ubuntu-latest]
-        php-versions: ['7.2', '7.3', '7.4','8.0','8.1']
-    name: PHP ${{ matrix.php-versions }} Test on ${{ matrix.operating-system }}
+  php-lint:
+    name: PHP
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-
-    - uses: getong/mariadb-action@v1.1
-
-    - name: Setup PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: ${{ matrix.php-versions }}
-        extensions: mbstring, intl #optional, setup extensions
-        coverage: xdebug #optional, setup coverage driver
-        tools: composer:v1
-
-    - name: Check PHP Version
-      run: php -v
-
-    - name: Composer install
-      run: composer install --optimize-autoloader --prefer-dist
-
-    - name: PHPCS check
-      run: ./vendor/bin/phpcs --ignore=*EDD_SL_Plugin_Updater.php*,*Authorizenet.php*,*/gateways/lib/*,*class.iCalReader.php*,*my-calendar-authnet.php*
+      - uses: styfle/cancel-workflow-action@0.8.0
+      - uses: actions/checkout@v2
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+      - name: Get Composer Cache Directory
+        id: composer-cache
+        run: |
+          echo "::set-output name=dir::$(composer config cache-files-dir)"
+      - uses: actions/cache@v2
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+      - name: Validate Composer configuration
+        run: composer validate --strict
+      - name: Composer Install
+        run: composer install --no-interaction --no-progress
+      - name: PHP Lint
+        run: composer lint
