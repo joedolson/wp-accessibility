@@ -1,7 +1,7 @@
-## My Calendar Plugin Hook Documentation
+## WP Accessibility Plugin Hook Documentation
 
-This resource is generated documentation on actions and filters found in My Calendar. Use the sidebar to browse and navigate.
+This resource is generated documentation on actions and filters found in WP Accessibility. Use the sidebar to browse and navigate.
 
-For more information about using My Calendar, please see the [My Calendar user documentation](https://docs.joedolson.com/my-calendar/).
+For more information about using WP Accessibility, please see the [WP Accessibility user documentation](https://make.wordpress.org/accessibility/handbook/which-tools-can-i-use/wp-accessibility-plugin/).
 
-To report an issue with My Calendar or contribute back to the project, please visit the [GitHub repository](https://github.com/joedolson/my-calendar/).
+To report an issue with WP Accessibility or contribute back to the project, please visit the [GitHub repository](https://github.com/joedolson/wp-accessibility/).
