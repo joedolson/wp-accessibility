@@ -155,3 +155,13 @@ label.wpa-screen-reader-text {
 	width: 1px;
 	word-wrap: normal !important;
 }
+
+.wpa-content-summary {
+	padding: 30px;
+	background: rgba( 0,0,0,.05 );
+}
+
+.wpa-content-summary div p:last-of-type {
+	margin-bottom: 0;
+	padding-bottom: 0;
+}

@@ -81,6 +81,7 @@ function wpa_install() {
 		add_option( 'wpa_installed', 'true' );
 		add_option( 'wpa_version', $wpa_version );
 		add_option( 'wpa_longdesc', 'jquery' );
+		add_option( 'wpa_post_types', array( 'post', 'page' ) );
 	} else {
 		wpa_check_version();
 		update_option( 'wpa_version', $wpa_version );
@@ -167,7 +168,7 @@ function wpa_stylesheet() {
 	$version = wpa_check_version();
 	// Respects SSL, Style.css is relative to the current file.
 	wp_register_style( 'wpa-style', plugins_url( 'css/wpa-style.css', __FILE__ ), array(), $version );
-	if ( 'link' === get_option( 'wpa_longdesc' ) || 'jquery' === get_option( 'wpa_longdesc' ) || 'on' === get_option( 'asl_enable' ) ) {
+	if ( 'link' === get_option( 'wpa_longdesc' ) || 'jquery' === get_option( 'wpa_longdesc' ) || 'on' === get_option( 'asl_enable' ) || ! empty( get_option( 'wpa_post_types', array() ) ) ) {
 		wp_enqueue_style( 'wpa-style' );
 	}
 	if ( current_user_can( 'edit_files' ) && 'on' === get_option( 'wpa_diagnostics' ) ) {
@@ -656,3 +657,141 @@ function wpa_disable_editor_fullscreen_by_default() {
 	}
 }
 add_action( 'enqueue_block_editor_assets', 'wpa_disable_editor_fullscreen_by_default' );
+
+/**
+ * Insert content summary at top of article content.
+ *
+ * @param string $content Post content.
+ *
+ * @return string
+ */
+function wpa_content_summary( $content ) {
+	if ( is_singular() && wpa_in_post_type( get_queried_object_id() ) ) {
+		$post_id = get_the_ID();
+		$summary = wpa_get_content_summary( $post_id );
+		if ( ! $summary ) {
+			return $content;
+		}
+		$content = $summary . $content;
+	}
+
+	return $content;
+}
+add_filter( 'the_content', 'wpa_content_summary' );
+
+/**
+ * Get a simplified summary for content.
+ *
+ * @param $post_id Post ID.
+ *
+ * @return string
+ */
+function wpa_get_content_summary( $post_id ) {
+	$summary = trim( get_post_meta( $post_id, '_wpa_content_summary', true ) );
+	if ( ! $summary ) {
+		return '';
+	}
+	/**
+	 * Filter the heading text for content summaries. Default `Summary`.
+	 *
+	 * @hook wpa_summary_heading
+	 *
+	 * @param {string} $heading Heading text.
+	 * @param {int}    $post_id Post ID.
+	 *
+	 * @return {string}
+	 */
+	$heading = apply_filters( 'wpa_summary_heading', __( 'Summary', 'wp-accessibility' ), $post_id );
+	/**
+	 * Filter the heading leve for content summaries. Default `h2`.
+	 *
+	 * @hook wpa_summary_heading_level
+	 *
+	 * @param {string} $heading Element selector.
+	 * @param {int}    $post_id Post ID.
+	 *
+	 * @return {string}
+	 */
+	$level = apply_filters( 'wpa_summary_heading_level', 'h2', $post_id );
+
+	$heading = "<$level>" . $heading . "</$level>";
+	$content = '<section class="wpa-content-summary" id="summary-' . absint( $post_id ) . '"><div class="wpa-content-summary-inner">' . $heading . wpautop( wp_kses_post( stripslashes( $summary ) ) ) . '</div></section>';
+
+	return $content;
+}
+
+/**
+ * Check whether a given post is in an allowed post type for content summaries.
+ *
+ * @param integer $post_id Post ID.
+ *
+ * @return boolean True if post is allowed, false otherwise.
+ */
+function wpa_in_post_type( $post_id ) {
+	$settings           = get_option( 'wpa_post_types', array() );
+	if ( is_array( $settings ) && ! empty( $settings ) ) {
+		$type = get_post_type( $post_id );
+		if ( in_array( $type, $settings, true ) ) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
+add_action( 'admin_menu', 'wpa_add_outer_box' );
+/**
+ * Add metabox for content summaries.
+ */
+function wpa_add_outer_box() {
+	$allowed = get_option( 'wpa_post_types', array() );
+	if ( is_array( $allowed ) ) {
+		foreach ( $allowed as $post_type ) {
+			add_meta_box( 'wpa_content_summary', __( 'Content Summary', 'wp-accessibility' ), 'wpa_add_inner_box', $post_type, 'normal', 'high' );
+		}
+	}
+}
+
+/**
+ * Render content summary form.
+ */
+function wpa_add_inner_box() {
+	global $post;
+	$summary = get_post_meta( $post->ID, '_wpa_content_summary', true );
+	$nonce   = wp_nonce_field( 'wpa-nonce-field', 'wpa_nonce_name', true, false );
+	echo $nonce;
+	?>
+	<p class='wpa-content-summary-field'>
+		<label for="wpa_content_summary"><?php _e( 'Simple Content Summary', 'wp-accessibility' ); ?></label><br/>
+		<textarea class="wpa-content-summary widefat" name="wpa_content_summary" id="wpa_content_summary" rows="4" cols="60" aria-describedy="content-summary-description"><?php echo esc_textarea( $summary ); ?></textarea>
+		<span id="content-summary-description"><?php _e( 'Provide a simplified summary to aid comprehension of complex content.', 'wp-accessibility' ); ?></span>
+	</p>
+	<?php
+}
+
+/**
+ * Save content summary from post meta box.
+ *
+ * @param int    $id Post ID.
+ * @param object $post Post.
+ *
+ * @return int
+ */
+function wpa_save_content_summary( $id, $post ) {
+	if ( empty( $_POST ) || ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) || wp_is_post_revision( $id ) || isset( $_POST['_inline_edit'] ) || ( defined( 'DOING_AJAX' ) && DOING_AJAX ) || ! wpa_in_post_type( $id ) ) {
+		return $id;
+	}
+
+	// verify this came from our screen and with proper authorization.
+	// because save_post can be triggered at other times.
+	if ( isset( $_POST['wpa_nonce_name'] ) ) {
+		if ( ! wp_verify_nonce( $_POST['wpa_nonce_name'], 'wpa-nonce-field' ) ) {
+			return $id;
+		}
+		$summary = isset( $_POST['wpa_content_summary'] ) ? wp_kses_post( $_POST['wpa_content_summary'] ) : '';
+		update_post_meta( $id, '_wpa_content_summary', $summary );
+	}
+
+	return $id;
+}
+add_action( 'save_post', 'wpa_save_content_summary', 10, 2 );

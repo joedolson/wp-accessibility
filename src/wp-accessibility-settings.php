@@ -72,16 +72,28 @@ function wpa_update_settings() {
 
 			return "<div class='updated'><p>" . $message . "</p>$notice</div>";
 		}
+
+		if ( isset( $_POST['action'] ) && 'features' === $_POST['action'] ) {
+			$wpa_search_alt              = ( isset( $_POST['wpa_search_alt'] ) ) ? 'on' : '';
+			$wpa_longdesc                = ( isset( $_POST['wpa_longdesc'] ) ) ? esc_attr( $_POST['wpa_longdesc'] ) : 'false';
+			$wpa_longdesc_featured       = ( isset( $_POST['wpa_longdesc_featured'] ) ) ? esc_attr( $_POST['wpa_longdesc_featured'] ) : 'false';
+			$wpa_post_types              = ( isset( $_POST['wpa_post_types'] ) ) ? map_deep( $_POST['wpa_post_types'], 'sanitize_text_field' ) : array();
+			update_option( 'wpa_search_alt', $wpa_search_alt );
+			update_option( 'wpa_longdesc', $wpa_longdesc );
+			update_option( 'wpa_longdesc_featured', $wpa_longdesc_featured );
+			update_option( 'wpa_post_types', $wpa_post_types );
+			$message = __( 'Accessibility Features Updated', 'wp-accessibility' );
+
+			return "<div class='updated'><p>" . $message . '</p></div>';
+		}
+
 		if ( isset( $_POST['action'] ) && 'misc' === $_POST['action'] ) {
 			$wpa_lang                    = ( isset( $_POST['wpa_lang'] ) ) ? 'on' : '';
 			$wpa_target                  = ( isset( $_POST['wpa_target'] ) ) ? 'on' : '';
 			$wpa_labels                  = ( isset( $_POST['wpa_labels'] ) ) ? 'on' : '';
 			$wpa_search                  = ( isset( $_POST['wpa_search'] ) ) ? 'on' : '';
-			$wpa_search_alt              = ( isset( $_POST['wpa_search_alt'] ) ) ? 'on' : '';
 			$wpa_tabindex                = ( isset( $_POST['wpa_tabindex'] ) ) ? 'on' : '';
 			$wpa_underline               = ( isset( $_POST['wpa_underline'] ) ) ? 'on' : '';
-			$wpa_longdesc                = ( isset( $_POST['wpa_longdesc'] ) ) ? esc_attr( $_POST['wpa_longdesc'] ) : 'false';
-			$wpa_longdesc_featured       = ( isset( $_POST['wpa_longdesc_featured'] ) ) ? esc_attr( $_POST['wpa_longdesc_featured'] ) : 'false';
 			$wpa_image_titles            = ( isset( $_POST['wpa_image_titles'] ) ) ? 'on' : '';
 			$wpa_more                    = ( isset( $_POST['wpa_more'] ) ) ? 'on' : '';
 			$wpa_focus                   = ( isset( $_POST['wpa_focus'] ) ) ? 'on' : '';
@@ -95,17 +107,15 @@ function wpa_update_settings() {
 			update_option( 'wpa_target', $wpa_target );
 			update_option( 'wpa_labels', $wpa_labels );
 			update_option( 'wpa_search', $wpa_search );
-			update_option( 'wpa_search_alt', $wpa_search_alt );
 			update_option( 'wpa_tabindex', $wpa_tabindex );
 			update_option( 'wpa_underline', $wpa_underline );
-			update_option( 'wpa_longdesc', $wpa_longdesc );
-			update_option( 'wpa_longdesc_featured', $wpa_longdesc_featured );
 			update_option( 'wpa_image_titles', $wpa_image_titles );
 			update_option( 'wpa_more', $wpa_more );
 			update_option( 'wpa_focus', $wpa_focus );
 			update_option( 'wpa_focus_color', $wpa_focus_color );
 			update_option( 'wpa_continue', $wpa_continue );
 			update_option( 'wpa_diagnostics', $wpa_diagnostics );
+			update_option( 'wpa_insert_roles', $wpa_insert_roles );
 			update_option( 'wpa_disable_fullscreen', $wpa_disable_fullscreen );
 			$message = __( 'Miscellaneous Accessibility Settings Updated', 'wp-accessibility' );
 
@@ -187,10 +197,17 @@ function wpa_admin_settings() {
 												<label for="asl_navigation"><?php _e( 'Skip to Navigation link target (ID of your main navigation container)', 'wp-accessibility' ); ?></label><br />
 												<input type="text" id="asl_navigation" name="asl_navigation" size="44" value="<?php echo esc_attr( get_option( 'asl_navigation' ) ); ?>"/>
 											</li>
+											<?php
+											if ( '' !== get_option( 'asl_sitemap' ) ) {
+												?>
 											<li>
 												<label for="asl_sitemap"><?php _e( 'Site Map link target (URL for your site map)', 'wp-accessibility' ); ?></label><br />
 												<input type="text" id="asl_sitemap" name="asl_sitemap" size="44" value="<?php echo esc_attr( get_option( 'asl_sitemap' ) ); ?>"/>
 											</li>
+												<?php
+											}
+											if ( '' !== get_option( 'asl_extra_target' ) ) {
+												?>
 											<li>
 												<label for="asl_extra_target"><?php _e( 'Add your own link (link or container ID)', 'wp-accessibility' ); ?></label><br />
 												<input type="text" id="asl_extra_target" name="asl_extra_target" size="44" value="<?php echo esc_attr( get_option( 'asl_extra_target' ) ); ?>"/>
@@ -199,6 +216,9 @@ function wpa_admin_settings() {
 												<label for="asl_extra_text"><?php _e( 'Link text for your link', 'wp-accessibility' ); ?></label><br />
 												<input type="text" id="asl_extra_text" name="asl_extra_text" size="44" value="<?php echo esc_attr( get_option( 'asl_extra_text' ) ); ?>"/>
 											</li>
+												<?php
+											}
+											?>
 											<li>
 												<label for="asl_styles_focus"><?php _e( 'Styles for Skiplinks when they have focus', 'wp-accessibility' ); ?></label><br/>
 												<textarea name='asl_styles_focus' id='asl_styles_focus' cols='60' rows='4'><?php echo esc_attr( stripslashes( get_option( 'asl_styles_focus' ) ) ); ?></textarea>
@@ -306,9 +326,10 @@ function wpa_admin_settings() {
 							</div>
 						</div>
 						<div class="postbox">
-							<h2 id="contrast" class='hndle'><?php _e( 'Miscellaneous Accessibility Settings', 'wp-accessibility' ); ?></h2>
+							<h2 id="accessibility-settings" class='hndle'><?php _e( 'Accessibility Settings', 'wp-accessibility' ); ?></h2>
 
 							<div class="inside">
+								<p><?php _e( 'Settings that fix accessibility issues on your site.', 'wp-accessibility' ); ?></p>
 								<form method="post" action="<?php echo admin_url( 'options-general.php?page=wp-accessibility/wp-accessibility.php' ); ?>">
 									<ul>
 										<?php
@@ -340,10 +361,6 @@ function wpa_admin_settings() {
 											<label for="wpa_target"><?php _e( 'Remove target attribute from links', 'wp-accessibility' ); ?></label>
 										</li>
 										<li>
-											<input type="checkbox" id="wpa_search_alt" name="wpa_search_alt" <?php checked( get_option( 'wpa_search_alt' ), 'on' ); ?>/>
-											<label for="wpa_search_alt"><?php _e( 'Include alt attribute in media library searches', 'wp-accessibility' ); ?><span><?php _e( '* May cause slow searches on very large media libraries.', 'wp-accessibility' ); ?></span></label> 
-										</li>
-										<li>
 											<input type="checkbox" id="wpa_search" name="wpa_search" <?php checked( get_option( 'wpa_search' ), 'on' ); ?>/>
 											<label for="wpa_search"><?php _e( 'Force search error on empty search submission (theme must have search.php template)', 'wp-accessibility' ); ?></label>
 										</li>
@@ -354,18 +371,6 @@ function wpa_admin_settings() {
 										<li>
 											<input type="checkbox" id="wpa_underline" name="wpa_underline" <?php checked( get_option( 'wpa_underline' ), 'on' ); ?>/>
 											<label for="wpa_underline"><?php _e( 'Force underline on all links', 'wp-accessibility' ); ?></label>
-										</li>
-										<li>
-											<label for="wpa_longdesc"><?php _e( 'Long Description UI', 'wp-accessibility' ); ?></label><br />
-											<select id="wpa_longdesc" name="wpa_longdesc">
-												<option value='false'<?php selected( get_option( 'wpa_longdesc' ), 'false' ); ?>><?php _e( 'None', 'wp-accessibility' ); ?></option>
-												<option value='link'<?php selected( get_option( 'wpa_longdesc' ), 'link' ); ?>><?php _e( 'Link to description', 'wp-accessibility' ); ?></option>
-												<option value='jquery'<?php selected( get_option( 'wpa_longdesc' ), 'jquery' ); ?>><?php _e( 'Button trigger to overlay image', 'wp-accessibility' ); ?></option>
-											</select>
-										</li>
-										<li>
-											<input type="checkbox" id="wpa_longdesc_featured" name="wpa_longdesc_featured" <?php checked( get_option( 'wpa_longdesc_featured' ), 'on' ); ?>/>
-											<label for="wpa_longdesc_featured"><?php _e( 'Support <code>longdesc</code> on featured images', 'wp-accessibility' ); ?></label>
 										</li>
 										<li>
 											<input type="checkbox" id="wpa_image_titles" name="wpa_image_titles" <?php checked( get_option( 'wpa_image_titles' ), 'on' ); ?>/>
@@ -391,6 +396,60 @@ function wpa_admin_settings() {
 									</p>
 
 									<p><input type="submit" name="wpa-settings" class="button-primary" value="<?php _e( 'Update Miscellaneous Settings', 'wp-accessibility' ); ?>"/></p>
+								</form>
+							</div>
+						</div>
+						<div class="postbox">
+							<h2 class="hndle"><?php _e( 'Accessibility Features', 'wp-accessibility' ); ?></h2>
+							<div class="inside">
+								<p><?php _e( 'These settings enable content accessibility features you can use to improve your site.', 'wp-accessibility' ); ?></p>
+								<form method="post" action="<?php echo admin_url( 'options-general.php?page=wp-accessibility/wp-accessibility.php' ); ?>">
+									<ul>
+										<li>
+											<input type="checkbox" id="wpa_search_alt" name="wpa_search_alt" <?php checked( get_option( 'wpa_search_alt' ), 'on' ); ?>/>
+											<label for="wpa_search_alt"><?php _e( 'Include alt attribute in media library searches', 'wp-accessibility' ); ?><span><?php _e( '* May cause slow searches on very large media libraries.', 'wp-accessibility' ); ?></span></label> 
+										</li>
+										<li>
+											<label for="wpa_longdesc"><?php _e( 'Long Description UI', 'wp-accessibility' ); ?></label><br />
+											<select id="wpa_longdesc" name="wpa_longdesc">
+												<option value='false'<?php selected( get_option( 'wpa_longdesc' ), 'false' ); ?>><?php _e( 'None', 'wp-accessibility' ); ?></option>
+												<option value='link'<?php selected( get_option( 'wpa_longdesc' ), 'link' ); ?>><?php _e( 'Link to description', 'wp-accessibility' ); ?></option>
+												<option value='jquery'<?php selected( get_option( 'wpa_longdesc' ), 'jquery' ); ?>><?php _e( 'Button trigger to overlay image', 'wp-accessibility' ); ?></option>
+											</select>
+										</li>
+										<li>
+											<input type="checkbox" id="wpa_longdesc_featured" name="wpa_longdesc_featured" <?php checked( get_option( 'wpa_longdesc_featured' ), 'on' ); ?>/>
+											<label for="wpa_longdesc_featured"><?php _e( 'Support <code>longdesc</code> on featured images', 'wp-accessibility' ); ?></label>
+										</li>
+										<li>
+											<fieldset>
+												<legend><?php _e( 'Enable Content Summaries', 'wp-accessibility' ); ?></legend>
+												<ul class="checkboxes">
+												<?php
+													$enabled    = get_option( 'wpa_post_types', array() );
+													$post_types = get_post_types(
+														array(
+															'show_ui' => true,
+														),
+														'objects'
+													);
+													foreach ( $post_types as $type ) {
+														$id      = $type->name;
+														$name    = $type->labels->singular_name;
+														$checked = ( in_array( $id, $enabled, true ) ) ? ' checked="checked"' : '';
+
+														echo '<li><input type="checkbox" name="wpa_post_types[]" id="wpa_post_types_' . $id . '" value="' . $id . '"' . $checked . '/> <label for="wpa_post_types_"' . $id . '">' . $name . '</label></li>';
+													}
+												?>
+												</ul>
+											</fieldset>
+										</li>
+									</ul>
+									<p>
+										<input type="hidden" name="_wpnonce" value="<?php echo wp_create_nonce( 'wpa-nonce' ); ?>" />
+										<input type="hidden" name="action" value="features" />
+									</p>
+									<p><input type="submit" name="wpa-settings" class="button-primary" value="<?php _e( 'Update Accessibility Features', 'wp-accessibility' ); ?>"/></p>
 								</form>
 							</div>
 						</div>
