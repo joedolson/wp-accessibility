@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Source: wp-accessibility-alt.php - My Calendar Hook Doumentation</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+    <link type="text/css" rel="stylesheet" href="styles-docs.css?v=0.1.1">
+</head>
+
+<body>
+
+<div id="main">
+
+    <header><h1 class="page-title">Source: wp-accessibility-alt.php</h1></header>
+	<main>
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>&lt;?php
+/**
+ * WP Accessibility Alt control implementation
+ *
+ * @category Features
+ * @package  WP Accessibility
+ * @author   Joe Dolson
+ * @license  GPLv2 or later
+ * @link     https://www.joedolson.com/wp-access/
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+add_filter( 'manage_media_columns', 'wpa_media_columns' );
+add_action( 'manage_media_custom_column', 'wpa_media_value', 10, 2 );
+/**
+ * Add column to media column table view indicating images with no alt attribute not also checked as decorative.
+ *
+ * @param array $columns Current table view columns.
+ *
+ * @return columns.
+ */
+function wpa_media_columns( $columns ) {
+	$columns['wpa_data'] = __( 'Accessibility', 'wp-accessibility' );
+
+	return $columns;
+}
+
+/**
+ * Get media values for current item to indicate alt status.
+ *
+ * @param array $column Name of column being checked.
+ * @param int   $id ID of object thiss row belongs to.
+ *
+ * @return String alt attribute status for this object.
+ */
+function wpa_media_value( $column, $id ) {
+	if ( 'wpa_data' === $column ) {
+		$mime           = get_post_mime_type( $id );
+		$invalid_values = array(
+			'""',
+			"''",
+			'&amp;nbsp;',
+			' ',
+			'-',
+			'--',
+		);
+		switch ( $mime ) {
+			case 'image/jpeg':
+			case 'image/png':
+			case 'image/gif':
+				$alt    = get_post_meta( $id, '_wp_attachment_image_alt', true );
+				$no_alt = (bool) get_post_meta( $id, '_no_alt', true );
+				if ( ! $alt &amp;&amp; ! $no_alt ) {
+					echo '&lt;span class="missing">&lt;span class="dashicons dashicons-no" aria-hidden="true">&lt;/span> &lt;a href="' . get_edit_post_link( $id ) . '#attachment_alt">' . __( 'Add &lt;code>alt&lt;/code> text', 'wp-accessibility' ) . '&lt;/a>&lt;/span>';
+				} else {
+					if ( true === $no_alt ) {
+						echo '&lt;span class="ok">&lt;span class="dashicons dashicons-yes" aria-hidden="true">&lt;/span> ' . __( 'Decorative', 'wp-accessibility' ) . '&lt;/span>';
+					} elseif ( in_array( $alt, $invalid_values, true ) || ctype_punct( $alt ) || ctype_space( $alt ) ) {
+						echo '&lt;span class="missing">&lt;span class="dashicons dashicons-no" aria-hidden="true">&lt;/span> &lt;a href="' . get_edit_post_link( $id ) . '#attachment_alt">' . __( 'Invalid &lt;code>alt&lt;/code>', 'wp-accessibility' ) . '&lt;/a>&lt;/span>';
+					} elseif ( wpa_suspicious_alt( $alt ) ) {
+						echo '&lt;span class="missing">&lt;span class="dashicons dashicons-no" aria-hidden="true">&lt;/span> &lt;a href="' . get_edit_post_link( $id ) . '#attachment_alt">' . __( 'Suspicious &lt;code>alt&lt;/code>', 'wp-accessibility' ) . '&lt;/a>&lt;/span>';
+					} else {
+						echo '&lt;span class="ok">&lt;span class="dashicons dashicons-yes" aria-hidden="true">&lt;/span> ' . __( 'Has &lt;code>alt&lt;/code>', 'wp-accessibility' ) . '&lt;/span>';
+					}
+				}
+				break;
+			default:
+				echo '&lt;span class="non-image">' . __( 'N/A', 'wp-accessibility' ) . '&lt;/span>';
+				break;
+		}
+	}
+	return $column;
+}
+
+/**
+ * Check whether an alt attribute contains suspect strings.
+ *
+ * @param string $alt Alt attribute.
+ *
+ * @return bool
+ */
+function wpa_suspicious_alt( $alt ) {
+	$case_insensitive = array(
+		'logo',
+		'image',
+	);
+	/**
+	 * Filter array of case insensitive strings that make alt text suspicious.
+	 *
+	 * @hook wpa_case_insensitive
+	 *
+	 * @param {array} $case_insensitive Array of strings.
+	 *
+	 * @return array
+	 */
+	$case_insensitive = apply_filters( 'wpa_case_insensitive', $case_insensitive );
+	$case_sensitive   = array(
+		'DSC',
+		'IMG',
+	);
+	/**
+	 * Filter array of case sensitive strings that make alt text suspicious.
+	 *
+	 * @hook wpa_case_sensitive
+	 *
+	 * @param {array} $case_sensitive Array of strings.
+	 *
+	 * @return array
+	 */
+	$case_sensitive = apply_filters( 'wpa_case_sensitive', $case_sensitive );
+	foreach ( $case_insensitive as $term ) {
+		if ( false !== stripos( $alt, $term ) ) {
+			return true;
+		}
+	}
+	foreach ( $case_sensitive as $term ) {
+		if ( false !== strpos( $alt, $term ) ) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
+add_filter( 'attachment_fields_to_edit', 'wpa_insert_alt_verification', 10, 2 );
+/**
+ * Insert custom fields into attachment editor for alt verification.
+ *
+ * @param array  $form_fields Existing form fields.
+ * @param object $post Media attachment object.
+ *
+ * @return array New form fields.
+ */
+function wpa_insert_alt_verification( $form_fields, $post ) {
+	$mime = get_post_mime_type( $post->ID );
+	if ( 'image/jpeg' === $mime || 'image/png' === $mime || 'image/gif' === $mime ) {
+		$no_alt                = get_post_meta( $post->ID, '_no_alt', true );
+		$alt                   = get_post_meta( $post->ID, '_wp_attachment_image_alt', true );
+		$checked               = checked( $no_alt, 1, false );
+		$form_fields['no_alt'] = array(
+			'label' => __( 'Decorative', 'wp-accessibility' ),
+			'input' => 'html',
+			'value' => 1,
+			'html'  => "&lt;input name='attachments[$post->ID][no_alt]' id='attachments-$post->ID-no_alt' value='1' type='checkbox' aria-describedby='wpa_help' $checked /> &lt;em class='help' id='wpa_help'>" . __( 'All images must either have an alt attribute or be declared as decorative.', 'wp-accessibility' ) . '&lt;/em>',
+		);
+	}
+	return $form_fields;
+}
+
+add_filter( 'attachment_fields_to_save', 'wpa_save_alt_verification', 10, 2 );
+/**
+ * Save custom alt fields when attachment updated.
+ *
+ * @param array $post $post data.
+ * @param array $attachment Attachment data.
+ *
+ * @return $post
+ */
+function wpa_save_alt_verification( $post, $attachment ) {
+	if ( isset( $attachment['no_alt'] ) ) {
+		update_post_meta( $post['ID'], '_no_alt', 1 );
+	} else {
+		delete_post_meta( $post['ID'], '_no_alt' );
+	}
+
+	return $post;
+}
+
+add_filter( 'image_send_to_editor', 'wpa_alt_attribute', 10, 8 );
+/**
+ * Filter output when image is submitted to the editor. Check for alt attributes, and modify output.
+ *
+ * @param string $html Image HTML.
+ * @param int    $id Post ID.
+ * @param string $caption Caption text.
+ * @param string $title Image title.
+ * @param string $align Image alignment.
+ * @param string $url Image URL.
+ * @param array  $size Image size.
+ * @param string $alt Image alt attribute.
+ *
+ * @return string Image output.
+ */
+function wpa_alt_attribute( $html, $id, $caption, $title, $align, $url, $size, $alt ) {
+	// Get data for the image attachment.
+	$noalt = (bool) get_post_meta( $id, '_no_alt', true );
+	// Get the original title to compare to alt.
+	$title   = get_the_title( $id );
+	$warning = false;
+	if ( true === $noalt ) {
+		$html = str_replace( 'alt="' . $alt . '"', 'alt=""', $html );
+	}
+	if ( ( '' === $alt || $alt === $title ) &amp;&amp; true !== $noalt ) {
+		if ( $alt === $title ) {
+			$warning = __( 'The alt text for this image is the same as the title. In most cases, that means that the alt attribute has been automatically provided from the image file name.', 'wp-accessibility' );
+			$image   = 'alt-same.png';
+		} else {
+			$warning = __( 'This image requires alt text, but the alt text is currently blank. Either add alt text or mark the image as decorative.', 'wp-accessibility' );
+			$image   = 'alt-missing.png';
+		}
+	}
+	if ( $warning ) {
+		return $html . "&lt;img class='wpa-image-missing-alt size-" . esc_attr( $size ) . ' ' . esc_attr( $align ) . "' src='" . plugins_url( "imgs/$image", __FILE__ ) . "' alt='" . esc_attr( $warning ) . "' />";
+	}
+	return $html;
+}
+
+add_action( 'init', 'wpa_add_editor_styles' );
+/**
+ * Enqueue custom editor styles for WP Accessibility. Used in display of img replacements.
+ */
+function wpa_add_editor_styles() {
+	add_editor_style( plugins_url( 'css/editor-style.css', __FILE__ ) );
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+	</main>
+    <footer>
+		<a href="https://docs.joedolson.com/my-calendar">My Calendar User Documentation</a> &bull;
+		<a href="https://github.com/joedolson/my-calendar/">My Calendar on GitHub</a> &bull;
+		<a href="https://www.joedolson.com/my-calendar-pro/">Buy My Calendar Pro</a>
+	</footer>
+
+	
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Filters</h3><ul><li><a href="wpa_case_insensitive.html">wpa_case_insensitive</a></li><li><a href="wpa_case_sensitive.html">wpa_case_sensitive</a></li><li><a href="wpa_fontsize_css.html">wpa_fontsize_css</a></li><li><a href="wpa_move_toolbar.html">wpa_move_toolbar</a></li><li><a href="wpa_toolbar_css.html">wpa_toolbar_css</a></li><li><a href="wpa_underline_target.html">wpa_underline_target</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
