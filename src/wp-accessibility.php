@@ -293,7 +293,7 @@ function wpa_css() {
 		$styles .= wpa_skiplink_css();
 	}
 	if ( 'on' === get_option( 'wpa_focus' ) ) {
-		$color   = ( false !== (bool) get_option( 'wpa_focus_color' ) ) ? ' #' . get_option( 'wpa_focus_color' ) : '';
+		$color   = ( false !== (bool) get_option( 'wpa_focus_color' ) ) ? ' #' . get_option( 'wpa_focus_color' ) : '#233c7f';
 		$styles .= "
 		:focus { outline: 2px solid$color!important; outline-offset: 2px !important; }
 		";
