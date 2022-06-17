@@ -56,7 +56,7 @@ function wpa_update_settings() {
 			$asl_extra_text     = ( isset( $_POST['asl_extra_text'] ) ) ? sanitize_text_field( $_POST['asl_extra_text'] ) : '';
 			$asl_visible        = ( isset( $_POST['asl_visible'] ) ) ? 'on' : '';
 			$asl_default_styles = ( isset( $_POST['asl_default_styles'] ) ) ? 'true' : '';
-			$asl_styles         = ( isset( $_POST['asl_styles'] ) ) ? wp_kses_filter_nohtml( $_POST['asl_styles'] ) : '';
+			$asl_styles         = ( isset( $_POST['asl_styles'] ) ) ? wp_filter_nohtml_kses( $_POST['asl_styles'] ) : '';
 			update_option( 'asl_enable', $asl_enable );
 			update_option( 'asl_content', $asl_content );
 			update_option( 'asl_navigation', $asl_navigation );
@@ -698,7 +698,7 @@ add_action(
 		wp_add_inline_script(
 			'code-editor',
 			sprintf(
-				'jQuery( function() { wp.codeEditor.initialize( "asl_styles_focus", %s ); } );',
+				'jQuery( function() { wp.codeEditor.initialize( "asl_styles", %s ); } );',
 				wp_json_encode( $settings )
 			)
 		);
