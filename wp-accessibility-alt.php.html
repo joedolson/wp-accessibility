@@ -88,6 +88,8 @@ function wpa_media_value( $column, $id ) {
 						echo '&lt;span class="missing">&lt;span class="dashicons dashicons-no" aria-hidden="true">&lt;/span> &lt;a href="' . get_edit_post_link( $id ) . '#attachment_alt">' . __( 'Invalid &lt;code>alt&lt;/code>', 'wp-accessibility' ) . '&lt;/a>&lt;/span>';
 					} elseif ( wpa_suspicious_alt( $alt ) ) {
 						echo '&lt;span class="missing">&lt;span class="dashicons dashicons-no" aria-hidden="true">&lt;/span> &lt;a href="' . get_edit_post_link( $id ) . '#attachment_alt">' . __( 'Suspicious &lt;code>alt&lt;/code>', 'wp-accessibility' ) . '&lt;/a>&lt;/span>';
+					} elseif ( wpa_long_alt( $alt ) ) {
+						echo '&lt;span class="long">&lt;span class="dashicons dashicons-warning" aria-hidden="true">&lt;/span> &lt;a href="' . get_edit_post_link( $id ) . '#attachment_alt">' . __( 'Long &lt;code>alt&lt;/code> text', 'wp-accessibility' ) . '&lt;/a>&lt;/span>';
 					} else {
 						echo '&lt;span class="ok">&lt;span class="dashicons dashicons-yes" aria-hidden="true">&lt;/span> ' . __( 'Has &lt;code>alt&lt;/code>', 'wp-accessibility' ) . '&lt;/span>';
 					}
@@ -99,6 +101,32 @@ function wpa_media_value( $column, $id ) {
 		}
 	}
 	return $column;
+}
+
+/**
+ * Check whether an alt is unusually long.
+ *
+ * @param string $alt Alt attribute.
+ *
+ * @return bool
+ */
+function wpa_long_alt( $alt ) {
+	$length = strlen( $alt );
+	/**
+	 * What length of an alt text is considered long. Default `140`.
+	 *
+	 * @hook wpa_long_alt
+	 *
+	 * @param {int} $limit Default length to call alt text long.
+	 *
+	 * @return int
+	 */
+	$limit  = apply_filters( 'wpa_long_alt', 140 );
+	if ( $length > $limit ) {
+		return true;
+	}
+
+	return false;
 }
 
 /**
@@ -258,7 +286,7 @@ function wpa_add_editor_styles() {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Filters</h3><ul><li><a href="wpa_case_insensitive.html">wpa_case_insensitive</a></li><li><a href="wpa_case_sensitive.html">wpa_case_sensitive</a></li><li><a href="wpa_fontsize_css.html">wpa_fontsize_css</a></li><li><a href="wpa_move_toolbar.html">wpa_move_toolbar</a></li><li><a href="wpa_summary_heading.html">wpa_summary_heading</a></li><li><a href="wpa_summary_heading_level.html">wpa_summary_heading_level</a></li><li><a href="wpa_toolbar_css.html">wpa_toolbar_css</a></li><li><a href="wpa_underline_target.html">wpa_underline_target</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Filters</h3><ul><li><a href="wpa_case_insensitive.html">wpa_case_insensitive</a></li><li><a href="wpa_case_sensitive.html">wpa_case_sensitive</a></li><li><a href="wpa_fontsize_css.html">wpa_fontsize_css</a></li><li><a href="wpa_long_alt.html">wpa_long_alt</a></li><li><a href="wpa_move_toolbar.html">wpa_move_toolbar</a></li><li><a href="wpa_summary_heading.html">wpa_summary_heading</a></li><li><a href="wpa_summary_heading_level.html">wpa_summary_heading_level</a></li><li><a href="wpa_toolbar_css.html">wpa_toolbar_css</a></li><li><a href="wpa_underline_target.html">wpa_underline_target</a></li></ul>
 </nav>
 
 <br class="clear">

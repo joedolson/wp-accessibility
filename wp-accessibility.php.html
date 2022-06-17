@@ -71,6 +71,7 @@ require_once( dirname( __FILE__ ) . '/wp-accessibility-longdesc.php' );
 require_once( dirname( __FILE__ ) . '/wp-accessibility-alt.php' );
 require_once( dirname( __FILE__ ) . '/wp-accessibility-contrast.php' );
 require_once( dirname( __FILE__ ) . '/wp-accessibility-settings.php' );
+require_once( dirname( __FILE__ ) . '/wp-accessibility-help.php' );
 
 register_activation_hook( __FILE__, 'wpa_install' );
 
@@ -87,7 +88,8 @@ add_action( 'admin_menu', 'wpa_admin_menu' );
  * Set up admin menu.
  */
 function wpa_admin_menu() {
-	add_options_page( 'WP Accessibility', 'WP Accessibility', 'manage_options', __FILE__, 'wpa_admin_settings' );
+	add_menu_page( 'WP Accessibility', 'WP Accessibility', 'manage_options', 'wp-accessibility', 'wpa_admin_settings', 'dashicons-universal-access' );
+	add_submenu_page( 'wp-accessibility', 'WP Accessibility - Help', 'Help', 'manage_options', 'wp-accessibility-help', 'wpa_help_screen' );
 }
 
 /**
@@ -142,7 +144,7 @@ add_filter( 'plugin_action_links', 'wpa_plugin_action', 10, 2 );
  */
 function wpa_plugin_action( $links, $file ) {
 	if ( plugin_basename( dirname( __FILE__ ) . '/wp-accessibility.php' ) === $file ) {
-		$admin_url = admin_url( 'options-general.php?page=wp-accessibility/wp-accessibility.php' );
+		$admin_url = admin_url( 'admin.php?page=wp-accessibility' );
 		$links[]   = "&lt;a href='$admin_url'>" . __( 'Accessibility Settings', 'wp-accessibility' ) . '&lt;/a>';
 	}
 
@@ -688,7 +690,7 @@ $plugins_string
 			}
 		}
 	}
-	$admin_url = admin_url( 'options-general.php?page=wp-accessibility/wp-accessibility.php' );
+	$admin_url = admin_url( 'admin.php?page=wp-accessibility' );
 
 	echo "
 	&lt;form method='post' action='" . esc_url( $admin_url ) . "'>
@@ -901,7 +903,7 @@ add_action( 'save_post', 'wpa_save_content_summary', 10, 2 );
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Filters</h3><ul><li><a href="wpa_case_insensitive.html">wpa_case_insensitive</a></li><li><a href="wpa_case_sensitive.html">wpa_case_sensitive</a></li><li><a href="wpa_fontsize_css.html">wpa_fontsize_css</a></li><li><a href="wpa_move_toolbar.html">wpa_move_toolbar</a></li><li><a href="wpa_summary_heading.html">wpa_summary_heading</a></li><li><a href="wpa_summary_heading_level.html">wpa_summary_heading_level</a></li><li><a href="wpa_toolbar_css.html">wpa_toolbar_css</a></li><li><a href="wpa_underline_target.html">wpa_underline_target</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Filters</h3><ul><li><a href="wpa_case_insensitive.html">wpa_case_insensitive</a></li><li><a href="wpa_case_sensitive.html">wpa_case_sensitive</a></li><li><a href="wpa_fontsize_css.html">wpa_fontsize_css</a></li><li><a href="wpa_long_alt.html">wpa_long_alt</a></li><li><a href="wpa_move_toolbar.html">wpa_move_toolbar</a></li><li><a href="wpa_summary_heading.html">wpa_summary_heading</a></li><li><a href="wpa_summary_heading_level.html">wpa_summary_heading_level</a></li><li><a href="wpa_toolbar_css.html">wpa_toolbar_css</a></li><li><a href="wpa_underline_target.html">wpa_underline_target</a></li></ul>
 </nav>
 
 <br class="clear">
