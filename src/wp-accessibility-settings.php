@@ -67,7 +67,7 @@ function wpa_update_settings() {
 			update_option( 'asl_default_styles', $asl_default_styles );
 			$notice = ( 'asl' === $asl_visible ) ? '<p>' . __( 'WP Accessibility does not provide any styles for visible skiplinks. You can still set the look of the links using the textareas provided, but all other layout must be assigned in your theme.', 'wp-accessibility' ) . '</p>' : '';
 
-			update_option( 'asl_styles_focus', $asl_styles_focus );
+			update_option( 'asl_styles', $asl_styles );
 			$message = __( 'Add Skiplinks Settings Updated', 'wp-accessibility' );
 
 			return "<div class='updated'><p>" . $message . "</p>$notice</div>";
@@ -324,6 +324,7 @@ function wpa_admin_settings() {
 
 							<div class="inside">
 								<p><?php _e( 'Settings that fix accessibility issues on your site.', 'wp-accessibility' ); ?></p>
+								<hr>
 								<form method="post" action="<?php echo admin_url( 'options-general.php?page=wp-accessibility/wp-accessibility.php' ); ?>">
 									<ul>
 										<?php
@@ -396,7 +397,8 @@ function wpa_admin_settings() {
 						<div class="postbox">
 							<h2 class="hndle"><?php _e( 'Accessibility Features', 'wp-accessibility' ); ?></h2>
 							<div class="inside">
-								<p><?php _e( 'These settings enable content accessibility features you can use to improve your site.', 'wp-accessibility' ); ?></p>
+								<p><?php _e( 'Settings that enable content accessibility features you can use to improve your site.', 'wp-accessibility' ); ?></p>
+								<hr>
 								<form method="post" action="<?php echo admin_url( 'options-general.php?page=wp-accessibility/wp-accessibility.php' ); ?>">
 									<ul>
 										<li>
@@ -540,16 +542,6 @@ function wpa_admin_settings() {
 								</form>
 							</div>
 						</div>
-						<div class="postbox" id="privacy">
-							<h2 class='hndle'><?php _e( 'Privacy', 'wp-accessibility' ); ?></h2>
-
-							<div class="inside">
-								<h3><?php _e( 'Cookies', 'wp-accessibility' ); ?></h3>
-								<p><?php _e( 'The accessibility toolbar sets cookies to maintain awareness of the user\'s selected accessibility options. If the toolbar is not in use, WP Accessibility does not set any cookies.', 'wp-accessibility' ); ?></p>
-								<h3><?php _e( 'Information Collected by WP Accessibility', 'wp-accessibility' ); ?></h3>
-								<p><?php _e( 'WP Accessibility does not collect any private information about users or visitors.', 'wp-accessibility' ); ?></p>
-							</div>
-						</div>
 						<div class="postbox" id="get-support">
 							<h2 class='hndle'><?php _e( 'Get Plug-in Support', 'wp-accessibility' ); ?></h2>
 
@@ -597,9 +589,7 @@ function wpa_admin_settings() {
 								</div>
 							</div>
 						</div>
-					</div>
 
-					<div class="ui-sortable meta-box-sortables">
 						<div class="postbox">
 							<h2 class='hndle'><?php _e( 'Accessibility References', 'wp-accessibility' ); ?></h2>
 
@@ -614,9 +604,7 @@ function wpa_admin_settings() {
 								</ul>
 							</div>
 						</div>
-					</div>
 
-					<div class="ui-sortable meta-box-sortables">
 						<div class="postbox">
 							<h2 class='hndle'><?php _e( 'Customization', 'wp-accessibility' ); ?></h2>
 
@@ -635,10 +623,8 @@ function wpa_admin_settings() {
 								</p>
 							</div>
 						</div>
-					</div>
 
 					<?php if ( wpa_accessible_theme() ) { ?>
-					<div class="ui-sortable meta-box-sortables">
 						<div class="postbox">
 							<h2 class='hndle'><?php _e( 'Your Theme', 'wp-accessibility' ); ?></h2>
 
@@ -654,10 +640,8 @@ function wpa_admin_settings() {
 								</p>
 							</div>
 						</div>
-					</div>
 					<?php } ?>
 
-					<div class="ui-sortable meta-box-sortables">
 						<div class="postbox">
 							<h2 class='hndle'><?php _e( 'Contributing References', 'wp-accessibility' ); ?></h2>
 							<div class="inside">
@@ -667,6 +651,16 @@ function wpa_admin_settings() {
 									<li><a href="https://wordpress.org/extend/plugins/remove-title-attributes/">Remove Title Attributes</a></li>
 									<li><a href="https://wordpress.org/extend/plugins/img-title-removal/">IMG Title Removal</a></li>
 								</ul>
+							</div>
+						</div>
+						<div class="postbox" id="privacy">
+							<h2 class='hndle'><?php _e( 'Privacy', 'wp-accessibility' ); ?></h2>
+
+							<div class="inside">
+								<h3><?php _e( 'Cookies', 'wp-accessibility' ); ?></h3>
+								<p><?php _e( 'The accessibility toolbar sets cookies to maintain awareness of the user\'s selected accessibility options. If the toolbar is not in use, WP Accessibility does not set any cookies.', 'wp-accessibility' ); ?></p>
+								<h3><?php _e( 'Information Collected by WP Accessibility', 'wp-accessibility' ); ?></h3>
+								<p><?php _e( 'WP Accessibility does not collect any private information about users or visitors.', 'wp-accessibility' ); ?></p>
 							</div>
 						</div>
 					</div>
