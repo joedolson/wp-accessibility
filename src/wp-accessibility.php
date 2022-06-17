@@ -81,7 +81,7 @@ function wpa_install() {
 		add_option( 'wpa_installed', 'true' );
 		add_option( 'wpa_version', $wpa_version );
 		add_option( 'wpa_longdesc', 'jquery' );
-		add_option( 'wpa_post_types', array( 'post', 'page' ) );
+		add_option( 'wpa_post_types', array( 'post' ) );
 	} else {
 		wpa_check_version();
 		update_option( 'wpa_version', $wpa_version );
@@ -98,6 +98,10 @@ function wpa_check_version() {
 	$version = get_option( 'wpa_version' );
 	if ( version_compare( $version, '1.3.0', '<' ) ) {
 		add_option( 'wpa_longdesc', 'jquery' );
+	}
+	// upgrade for version 1.9.0.
+	if ( version_compare( $version, '1.9.0', '<' ) ) {
+		add_option( 'wpa_post_types', array( 'post' ) );
 	}
 
 	return $version;
@@ -257,8 +261,8 @@ function wpa_skiplink_css() {
 	width: auto;
 	z-index: 100000;';
 
-	$vis     = '';
-	$invis   = '';
+	$vis   = '';
+	$invis = '';
 
 	$visibility = ( 'on' === get_option( 'asl_visible' ) ) ? 'wpa-visible' : 'wpa-hide';
 	$is_rtl     = ( is_rtl() ) ? '-rtl' : '-ltr';

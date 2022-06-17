@@ -68,7 +68,7 @@ function wpa_update_settings() {
 			$notice = ( 'asl' === $asl_visible ) ? '<p>' . __( 'WP Accessibility does not provide any styles for visible skiplinks. You can still set the look of the links using the textareas provided, but all other layout must be assigned in your theme.', 'wp-accessibility' ) . '</p>' : '';
 
 			update_option( 'asl_styles', $asl_styles );
-			$message = __( 'Add Skiplinks Settings Updated', 'wp-accessibility' );
+			$message = __( 'Skiplinks Settings Updated', 'wp-accessibility' );
 
 			return "<div class='updated'><p>" . $message . "</p>$notice</div>";
 		}
@@ -227,12 +227,12 @@ function wpa_admin_settings() {
 											<?php
 											if ( 'true' !== $use_defaults ) {
 												$styles = wpa_skiplink_css();
-											?>
+												?>
 											<li>
 												<label for="asl_styles"><?php _e( 'Styles for Skiplinks', 'wp-accessibility' ); ?></label><br/>
 												<textarea name='asl_styles' id='asl_styles' cols='60' rows='4'><?php echo esc_textarea( stripcslashes( $styles ) ); ?></textarea>
 											</li>
-											<?php
+												<?php
 											}
 											?>
 										</ul>
@@ -353,7 +353,7 @@ function wpa_admin_settings() {
 										?>
 										<li>
 											<input type="checkbox" id="wpa_target" name="wpa_target" <?php checked( get_option( 'wpa_target' ), 'on' ); ?>/>
-											<label for="wpa_target"><?php _e( 'Remove target attribute from links', 'wp-accessibility' ); ?></label>
+											<label for="wpa_target"><?php _e( 'Prevent links from opening in new windows', 'wp-accessibility' ); ?></label>
 										</li>
 										<li>
 											<input type="checkbox" id="wpa_search" name="wpa_search" <?php checked( get_option( 'wpa_search' ), 'on' ); ?>/>
@@ -517,7 +517,7 @@ function wpa_admin_settings() {
 									echo $results;
 								}
 								?>
-								<form method="post" action="<?php echo admin_url( 'options-general.php?page=wp-accessibility/wp-accessibility.php' ); ?>">
+								<form method="post" id="contrast" action="<?php echo admin_url( 'options-general.php?page=wp-accessibility/wp-accessibility.php' ); ?>">
 									<fieldset>
 										<legend><?php _e( 'Test of relative luminosity', 'wp-accessibility' ); ?></legend>
 										<ul id="contrast-tester">
