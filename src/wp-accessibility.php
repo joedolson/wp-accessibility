@@ -45,6 +45,7 @@ require_once( dirname( __FILE__ ) . '/wp-accessibility-longdesc.php' );
 require_once( dirname( __FILE__ ) . '/wp-accessibility-alt.php' );
 require_once( dirname( __FILE__ ) . '/wp-accessibility-contrast.php' );
 require_once( dirname( __FILE__ ) . '/wp-accessibility-settings.php' );
+require_once( dirname( __FILE__ ) . '/wp-accessibility-help.php' );
 
 register_activation_hook( __FILE__, 'wpa_install' );
 
@@ -61,7 +62,8 @@ add_action( 'admin_menu', 'wpa_admin_menu' );
  * Set up admin menu.
  */
 function wpa_admin_menu() {
-	add_options_page( 'WP Accessibility', 'WP Accessibility', 'manage_options', __FILE__, 'wpa_admin_settings' );
+	add_menu_page( 'WP Accessibility', 'WP Accessibility', 'manage_options', 'wp-accessibility', 'wpa_admin_settings', 'dashicons-universal-access' );
+	add_submenu_page( 'wp-accessibility', 'WP Accessibility - Help', 'Help', 'manage_options', 'wp-accessibility-help', 'wpa_help_screen' );
 }
 
 /**
@@ -116,7 +118,7 @@ add_filter( 'plugin_action_links', 'wpa_plugin_action', 10, 2 );
  */
 function wpa_plugin_action( $links, $file ) {
 	if ( plugin_basename( dirname( __FILE__ ) . '/wp-accessibility.php' ) === $file ) {
-		$admin_url = admin_url( 'options-general.php?page=wp-accessibility/wp-accessibility.php' );
+		$admin_url = admin_url( 'admin.php?page=wp-accessibility' );
 		$links[]   = "<a href='$admin_url'>" . __( 'Accessibility Settings', 'wp-accessibility' ) . '</a>';
 	}
 
@@ -662,7 +664,7 @@ $plugins_string
 			}
 		}
 	}
-	$admin_url = admin_url( 'options-general.php?page=wp-accessibility/wp-accessibility.php' );
+	$admin_url = admin_url( 'admin.php?page=wp-accessibility' );
 
 	echo "
 	<form method='post' action='" . esc_url( $admin_url ) . "'>
