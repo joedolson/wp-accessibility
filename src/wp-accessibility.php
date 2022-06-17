@@ -199,11 +199,10 @@ function wpa_admin_stylesheet() {
  */
 function wpa_skiplink_css() {
 	$use_defaults = get_option( 'asl_default_styles', '' );
-	$styles = '';
-	if ( 'true' === $use_defaults ) {
-		$focus   = '';
-		$passive = '';
-	} else {
+	$styles       = '';
+	$focus        = '';
+	$passive      = '';
+	if ( 'true' !== $use_defaults ) {
 		if ( '' !== get_option( 'asl_styles' ) ) {
 			$styles = wp_filter_nohtml_kses( get_option( 'asl_styles' ) );
 		} else {
@@ -296,7 +295,7 @@ function wpa_css() {
 	if ( 'on' === get_option( 'wpa_focus' ) ) {
 		$color   = ( false !== (bool) get_option( 'wpa_focus_color' ) ) ? ' #' . get_option( 'wpa_focus_color' ) : '';
 		$styles .= "
-		:focus { outline: 1px solid$color!important; outline-offset: 2px !important; }
+		:focus { outline: 2px solid$color!important; outline-offset: 2px !important; }
 		";
 	}
 	if ( '' !== $styles ) {
