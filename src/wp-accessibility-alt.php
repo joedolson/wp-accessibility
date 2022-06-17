@@ -62,6 +62,8 @@ function wpa_media_value( $column, $id ) {
 						echo '<span class="missing"><span class="dashicons dashicons-no" aria-hidden="true"></span> <a href="' . get_edit_post_link( $id ) . '#attachment_alt">' . __( 'Invalid <code>alt</code>', 'wp-accessibility' ) . '</a></span>';
 					} elseif ( wpa_suspicious_alt( $alt ) ) {
 						echo '<span class="missing"><span class="dashicons dashicons-no" aria-hidden="true"></span> <a href="' . get_edit_post_link( $id ) . '#attachment_alt">' . __( 'Suspicious <code>alt</code>', 'wp-accessibility' ) . '</a></span>';
+					} elseif ( wpa_long_alt( $alt ) ) {
+						echo '<span class="long"><span class="dashicons dashicons-warning" aria-hidden="true"></span> <a href="' . get_edit_post_link( $id ) . '#attachment_alt">' . __( 'Long <code>alt</code> text', 'wp-accessibility' ) . '</a></span>';
 					} else {
 						echo '<span class="ok"><span class="dashicons dashicons-yes" aria-hidden="true"></span> ' . __( 'Has <code>alt</code>', 'wp-accessibility' ) . '</span>';
 					}
@@ -73,6 +75,32 @@ function wpa_media_value( $column, $id ) {
 		}
 	}
 	return $column;
+}
+
+/**
+ * Check whether an alt is unusually long.
+ *
+ * @param string $alt Alt attribute.
+ *
+ * @return bool
+ */
+function wpa_long_alt( $alt ) {
+	$length = strlen( $alt );
+	/**
+	 * What length of an alt text is considered long. Default `140`.
+	 *
+	 * @hook wpa_long_alt
+	 *
+	 * @param {int} $limit Default length to call alt text long.
+	 *
+	 * @return int
+	 */
+	$limit  = apply_filters( 'wpa_long_alt', 140 );
+	if ( $length > $limit ) {
+		return true;
+	}
+
+	return false;
 }
 
 /**
