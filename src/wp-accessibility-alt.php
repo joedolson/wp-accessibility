@@ -95,7 +95,7 @@ function wpa_long_alt( $alt ) {
 	 *
 	 * @return int
 	 */
-	$limit  = apply_filters( 'wpa_long_alt', 140 );
+	$limit = apply_filters( 'wpa_long_alt', 140 );
 	if ( $length > $limit ) {
 		return true;
 	}
