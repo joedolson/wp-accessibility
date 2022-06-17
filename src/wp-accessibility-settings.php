@@ -222,9 +222,7 @@ function wpa_admin_settings() {
 											?>
 											<li>
 												<label for="asl_styles_focus"><?php _e( 'Styles for Skiplinks', 'wp-accessibility' ); ?></label><br/>
-												<textarea name='asl_styles_focus' id='asl_styles_focus' cols='60' rows='4'>
-												<?php echo esc_attr( stripslashes( get_option( 'asl_styles_focus' ) ) ); ?>
-												<?php echo esc_attr( stripslashes( get_option( 'asl_styles_passive' ) ) ); ?></textarea>
+												<textarea name='asl_styles_focus' id='asl_styles_focus' cols='60' rows='4'><?php echo esc_attr( stripslashes( get_option( 'asl_styles_focus' ) . PHP_EOL . get_option( 'asl_styles_passive' ) ) ); ?></textarea>
 											</li>
 										</ul>
 									</fieldset>
