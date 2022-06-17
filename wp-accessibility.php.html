@@ -230,10 +230,10 @@ function wpa_skiplink_css() {
 		$passive = '';
 	} else {
 		if ( '' !== get_option( 'asl_styles' ) ) {
-			$styles = wp_kses_filter_nohtml( get_option( 'asl_styles' ) );
+			$styles = wp_filter_nohtml_kses( get_option( 'asl_styles' ) );
 		} else {
-			$focus   = wp_kses_filter_nohtml( get_option( 'asl_styles_focus' ) );
-			$passive = wp_kses_filter_nohtml( get_option( 'asl_styles_passive' ) );
+			$focus   = wp_filter_nohtml_kses( get_option( 'asl_styles_focus' ) );
+			$passive = wp_filter_nohtml_kses( get_option( 'asl_styles_passive' ) );
 		}
 	}
 	$styles = '';
