@@ -199,6 +199,7 @@ function wpa_admin_stylesheet() {
  */
 function wpa_skiplink_css() {
 	$use_defaults = get_option( 'asl_default_styles', '' );
+	$styles = '';
 	if ( 'true' === $use_defaults ) {
 		$focus   = '';
 		$passive = '';
@@ -210,7 +211,9 @@ function wpa_skiplink_css() {
 			$passive = wp_filter_nohtml_kses( get_option( 'asl_styles_passive' ) );
 		}
 	}
-	$styles = '';
+	if ( is_admin() && '' !== $styles ) {
+		return $styles;
+	}
 	// these styles are derived from the WordPress skip link defaults.
 	$top = '7px';
 	if ( is_admin_bar_showing() ) {
