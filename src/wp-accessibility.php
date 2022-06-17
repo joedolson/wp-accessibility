@@ -795,3 +795,4 @@ function wpa_save_content_summary( $id, $post ) {
 	return $id;
 }
 add_action( 'save_post', 'wpa_save_content_summary', 10, 2 );
+
