@@ -48,14 +48,14 @@ function wpa_update_settings() {
 			return "<div class='updated'><p>" . $message . '</p></div>';
 		}
 		if ( isset( $_POST['action'] ) && 'asl' === $_POST['action'] ) {
-			$asl_enable         = ( isset( $_POST['asl_enable'] ) ) ? 'on' : '';
-			$asl_content        = ( isset( $_POST['asl_content'] ) ) ? sanitize_text_field( $_POST['asl_content'] ) : '';
-			$asl_navigation     = ( isset( $_POST['asl_navigation'] ) ) ? sanitize_text_field( $_POST['asl_navigation'] ) : '';
-			$asl_sitemap        = ( isset( $_POST['asl_sitemap'] ) ) ? sanitize_text_field( $_POST['asl_sitemap'] ) : '';
-			$asl_extra_target   = ( isset( $_POST['asl_extra_target'] ) ) ? sanitize_text_field( $_POST['asl_extra_target'] ) : '';
-			$asl_extra_text     = ( isset( $_POST['asl_extra_text'] ) ) ? sanitize_text_field( $_POST['asl_extra_text'] ) : '';
-			$asl_visible        = ( isset( $_POST['asl_visible'] ) ) ? 'on' : '';
-			$asl_styles_focus   = ( isset( $_POST['asl_styles_focus'] ) ) ? sanitize_textarea_field( $_POST['asl_styles_focus'] ) : '';
+			$asl_enable       = ( isset( $_POST['asl_enable'] ) ) ? 'on' : '';
+			$asl_content      = ( isset( $_POST['asl_content'] ) ) ? sanitize_text_field( $_POST['asl_content'] ) : '';
+			$asl_navigation   = ( isset( $_POST['asl_navigation'] ) ) ? sanitize_text_field( $_POST['asl_navigation'] ) : '';
+			$asl_sitemap      = ( isset( $_POST['asl_sitemap'] ) ) ? sanitize_text_field( $_POST['asl_sitemap'] ) : '';
+			$asl_extra_target = ( isset( $_POST['asl_extra_target'] ) ) ? sanitize_text_field( $_POST['asl_extra_target'] ) : '';
+			$asl_extra_text   = ( isset( $_POST['asl_extra_text'] ) ) ? sanitize_text_field( $_POST['asl_extra_text'] ) : '';
+			$asl_visible      = ( isset( $_POST['asl_visible'] ) ) ? 'on' : '';
+			$asl_styles_focus = ( isset( $_POST['asl_styles_focus'] ) ) ? sanitize_textarea_field( $_POST['asl_styles_focus'] ) : '';
 			update_option( 'asl_enable', $asl_enable );
 			if ( isset( $_POST['asl_styles_focus'] ) ) {
 				delete_option( 'asl_styles_passive' );
@@ -75,10 +75,10 @@ function wpa_update_settings() {
 		}
 
 		if ( isset( $_POST['action'] ) && 'features' === $_POST['action'] ) {
-			$wpa_search_alt              = ( isset( $_POST['wpa_search_alt'] ) ) ? 'on' : '';
-			$wpa_longdesc                = ( isset( $_POST['wpa_longdesc'] ) ) ? sanitize_text_field( $_POST['wpa_longdesc'] ) : 'false';
-			$wpa_longdesc_featured       = ( isset( $_POST['wpa_longdesc_featured'] ) ) ? sanitize_text_field( $_POST['wpa_longdesc_featured'] ) : 'false';
-			$wpa_post_types              = ( isset( $_POST['wpa_post_types'] ) ) ? map_deep( $_POST['wpa_post_types'], 'sanitize_text_field' ) : array();
+			$wpa_search_alt        = ( isset( $_POST['wpa_search_alt'] ) ) ? 'on' : '';
+			$wpa_longdesc          = ( isset( $_POST['wpa_longdesc'] ) ) ? sanitize_text_field( $_POST['wpa_longdesc'] ) : 'false';
+			$wpa_longdesc_featured = ( isset( $_POST['wpa_longdesc_featured'] ) ) ? sanitize_text_field( $_POST['wpa_longdesc_featured'] ) : 'false';
+			$wpa_post_types        = ( isset( $_POST['wpa_post_types'] ) ) ? map_deep( $_POST['wpa_post_types'], 'sanitize_text_field' ) : array();
 			update_option( 'wpa_search_alt', $wpa_search_alt );
 			update_option( 'wpa_longdesc', $wpa_longdesc );
 			update_option( 'wpa_longdesc_featured', $wpa_longdesc_featured );
@@ -409,20 +409,20 @@ function wpa_admin_settings() {
 												<legend><?php _e( 'Enable Content Summaries', 'wp-accessibility' ); ?></legend>
 												<ul class="checkboxes">
 												<?php
-													$enabled    = get_option( 'wpa_post_types', array() );
-													$post_types = get_post_types(
-														array(
-															'show_ui' => true,
-														),
-														'objects'
-													);
-													foreach ( $post_types as $type ) {
-														$id      = $type->name;
-														$name    = $type->labels->singular_name;
-														$checked = ( in_array( $id, $enabled, true ) ) ? ' checked="checked"' : '';
+												$enabled    = get_option( 'wpa_post_types', array() );
+												$post_types = get_post_types(
+													array(
+														'show_ui' => true,
+													),
+													'objects'
+												);
+												foreach ( $post_types as $type ) {
+													$id      = $type->name;
+													$name    = $type->labels->singular_name;
+													$checked = ( in_array( $id, $enabled, true ) ) ? ' checked="checked"' : '';
 
-														echo '<li><input type="checkbox" name="wpa_post_types[]" id="wpa_post_types_' . $id . '" value="' . $id . '"' . $checked . '/> <label for="wpa_post_types_"' . $id . '">' . $name . '</label></li>';
-													}
+													echo '<li><input type="checkbox" name="wpa_post_types[]" id="wpa_post_types_' . $id . '" value="' . $id . '"' . $checked . '/> <label for="wpa_post_types_"' . $id . '">' . $name . '</label></li>';
+												}
 												?>
 												</ul>
 											</fieldset>

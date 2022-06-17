@@ -682,7 +682,7 @@ add_filter( 'the_content', 'wpa_content_summary' );
 /**
  * Get a simplified summary for content.
  *
- * @param $post_id Post ID.
+ * @param int $post_id Post ID.
  *
  * @return string
  */
@@ -728,7 +728,7 @@ function wpa_get_content_summary( $post_id ) {
  * @return boolean True if post is allowed, false otherwise.
  */
 function wpa_in_post_type( $post_id ) {
-	$settings           = get_option( 'wpa_post_types', array() );
+	$settings = get_option( 'wpa_post_types', array() );
 	if ( is_array( $settings ) && ! empty( $settings ) ) {
 		$type = get_post_type( $post_id );
 		if ( in_array( $type, $settings, true ) ) {
