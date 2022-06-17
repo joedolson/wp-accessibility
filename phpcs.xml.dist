@@ -7,7 +7,7 @@
 	<rule ref="WordPress-Core" />
 	<rule ref="WordPress-Docs" />
 	<rule ref="WordPress.WP.I18n" />
-	<config name="text_domain" value="my-calendar" />
+	<config name="text_domain" value="wp-accessibility" />
 
 	<!-- Check all PHP files in directory tree by default. -->
 	<arg name="extensions" value="php"/>
