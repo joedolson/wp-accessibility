@@ -48,24 +48,23 @@ function wpa_update_settings() {
 			return "<div class='updated'><p>" . $message . '</p></div>';
 		}
 		if ( isset( $_POST['action'] ) && 'asl' === $_POST['action'] ) {
-			$asl_enable       = ( isset( $_POST['asl_enable'] ) ) ? 'on' : '';
-			$asl_content      = ( isset( $_POST['asl_content'] ) ) ? sanitize_text_field( $_POST['asl_content'] ) : '';
-			$asl_navigation   = ( isset( $_POST['asl_navigation'] ) ) ? sanitize_text_field( $_POST['asl_navigation'] ) : '';
-			$asl_sitemap      = ( isset( $_POST['asl_sitemap'] ) ) ? sanitize_text_field( $_POST['asl_sitemap'] ) : '';
-			$asl_extra_target = ( isset( $_POST['asl_extra_target'] ) ) ? sanitize_text_field( $_POST['asl_extra_target'] ) : '';
-			$asl_extra_text   = ( isset( $_POST['asl_extra_text'] ) ) ? sanitize_text_field( $_POST['asl_extra_text'] ) : '';
-			$asl_visible      = ( isset( $_POST['asl_visible'] ) ) ? 'on' : '';
-			$asl_styles_focus = ( isset( $_POST['asl_styles_focus'] ) ) ? sanitize_textarea_field( $_POST['asl_styles_focus'] ) : '';
+			$asl_enable         = ( isset( $_POST['asl_enable'] ) ) ? 'on' : '';
+			$asl_content        = ( isset( $_POST['asl_content'] ) ) ? sanitize_text_field( $_POST['asl_content'] ) : '';
+			$asl_navigation     = ( isset( $_POST['asl_navigation'] ) ) ? sanitize_text_field( $_POST['asl_navigation'] ) : '';
+			$asl_sitemap        = ( isset( $_POST['asl_sitemap'] ) ) ? sanitize_text_field( $_POST['asl_sitemap'] ) : '';
+			$asl_extra_target   = ( isset( $_POST['asl_extra_target'] ) ) ? sanitize_text_field( $_POST['asl_extra_target'] ) : '';
+			$asl_extra_text     = ( isset( $_POST['asl_extra_text'] ) ) ? sanitize_text_field( $_POST['asl_extra_text'] ) : '';
+			$asl_visible        = ( isset( $_POST['asl_visible'] ) ) ? 'on' : '';
+			$asl_default_styles = ( isset( $_POST['asl_default_styles'] ) ) ? 'true' : '';
+			$asl_styles         = ( isset( $_POST['asl_styles'] ) ) ? wp_kses_filter_nohtml( $_POST['asl_styles'] ) : '';
 			update_option( 'asl_enable', $asl_enable );
-			if ( isset( $_POST['asl_styles_focus'] ) ) {
-				delete_option( 'asl_styles_passive' );
-			}
 			update_option( 'asl_content', $asl_content );
 			update_option( 'asl_navigation', $asl_navigation );
 			update_option( 'asl_sitemap', $asl_sitemap );
 			update_option( 'asl_extra_target', $asl_extra_target );
 			update_option( 'asl_extra_text', $asl_extra_text );
 			update_option( 'asl_visible', $asl_visible );
+			update_option( 'asl_default_styles', $asl_default_styles );
 			$notice = ( 'asl' === $asl_visible ) ? '<p>' . __( 'WP Accessibility does not provide any styles for visible skiplinks. You can still set the look of the links using the textareas provided, but all other layout must be assigned in your theme.', 'wp-accessibility' ) . '</p>' : '';
 
 			update_option( 'asl_styles_focus', $asl_styles_focus );
@@ -219,11 +218,23 @@ function wpa_admin_settings() {
 											</li>
 												<?php
 											}
+											$use_defaults = get_option( 'asl_default_styles', '' );
 											?>
 											<li>
-												<label for="asl_styles_focus"><?php _e( 'Styles for Skiplinks', 'wp-accessibility' ); ?></label><br/>
-												<textarea name='asl_styles_focus' id='asl_styles_focus' cols='60' rows='4'><?php echo esc_attr( stripslashes( get_option( 'asl_styles_focus' ) . PHP_EOL . get_option( 'asl_styles_passive' ) ) ); ?></textarea>
+												<label for="asl_default_styles"><?php _e( 'Use default Skiplink CSS', 'wp-accessibility' ); ?></label>
+												<input type="checkbox" id="asl_default_styles" name="asl_default_styles" value="true" <?php checked( get_option( 'asl_default_styles' ), 'true' ); ?> />
 											</li>
+											<?php
+											if ( 'true' !== $use_defaults ) {
+												$styles = wpa_skiplink_css();
+											?>
+											<li>
+												<label for="asl_styles"><?php _e( 'Styles for Skiplinks', 'wp-accessibility' ); ?></label><br/>
+												<textarea name='asl_styles' id='asl_styles' cols='60' rows='4'><?php echo esc_textarea( stripcslashes( $styles ) ); ?></textarea>
+											</li>
+											<?php
+											}
+											?>
 										</ul>
 									</fieldset>
 									<p>
