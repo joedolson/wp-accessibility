@@ -114,6 +114,9 @@ function wpa_suspicious_alt( $alt ) {
 	$case_insensitive = array(
 		'logo',
 		'image',
+		'picture',
+		'alt text',
+		'alternative text',
 	);
 	/**
 	 * Filter array of case insensitive strings that make alt text suspicious.
