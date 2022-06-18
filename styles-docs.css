@@ -116,3 +116,63 @@ footer {
 	min-height: 16px;
 	height: auto;
 }
+
+.pln {
+  color: #3d3d3c; }
+
+@media screen {
+  /* string content */
+  .str {
+    color: #617c00; }
+
+  /* a keyword */
+  .kwd {
+    color: #794998; }
+
+  /* a comment */
+  .com {
+    color: #6e605c; }
+
+  /* a type name */
+  .typ {
+    color: #32619e; }
+
+  /* a literal value */
+  .lit {
+    color: #e5770f; }
+
+  /* punctuation */
+  .pun {
+    color: #3d3d3c; }
+
+  /* lisp open bracket */
+  .opn {
+    color: #2d2d2c; }
+
+  /* lisp close bracket */
+  .clo {
+    color: #2d2d2c; }
+
+  /* a markup tag name */
+  .tag {
+    color: #c82829; }
+
+  /* a markup attribute name */
+  .atn {
+    color: #e5770f; }
+
+  /* a markup attribute value */
+  .atv {
+    color: #2e898f; }
+
+  /* a declaration */
+  .dec {
+    color: #e5770f; }
+
+  /* a variable name */
+  .var {
+    color: #b81819; }
+
+  /* a function name */
+  .fun {
+    color: #32619e; } }
