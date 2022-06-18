@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Filter: wpa_fontsize_css - WP Accessibility Hook Doumentation</title>
+    <title>Tutorial: custom-fontsize-stylesheet - WP Accessibility Hook Doumentation</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -15,171 +15,36 @@
 
 <div id="main">
 
-    <header><h1 class="page-title">Filter: wpa_fontsize_css</h1></header>
+    <header><h1 class="page-title">Tutorial: custom-fontsize-stylesheet</h1></header>
 	<main>
-    
-
-
-
-
-<section>
+    <section>
 
 <header>
-    <h2></h2>
     
+
+    <h2>custom-fontsize-stylesheet</h2>
 </header>
 
 <article>
-    <div class="container-overview">
-    
-        
-
-    
-
-    <h4 class="name" id="wpa_fontsize_css">apply_filters( 'wpa_fontsize_css', <span class="signature">$stylesheet )</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Filter the URL to the stylesheet controlling large font views.</p>
-</div>
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>$stylesheet</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>URL for increased font size stylesheet.</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="wp-accessibility-toolbar.php.html">wp-accessibility-toolbar.php</a>, <a href="wp-accessibility-toolbar.php.html#line75">line 75</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>string</p>
-</div>
-
-
-
-    
-
-
-
-    
-    </div>
-
-    
+    <h2>Custom Fontsize Stylesheet</h2>
+<pre class="prettyprint source lang-php"><code> * Filter the CSS file for the WP Accessibility font size styles.
+ * This example returns the URL for a file named 'fontsize.css' and placed in your theme or child theme directory.
+ * 
+ * @since WP Accessibility 1.4.3
+ * 
+ * @param string URL to default stylesheet
+ * 
+ * @return mixed boolean/string Return false to disable the stylesheet; return a URL resolving to your custom styles to replace it.
+ */
+function my_fontsize_css( $url ) {
+	// return false; // disable CSS.
+	return get_stylesheet_directory_uri() . '/fontsize.css';
+}
+add_filter( 'wpa_fontsize_css', 'my_fontsize_css' );
+</code></pre>
 </article>
 
 </section>
-
-
-
 
 	</main>
     <footer>
