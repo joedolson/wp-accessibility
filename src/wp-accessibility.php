@@ -188,6 +188,13 @@ function wpa_stylesheet() {
 	wp_register_style( 'wpa-style', plugins_url( 'css/wpa-style.css', __FILE__ ), array(), $version );
 	if ( 'link' === get_option( 'wpa_longdesc' ) || 'jquery' === get_option( 'wpa_longdesc' ) || 'on' === get_option( 'asl_enable' ) || ! empty( get_option( 'wpa_post_types', array() ) ) ) {
 		wp_enqueue_style( 'wpa-style' );
+		// these styles are derived from the WordPress skip link defaults.
+		$top = '7px';
+		if ( is_admin_bar_showing() ) {
+			$top = '37px';
+		}
+		$custom_css = ":root { --admin-bar-top : " . $top . '; }';
+		wp_add_inline_style( 'wpa-style', $custom_css );
 	}
 	if ( current_user_can( 'edit_files' ) && 'on' === get_option( 'wpa_diagnostics' ) ) {
 		wp_register_style( 'diagnostic', plugins_url( 'css/diagnostic.css', __FILE__ ) );
@@ -232,10 +239,6 @@ function wpa_skiplink_css() {
 		return $styles;
 	}
 	// these styles are derived from the WordPress skip link defaults.
-	$top = '7px';
-	if ( is_admin_bar_showing() ) {
-		$top = '37px';
-	}
 	$default_focus = 'background-color: #f1f1f1;
 	box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.6);
 	clip: auto;
@@ -247,7 +250,7 @@ function wpa_skiplink_css() {
 	padding: 15px 23px 14px;
 	position: absolute;
 	left: 6px;
-	top: ' . $top . '; /* turn into variable */
+	top: var(--admin-bar-top);
 	text-decoration: none;
 	text-transform: none;
 	width: auto;
@@ -269,7 +272,7 @@ function wpa_skiplink_css() {
 	padding: 15px 23px 14px;
 	position: absolute;
 	left: 6px;
-	top: ' . $top . ';
+	top: var(--admin-bar-top);
 	text-decoration: none;
 	text-transform: none;
 	width: auto;
