@@ -197,11 +197,11 @@ function wpa_admin_settings() {
 											</li>
 											<li>
 												<label for="asl_content"><?php _e( 'Skip to Content link target', 'wp-accessibility' ); ?></label><br />
-												<input type="text" id="asl_content" name="asl_content" placeholder="#" size="44" value="<?php echo esc_attr( get_option( 'asl_content' ) ); ?>"/>
+												<input type="text" id="asl_content" name="asl_content" placeholder="#" size="30" aria-describedby="asl_content_description" value="<?php echo esc_attr( get_option( 'asl_content' ) ); ?>"/> <span id="asl_content_description"><?php _e( 'ID attribute starting with <code>#</code>', 'wp-accessibility' ); ?></span>
 											</li>
 											<li>
 												<label for="asl_navigation"><?php _e( 'Skip to Navigation link target', 'wp-accessibility' ); ?></label><br />
-												<input type="text" id="asl_navigation" name="asl_navigation" placeholder="#" size="44" value="<?php echo esc_attr( get_option( 'asl_navigation' ) ); ?>"/>
+												<input type="text" id="asl_navigation" name="asl_navigation" placeholder="#" size="30" aria-describedby="asl_navigation_description" value="<?php echo esc_attr( get_option( 'asl_navigation' ) ); ?>"/> <span id="asl_navigation_description"><?php _e( 'ID attribute starting with <code>#</code>', 'wp-accessibility' ); ?></span>
 											</li>
 											<?php
 											if ( '' !== get_option( 'asl_sitemap', '' ) ) {
