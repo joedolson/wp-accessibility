@@ -37,7 +37,7 @@ function wpa_update_settings() {
 	if ( ! empty( $_POST ) ) {
 		$nonce = $_REQUEST['_wpnonce'];
 		if ( ! wp_verify_nonce( $nonce, 'wpa-nonce' ) ) {
-			die( 'Security check failed' );
+			wp_die( 'WP Accessibility: Security check failed' );
 		}
 		if ( isset( $_POST['action'] ) && 'rta' === $_POST['action'] ) {
 			$rta_from_tag_clouds = ( isset( $_POST['rta_from_tag_clouds'] ) ) ? 'on' : '';

@@ -107,7 +107,7 @@ function wpa_contrast() {
 	if ( ! empty( $_POST ) ) {
 		$nonce = $_REQUEST['_wpnonce'];
 		if ( ! wp_verify_nonce( $nonce, 'wpa-nonce' ) ) {
-			die( 'Security check failed' );
+			wp_die( 'WP Accessibility: Security check failed' );
 		}
 		if ( isset( $_POST['color'] ) && '' !== $_POST['color'] ) {
 			$fore_color = $_POST['color'];

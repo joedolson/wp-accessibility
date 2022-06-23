@@ -651,7 +651,7 @@ $plugins_string
 	if ( isset( $_POST['wpa_support'] ) ) {
 		$nonce = $_REQUEST['_wpnonce'];
 		if ( ! wp_verify_nonce( $nonce, 'wpa-nonce' ) ) {
-			die( 'Security check failed' );
+			wp_die( 'WP Accessibility: Security check failed' );
 		}
 		$request     = ( ! empty( $_POST['support_request'] ) ) ? sanitize_textarea_field( stripslashes( $_POST['support_request'] ) ) : false;
 		$has_donated = ( 'on' === $_POST['has_donated'] ) ? 'Donor' : 'No donation';
