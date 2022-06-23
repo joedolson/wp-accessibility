@@ -703,8 +703,8 @@ add_action(
 		// Enqueue code editor and settings for manipulating CSS.
 		$settings = wp_enqueue_code_editor( array( 'type' => 'text/css' ) );
 
-		// Bail if user disabled CodeMirror.
-		if ( false === $settings ) {
+		// Bail if user disabled CodeMirror or using default styles.
+		if ( false === $settings || 'true' === get_option( 'asl_default_styles' ) ) {
 			return;
 		}
 		wp_add_inline_script(
