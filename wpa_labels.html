@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Filter: wpa_move_toolbar - WP Accessibility Hook Doumentation</title>
+    <title>Filter: wpa_labels - WP Accessibility Hook Doumentation</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -15,7 +15,7 @@
 
 <div id="main">
 
-    <header><h1 class="page-title">Filter: wpa_move_toolbar</h1></header>
+    <header><h1 class="page-title">Filter: wpa_labels</h1></header>
 	<main>
     
 
@@ -36,14 +36,14 @@
 
     
 
-    <h4 class="name" id="wpa_move_toolbar">apply_filters( 'wpa_move_toolbar', <span class="signature">$el )</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="wpa_labels">apply_filters( 'wpa_labels', <span class="signature">$labels )</span><span class="type-signature"> &rarr; {array}</span></h4>
 
     
 
 
 
 <div class="description">
-    <p>Filter attachment location of the toolbar. Default <code>body</code>.</p>
+    <p>Customize labels passed to automatically label core WordPress fields.</p>
 </div>
 
 
@@ -77,13 +77,13 @@
 
         <tr>
             
-                <td class="name"><code>$el</code></td>
+                <td class="name"><code>$labels</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">array</span>
 
 
             
@@ -93,7 +93,7 @@
 
             
 
-            <td class="description last"><p>Target element selector.</p></td>
+            <td class="description last"><p>Array of labels for search and comment fields.</p></td>
         </tr>
 
     
@@ -134,7 +134,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="wp-accessibility-toolbar.php.html">wp-accessibility-toolbar.php</a>, <a href="wp-accessibility-toolbar.php.html#line169">line 169</a>
+        <a href="wp-accessibility.php.html">wp-accessibility.php</a>, <a href="wp-accessibility.php.html#line143">line 143</a>
     </li></ul></dd>
     
 
@@ -160,11 +160,19 @@
 <h5>Returns:</h5>
 
         
-<div class="param-desc">
-    <p>string</p>
-</div>
 
 
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">array</span>
+
+
+    </dd>
+</dl>
 
     
 

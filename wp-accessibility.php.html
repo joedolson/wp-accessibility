@@ -166,6 +166,15 @@ function wpacc_enqueue_scripts() {
 			'url'     => __( 'Website', 'wp-accessibility' ),
 			'comment' => __( 'Comment', 'wp-accessibility' ),
 		);
+		/**
+		 * Customize labels passed to automatically label core WordPress fields.
+		 *
+		 * @hook wpa_labels
+		 * @param {array} $labels Array of labels for search and comment fields.
+		 *
+		 * @return {array}
+		 */
+		$labels = apply_filters( 'wpa_labels', $labels );
 		wp_localize_script( 'wpa-labels', 'wpalabels', $labels );
 	}
 	if ( 'link' === get_option( 'wpa_longdesc' ) ) {
@@ -189,7 +198,10 @@ function wpacc_enqueue_scripts() {
 			)
 		);
 	}
-	wp_enqueue_script( 'current.menu', plugins_url( 'js/current-menu-item.js', __FILE__ ), array( 'jquery' ), $version, true );
+	// aria-current was added in 5.3; don't enqueue this script on newer versions.
+	if ( version_compare( $GLOBALS['wp_version'], '5.3', '&lt;' ) ) {
+		wp_enqueue_script( 'current.menu', plugins_url( 'js/current-menu-item.js', __FILE__ ), array( 'jquery' ), $version, true );
+	}
 }
 
 add_action( 'wp_enqueue_scripts', 'wpa_stylesheet' );
@@ -903,7 +915,7 @@ add_action( 'save_post', 'wpa_save_content_summary', 10, 2 );
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Filters</h3><ul><li><a href="wpa_case_insensitive.html">wpa_case_insensitive</a></li><li><a href="wpa_case_sensitive.html">wpa_case_sensitive</a></li><li><a href="wpa_fontsize_css.html">wpa_fontsize_css</a></li><li><a href="wpa_long_alt.html">wpa_long_alt</a></li><li><a href="wpa_move_toolbar.html">wpa_move_toolbar</a></li><li><a href="wpa_summary_heading.html">wpa_summary_heading</a></li><li><a href="wpa_summary_heading_level.html">wpa_summary_heading_level</a></li><li><a href="wpa_toolbar_css.html">wpa_toolbar_css</a></li><li><a href="wpa_underline_target.html">wpa_underline_target</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-change-accessibility-toolbar-attachment-element.html">change-accessibility-toolbar-attachment-element</a></li><li><a href="tutorial-custom-fontsize-stylesheet.html">custom-fontsize-stylesheet</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Filters</h3><ul><li><a href="wpa_case_insensitive.html">wpa_case_insensitive</a></li><li><a href="wpa_case_sensitive.html">wpa_case_sensitive</a></li><li><a href="wpa_fontsize_css.html">wpa_fontsize_css</a></li><li><a href="wpa_labels.html">wpa_labels</a></li><li><a href="wpa_long_alt.html">wpa_long_alt</a></li><li><a href="wpa_move_toolbar.html">wpa_move_toolbar</a></li><li><a href="wpa_summary_heading.html">wpa_summary_heading</a></li><li><a href="wpa_summary_heading_level.html">wpa_summary_heading_level</a></li><li><a href="wpa_toolbar_css.html">wpa_toolbar_css</a></li><li><a href="wpa_underline_target.html">wpa_underline_target</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-change-accessibility-toolbar-attachment-element.html">change-accessibility-toolbar-attachment-element</a></li><li><a href="tutorial-custom-fontsize-stylesheet.html">custom-fontsize-stylesheet</a></li></ul>
 </nav>
 
 <br class="clear">
