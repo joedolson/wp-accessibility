@@ -326,10 +326,10 @@ function wpa_admin_settings() {
 							</div>
 						</div>
 						<div class="postbox">
-							<h2 id="accessibility-settings" class='hndle'><?php _e( 'Accessibility Settings', 'wp-accessibility' ); ?></h2>
+							<h2 id="accessibility-settings" class='hndle'><?php _e( 'Accessibility Fixes', 'wp-accessibility' ); ?></h2>
 
 							<div class="inside">
-								<p><?php _e( 'Settings that fix accessibility issues on your site.', 'wp-accessibility' ); ?></p>
+								<p><?php _e( 'Settings that fix potential accessibility issues on your site.', 'wp-accessibility' ); ?></p>
 								<hr>
 								<form method="post" action="<?php echo admin_url( 'admin.php?page=wp-accessibility' ); ?>">
 									<ul>
@@ -584,7 +584,7 @@ function wpa_admin_settings() {
  */
 function wpa_admin_sidebar() {
 	?>
-	<div class="postbox-container">
+	<div class="postbox-container" id="wpa-sidebar">
 		<div class="metabox-holder">
 			<div class="ui-sortable meta-box-sortables">
 				<div class="postbox">
@@ -642,7 +642,7 @@ function wpa_admin_sidebar() {
 						<?php _e( 'Set a custom long description template by adding <code>longdesc-template.php</code> to your theme directory.', 'wp-accessibility' ); ?>
 						</p>
 						<p>
-						<?php _e( 'The <a href="#wpa_widget_toolbar">shortcode for the Accessibility toolbar</a> (if enabled) is <code>[wpa_toolbar]</code>', 'wp-accessibility' ); ?>
+						<?php _e( 'The <a href="#wpa_widget_toolbar">shortcode for the Accessibility toolbar</a> is <code>[wpa_toolbar]</code>', 'wp-accessibility' ); ?>
 						</p>
 					</div>
 				</div>

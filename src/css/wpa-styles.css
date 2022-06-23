@@ -36,7 +36,7 @@
 	margin: 1em 0;
 }
 
-#wpa_settings_page .postbox {
+#wpa_settings_page .postbox, #wpa-sidebar .postbox {
 	margin: 0 10px 10px 0;
 }
 
