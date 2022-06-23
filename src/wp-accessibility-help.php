@@ -40,9 +40,9 @@ function wpa_help_screen() {
 							</div>
 						</div>
 					</div>
-					<?php wpa_admin_sidebar(); ?>
 				</div>
 			</div>
+			<?php wpa_admin_sidebar(); ?>
 		</div>
 	</div>
 	<?php

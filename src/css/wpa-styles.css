@@ -4,6 +4,11 @@
 	grid-template-columns: 70% 1fr;
 }
 
+.wpa-settings-wrapper .inside h3 {
+	font-size: 1.1em;
+	margin: 0;
+}
+
 .notice .views {
 	display: grid;
 	grid-template-columns: repeat( 2, minmax(0,1fr) );
