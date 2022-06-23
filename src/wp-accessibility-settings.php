@@ -196,12 +196,12 @@ function wpa_admin_settings() {
 												<label for="asl_visible"><?php _e( 'Skiplinks always visible', 'wp-accessibility' ); ?></label>
 											</li>
 											<li>
-												<label for="asl_content"><?php _e( 'Skip to Content link target (ID of your main content container)', 'wp-accessibility' ); ?></label><br />
-												<input type="text" id="asl_content" name="asl_content" size="44" value="<?php echo esc_attr( get_option( 'asl_content' ) ); ?>"/>
+												<label for="asl_content"><?php _e( 'Skip to Content link target', 'wp-accessibility' ); ?></label><br />
+												<input type="text" id="asl_content" name="asl_content" placeholder="#" size="44" value="<?php echo esc_attr( get_option( 'asl_content' ) ); ?>"/>
 											</li>
 											<li>
-												<label for="asl_navigation"><?php _e( 'Skip to Navigation link target (ID of your main navigation container)', 'wp-accessibility' ); ?></label><br />
-												<input type="text" id="asl_navigation" name="asl_navigation" size="44" value="<?php echo esc_attr( get_option( 'asl_navigation' ) ); ?>"/>
+												<label for="asl_navigation"><?php _e( 'Skip to Navigation link target', 'wp-accessibility' ); ?></label><br />
+												<input type="text" id="asl_navigation" name="asl_navigation" placeholder="#" size="44" value="<?php echo esc_attr( get_option( 'asl_navigation' ) ); ?>"/>
 											</li>
 											<?php
 											if ( '' !== get_option( 'asl_sitemap', '' ) ) {
@@ -679,8 +679,8 @@ function wpa_admin_sidebar() {
 					<div class="inside">
 						<h3><?php _e( 'Cookies', 'wp-accessibility' ); ?></h3>
 						<p><?php _e( 'The accessibility toolbar sets cookies to maintain awareness of the user\'s selected accessibility options. If the toolbar is not in use, WP Accessibility does not set any cookies.', 'wp-accessibility' ); ?></p>
-						<h3><?php _e( 'Information Collected by WP Accessibility', 'wp-accessibility' ); ?></h3>
-						<p><?php _e( 'WP Accessibility does not collect any private information about users or visitors.', 'wp-accessibility' ); ?></p>
+						<h3><?php _e( 'Information collected by WP Accessibility', 'wp-accessibility' ); ?></h3>
+						<p><?php _e( 'WP Accessibility does not collect any information about WordPress users or site visitors.', 'wp-accessibility' ); ?></p>
 					</div>
 				</div>
 			</div>
