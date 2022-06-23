@@ -140,6 +140,15 @@ function wpacc_enqueue_scripts() {
 			'url'     => __( 'Website', 'wp-accessibility' ),
 			'comment' => __( 'Comment', 'wp-accessibility' ),
 		);
+		/**
+		 * Customize labels passed to automatically label core WordPress fields.
+		 *
+		 * @hook wpa_labels
+		 * @param {array} $labels Array of labels for search and comment fields.
+		 *
+		 * @return {array}
+		 */
+		$labels = apply_filters( 'wpa_labels', $labels );
 		wp_localize_script( 'wpa-labels', 'wpalabels', $labels );
 	}
 	if ( 'link' === get_option( 'wpa_longdesc' ) ) {
@@ -163,7 +172,10 @@ function wpacc_enqueue_scripts() {
 			)
 		);
 	}
-	wp_enqueue_script( 'current.menu', plugins_url( 'js/current-menu-item.js', __FILE__ ), array( 'jquery' ), $version, true );
+	// aria-current was added in 5.3; don't enqueue this script on newer versions.
+	if ( version_compare( $GLOBALS['wp_version'], '5.3', '<' ) ) {
+		wp_enqueue_script( 'current.menu', plugins_url( 'js/current-menu-item.js', __FILE__ ), array( 'jquery' ), $version, true );
+	}
 }
 
 add_action( 'wp_enqueue_scripts', 'wpa_stylesheet' );
