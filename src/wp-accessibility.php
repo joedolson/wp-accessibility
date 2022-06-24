@@ -193,8 +193,9 @@ function wpa_stylesheet() {
 		if ( is_admin_bar_showing() ) {
 			$top = '37px';
 		}
+		$add_css    = wpa_css();
 		$custom_css = ":root { --admin-bar-top : " . $top . '; }';
-		wp_add_inline_style( 'wpa-style', $custom_css );
+		wp_add_inline_style( 'wpa-style', $add_css . $custom_css );
 	}
 	if ( current_user_can( 'edit_files' ) && 'on' === get_option( 'wpa_diagnostics' ) ) {
 		wp_register_style( 'diagnostic', plugins_url( 'css/diagnostic.css', __FILE__ ) );
@@ -304,7 +305,6 @@ $class#skiplinks a:active, $vis $class#skiplinks a:focus {
 	return $styles;
 }
 
-add_action( 'wp_head', 'wpa_css' );
 /**
  * Generate styles needed for WP Accessibility options.
  */
@@ -319,12 +319,7 @@ function wpa_css() {
 		:focus { outline: 2px solid$color!important; outline-offset: 2px !important; }
 		";
 	}
-	if ( '' !== $styles ) {
-		echo "
-<style type='text/css'>
-	$styles
-</style>";
-	}
+	return $styles;
 }
 
 /**
