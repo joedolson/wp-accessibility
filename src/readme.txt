@@ -85,6 +85,7 @@ The plug-in is intended to help with deficiencies commonly found in themes and t
 * Set default focus outline color.
 * Fix some incorrect textdomains.
 * Use wp_add_inline_styles for customizable CSS.
+* Update automatic link underlines to skip `nav` elements.
 * Auto generation of hook documentation: https://joedolson.github.io/wp-accessibility/
 
 = 1.8.1 =
