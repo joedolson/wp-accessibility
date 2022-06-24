@@ -5,7 +5,7 @@ Tags: title, accessibility, accessible, navigation, wcag, a11y, section508, focu
 Requires at least: 3.4.2
 Requires PHP: 5.6
 Tested up to: 6.0
-Stable tag: 1.8.1
+Stable tag: 1.9.0
 Text Domain: wp-accessibility
 License: GPLv2 or later
 
@@ -75,6 +75,17 @@ The plug-in is intended to help with deficiencies commonly found in themes and t
 = Future =
 
 [Suggest a change!](https://github.com/joedolson/wp-accessibility/issues/)
+
+= 1.9.0 =
+
+* Update: Significant reorganization of settings.
+* Feature: Create & prepend simplified content summaries.
+* Feature: Raise warning on long alt text.
+* Increase boldness of automatic focus outline.
+* Set default focus outline color.
+* Fix some incorrect textdomains.
+* Use wp_add_inline_styles for customizable CSS.
+* Auto generation of hook documentation: https://joedolson.github.io/wp-accessibility/
 
 = 1.8.1 =
 

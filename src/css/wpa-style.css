@@ -159,6 +159,7 @@ label.wpa-screen-reader-text {
 .wpa-content-summary {
 	padding: 30px;
 	background: rgba( 0,0,0,.05 );
+	margin-bottom: 30px;
 }
 
 .wpa-content-summary div p:last-of-type {

@@ -17,7 +17,7 @@
  * Domain Path: /lang
  * License:     GPL-2.0+
  * License URI: http://www.gnu.org/license/gpl-2.0.txt
- * Version: 1.8.1
+ * Version: 1.9.0
  */
 
 /*
@@ -63,14 +63,14 @@ add_action( 'admin_menu', 'wpa_admin_menu' );
  */
 function wpa_admin_menu() {
 	add_menu_page( 'WP Accessibility', 'WP Accessibility', 'manage_options', 'wp-accessibility', 'wpa_admin_settings', 'dashicons-universal-access' );
-	add_submenu_page( 'wp-accessibility', 'WP Accessibility - Help', 'Help', 'manage_options', 'wp-accessibility-help', 'wpa_help_screen' );
+	add_submenu_page( 'wp-accessibility', 'WP Accessibility - Help', 'Get Help', 'manage_options', 'wp-accessibility-help', 'wpa_help_screen' );
 }
 
 /**
  * Install on activation.
  */
 function wpa_install() {
-	$wpa_version = '1.8.1';
+	$wpa_version = '1.9.0';
 	if ( 'true' !== get_option( 'wpa_installed' ) ) {
 		add_option( 'rta_from_tag_clouds', 'on' );
 		add_option( 'asl_styles_focus', '' );
@@ -184,7 +184,6 @@ add_action( 'wp_enqueue_scripts', 'wpa_stylesheet' );
  */
 function wpa_stylesheet() {
 	$version = wpa_check_version();
-	// Respects SSL, Style.css is relative to the current file.
 	wp_register_style( 'wpa-style', plugins_url( 'css/wpa-style.css', __FILE__ ), array(), $version );
 	if ( 'link' === get_option( 'wpa_longdesc' ) || 'jquery' === get_option( 'wpa_longdesc' ) || 'on' === get_option( 'asl_enable' ) || ! empty( get_option( 'wpa_post_types', array() ) ) ) {
 		wp_enqueue_style( 'wpa-style' );
