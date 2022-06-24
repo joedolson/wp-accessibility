@@ -40,7 +40,7 @@
 	}
 
 	if ( wpa.underline.enabled ) {
-		$( wpa.underline.target ).css( 'text-decoration','underline' );
+		$( wpa.underline.target ).not( 'nav ' + wpa.underline.target ).css( 'text-decoration','underline' );
 		$(  wpa.underline.target ).on( 'focusin mouseenter', function() {
 			$(this).css( 'text-decoration','none' );
 		});
