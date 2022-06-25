@@ -400,7 +400,7 @@ function wpa_admin_settings() {
 						<div class="postbox">
 							<h2 class="hndle"><?php _e( 'Accessibility Features', 'wp-accessibility' ); ?></h2>
 							<div class="inside">
-								<p><?php _e( 'Settings that enable content features you can use to improve site accessibility.', 'wp-accessibility' ); ?></p>
+								<p><?php _e( 'Enable content features to improve site accessibility.', 'wp-accessibility' ); ?></p>
 								<hr>
 								<form method="post" action="<?php echo admin_url( 'admin.php?page=wp-accessibility' ); ?>">
 									<ul>
@@ -458,8 +458,8 @@ function wpa_admin_settings() {
 								<form method="post" action="<?php echo admin_url( 'admin.php?page=wp-accessibility' ); ?>">
 									<ul>
 										<li>
-											<input type="checkbox" id="wpa_search_alt" name="wpa_search_alt" <?php checked( get_option( 'wpa_search_alt' ), 'on' ); ?>/>
-											<label for="wpa_search_alt"><?php _e( 'Include alt attribute in media library searches', 'wp-accessibility' ); ?><span><?php _e( '* May cause slow searches on large media libraries.', 'wp-accessibility' ); ?></span></label> 
+											<input type="checkbox" id="wpa_search_alt" name="wpa_search_alt" <?php checked( get_option( 'wpa_search_alt' ), 'on' ); ?> aria-describedby="wpa_search_alt_note" />
+											<label for="wpa_search_alt"><?php _e( 'Include alt attribute in media library searches', 'wp-accessibility' ); ?></label> <em class="wpa-note" id="wpa_search_alt_note"><?php _e( '* May cause slow searches on large media libraries.', 'wp-accessibility' ); ?></em>
 										</li>
 										<li>
 											<input type="checkbox" id="wpa_disable_fullscreen" name="wpa_disable_fullscreen" <?php checked( get_option( 'wpa_disable_fullscreen' ), 'on' ); ?>/>
@@ -508,8 +508,8 @@ function wpa_admin_settings() {
 								<?php
 								$colors = wpa_contrast();
 								if ( $colors ) {
-									$l_contrast    = wpa_luminosity( $colors['red1'], $colors['red2'], $colors['green1'], $colors['green2'], $colors['blue1'], $colors['blue2'] ) . ':1';
 									$luminance_raw = wpa_luminosity( $colors['red1'], $colors['red2'], $colors['green1'], $colors['green2'], $colors['blue1'], $colors['blue2'] );
+									$l_contrast    = $luminance_raw . ':1';
 									$hex1          = esc_attr( $colors['hex1'] );
 									$hex2          = esc_attr( $colors['hex2'] );
 								} else {
@@ -546,7 +546,7 @@ function wpa_admin_settings() {
 									echo $results;
 								}
 								?>
-								<form method="post" id="contrast" action="<?php echo admin_url( 'admin.php?page=wp-accessibility' ); ?>">
+								<form method="get" id="contrast" action="<?php echo admin_url( 'admin.php?page=wp-accessibility' ); ?>">
 									<fieldset>
 										<legend><?php _e( 'Test of relative luminosity', 'wp-accessibility' ); ?></legend>
 										<ul id="contrast-tester">
@@ -563,8 +563,8 @@ function wpa_admin_settings() {
 										</ul>
 									</fieldset>
 									<p>
-										<input type="hidden" name="_wpnonce" value="<?php echo wp_create_nonce( 'wpa-nonce' ); ?>" />
 										<input type="hidden" name="action" value="contrast" />
+										<input type="hidden" name="page" value="wp-accessibility" />
 									</p>
 
 									<p><input type="submit" name="wpa-settings" class="button-primary" value="<?php _e( 'Check Color Contrast', 'wp-accessibility' ); ?>"/></p>
