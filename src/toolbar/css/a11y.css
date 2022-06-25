@@ -41,7 +41,7 @@
 .a11y-toolbar {
 	position: fixed;
 	z-index: 99999;
-	top: 43%;
+	top: 43vh;
 	left: 0;
 }
 
@@ -92,7 +92,7 @@
 	border-radius: 0 0 4px;
 }
 
-
+.a11y-toolbar .a11y-toolbar-list .a11y-toolbar-list-item .tooltip-dismissed:focus .offscreen,
 .a11y-toolbar .offscreen,
 .a11y_stylesheet_path {
 	position: absolute !important;
@@ -131,14 +131,7 @@
 }
 
 .desaturated {
-	filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale") !important;
-	filter: grayscale(100%) !important;
-	-webkit-filter: grayscale(100%) !important;
-	-webkit-filter: grayscale(1) !important;
-	-moz-filter: grayscale(100%) !important;
-	-ms-filter: grayscale(100%) !important;
-	-o-filter: grayscale(100%) !important;
-	filter: gray !important;
+	filter: grayscale(1) !important;
 }
 
 .a11y-toolbar button:hover .offscreen,
@@ -151,7 +144,7 @@
 	background: #f0f0f0; 
 	padding: 8px 6px !important;
 	box-shadow: 0 0 1px #000;
-	border-radius: 3px;
+	border-radius: 5px;
 	font-size: 16px;
 	text-transform: none;
 	font-family: Arial;
@@ -159,10 +152,10 @@
 
 .a11y-toolbar.right button:hover .offscreen,
 .a11y-toolbar.right button:focus .offscreen {
-	right: calc( 100% + 2px );
+	right: 100%;
 	left: auto;
 }
 
 .a11y-toolbar button:hover .offscreen, .a11y-toolbar	button:focus .offscreen {
-	left: calc( 100% + 2px );
+	left: 100%;
 }

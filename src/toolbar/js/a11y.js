@@ -39,6 +39,17 @@ function eraseCookie(name) {
 		$('#is_normal_color').attr('id', 'is_grayscale').attr('aria-pressed', true).addClass('active');
 	}
 
+	$( '.a11y-toggle' ).on( 'focus', function(e) {
+		$( this ).removeClass( 'tooltip-dismissed' );
+	});
+
+	$( '.a11y-toggle' ).on( 'keyup', function(e) {
+		if ( e.keyCode == 27 ) {
+			$( this ).addClass( 'tooltip-dismissed' );
+		}
+	});
+
+
 	if (readCookie('a11y-high-contrast')) {
 		$('body').addClass('contrast');
 		$('head').append($("<link href='" + wpa11y.path + "' id='highContrastStylesheet' rel='stylesheet' type='text/css' />"));
