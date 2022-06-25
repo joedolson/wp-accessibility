@@ -104,6 +104,14 @@ function wpa_check_version() {
 	// upgrade for version 1.9.0.
 	if ( version_compare( $version, '1.9.0', '<' ) ) {
 		add_option( 'wpa_post_types', array( 'post' ) );
+		$wpa_toolbar_fs = get_option( 'wpa_toolbar_fs', '' );
+		$wpa_toolbar_ct = get_option( 'wpa_toolbar_ct', '' );
+		if ( '' === $wpa_toolbar_fs ) {
+			update_option( 'wpa_toolbar_fs', 'on' );
+		}
+		if ( '' === $wpa_toolbar_ct ) {
+			update_option( 'wpa_toolbar_ct', 'on' );
+		}
 	}
 
 	return $version;
