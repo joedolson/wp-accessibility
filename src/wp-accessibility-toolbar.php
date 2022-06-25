@@ -36,7 +36,7 @@ add_action( 'wp_enqueue_scripts', 'wpa_toolbar_enqueue_scripts' );
  * Enqueue Toolbar scripts dependent on options.
  */
 function wpa_toolbar_enqueue_scripts() {
-	$wpa_version = wpa_check_version()
+	$wpa_version = wpa_check_version();
 	wp_enqueue_script( 'jquery' );
 	if ( 'on' === get_option( 'wpa_toolbar' ) ) {
 		// Enqueue Toolbar JS if enabled.
