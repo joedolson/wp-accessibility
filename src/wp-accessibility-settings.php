@@ -537,10 +537,10 @@ function wpa_admin_settings() {
 									$results .= '</p>';
 									$results .= "
 							<div class=\"views\">
-								<p class='large' style=\"color: #$hex1;background: #$hex2\">Large Print Example</p>
-								<p class='small' style=\"color: #$hex1;background: #$hex2\">Small Print Example</p>
-								<p class='large' style=\"color: #$hex2;background: #$hex1\">Large Print Example (Inverted)</p>
-								<p class='small' style=\"color: #$hex2;background: #$hex1\">Small Print Example (Inverted)</p>
+								<p class='large' style=\"color: #$hex1;background: #$hex2\">Large Text (24px)</p>
+								<p class='small' style=\"color: #$hex1;background: #$hex2\">Standard Text (18px)</p>
+								<p class='large' style=\"color: #$hex2;background: #$hex1\">Large Text (24px) (Inverted)</p>
+								<p class='small' style=\"color: #$hex2;background: #$hex1\">Standard Text (18px) (Inverted)</p>
 							</div>
 						</div>";
 									echo $results;
