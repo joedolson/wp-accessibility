@@ -81,11 +81,14 @@ The plug-in is intended to help with deficiencies commonly found in themes and t
 * Update: Significant reorganization of settings.
 * Feature: Create & prepend simplified content summaries.
 * Feature: Raise warning on long alt text.
+* Feature: Generate color contrast via GET to make bookmarkable.
 * Increase boldness of automatic focus outline.
 * Set default focus outline color.
-* Fix some incorrect textdomains.
 * Use wp_add_inline_styles for customizable CSS.
 * Update automatic link underlines to skip `nav` elements.
+* Bug fix: some incorrect textdomains.
+* Bug fix: toolbar tooltips should be dismissable without changing focus or hover. Support `esc` key.
+* Bug fix: Incorrect variable passed to color contrast, causing incorrect values.
 * Auto generation of hook documentation: https://joedolson.github.io/wp-accessibility/
 
 = 1.8.1 =

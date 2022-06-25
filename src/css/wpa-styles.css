@@ -32,6 +32,17 @@
 .notice .views p {
 	margin: 0;
 	padding: 8px;
+	border: 3px solid;
+	text-align: center;
+	min-height: 40px;
+}
+
+.notice .views .large {
+	font-size: 25px;
+}
+
+.notice .views .small {
+	font-size: 18px;
 }
 
 #wpa_settings_page .checkboxes {

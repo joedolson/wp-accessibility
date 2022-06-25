@@ -520,7 +520,7 @@ function wpa_admin_settings() {
 								if ( $l_contrast ) {
 									$results = "<div class='updated notice'>";
 									// Translators: Contrast ratio, foreground Hex color, background Hex color.
-									$results .= '<p class="stats wcag2">' . sprintf( __( 'Luminosity Contrast Ratio for %2$s and %3$s is %1$s (Threshold: greater than 7:1 for AAA, 4.5:1 for AA)', 'wp-accessibility' ), '<strong>' . $l_contrast . '</strong>', '<code>#' . $hex1 . '</code>', '<code>#' . $hex2 . '</code>' ) . '</p><p>';
+									$results .= '<h2 class="stats wcag2">' . sprintf( __( 'Luminosity Contrast Ratio for %2$s and %3$s is %1$s (Threshold: greater than 7:1 for AAA, 4.5:1 for AA)', 'wp-accessibility' ), '<strong>' . $l_contrast . '</strong>', '<code>#' . $hex1 . '</code>', '<code>#' . $hex2 . '</code>' ) . '</h2><p>';
 									if ( $luminance_raw >= 7 ) {
 										$results .= __( 'The colors compared <strong>pass</strong> the relative luminosity test at level AAA.', 'wp-accessibility' );
 									}
@@ -528,7 +528,7 @@ function wpa_admin_settings() {
 										$results .= __( 'The colors compared <strong>pass</strong> the relative luminosity test at level AA.', 'wp-accessibility' );
 									}
 									if ( $luminance_raw >= 3 && $luminance_raw < 4.5 ) {
-										$results .= __( 'The colors compared pass the relative luminosity test <strong>only when used in large print</strong> situations (greater than 18pt text or 14pt bold text.)', 'wp-accessibility' );
+										$results .= __( 'The colors compared pass the relative luminosity test <strong>only when used in large print</strong> situations (greater than 18pt (24px) text or 14pt (18.66px) bold text.)', 'wp-accessibility' );
 									}
 									if ( $luminance_raw < 3 ) {
 										$results .= __( 'The colors compared <strong>do not pass</strong> the relative luminosity test.', 'wp-accessibility' );
@@ -537,10 +537,10 @@ function wpa_admin_settings() {
 									$results .= '</p>';
 									$results .= "
 							<div class=\"views\">
-								<p class='large' style=\"font-size: 2em; line-height: 1.4;color: #$hex1;background: #$hex2;border: 3px solid #$hex1\">Large Print Example</p>
-								<p class='small' style=\"font-size: .9em;color: #$hex1;background: #$hex2;border: 3px solid #$hex1\">Small Print Example</p>
-								<p class='large' style=\"font-size: 2em; line-height: 1.4;color: #$hex2;background: #$hex1;border: 3px solid #$hex2\">Large Print Example (Inverted)</p>
-								<p class='small' style=\"font-size: .9em;color: #$hex2;background: #$hex1;border: 3px solid #$hex2\">Small Print Example (Inverted)</p>
+								<p class='large' style=\"color: #$hex1;background: #$hex2\">Large Print Example</p>
+								<p class='small' style=\"color: #$hex1;background: #$hex2\">Small Print Example</p>
+								<p class='large' style=\"color: #$hex2;background: #$hex1\">Large Print Example (Inverted)</p>
+								<p class='small' style=\"color: #$hex2;background: #$hex1\">Small Print Example (Inverted)</p>
 							</div>
 						</div>";
 									echo $results;
