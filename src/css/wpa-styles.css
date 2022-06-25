@@ -12,7 +12,12 @@
 .wpa-checkboxes li {
 	display: flex;
 	flex-wrap: wrap;
+	column-gap: .5rem;
 	align-items: center;
+}
+
+.wpa-checkboxes li input {
+	margin-top: 0;
 }
 
 .notice .views {
