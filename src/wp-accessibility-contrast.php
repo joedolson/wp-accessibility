@@ -26,6 +26,13 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @return luminosity ratio.
  */
 function wpa_luminosity( $r, $r2, $g, $g2, $b, $b2 ) {
+	$r  = (int) $r;
+	$r2 = (int) $r2;
+	$g  = (int) $g;
+	$g2 = (int) $g2;
+	$b  = (int) $b;
+	$b2 = (int) $b2;
+
 	$rs_rgb = $r / 255;
 	$gs_rgb = $g / 255;
 	$bs_rgb = $b / 255;
@@ -42,7 +49,7 @@ function wpa_luminosity( $r, $r2, $g, $g2, $b, $b2 ) {
 
 	if ( $r + $g + $b <= $r2 + $g2 + $b2 ) {
 		$l2 = ( .2126 * $r_new + 0.7152 * $g_new + 0.0722 * $b_new );
-		$l1 = ( .2126 * $r2_new + 0.7152 * $b2_new + 0.0722 * $b2_new );
+		$l1 = ( .2126 * $r2_new + 0.7152 * $g2_new + 0.0722 * $b2_new );
 	} else {
 		$l1 = ( .2126 * $r_new + 0.7152 * $g_new + 0.0722 * $b_new );
 		$l2 = ( .2126 * $r2_new + 0.7152 * $g2_new + 0.0722 * $b2_new );
@@ -101,17 +108,13 @@ function wpa_hex2rgb( $color ) {
 }
 
 /**
- * Calculate the luminosity ratio between two color values.
+ * Generate an array of RGB color values from hex codes.
  */
 function wpa_contrast() {
-	if ( ! empty( $_POST ) ) {
-		$nonce = $_REQUEST['_wpnonce'];
-		if ( ! wp_verify_nonce( $nonce, 'wpa-nonce' ) ) {
-			wp_die( 'WP Accessibility: Security check failed' );
-		}
-		if ( isset( $_POST['color'] ) && '' !== $_POST['color'] ) {
-			$fore_color = $_POST['color'];
-			if ( '#' === $fore_color[0] ) {
+	if ( ! empty( $_GET['color'] ) ) {
+		if ( isset( $_GET['color'] ) && '' !== $_GET['color'] ) {
+			$fore_color = sanitize_text_field( $_GET['color'] );
+			if ( '#' === substr( $fore_color, 0, 1 ) ) {
 				$fore_color = str_replace( '#', '', $fore_color );
 			}
 			if ( 3 === strlen( $fore_color ) ) {
@@ -125,9 +128,9 @@ function wpa_contrast() {
 			} else {
 				$echo_hex_fore = 'FFFFFF';
 			}
-			if ( isset( $_POST['color2'] ) && '' !== $_POST['color2'] ) {
-				$back_color = $_POST['color2'];
-				if ( '#' === $back_color[0] ) {
+			if ( isset( $_GET['color2'] ) && '' !== $_GET['color2'] ) {
+				$back_color = sanitize_text_field( $_GET['color2'] );
+				if ( '#' === substr( $back_color, 0, 1 ) ) {
 					$back_color = str_replace( '#', '', $back_color );
 				}
 				if ( 3 === strlen( $back_color ) ) {
