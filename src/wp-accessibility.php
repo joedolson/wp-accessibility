@@ -228,69 +228,85 @@ function wpa_admin_stylesheet() {
 /**
  * Generate skiplink CSS.
  *
+ * @param bool $defaults 'true' to return defaults regardless of settings.
+ *
  * @return string
  */
-function wpa_skiplink_css() {
+function wpa_skiplink_css( $defaults = false ) {
 	$use_defaults = get_option( 'asl_default_styles', '' );
 	$styles       = '';
 	$focus        = '';
 	$passive      = '';
-	if ( 'true' !== $use_defaults ) {
+	$visibility   = ( 'on' === get_option( 'asl_visible' ) ) ? 'wpa-visible' : 'wpa-hide';
+	$is_rtl       = ( is_rtl() ) ? '-rtl' : '-ltr';
+	$off_vis      = ( 'on' === get_option( 'asl_visible' ) ) ? 'wpa-hide' : 'wpa-visible';
+	$off_rtl      = ( is_rtl() ) ? '-ltr' : '-rtl';
+	// If not using default styles.
+	if ( 'true' !== $use_defaults && ! $defaults ) {
+		$default_focus   = '';
+		$default_passive = '';
 		if ( '' !== get_option( 'asl_styles' ) ) {
 			$styles = wp_filter_nohtml_kses( get_option( 'asl_styles' ) );
+			// Ensure custom styles match settings.
+			$styles = str_replace( array( $off_vis, $off_rtl ), array( $visibility, $is_rtl ), $styles );
+			// If custom styles contain #skiplinks, we can just return this; it's probably a fully realized selector.
+			if ( false !== stripos( $styles, '#skiplinks' ) ) {
+				return $styles;
+			}
 		} else {
 			$focus   = wp_filter_nohtml_kses( get_option( 'asl_styles_focus' ) );
 			$passive = wp_filter_nohtml_kses( get_option( 'asl_styles_passive' ) );
 		}
+	} else {
+		// these styles are derived from the WordPress skip link defaults.
+		$default_focus = 'background-color: #f1f1f1;
+		box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.6);
+		clip: auto;
+		color: #0073aa;
+		display: block;
+		font-weight: 600;
+		height: auto;
+		line-height: normal;
+		padding: 15px 23px 14px;
+		position: absolute;
+		left: 6px;
+		top: var(--admin-bar-top);
+		text-decoration: none;
+		text-transform: none;
+		width: auto;
+		z-index: 100000;';
+
+		// Passive default styles derived from WordPress default focus styles.
+		$default_passive = 'background-color: #fff;
+		box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.2);
+		clip: auto;
+		color: #333;
+		display: block;
+		font-weight: 600;
+		height: auto;
+		line-height: normal;
+		padding: 15px 23px 14px;
+		position: absolute;
+		left: 6px;
+		top: var(--admin-bar-top);
+		text-decoration: none;
+		text-transform: none;
+		width: auto;
+		z-index: 100000;';
 	}
 	if ( is_admin() && '' !== $styles ) {
 		return $styles;
 	}
-	// these styles are derived from the WordPress skip link defaults.
-	$default_focus = 'background-color: #f1f1f1;
-	box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.6);
-	clip: auto;
-	color: #0073aa;
-	display: block;
-	font-weight: 600;
-	height: auto;
-	line-height: normal;
-	padding: 15px 23px 14px;
-	position: absolute;
-	left: 6px;
-	top: var(--admin-bar-top);
-	text-decoration: none;
-	text-transform: none;
-	width: auto;
-	z-index: 100000;';
+
 	if ( ! $focus ) {
 		$focus = $default_focus;
 	} else {
 		$focus = $default_focus . $focus;
 	}
-	// Passive default styles derived from WordPress default focus styles.
-	$default_passive = 'background-color: #fff;
-	box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.2);
-	clip: auto;
-	color: #333;
-	display: block;
-	font-weight: 600;
-	height: auto;
-	line-height: normal;
-	padding: 15px 23px 14px;
-	position: absolute;
-	left: 6px;
-	top: var(--admin-bar-top);
-	text-decoration: none;
-	text-transform: none;
-	width: auto;
-	z-index: 100000;';
 
 	$vis   = '';
 	$invis = '';
 
-	$visibility = ( 'on' === get_option( 'asl_visible' ) ) ? 'wpa-visible' : 'wpa-hide';
-	$is_rtl     = ( is_rtl() ) ? '-rtl' : '-ltr';
 	$class      = '.' . $visibility . $is_rtl;
 	// If links are visible, "hover" is a focus style, otherwise, it's a passive style.
 	if ( 'on' === get_option( 'asl_visible' ) ) {
