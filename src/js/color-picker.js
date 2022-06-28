@@ -2,7 +2,7 @@ jQuery(document).ready(function ($) {
 	$('.wpa-color-input').wpColorPicker();
 
 	var default_css = document.getElementById( 'wpa_default_css' );
-	if ( 'undefined' !== default_css ) {
+	if ( null !== default_css ) {
 
 		default_css.style.display = 'none';
 
