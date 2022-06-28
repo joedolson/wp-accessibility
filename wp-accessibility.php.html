@@ -332,8 +332,7 @@ function wpa_skiplink_css( $defaults = false ) {
 
 	$vis   = '';
 	$invis = '';
-
-	$class      = '.' . $visibility . $is_rtl;
+	$class = '.' . $visibility . $is_rtl;
 	// If links are visible, "hover" is a focus style, otherwise, it's a passive style.
 	if ( 'on' === get_option( 'asl_visible' ) ) {
 		$vis     = $class . '#skiplinks a:hover,';
