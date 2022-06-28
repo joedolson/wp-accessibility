@@ -23,7 +23,7 @@ function wpa_admin_styles() {
 		wp_enqueue_style( 'wpa-styles', plugins_url( 'css/wpa-styles.css', __FILE__ ), array( 'farbtastic' ), $version );
 		wp_enqueue_style( 'wp-color-picker' );
 		// Switch to wp_add_inline_script when no longer supporting WP 4.4.x.
-		wp_enqueue_script( 'wpa-color-picker', plugins_url( 'js/color-picker.js', __FILE__ ), array( 'wp-color-picker' ), false, true );
+		wp_enqueue_script( 'wpa-color-picker', plugins_url( 'js/color-picker.js', __FILE__ ), array( 'wp-color-picker' ), $version, true );
 	}
 }
 
@@ -239,6 +239,9 @@ function wpa_admin_settings() {
 												<textarea name='asl_styles' id='asl_styles' cols='60' rows='4'><?php echo esc_textarea( stripcslashes( $styles ) ); ?></textarea>
 											</li>
 												<?php
+											} else {
+												$styles = wpa_skiplink_css( true );
+												echo '<pre id="wpa_default_css">' . esc_html( stripcslashes( $styles ) ) . '</pre>';
 											}
 											?>
 										</ul>

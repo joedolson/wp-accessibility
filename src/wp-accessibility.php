@@ -260,39 +260,39 @@ function wpa_skiplink_css( $defaults = false ) {
 	} else {
 		// these styles are derived from the WordPress skip link defaults.
 		$default_focus = 'background-color: #f1f1f1;
-		box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.6);
-		clip: auto;
-		color: #0073aa;
-		display: block;
-		font-weight: 600;
-		height: auto;
-		line-height: normal;
-		padding: 15px 23px 14px;
-		position: absolute;
-		left: 6px;
-		top: var(--admin-bar-top);
-		text-decoration: none;
-		text-transform: none;
-		width: auto;
-		z-index: 100000;';
+	box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.6);
+	clip: auto;
+	color: #0073aa;
+	display: block;
+	font-weight: 600;
+	height: auto;
+	line-height: normal;
+	padding: 15px 23px 14px;
+	position: absolute;
+	left: 6px;
+	top: var(--admin-bar-top);
+	text-decoration: none;
+	text-transform: none;
+	width: auto;
+	z-index: 100000;';
 
 		// Passive default styles derived from WordPress default focus styles.
 		$default_passive = 'background-color: #fff;
-		box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.2);
-		clip: auto;
-		color: #333;
-		display: block;
-		font-weight: 600;
-		height: auto;
-		line-height: normal;
-		padding: 15px 23px 14px;
-		position: absolute;
-		left: 6px;
-		top: var(--admin-bar-top);
-		text-decoration: none;
-		text-transform: none;
-		width: auto;
-		z-index: 100000;';
+	box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.2);
+	clip: auto;
+	color: #333;
+	display: block;
+	font-weight: 600;
+	height: auto;
+	line-height: normal;
+	padding: 15px 23px 14px;
+	position: absolute;
+	left: 6px;
+	top: var(--admin-bar-top);
+	text-decoration: none;
+	text-transform: none;
+	width: auto;
+	z-index: 100000;';
 	}
 	if ( is_admin() && '' !== $styles ) {
 		return $styles;

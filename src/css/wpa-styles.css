@@ -4,6 +4,10 @@
 	grid-template-columns: 70% 1fr;
 }
 
+.wpa-settings-wrapper .button-secondary .dashicons {
+	vertical-align: text-bottom;
+}
+
 .wpa-settings-wrapper .inside h3 {
 	font-size: 1.1em;
 	margin: 0;
