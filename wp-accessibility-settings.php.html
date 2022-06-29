@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Source: wp-accessibility-settings.php - WP Accessibility Hook Doumentation</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+    <link type="text/css" rel="stylesheet" href="styles-docs.css?v=0.1.2">
+</head>
+
+<body>
+
+<div id="main">
+
+    <header><h1 class="page-title">Source: wp-accessibility-settings.php</h1></header>
+	<main>
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>&lt;?php
+/**
+ * Output the WP Accessibility Settings.
+ *
+ * @category Settings
+ * @package  WP Accessibility
+ * @author   Joe Dolson
+ * @license  GPLv2 or later
+ * @link     https://www.joedolson.com/wp-accessibility/
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+add_action( 'admin_enqueue_scripts', 'wpa_admin_styles' );
+/**
+ * Enqueue admin stylesheets.
+ */
+function wpa_admin_styles() {
+	if ( isset( $_GET['page'] ) &amp;&amp; ( 'wp-accessibility' === $_GET['page'] || 'wp-accessibility-help' === $_GET['page'] ) ) {
+		$version = wpa_check_version();
+		wp_enqueue_style( 'wpa-styles', plugins_url( 'css/wpa-styles.css', __FILE__ ), array( 'farbtastic' ), $version );
+		wp_enqueue_style( 'wp-color-picker' );
+		// Switch to wp_add_inline_script when no longer supporting WP 4.4.x.
+		wp_enqueue_script( 'wpa-color-picker', plugins_url( 'js/color-picker.js', __FILE__ ), array( 'wp-color-picker' ), $version, true );
+	}
+}
+
+/**
+ * Update WP Accessibility settings.
+ *
+ * @return string Update confirmation message.
+ */
+function wpa_update_settings() {
+	wpa_check_version();
+	if ( ! empty( $_POST ) ) {
+		$nonce = $_REQUEST['_wpnonce'];
+		if ( ! wp_verify_nonce( $nonce, 'wpa-nonce' ) ) {
+			wp_die( 'WP Accessibility: Security check failed' );
+		}
+		if ( isset( $_POST['action'] ) &amp;&amp; 'rta' === $_POST['action'] ) {
+			$rta_from_tag_clouds = ( isset( $_POST['rta_from_tag_clouds'] ) ) ? 'on' : '';
+			update_option( 'rta_from_tag_clouds', $rta_from_tag_clouds );
+
+			$message = __( 'Remove Title Attributes Settings Updated', 'wp-accessibility' );
+
+			return "&lt;div class='updated'>&lt;p>" . $message . '&lt;/p>&lt;/div>';
+		}
+		if ( isset( $_POST['action'] ) &amp;&amp; 'asl' === $_POST['action'] ) {
+			$asl_enable         = ( isset( $_POST['asl_enable'] ) ) ? 'on' : '';
+			$asl_content        = ( isset( $_POST['asl_content'] ) ) ? sanitize_text_field( $_POST['asl_content'] ) : '';
+			$asl_navigation     = ( isset( $_POST['asl_navigation'] ) ) ? sanitize_text_field( $_POST['asl_navigation'] ) : '';
+			$asl_sitemap        = ( isset( $_POST['asl_sitemap'] ) ) ? sanitize_text_field( $_POST['asl_sitemap'] ) : '';
+			$asl_extra_target   = ( isset( $_POST['asl_extra_target'] ) ) ? sanitize_text_field( $_POST['asl_extra_target'] ) : '';
+			$asl_extra_text     = ( isset( $_POST['asl_extra_text'] ) ) ? sanitize_text_field( $_POST['asl_extra_text'] ) : '';
+			$asl_visible        = ( isset( $_POST['asl_visible'] ) ) ? 'on' : '';
+			$asl_default_styles = ( isset( $_POST['asl_default_styles'] ) ) ? 'true' : '';
+			$asl_styles         = ( isset( $_POST['asl_styles'] ) ) ? wp_filter_nohtml_kses( $_POST['asl_styles'] ) : '';
+			update_option( 'asl_enable', $asl_enable );
+			update_option( 'asl_content', $asl_content );
+			update_option( 'asl_navigation', $asl_navigation );
+			update_option( 'asl_sitemap', $asl_sitemap );
+			update_option( 'asl_extra_target', $asl_extra_target );
+			update_option( 'asl_extra_text', $asl_extra_text );
+			update_option( 'asl_visible', $asl_visible );
+			update_option( 'asl_default_styles', $asl_default_styles );
+			$notice = ( 'asl' === $asl_visible ) ? '&lt;p>' . __( 'WP Accessibility does not provide any styles for visible skiplinks. You can still set the look of the links using the textareas provided, but all other layout must be assigned in your theme.', 'wp-accessibility' ) . '&lt;/p>' : '';
+
+			update_option( 'asl_styles', $asl_styles );
+			$message = __( 'Skiplinks Settings Updated', 'wp-accessibility' );
+
+			return "&lt;div class='updated'>&lt;p>" . $message . "&lt;/p>$notice&lt;/div>";
+		}
+
+		if ( isset( $_POST['action'] ) &amp;&amp; 'features' === $_POST['action'] ) {
+			$wpa_longdesc          = ( isset( $_POST['wpa_longdesc'] ) ) ? sanitize_text_field( $_POST['wpa_longdesc'] ) : 'false';
+			$wpa_longdesc_featured = ( isset( $_POST['wpa_longdesc_featured'] ) ) ? sanitize_text_field( $_POST['wpa_longdesc_featured'] ) : 'false';
+			$wpa_post_types        = ( isset( $_POST['wpa_post_types'] ) ) ? map_deep( $_POST['wpa_post_types'], 'sanitize_text_field' ) : array();
+			update_option( 'wpa_longdesc', $wpa_longdesc );
+			update_option( 'wpa_longdesc_featured', $wpa_longdesc_featured );
+			update_option( 'wpa_post_types', $wpa_post_types );
+			$message = __( 'Accessibility Features Updated', 'wp-accessibility' );
+
+			return "&lt;div class='updated'>&lt;p>" . $message . '&lt;/p>&lt;/div>';
+		}
+
+		if ( isset( $_POST['action'] ) &amp;&amp; 'tools' === $_POST['action'] ) {
+			$wpa_search_alt         = ( isset( $_POST['wpa_search_alt'] ) ) ? 'on' : '';
+			$wpa_diagnostics        = ( isset( $_POST['wpa_diagnostics'] ) ) ? 'on' : '';
+			$wpa_disable_fullscreen = ( isset( $_POST['wpa_disable_fullscreen'] ) ) ? 'on' : '';
+			update_option( 'wpa_search_alt', $wpa_search_alt );
+			update_option( 'wpa_diagnostics', $wpa_diagnostics );
+			update_option( 'wpa_disable_fullscreen', $wpa_disable_fullscreen );
+			$message = __( 'Accessibility Tools Updated', 'wp-accessibility' );
+
+			return "&lt;div class='updated'>&lt;p>" . $message . '&lt;/p>&lt;/div>';
+		}
+
+		if ( isset( $_POST['action'] ) &amp;&amp; 'misc' === $_POST['action'] ) {
+			$wpa_lang                    = ( isset( $_POST['wpa_lang'] ) ) ? 'on' : '';
+			$wpa_target                  = ( isset( $_POST['wpa_target'] ) ) ? 'on' : '';
+			$wpa_labels                  = ( isset( $_POST['wpa_labels'] ) ) ? 'on' : '';
+			$wpa_search                  = ( isset( $_POST['wpa_search'] ) ) ? 'on' : '';
+			$wpa_tabindex                = ( isset( $_POST['wpa_tabindex'] ) ) ? 'on' : '';
+			$wpa_underline               = ( isset( $_POST['wpa_underline'] ) ) ? 'on' : '';
+			$wpa_image_titles            = ( isset( $_POST['wpa_image_titles'] ) ) ? 'on' : '';
+			$wpa_more                    = ( isset( $_POST['wpa_more'] ) ) ? 'on' : '';
+			$wpa_focus                   = ( isset( $_POST['wpa_focus'] ) ) ? 'on' : '';
+			$wpa_focus_color             = ( isset( $_POST['wpa_focus_color'] ) ) ? str_replace( '#', '', $_POST['wpa_focus_color'] ) : '';
+			$wpa_continue                = ( isset( $_POST['wpa_continue'] ) ) ? sanitize_text_field( $_POST['wpa_continue'] ) : __( 'Continue Reading', 'wp-accessibility' );
+			$wpa_insert_roles            = ( isset( $_POST['wpa_insert_roles'] ) ) ? 'on' : '';
+			$wpa_complementary_container = ( isset( $_POST['wpa_complementary_container'] ) ) ? str_replace( '#', '', sanitize_text_field( $_POST['wpa_complementary_container'] ) ) : '';
+			update_option( 'wpa_lang', $wpa_lang );
+			update_option( 'wpa_target', $wpa_target );
+			update_option( 'wpa_labels', $wpa_labels );
+			update_option( 'wpa_search', $wpa_search );
+			update_option( 'wpa_tabindex', $wpa_tabindex );
+			update_option( 'wpa_underline', $wpa_underline );
+			update_option( 'wpa_image_titles', $wpa_image_titles );
+			update_option( 'wpa_more', $wpa_more );
+			update_option( 'wpa_focus', $wpa_focus );
+			update_option( 'wpa_focus_color', $wpa_focus_color );
+			update_option( 'wpa_continue', $wpa_continue );
+			update_option( 'wpa_insert_roles', $wpa_insert_roles );
+			$message = __( 'Miscellaneous Accessibility Settings Updated', 'wp-accessibility' );
+
+			return "&lt;div class='updated'>&lt;p>" . $message . '&lt;/p>&lt;/div>';
+		}
+
+		if ( isset( $_POST['action'] ) &amp;&amp; 'toolbar' === $_POST['action'] ) {
+			$wpa_toolbar            = ( isset( $_POST['wpa_toolbar'] ) ) ? 'on' : '';
+			$wpa_toolbar_size       = ( isset( $_POST['wpa_toolbar_size'] ) ) ? sanitize_text_field( $_POST['wpa_toolbar_size'] ) : '';
+			$wpa_alternate_fontsize = ( isset( $_POST['wpa_alternate_fontsize'] ) ) ? 'on' : '';
+			$wpa_widget_toolbar     = ( isset( $_POST['wpa_widget_toolbar'] ) ) ? 'on' : '';
+			$wpa_toolbar_gs         = ( isset( $_POST['wpa_toolbar_gs'] ) ) ? 'on' : 'off';
+			$wpa_toolbar_fs         = ( isset( $_POST['wpa_toolbar_fs'] ) ) ? 'on' : 'off';
+			$wpa_toolbar_ct         = ( isset( $_POST['wpa_toolbar_ct'] ) ) ? 'on' : 'off';
+			$wpa_toolbar_default    = ( isset( $_POST['wpa_toolbar_default'] ) ) ? sanitize_text_field( $_POST['wpa_toolbar_default'] ) : '';
+			$wpa_toolbar_right      = ( isset( $_POST['wpa_toolbar_right'] ) ) ? 'on' : '';
+			$wpa_toolbar_mobile     = ( isset( $_POST['wpa_toolbar_mobile'] ) ) ? 'on' : '';
+			update_option( 'wpa_toolbar', $wpa_toolbar );
+			update_option( 'wpa_toolbar_size', $wpa_toolbar_size );
+			update_option( 'wpa_alternate_fontsize', $wpa_alternate_fontsize );
+			update_option( 'wpa_widget_toolbar', $wpa_widget_toolbar );
+			update_option( 'wpa_toolbar_gs', $wpa_toolbar_gs );
+			update_option( 'wpa_toolbar_fs', $wpa_toolbar_fs );
+			update_option( 'wpa_toolbar_ct', $wpa_toolbar_ct );
+			update_option( 'wpa_toolbar_default', $wpa_toolbar_default );
+			update_option( 'wpa_toolbar_right', $wpa_toolbar_right );
+			update_option( 'wpa_toolbar_mobile', $wpa_toolbar_mobile );
+			$message = __( 'Toolbar Settings Updated', 'wp-accessibility' );
+
+			return "&lt;div class='updated'>&lt;p>" . $message . '&lt;/p>&lt;/div>';
+		}
+	} else {
+		return;
+	}
+}
+
+/**
+ * Display settings admin page.
+ */
+function wpa_admin_settings() {
+	echo wpa_update_settings();
+	?>
+	&lt;div class="wrap">
+		&lt;h1>&lt;?php _e( 'WP Accessibility Settings', 'wp-accessibility' ); ?>&lt;/h1>
+		&lt;div class="wpa-settings-wrapper">
+			&lt;div id="wpa_settings_page" class="postbox-container">
+				&lt;div class="metabox-holder">
+					&lt;div class="ui-sortable meta-box-sortables">
+						&lt;div class="postbox">
+							&lt;h2 class='hndle'>&lt;?php _e( 'Add Skiplinks', 'wp-accessibility' ); ?>&lt;/h2>
+
+							&lt;div class="inside">
+								&lt;?php
+								if ( wpa_accessible_theme() &amp;&amp; 'on' !== get_option( 'asl_enable' ) ) {
+									?>
+								&lt;p>
+									&lt;?php _e( 'Your &lt;code>accessibility-ready&lt;/code> theme has skip links built in.', 'wp-accessibility' ); ?>
+								&lt;/p>
+									&lt;?php
+								} else {
+									?>
+								&lt;form method="post" action="&lt;?php echo admin_url( 'admin.php?page=wp-accessibility' ); ?>">
+									&lt;fieldset>
+										&lt;legend>&lt;?php _e( 'Configure Skiplinks', 'wp-accessibility' ); ?>&lt;/legend>
+										&lt;ul>
+											&lt;li>
+												&lt;input type="checkbox" id="asl_enable" name="asl_enable" &lt;?php checked( get_option( 'asl_enable' ), 'on' ); ?>/>
+												&lt;label for="asl_enable">&lt;?php _e( 'Enable Skiplinks', 'wp-accessibility' ); ?>&lt;/label>
+											&lt;/li>
+											&lt;li>
+												&lt;input type="checkbox" id="asl_visible" name="asl_visible" &lt;?php checked( get_option( 'asl_visible' ), 'on' ); ?>/>
+												&lt;label for="asl_visible">&lt;?php _e( 'Skiplinks always visible', 'wp-accessibility' ); ?>&lt;/label>
+											&lt;/li>
+											&lt;li>
+												&lt;label for="asl_content">&lt;?php _e( 'Skip to Content link target', 'wp-accessibility' ); ?>&lt;/label>&lt;br />
+												&lt;input type="text" id="asl_content" name="asl_content" placeholder="#" size="30" aria-describedby="asl_content_description" value="&lt;?php echo esc_attr( get_option( 'asl_content' ) ); ?>"/> &lt;span id="asl_content_description">&lt;?php _e( 'ID attribute starting with &lt;code>#&lt;/code>', 'wp-accessibility' ); ?>&lt;/span>
+											&lt;/li>
+											&lt;li>
+												&lt;label for="asl_navigation">&lt;?php _e( 'Skip to Navigation link target', 'wp-accessibility' ); ?>&lt;/label>&lt;br />
+												&lt;input type="text" id="asl_navigation" name="asl_navigation" placeholder="#" size="30" aria-describedby="asl_navigation_description" value="&lt;?php echo esc_attr( get_option( 'asl_navigation' ) ); ?>"/> &lt;span id="asl_navigation_description">&lt;?php _e( 'ID attribute starting with &lt;code>#&lt;/code>', 'wp-accessibility' ); ?>&lt;/span>
+											&lt;/li>
+											&lt;?php
+											/**
+											 * Customize the default value for sitemap skiplink. Turns on sitemap skiplink options in WP Accessibility versions > 1.9.0.
+											 *
+											 * @hook asl_sitemap
+											 * @param {string} Value to use as a default for the sitemap.
+											 *
+											 * @return {string}
+											 */
+											$default_sitemap = apply_filters( 'asl_sitemap', '' );
+											if ( '' !== get_option( 'asl_sitemap', $default_sitemap ) ) {
+												?>
+											&lt;li>
+												&lt;label for="asl_sitemap">&lt;?php _e( 'Site Map link target (URL for your site map)', 'wp-accessibility' ); ?>&lt;/label>&lt;br />
+												&lt;input type="text" id="asl_sitemap" name="asl_sitemap" size="44" value="&lt;?php echo esc_attr( get_option( 'asl_sitemap', $default_sitemap ) ); ?>"/>
+											&lt;/li>
+												&lt;?php
+											}
+											/**
+											 * Customize the default value for extra skiplink. Turns on extra skiplink options in WP Accessibility versions > 1.9.0.
+											 *
+											 * @hook asl_extra_target
+											 * @param {string} Value to use as a default for the extra skiplink target.
+											 *
+											 * @return {string}
+											 */
+											$default_extra = apply_filters( 'asl_extra_target', '' );
+											if ( '' !== get_option( 'asl_extra_target', $default_extra ) ) {
+												?>
+											&lt;li>
+												&lt;label for="asl_extra_target">&lt;?php _e( 'Add your own link (link or container ID)', 'wp-accessibility' ); ?>&lt;/label>&lt;br />
+												&lt;input type="text" id="asl_extra_target" name="asl_extra_target" size="44" value="&lt;?php echo esc_attr( get_option( 'asl_extra_target', $default_extra ) ); ?>"/>
+											&lt;/li>
+											&lt;li>
+												&lt;label for="asl_extra_text">&lt;?php _e( 'Link text for your link', 'wp-accessibility' ); ?>&lt;/label>&lt;br />
+												&lt;input type="text" id="asl_extra_text" name="asl_extra_text" size="44" value="&lt;?php echo esc_attr( get_option( 'asl_extra_text' ) ); ?>"/>
+											&lt;/li>
+												&lt;?php
+											}
+											$use_defaults = get_option( 'asl_default_styles', '' );
+											?>
+											&lt;li>
+												&lt;label for="asl_default_styles">&lt;?php _e( 'Use default Skiplink CSS', 'wp-accessibility' ); ?>&lt;/label>
+												&lt;input type="checkbox" id="asl_default_styles" name="asl_default_styles" value="true" &lt;?php checked( get_option( 'asl_default_styles' ), 'true' ); ?> />
+											&lt;/li>
+											&lt;?php
+											if ( 'true' !== $use_defaults ) {
+												$styles = wpa_skiplink_css();
+												?>
+											&lt;li>
+												&lt;label for="asl_styles">&lt;?php _e( 'Styles for Skiplinks', 'wp-accessibility' ); ?>&lt;/label>&lt;br/>
+												&lt;textarea name='asl_styles' id='asl_styles' cols='60' rows='4'>&lt;?php echo esc_textarea( stripcslashes( $styles ) ); ?>&lt;/textarea>
+											&lt;/li>
+												&lt;?php
+											} else {
+												$styles = wpa_skiplink_css( true );
+												echo '&lt;pre id="wpa_default_css">' . esc_html( stripcslashes( $styles ) ) . '&lt;/pre>';
+											}
+											?>
+										&lt;/ul>
+									&lt;/fieldset>
+									&lt;p>
+										&lt;input type="hidden" name="_wpnonce" value="&lt;?php echo wp_create_nonce( 'wpa-nonce' ); ?>"/>
+										&lt;input type="hidden" name="action" value="asl"/>
+									&lt;/p>
+									&lt;p>&lt;input type="submit" name="wpa-settings" class="button-primary" value="&lt;?php esc_html_e( 'Update Skiplink Settings', 'wp-accessibility' ); ?>"/>&lt;/p>
+								&lt;/form>
+									&lt;?php
+								}
+								?>
+							&lt;/div>
+						&lt;/div>
+						&lt;div class="postbox">
+							&lt;h2 id="toolbar" class='hndle'>&lt;?php esc_html_e( 'Accessibility Toolbar', 'wp-accessibility' ); ?>&lt;/h2>
+							&lt;div class="inside">
+								&lt;form method="post" action="&lt;?php echo esc_url( admin_url( 'admin.php?page=wp-accessibility' ) ); ?>">
+									&lt;ul>
+										&lt;li class="wpa-checkboxes">
+											&lt;input type="checkbox" id="wpa_toolbar" name="wpa_toolbar" &lt;?php checked( get_option( 'wpa_toolbar' ), 'on' ); ?>/>
+											&lt;label for="wpa_toolbar">&lt;?php _e( 'Enable Accessibility toolbar', 'wp-accessibility' ); ?>&lt;/label>
+											&lt;ul>
+												&lt;li>
+													&lt;input type="checkbox" id="wpa_toolbar_fs" name="wpa_toolbar_fs" &lt;?php checked( get_option( 'wpa_toolbar_fs', '' ), 'on' ); ?> value='on' />
+													&lt;label for="wpa_toolbar_fs">&lt;?php _e( 'Font size', 'wp-accessibility' ); ?>&lt;/label>
+												&lt;/li>
+												&lt;li>
+													&lt;input type="checkbox" id="wpa_toolbar_ct" name="wpa_toolbar_ct" &lt;?php checked( get_option( 'wpa_toolbar_ct', '' ), 'on' ); ?> value='on' />
+													&lt;label for="wpa_toolbar_ct">&lt;?php _e( 'Contrast', 'wp-accessibility' ); ?>&lt;/label>
+												&lt;/li>
+												&lt;li>
+													&lt;input type="checkbox" aria-describedby="wpa_toolbar_gs_note" id="wpa_toolbar_gs" name="wpa_toolbar_gs" &lt;?php checked( get_option( 'wpa_toolbar_gs' ), 'on' ); ?> />
+													&lt;label for="wpa_toolbar_gs">&lt;?php _e( 'Grayscale', 'wp-accessibility' ); ?>&lt;/label> &lt;em class="wpa-note" id="wpa_toolbar_gs_note">&lt;?php _e( 'Grayscale is intended for testing, and will appear only for logged-in administrators', 'wp-accessibility' ); ?>&lt;/em>
+												&lt;/li>
+											&lt;/ul>
+										&lt;/li>
+										&lt;li>
+											&lt;label for="wpa_toolbar_default">&lt;?php _e( 'Toolbar location (optional)', 'wp-accessibility' ); ?>&lt;/label>&lt;br />
+											&lt;input type="text" id="wpa_toolbar_default" name="wpa_toolbar_default" aria-describedby="wpa_toolbar_default_description" placeholder="#" value="&lt;?php echo esc_attr( get_option( 'wpa_toolbar_default' ) ); ?>" /> &lt;span id="wpa_toolbar_default_description">&lt;?php _e( 'ID attribute starting with &lt;code>#&lt;/code>', 'wp-accessibility' ); ?>&lt;/span>
+										&lt;/li>
+										&lt;?php
+										$size = absint( get_option( 'wpa_toolbar_size' ) );
+										?>
+										&lt;li>
+											&lt;label for="wpa_toolbar_size">&lt;?php _e( 'Toolbar font size', 'wp-accessibility' ); ?>&lt;/label>&lt;br />
+											&lt;select name='wpa_toolbar_size' id='wpa_toolbar_size'>
+												&lt;option value=''>&lt;?php _e( 'Default size', 'wp-accessibility' ); ?>&lt;/option>
+												&lt;?php
+												for ( $i = 1.6; $i &lt;= 3.8; ) {
+													$val           = ( $i * 10 ) + 2;
+													$current       = absint( $val );
+													$selected_size = ( $current === $size ) ? ' selected="selected"' : '';
+													echo "&lt;option value='$val'$selected_size>$val px&lt;/option>";
+													$i = $i + .1;
+												}
+												?>
+											&lt;/select>
+										&lt;/li>
+										&lt;li>
+											&lt;input type="checkbox" id="wpa_alternate_fontsize" name="wpa_alternate_fontsize" &lt;?php checked( get_option( 'wpa_alternate_fontsize' ), 'on' ); ?>/>
+											&lt;label for="wpa_alternate_fontsize">&lt;?php _e( 'Use alternate font resizing stylesheet', 'wp-accessibility' ); ?>&lt;/label>
+										&lt;/li>
+										&lt;li>
+											&lt;input type="checkbox" id="wpa_widget_toolbar" name="wpa_widget_toolbar" &lt;?php checked( get_option( 'wpa_widget_toolbar' ), 'on' ); ?>/>
+											&lt;label for="wpa_widget_toolbar">&lt;?php _e( 'Support Accessibility toolbar as shortcode or widget', 'wp-accessibility' ); ?>&lt;/label>
+										&lt;/li>
+										&lt;li>
+											&lt;input type="checkbox" id="wpa_toolbar_right" name="wpa_toolbar_right" &lt;?php checked( get_option( 'wpa_toolbar_right' ), 'on' ); ?>/>
+											&lt;label for="wpa_toolbar_right">&lt;?php _e( 'Place toolbar on right side of screen.', 'wp-accessibility' ); ?>&lt;/label>
+										&lt;/li>
+										&lt;li>
+											&lt;input type="checkbox" id="wpa_toolbar_mobile" name="wpa_toolbar_mobile" &lt;?php checked( get_option( 'wpa_toolbar_mobile' ), 'on' ); ?>/>
+											&lt;label for="wpa_toolbar_mobile">&lt;?php _e( 'Hide toolbar on small screens.', 'wp-accessibility' ); ?>&lt;/label>
+										&lt;/li>
+									&lt;/ul>
+									&lt;p>
+										&lt;input type="hidden" name="_wpnonce" value="&lt;?php echo wp_create_nonce( 'wpa-nonce' ); ?>"/>
+										&lt;input type="hidden" name="action" value="toolbar" />
+									&lt;/p>
+
+									&lt;p>&lt;input type="submit" name="wpa-settings" class="button-primary" value="&lt;?php _e( 'Update Toolbar Settings', 'wp-accessibility' ); ?>"/>&lt;/p>
+								&lt;/form>
+							&lt;/div>
+						&lt;/div>
+						&lt;div class="postbox">
+							&lt;h2 id="accessibility-settings" class='hndle'>&lt;?php _e( 'Accessibility Fixes', 'wp-accessibility' ); ?>&lt;/h2>
+
+							&lt;div class="inside">
+								&lt;p>&lt;?php _e( 'Settings that fix potential accessibility issues on your site.', 'wp-accessibility' ); ?>&lt;/p>
+								&lt;hr>
+								&lt;form method="post" action="&lt;?php echo admin_url( 'admin.php?page=wp-accessibility' ); ?>">
+									&lt;ul>
+										&lt;?php
+										if ( ! wpa_accessible_theme() ) {
+											?>
+										&lt;li>
+											&lt;input type="checkbox" id="wpa_lang" name="wpa_lang" &lt;?php checked( get_option( 'wpa_lang' ), 'on' ); ?>/>
+											&lt;label for="wpa_lang">&lt;?php _e( 'Add Site Language and text direction to HTML element', 'wp-accessibility' ); ?>&lt;/label>
+										&lt;/li>
+										&lt;li>
+											&lt;input type="checkbox" id="wpa_more" name="wpa_more" &lt;?php checked( get_option( 'wpa_more' ), 'on' ); ?>/>
+											&lt;label for="wpa_more">&lt;?php _e( 'Add post title to "more" links.', 'wp-accessibility' ); ?>&lt;/label>
+										&lt;/li>
+										&lt;li>
+											&lt;label for="wpa_continue">&lt;?php _e( 'Continue reading prefix text', 'wp-accessibility' ); ?>&lt;/label>&lt;br />
+											&lt;input type="text" id="wpa_continue" name="wpa_continue" value="&lt;?php echo esc_attr( get_option( 'wpa_continue', __( 'Continue Reading', 'wp-accessibility' ) ) ); ?>"/>
+										&lt;/li>
+										&lt;li>
+											&lt;input type="checkbox" id="wpa_labels" name="wpa_labels" &lt;?php checked( get_option( 'wpa_labels' ), 'on' ); ?> />
+											&lt;label for='wpa_labels'>&lt;?php _e( 'Automatically Label WordPress search form and comment forms', 'wp-accessibility' ); ?>&lt;/label>
+										&lt;/li>
+											&lt;?php
+										} else {
+											?>
+											&lt;li>&lt;?php _e( '&lt;strong>Four disabled features:&lt;/strong> Site language, continue reading text, landmark roles and standard form labels are defined in your &lt;code>accessibility-ready&lt;/code> theme.', 'wp-accessibility' ); ?>&lt;/li>
+											&lt;?php
+										}
+										?>
+										&lt;li>
+											&lt;input type="checkbox" id="wpa_target" name="wpa_target" &lt;?php checked( get_option( 'wpa_target' ), 'on' ); ?>/>
+											&lt;label for="wpa_target">&lt;?php _e( 'Prevent links from opening in new windows', 'wp-accessibility' ); ?>&lt;/label>
+										&lt;/li>
+										&lt;li>
+											&lt;input type="checkbox" id="wpa_search" name="wpa_search" &lt;?php checked( get_option( 'wpa_search' ), 'on' ); ?> aria-describedby="wpa-search-note" />
+											&lt;label for="wpa_search">&lt;?php _e( 'Force search error on empty search submission', 'wp-accessibility' ); ?>&lt;/label> &lt;em id="wpa-search-note" class="wpa-note">&lt;?php _e( 'Your theme must have a search.php template', 'wp-accessibility' ); ?>&lt;/em>
+										&lt;/li>
+										&lt;li>
+											&lt;input type="checkbox" id="wpa_tabindex" name="wpa_tabindex" &lt;?php checked( get_option( 'wpa_tabindex' ), 'on' ); ?>/>
+											&lt;label for="wpa_tabindex">&lt;?php _e( 'Remove tabindex from focusable elements', 'wp-accessibility' ); ?>&lt;/label>
+										&lt;/li>
+										&lt;li>
+											&lt;input type="checkbox" id="wpa_underline" aria-describedby="wpa-underline-note" name="wpa_underline" &lt;?php checked( get_option( 'wpa_underline' ), 'on' ); ?>/>
+											&lt;label for="wpa_underline">&lt;?php _e( 'Force underline on links', 'wp-accessibility' ); ?>&lt;/label> &lt;em id="wpa-underline-note" class="wpa-note">&lt;?php _e( 'Excludes links inside &lt;code>nav&lt;/code> elements.', 'wp-accessibility' ); ?>&lt;/em>
+										&lt;/li>
+										&lt;li>
+											&lt;input type="checkbox" id="wpa_image_titles" name="wpa_image_titles" &lt;?php checked( get_option( 'wpa_image_titles' ), 'on' ); ?>/>
+											&lt;label for="wpa_image_titles">&lt;?php _e( 'Remove title attributes inserted into post content and featured images.', 'wp-accessibility' ); ?>&lt;/label>
+										&lt;/li>
+										&lt;li>
+											&lt;input type="checkbox" id="wpa_focus" name="wpa_focus" &lt;?php checked( get_option( 'wpa_focus' ), 'on' ); ?>/>
+											&lt;label for="wpa_focus">&lt;?php _e( 'Add outline to elements on keyboard focus', 'wp-accessibility' ); ?>&lt;/label>
+										&lt;/li>
+										&lt;li>
+											&lt;label for="wpa_focus_color">&lt;?php _e( 'Outline color (hexadecimal, optional)', 'wp-accessibility' ); ?>&lt;/label>&lt;br />
+											&lt;input type="text" id="wpa_focus_color" name="wpa_focus_color" value="#&lt;?php echo esc_attr( get_option( 'wpa_focus_color' ) ); ?>"/>
+										&lt;/li>
+									&lt;/ul>
+									&lt;p>
+										&lt;input type="hidden" name="_wpnonce" value="&lt;?php echo wp_create_nonce( 'wpa-nonce' ); ?>" />
+										&lt;input type="hidden" name="action" value="misc" />
+									&lt;/p>
+
+									&lt;p>&lt;input type="submit" name="wpa-settings" class="button-primary" value="&lt;?php _e( 'Update Miscellaneous Settings', 'wp-accessibility' ); ?>"/>&lt;/p>
+								&lt;/form>
+							&lt;/div>
+						&lt;/div>
+						&lt;div class="postbox">
+							&lt;h2 class="hndle">&lt;?php _e( 'Accessibility Features', 'wp-accessibility' ); ?>&lt;/h2>
+							&lt;div class="inside">
+								&lt;p>&lt;?php _e( 'Enable content features to improve site accessibility.', 'wp-accessibility' ); ?>&lt;/p>
+								&lt;hr>
+								&lt;form method="post" action="&lt;?php echo admin_url( 'admin.php?page=wp-accessibility' ); ?>">
+									&lt;ul>
+										&lt;li>
+											&lt;label for="wpa_longdesc">&lt;?php _e( 'Long Description UI', 'wp-accessibility' ); ?>&lt;/label>&lt;br />
+											&lt;select id="wpa_longdesc" name="wpa_longdesc">
+												&lt;option value='false'&lt;?php selected( get_option( 'wpa_longdesc' ), 'false' ); ?>>&lt;?php _e( 'None', 'wp-accessibility' ); ?>&lt;/option>
+												&lt;option value='link'&lt;?php selected( get_option( 'wpa_longdesc' ), 'link' ); ?>>&lt;?php _e( 'Link to description', 'wp-accessibility' ); ?>&lt;/option>
+												&lt;option value='jquery'&lt;?php selected( get_option( 'wpa_longdesc' ), 'jquery' ); ?>>&lt;?php _e( 'Button trigger to overlay image', 'wp-accessibility' ); ?>&lt;/option>
+											&lt;/select>
+										&lt;/li>
+										&lt;li>
+											&lt;input type="checkbox" id="wpa_longdesc_featured" name="wpa_longdesc_featured" &lt;?php checked( get_option( 'wpa_longdesc_featured' ), 'on' ); ?>/>
+											&lt;label for="wpa_longdesc_featured">&lt;?php _e( 'Support &lt;code>longdesc&lt;/code> on featured images', 'wp-accessibility' ); ?>&lt;/label>
+										&lt;/li>
+										&lt;li>
+											&lt;fieldset>
+												&lt;legend>&lt;?php _e( 'Enable Content Summaries', 'wp-accessibility' ); ?>&lt;/legend>
+												&lt;ul class="checkboxes">
+												&lt;?php
+												$enabled    = get_option( 'wpa_post_types', array() );
+												$post_types = get_post_types(
+													array(
+														'show_ui' => true,
+														'public'  => true,
+													),
+													'objects'
+												);
+												foreach ( $post_types as $type ) {
+													$id      = $type->name;
+													$name    = $type->labels->singular_name;
+													$checked = ( in_array( $id, $enabled, true ) ) ? ' checked="checked"' : '';
+
+													echo '&lt;li>&lt;input type="checkbox" name="wpa_post_types[]" id="wpa_post_types_' . $id . '" value="' . $id . '"' . $checked . '/> &lt;label for="wpa_post_types_"' . $id . '">' . $name . '&lt;/label>&lt;/li>';
+												}
+												?>
+												&lt;/ul>
+											&lt;/fieldset>
+										&lt;/li>
+									&lt;/ul>
+									&lt;p>
+										&lt;input type="hidden" name="_wpnonce" value="&lt;?php echo wp_create_nonce( 'wpa-nonce' ); ?>" />
+										&lt;input type="hidden" name="action" value="features" />
+									&lt;/p>
+									&lt;p>&lt;input type="submit" name="wpa-settings" class="button-primary" value="&lt;?php _e( 'Update Accessibility Features', 'wp-accessibility' ); ?>"/>&lt;/p>
+								&lt;/form>
+							&lt;/div>
+						&lt;/div>
+						&lt;div class="postbox">
+							&lt;h2 class="hndle">&lt;?php _e( 'Testing &amp; Admin Experience', 'wp-accessibility' ); ?>&lt;/h2>
+
+							&lt;div class="inside">
+								&lt;p>&lt;?php _e( 'These change the admin experience or help with testing.', 'wp-accessibility' ); ?>&lt;/p>
+								&lt;hr>
+								&lt;form method="post" action="&lt;?php echo admin_url( 'admin.php?page=wp-accessibility' ); ?>">
+									&lt;ul>
+										&lt;li>
+											&lt;input type="checkbox" id="wpa_search_alt" name="wpa_search_alt" &lt;?php checked( get_option( 'wpa_search_alt' ), 'on' ); ?> aria-describedby="wpa_search_alt_note" />
+											&lt;label for="wpa_search_alt">&lt;?php _e( 'Include alt attribute in media library searches', 'wp-accessibility' ); ?>&lt;/label> &lt;em class="wpa-note" id="wpa_search_alt_note">&lt;?php _e( '* May cause slow searches on large media libraries.', 'wp-accessibility' ); ?>&lt;/em>
+										&lt;/li>
+										&lt;li>
+											&lt;input type="checkbox" id="wpa_disable_fullscreen" name="wpa_disable_fullscreen" &lt;?php checked( get_option( 'wpa_disable_fullscreen' ), 'on' ); ?>/>
+											&lt;label for="wpa_disable_fullscreen">&lt;?php _e( 'Disable fullscreen block editor by default', 'wp-accessibility' ); ?>&lt;/label>
+										&lt;/li>
+										&lt;li>
+											&lt;input type="checkbox" id="wpa_diagnostics" name="wpa_diagnostics" &lt;?php checked( get_option( 'wpa_diagnostics' ), 'on' ); ?>/>
+											&lt;label for="wpa_diagnostics">&lt;?php _e( 'Enable diagnostic CSS', 'wp-accessibility' ); ?>&lt;/label>
+										&lt;/li>
+									&lt;/ul>
+									&lt;p>
+										&lt;input type="hidden" name="_wpnonce" value="&lt;?php echo wp_create_nonce( 'wpa-nonce' ); ?>" />
+										&lt;input type="hidden" name="action" value="tools" />
+									&lt;/p>
+									&lt;p>&lt;input type="submit" name="wpa-settings" class="button-primary" value="&lt;?php _e( 'Update Accessibility Tools', 'wp-accessibility' ); ?>"/>&lt;/p>
+								&lt;/form>
+							&lt;/div>
+						&lt;/div>
+						&lt;div class="postbox">
+							&lt;h2 class='hndle'>&lt;?php _e( 'Remove Title Attributes', 'wp-accessibility' ); ?>&lt;/h2>
+
+							&lt;div class="inside">
+								&lt;?php wpa_accessible_theme(); ?>
+								&lt;form method="post" action="&lt;?php echo admin_url( 'admin.php?page=wp-accessibility' ); ?>">
+									&lt;fieldset>
+										&lt;legend>&lt;?php _e( 'Remove title attributes from:', 'wp-accessibility' ); ?>&lt;/legend>
+										&lt;ul>
+											&lt;li>&lt;input type="checkbox" id="rta_from_tag_clouds" name="rta_from_tag_clouds" &lt;?php checked( get_option( 'rta_from_tag_clouds' ), 'on' ); ?>/>
+											&lt;label for="rta_from_tag_clouds">&lt;?php _e( 'Tag clouds', 'wp-accessibility' ); ?>&lt;/label>
+											&lt;/li>
+										&lt;/ul>
+									&lt;/fieldset>
+									&lt;p>
+										&lt;input type="hidden" name="_wpnonce" value="&lt;?php echo wp_create_nonce( 'wpa-nonce' ); ?>" />
+										&lt;input type="hidden" name="action" value="rta" />
+									&lt;/p>
+
+									&lt;p>&lt;input type="submit" name="wpa-settings" class="button-primary" value="&lt;?php _e( 'Update Title Attribute Settings', 'wp-accessibility' ); ?>"/>&lt;/p>
+								&lt;/form>
+							&lt;/div>
+						&lt;/div>
+						&lt;div class="postbox">
+							&lt;h2 class='hndle'>&lt;?php _e( 'Color Contrast Tester', 'wp-accessibility' ); ?>&lt;/h2>
+
+							&lt;div class="inside">
+								&lt;?php
+								$colors = wpa_contrast();
+								if ( $colors ) {
+									$luminance_raw = wpa_luminosity( $colors['red1'], $colors['red2'], $colors['green1'], $colors['green2'], $colors['blue1'], $colors['blue2'] );
+									$l_contrast    = $luminance_raw . ':1';
+									$hex1          = esc_attr( $colors['hex1'] );
+									$hex2          = esc_attr( $colors['hex2'] );
+								} else {
+									$hex1       = '';
+									$hex2       = '';
+									$l_contrast = false;
+								}
+								if ( $l_contrast ) {
+									$results = "&lt;div class='updated notice'>";
+									// Translators: Contrast ratio, foreground Hex color, background Hex color.
+									$results .= '&lt;h2 class="stats wcag2">' . sprintf( __( 'Luminosity Contrast Ratio for %2$s and %3$s is %1$s (Threshold: greater than 7:1 for AAA, 4.5:1 for AA)', 'wp-accessibility' ), '&lt;strong>' . $l_contrast . '&lt;/strong>', '&lt;code>#' . $hex1 . '&lt;/code>', '&lt;code>#' . $hex2 . '&lt;/code>' ) . '&lt;/h2>&lt;p>';
+									if ( $luminance_raw >= 7 ) {
+										$results .= __( 'The colors compared &lt;strong>pass&lt;/strong> the relative luminosity test at level AAA.', 'wp-accessibility' );
+									}
+									if ( $luminance_raw >= 4.5 &amp;&amp; $luminance_raw &lt; 7 ) {
+										$results .= __( 'The colors compared &lt;strong>pass&lt;/strong> the relative luminosity test at level AA.', 'wp-accessibility' );
+									}
+									if ( $luminance_raw >= 3 &amp;&amp; $luminance_raw &lt; 4.5 ) {
+										$results .= __( 'The colors compared pass the relative luminosity test &lt;strong>only when used in large print&lt;/strong> situations (greater than 18pt (24px) text or 14pt (18.66px) bold text.)', 'wp-accessibility' );
+									}
+									if ( $luminance_raw &lt; 3 ) {
+										$results .= __( 'The colors compared &lt;strong>do not pass&lt;/strong> the relative luminosity test.', 'wp-accessibility' );
+									}
+									$results .= " &lt;a href='#contrast'>" . __( 'Test another set of colors', 'wp-accessibility' ) . '&lt;/a>';
+									$results .= '&lt;/p>';
+									$results .= "
+							&lt;div class=\"views\">
+								&lt;p class='large' style=\"color: #$hex1;background: #$hex2\">Large Text (24px)&lt;/p>
+								&lt;p class='small' style=\"color: #$hex1;background: #$hex2\">Standard Text (18px)&lt;/p>
+								&lt;p class='large' style=\"color: #$hex2;background: #$hex1\">Large Text (24px) (Inverted)&lt;/p>
+								&lt;p class='small' style=\"color: #$hex2;background: #$hex1\">Standard Text (18px) (Inverted)&lt;/p>
+							&lt;/div>
+						&lt;/div>";
+									echo $results;
+								}
+								?>
+								&lt;form method="get" id="contrast" action="&lt;?php echo admin_url( 'admin.php?page=wp-accessibility' ); ?>">
+									&lt;fieldset>
+										&lt;legend>&lt;?php _e( 'Test of relative luminosity', 'wp-accessibility' ); ?>&lt;/legend>
+										&lt;ul id="contrast-tester">
+											&lt;li class='fore'>
+												&lt;div id="fore">&lt;/div>
+												&lt;label for="color1">&lt;?php _e( 'Foreground color', 'wp-accessibility' ); ?>&lt;/label>&lt;br/>
+												&lt;input type="text" class="wpa-color-input" name="color" value="#&lt;?php echo esc_attr( $hex1 ); ?>" size="34" id="color1" />
+											&lt;/li>
+											&lt;li class='back'>
+												&lt;div id="back">&lt;/div>
+												&lt;label for="color2">&lt;?php _e( 'Background color', 'wp-accessibility' ); ?>&lt;/label>&lt;br/>
+												&lt;input type="text" class="wpa-color-input" name="color2" value="#&lt;?php echo esc_attr( $hex2 ); ?>" size="34" id="color2" />
+											&lt;/li>
+										&lt;/ul>
+									&lt;/fieldset>
+									&lt;p>
+										&lt;input type="hidden" name="action" value="contrast" />
+										&lt;input type="hidden" name="page" value="wp-accessibility" />
+									&lt;/p>
+
+									&lt;p>&lt;input type="submit" name="wpa-settings" class="button-primary" value="&lt;?php _e( 'Check Color Contrast', 'wp-accessibility' ); ?>"/>&lt;/p>
+								&lt;/form>
+							&lt;/div>
+						&lt;/div>
+					&lt;/div>
+				&lt;/div>
+			&lt;/div>
+
+			&lt;?php wpa_admin_sidebar(); ?>
+		&lt;/div>
+	&lt;/div>
+	&lt;?php
+}
+
+/**
+ * Show admin sidebar.
+ */
+function wpa_admin_sidebar() {
+	?>
+	&lt;div class="postbox-container" id="wpa-sidebar">
+		&lt;div class="metabox-holder">
+			&lt;div class="ui-sortable meta-box-sortables">
+				&lt;div class="postbox">
+					&lt;h2 class='hndle'>&lt;?php _e( 'Support this Plugin', 'wp-accessibility' ); ?>&lt;/h2>
+
+					&lt;div class="inside">
+						&lt;p>
+							&lt;a href="https://twitter.com/intent/follow?screen_name=joedolson" class="twitter-follow-button" data-size="small" data-related="joedolson">Follow @joedolson&lt;/a>
+							&lt;script>!function (d, s, id) {
+									var js, fjs = d.getElementsByTagName(s)[0];
+									if (!d.getElementById(id)) {
+										js = d.createElement(s);
+										js.id = id;
+										js.src = "https://platform.twitter.com/widgets.js";
+										fjs.parentNode.insertBefore(js, fjs);
+									}
+								}(document, "script", "twitter-wjs");&lt;/script>
+						&lt;/p>
+						&lt;p>&lt;?php _e( "If you've found WP Accessibility useful, then please &lt;a href='https://wordpress.org/plugins/wp-accessibility/'>rate it five stars&lt;/a>, &lt;a href='https://www.joedolson.com/donate/'>make a donation&lt;/a>, or &lt;a href='https://translate.wordpress.org/projects/wp-plugins/wp-accessibility'>help with translation&lt;/a>.", 'wp-accessibility' ); ?>&lt;/p>
+
+						&lt;div>
+							&lt;p class="wpa-donate">
+								&lt;a href="https://www.joedolson.com/donate/">&lt;?php _e( 'Support WP Accessibility', 'wp-accessibility' ); ?>&lt;/a>
+							&lt;/p>
+						&lt;/div>
+					&lt;/div>
+				&lt;/div>
+
+				&lt;div class="postbox">
+					&lt;h2 class='hndle'>&lt;?php _e( 'Accessibility References', 'wp-accessibility' ); ?>&lt;/h2>
+
+					&lt;div class="inside">
+						&lt;ul>
+							&lt;li>&lt;a href="http://make.wordpress.org/accessibility/wp-accessibility-plugin/">Plugin Documentation&lt;/a>&lt;/li>
+							&lt;li>&lt;a href="http://make.wordpress.org/accessibility/">Make WordPress: Accessibility&lt;/a>&lt;/li>
+							&lt;li>&lt;a href="https://make.wordpress.org/themes/handbook/review/accessibility/">WordPress Theme Accessibility Guidelines&lt;/a>&lt;/li>
+							&lt;li>&lt;a href="https://www.joedolson.com/tools/color-contrast.php">Color Contrast Testing&lt;/a>&lt;/li>
+							&lt;li>&lt;a href="http://wave.webaim.org/">WAVE: Web accessibility evaluation tool&lt;/a>&lt;/li>
+							&lt;li>&lt;a href="https://www.linkedin.com/learning/wordpress-accessibility-2/">WordPress Accessibility course at LinkedIn Learning&lt;/a>&lt;/li>
+						&lt;/ul>
+					&lt;/div>
+				&lt;/div>
+
+				&lt;div class="postbox">
+					&lt;h2 class='hndle'>&lt;?php _e( 'Customization', 'wp-accessibility' ); ?>&lt;/h2>
+
+					&lt;div class="inside">
+						&lt;p>
+						&lt;?php _e( 'Custom high-contrast styles go in &lt;code>a11y-contrast.css&lt;/code> in your Theme\'s stylesheet directory.', 'wp-accessibility' ); ?>
+						&lt;/p>
+						&lt;p>
+						&lt;?php _e( 'Set custom styles for large print using the body class &lt;code>.fontsize&lt;/code> in your theme styles or the customizer.', 'wp-accessibility' ); ?>
+						&lt;/p>
+						&lt;p>
+						&lt;?php _e( 'Set a custom long description template by adding &lt;code>longdesc-template.php&lt;/code> to your theme directory.', 'wp-accessibility' ); ?>
+						&lt;/p>
+						&lt;p>
+						&lt;?php _e( 'The &lt;a href="#wpa_widget_toolbar">shortcode for the Accessibility toolbar&lt;/a> is &lt;code>[wpa_toolbar]&lt;/code>', 'wp-accessibility' ); ?>
+						&lt;/p>
+					&lt;/div>
+				&lt;/div>
+
+			&lt;?php if ( wpa_accessible_theme() ) { ?>
+				&lt;div class="postbox">
+					&lt;h2 class='hndle'>&lt;?php _e( 'Your Theme', 'wp-accessibility' ); ?>&lt;/h2>
+
+					&lt;div class="inside">
+						&lt;p>
+						&lt;?php _e( "You're using a theme reviewed as &lt;code>accessibility-ready&lt;/code> by the WordPress theme review team. Some options have been disabled in WP Accessibility.", 'wp-accessibility' ); ?>
+						&lt;/p>
+						&lt;p>
+						&lt;?php
+						// Translators: URL to read about the accessibility ready tag requirements.
+						printf( __( 'Read more about the &lt;a href="%s">WordPress accessibility-ready tag&lt;/a>', 'wp-accessibility' ), 'https://make.wordpress.org/themes/handbook/review/accessibility/' );
+						?>
+						&lt;/p>
+					&lt;/div>
+				&lt;/div>
+			&lt;?php } ?>
+
+				&lt;div class="postbox">
+					&lt;h2 class='hndle'>&lt;?php _e( 'Contributing References', 'wp-accessibility' ); ?>&lt;/h2>
+					&lt;div class="inside">
+						&lt;ul>
+							&lt;li>&lt;a href="http://www.accessibleculture.org/articles/2010/08/continue-reading-links-in-wordpress/">Continue Reading Links in WordPress&lt;/a>&lt;/li>
+							&lt;li>&lt;a href="http://www.mothereffingtoolconfuser.com">Mother Effing Tool Confuser&lt;/a>&lt;/li>
+							&lt;li>&lt;a href="https://wordpress.org/extend/plugins/remove-title-attributes/">Remove Title Attributes&lt;/a>&lt;/li>
+							&lt;li>&lt;a href="https://wordpress.org/extend/plugins/img-title-removal/">IMG Title Removal&lt;/a>&lt;/li>
+						&lt;/ul>
+					&lt;/div>
+				&lt;/div>
+				&lt;div class="postbox" id="privacy">
+					&lt;h2 class='hndle'>&lt;?php _e( 'Privacy', 'wp-accessibility' ); ?>&lt;/h2>
+
+					&lt;div class="inside">
+						&lt;h3>&lt;?php _e( 'Cookies', 'wp-accessibility' ); ?>&lt;/h3>
+						&lt;p>&lt;?php _e( 'The accessibility toolbar sets cookies to maintain awareness of the user\'s selected accessibility options. If the toolbar is not in use, WP Accessibility does not set any cookies.', 'wp-accessibility' ); ?>&lt;/p>
+						&lt;h3>&lt;?php _e( 'Information collected by WP Accessibility', 'wp-accessibility' ); ?>&lt;/h3>
+						&lt;p>&lt;?php _e( 'WP Accessibility does not collect any information about WordPress users or site visitors.', 'wp-accessibility' ); ?>&lt;/p>
+					&lt;/div>
+				&lt;/div>
+			&lt;/div>
+		&lt;/div>
+	&lt;/div>
+	&lt;?php
+}
+
+// Use Codemirror for Skiplink style fields.
+add_action(
+	'admin_enqueue_scripts',
+	function() {
+		if ( ! function_exists( 'wp_enqueue_code_editor' ) ) {
+			return;
+		}
+		if ( 'toplevel_page_wp-accessibility' !== get_current_screen()->id ) {
+			return;
+		}
+
+		// Enqueue code editor and settings for manipulating CSS.
+		$settings = wp_enqueue_code_editor( array( 'type' => 'text/css' ) );
+
+		// Bail if user disabled CodeMirror or using default styles.
+		if ( false === $settings || 'true' === get_option( 'asl_default_styles' ) ) {
+			return;
+		}
+		wp_add_inline_script(
+			'code-editor',
+			sprintf(
+				'jQuery( function() { wp.codeEditor.initialize( "asl_styles", %s ); } );',
+				wp_json_encode( $settings )
+			)
+		);
+	}
+);
+
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+	</main>
+    <footer>
+		<a href="https://make.wordpress.org/accessibility/handbook/which-tools-can-i-use/wp-accessibility-plugin/">WP Accessibility User Documentation</a> &bull;
+		<a href="https://github.com/joedolson/wp-accessibility/">WP Accessibility on GitHub</a> &bull;
+	</footer>
+
+	
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Filters</h3><ul><li><a href="asl_extra_target.html">asl_extra_target</a></li><li><a href="asl_sitemap.html">asl_sitemap</a></li><li><a href="wpa_case_insensitive.html">wpa_case_insensitive</a></li><li><a href="wpa_case_sensitive.html">wpa_case_sensitive</a></li><li><a href="wpa_fontsize_css.html">wpa_fontsize_css</a></li><li><a href="wpa_labels.html">wpa_labels</a></li><li><a href="wpa_long_alt.html">wpa_long_alt</a></li><li><a href="wpa_move_toolbar.html">wpa_move_toolbar</a></li><li><a href="wpa_summary_heading.html">wpa_summary_heading</a></li><li><a href="wpa_summary_heading_level.html">wpa_summary_heading_level</a></li><li><a href="wpa_toolbar_css.html">wpa_toolbar_css</a></li><li><a href="wpa_underline_target.html">wpa_underline_target</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-change-accessibility-toolbar-attachment-element.html">change-accessibility-toolbar-attachment-element</a></li><li><a href="tutorial-custom-fontsize-stylesheet.html">custom-fontsize-stylesheet</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

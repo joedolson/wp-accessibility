@@ -390,23 +390,40 @@ function wpa_jquery_asl() {
 	$output     = '';
 	if ( 'on' === get_option( 'asl_enable' ) ) {
 		$html = '';
-		// Build skiplinks.
-		$extra = (string) get_option( 'asl_extra_target' );
-		$extra = ( wpa_is_url( $extra ) ) ? esc_url( $extra ) : str_replace( '#', '', esc_attr( $extra ) );
+		/**
+		 * Customize the default value for extra skiplink. Turns on extra skiplink options in WP Accessibility versions > 1.9.0.
+		 *
+		 * @hook asl_extra_target
+		 * @param {string} Value to use as a default for the extra skiplink.
+		 *
+		 * @return {string}
+		 */
+		$default_extra = apply_filters( 'asl_extra_target', '' );
+		$extra         = get_option( 'asl_extra_target', $default_extra );
+		$extra         = ( wpa_is_url( $extra ) ) ? esc_url( $extra ) : str_replace( '#', '', esc_attr( $extra ) );
 		if ( '' !== $extra &amp;&amp; ! wpa_is_url( $extra ) ) {
 			$extra = "#$extra";
 		}
 		$extra_text = (string) stripslashes( get_option( 'asl_extra_text' ) );
 		$content    = str_replace( '#', '', esc_attr( get_option( 'asl_content' ) ) );
 		$nav        = str_replace( '#', '', esc_attr( get_option( 'asl_navigation' ) ) );
-		$sitemap    = esc_url( get_option( 'asl_sitemap' ) );
-		$html      .= ( '' !== $content ) ? "&lt;a href=\"#$content\" class='no-scroll'>" . __( 'Skip to Content', 'wp-accessibility' ) . '&lt;/a> ' : '';
-		$html      .= ( '' !== $nav ) ? "&lt;a href=\"#$nav\" class='no-scroll'>" . __( 'Skip to navigation', 'wp-accessibility' ) . '&lt;/a> ' : '';
-		$html      .= ( '' !== $sitemap ) ? "&lt;a href=\"$sitemap\" class='no-scroll'>" . __( 'Site map', 'wp-accessibility' ) . '&lt;/a> ' : '';
-		$html      .= ( '' !== $extra &amp;&amp; '' !== $extra_text ) ? "&lt;a href=\"$extra\" class='no-scroll'>$extra_text&lt;/a> " : '';
-		$is_rtl     = ( is_rtl() ) ? '-rtl' : '-ltr';
-		$skiplinks  = __( 'Skip links', 'wp-accessibility' );
-		$output     = ( '' !== $html ) ? "&lt;div class=\"$visibility$is_rtl\" id=\"skiplinks\" role=\"navigation\" aria-label=\"" . esc_attr( $skiplinks ) . "\">$html&lt;/div>" : '';
+		/**
+		 * Customize the default value for sitemap skiplink. Turns on sitemap skiplink options in WP Accessibility versions > 1.9.0.
+		 *
+		 * @hook asl_sitemap
+		 * @param {string} Value to use as a default for the sitemap.
+		 *
+		 * @return {string}
+		 */
+		$default_sitemap = apply_filters( 'asl_sitemap', '' );
+		$sitemap         = esc_url( get_option( 'asl_sitemap', $default_sitemap ) );
+		$html           .= ( '' !== $content ) ? "&lt;a href=\"#$content\" class='no-scroll'>" . __( 'Skip to Content', 'wp-accessibility' ) . '&lt;/a> ' : '';
+		$html           .= ( '' !== $nav ) ? "&lt;a href=\"#$nav\" class='no-scroll'>" . __( 'Skip to navigation', 'wp-accessibility' ) . '&lt;/a> ' : '';
+		$html           .= ( '' !== $sitemap ) ? "&lt;a href=\"$sitemap\" class='no-scroll'>" . __( 'Site map', 'wp-accessibility' ) . '&lt;/a> ' : '';
+		$html           .= ( '' !== $extra &amp;&amp; '' !== $extra_text ) ? "&lt;a href=\"$extra\" class='no-scroll'>$extra_text&lt;/a> " : '';
+		$is_rtl          = ( is_rtl() ) ? '-rtl' : '-ltr';
+		$skiplinks       = __( 'Skip links', 'wp-accessibility' );
+		$output          = ( '' !== $html ) ? "&lt;div class=\"$visibility$is_rtl\" id=\"skiplinks\" role=\"navigation\" aria-label=\"" . esc_attr( $skiplinks ) . "\">$html&lt;/div>" : '';
 	}
 
 	wp_enqueue_script( 'wp-accessibility', plugins_url( 'js/wp-accessibility.js', __FILE__ ), array( 'jquery' ), '1.0.3', true );
@@ -935,7 +952,7 @@ add_action( 'save_post', 'wpa_save_content_summary', 10, 2 );
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Filters</h3><ul><li><a href="wpa_case_insensitive.html">wpa_case_insensitive</a></li><li><a href="wpa_case_sensitive.html">wpa_case_sensitive</a></li><li><a href="wpa_fontsize_css.html">wpa_fontsize_css</a></li><li><a href="wpa_labels.html">wpa_labels</a></li><li><a href="wpa_long_alt.html">wpa_long_alt</a></li><li><a href="wpa_move_toolbar.html">wpa_move_toolbar</a></li><li><a href="wpa_summary_heading.html">wpa_summary_heading</a></li><li><a href="wpa_summary_heading_level.html">wpa_summary_heading_level</a></li><li><a href="wpa_toolbar_css.html">wpa_toolbar_css</a></li><li><a href="wpa_underline_target.html">wpa_underline_target</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-change-accessibility-toolbar-attachment-element.html">change-accessibility-toolbar-attachment-element</a></li><li><a href="tutorial-custom-fontsize-stylesheet.html">custom-fontsize-stylesheet</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Filters</h3><ul><li><a href="asl_extra_target.html">asl_extra_target</a></li><li><a href="asl_sitemap.html">asl_sitemap</a></li><li><a href="wpa_case_insensitive.html">wpa_case_insensitive</a></li><li><a href="wpa_case_sensitive.html">wpa_case_sensitive</a></li><li><a href="wpa_fontsize_css.html">wpa_fontsize_css</a></li><li><a href="wpa_labels.html">wpa_labels</a></li><li><a href="wpa_long_alt.html">wpa_long_alt</a></li><li><a href="wpa_move_toolbar.html">wpa_move_toolbar</a></li><li><a href="wpa_summary_heading.html">wpa_summary_heading</a></li><li><a href="wpa_summary_heading_level.html">wpa_summary_heading_level</a></li><li><a href="wpa_toolbar_css.html">wpa_toolbar_css</a></li><li><a href="wpa_underline_target.html">wpa_underline_target</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-change-accessibility-toolbar-attachment-element.html">change-accessibility-toolbar-attachment-element</a></li><li><a href="tutorial-custom-fontsize-stylesheet.html">custom-fontsize-stylesheet</a></li></ul>
 </nav>
 
 <br class="clear">
