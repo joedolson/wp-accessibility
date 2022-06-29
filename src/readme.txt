@@ -76,6 +76,12 @@ The plug-in is intended to help with deficiencies commonly found in themes and t
 
 [Suggest a change!](https://github.com/joedolson/wp-accessibility/issues/)
 
+= 1.9.1 =
+
+* Bug fix: Duplicate skiplink styles: if custom styles used, default settings could be appended to them as a duplicate.
+* Filters: Add filters to configure deprecated skiplinks if necessary.
+* Show default CSS when enabled for reference.
+
 = 1.9.0 =
 
 * Update: Significant reorganization of settings.
