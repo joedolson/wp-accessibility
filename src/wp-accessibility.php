@@ -364,23 +364,40 @@ function wpa_jquery_asl() {
 	$output     = '';
 	if ( 'on' === get_option( 'asl_enable' ) ) {
 		$html = '';
-		// Build skiplinks.
-		$extra = (string) get_option( 'asl_extra_target' );
-		$extra = ( wpa_is_url( $extra ) ) ? esc_url( $extra ) : str_replace( '#', '', esc_attr( $extra ) );
+		/**
+		 * Customize the default value for extra skiplink. Turns on extra skiplink options in WP Accessibility versions > 1.9.0.
+		 *
+		 * @hook asl_extra_target
+		 * @param {string} Value to use as a default for the extra skiplink.
+		 *
+		 * @return {string}
+		 */
+		$default_extra = apply_filters( 'asl_extra_target', '' );
+		$extra         = get_option( 'asl_extra_target', $default_extra );
+		$extra         = ( wpa_is_url( $extra ) ) ? esc_url( $extra ) : str_replace( '#', '', esc_attr( $extra ) );
 		if ( '' !== $extra && ! wpa_is_url( $extra ) ) {
 			$extra = "#$extra";
 		}
 		$extra_text = (string) stripslashes( get_option( 'asl_extra_text' ) );
 		$content    = str_replace( '#', '', esc_attr( get_option( 'asl_content' ) ) );
 		$nav        = str_replace( '#', '', esc_attr( get_option( 'asl_navigation' ) ) );
-		$sitemap    = esc_url( get_option( 'asl_sitemap' ) );
-		$html      .= ( '' !== $content ) ? "<a href=\"#$content\" class='no-scroll'>" . __( 'Skip to Content', 'wp-accessibility' ) . '</a> ' : '';
-		$html      .= ( '' !== $nav ) ? "<a href=\"#$nav\" class='no-scroll'>" . __( 'Skip to navigation', 'wp-accessibility' ) . '</a> ' : '';
-		$html      .= ( '' !== $sitemap ) ? "<a href=\"$sitemap\" class='no-scroll'>" . __( 'Site map', 'wp-accessibility' ) . '</a> ' : '';
-		$html      .= ( '' !== $extra && '' !== $extra_text ) ? "<a href=\"$extra\" class='no-scroll'>$extra_text</a> " : '';
-		$is_rtl     = ( is_rtl() ) ? '-rtl' : '-ltr';
-		$skiplinks  = __( 'Skip links', 'wp-accessibility' );
-		$output     = ( '' !== $html ) ? "<div class=\"$visibility$is_rtl\" id=\"skiplinks\" role=\"navigation\" aria-label=\"" . esc_attr( $skiplinks ) . "\">$html</div>" : '';
+		/**
+		 * Customize the default value for sitemap skiplink. Turns on sitemap skiplink options in WP Accessibility versions > 1.9.0.
+		 *
+		 * @hook asl_sitemap
+		 * @param {string} Value to use as a default for the sitemap.
+		 *
+		 * @return {string}
+		 */
+		$default_sitemap = apply_filters( 'asl_sitemap', '' );
+		$sitemap         = esc_url( get_option( 'asl_sitemap', $default_sitemap ) );
+		$html           .= ( '' !== $content ) ? "<a href=\"#$content\" class='no-scroll'>" . __( 'Skip to Content', 'wp-accessibility' ) . '</a> ' : '';
+		$html           .= ( '' !== $nav ) ? "<a href=\"#$nav\" class='no-scroll'>" . __( 'Skip to navigation', 'wp-accessibility' ) . '</a> ' : '';
+		$html           .= ( '' !== $sitemap ) ? "<a href=\"$sitemap\" class='no-scroll'>" . __( 'Site map', 'wp-accessibility' ) . '</a> ' : '';
+		$html           .= ( '' !== $extra && '' !== $extra_text ) ? "<a href=\"$extra\" class='no-scroll'>$extra_text</a> " : '';
+		$is_rtl          = ( is_rtl() ) ? '-rtl' : '-ltr';
+		$skiplinks       = __( 'Skip links', 'wp-accessibility' );
+		$output          = ( '' !== $html ) ? "<div class=\"$visibility$is_rtl\" id=\"skiplinks\" role=\"navigation\" aria-label=\"" . esc_attr( $skiplinks ) . "\">$html</div>" : '';
 	}
 
 	wp_enqueue_script( 'wp-accessibility', plugins_url( 'js/wp-accessibility.js', __FILE__ ), array( 'jquery' ), '1.0.3', true );

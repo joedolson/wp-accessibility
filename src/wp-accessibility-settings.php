@@ -204,19 +204,37 @@ function wpa_admin_settings() {
 												<input type="text" id="asl_navigation" name="asl_navigation" placeholder="#" size="30" aria-describedby="asl_navigation_description" value="<?php echo esc_attr( get_option( 'asl_navigation' ) ); ?>"/> <span id="asl_navigation_description"><?php _e( 'ID attribute starting with <code>#</code>', 'wp-accessibility' ); ?></span>
 											</li>
 											<?php
-											if ( '' !== get_option( 'asl_sitemap', '' ) ) {
+											/**
+											 * Customize the default value for sitemap skiplink. Turns on sitemap skiplink options in WP Accessibility versions > 1.9.0.
+											 *
+											 * @hook asl_sitemap
+											 * @param {string} Value to use as a default for the sitemap.
+											 *
+											 * @return {string}
+											 */
+											$default_sitemap = apply_filters( 'asl_sitemap', '' );
+											if ( '' !== get_option( 'asl_sitemap', $default_sitemap ) ) {
 												?>
 											<li>
 												<label for="asl_sitemap"><?php _e( 'Site Map link target (URL for your site map)', 'wp-accessibility' ); ?></label><br />
-												<input type="text" id="asl_sitemap" name="asl_sitemap" size="44" value="<?php echo esc_attr( get_option( 'asl_sitemap' ) ); ?>"/>
+												<input type="text" id="asl_sitemap" name="asl_sitemap" size="44" value="<?php echo esc_attr( get_option( 'asl_sitemap', $default_sitemap ) ); ?>"/>
 											</li>
 												<?php
 											}
-											if ( '' !== get_option( 'asl_extra_target', '' ) ) {
+											/**
+											 * Customize the default value for extra skiplink. Turns on extra skiplink options in WP Accessibility versions > 1.9.0.
+											 *
+											 * @hook asl_extra_target
+											 * @param {string} Value to use as a default for the extra skiplink target.
+											 *
+											 * @return {string}
+											 */
+											$default_extra = apply_filters( 'asl_extra_target', '' );
+											if ( '' !== get_option( 'asl_extra_target', $default_extra ) ) {
 												?>
 											<li>
 												<label for="asl_extra_target"><?php _e( 'Add your own link (link or container ID)', 'wp-accessibility' ); ?></label><br />
-												<input type="text" id="asl_extra_target" name="asl_extra_target" size="44" value="<?php echo esc_attr( get_option( 'asl_extra_target' ) ); ?>"/>
+												<input type="text" id="asl_extra_target" name="asl_extra_target" size="44" value="<?php echo esc_attr( get_option( 'asl_extra_target', $default_extra ) ); ?>"/>
 											</li>
 											<li>
 												<label for="asl_extra_text"><?php _e( 'Link text for your link', 'wp-accessibility' ); ?></label><br />
