@@ -37,15 +37,15 @@
 }
 
 /* basic support for themes that don't define alignleft and alignright for non-image elements. */
-div.alignleft {
+div.alignleft.wpa-ld {
 	float: left;
 }
 
-div.alignright {
+div.alignright.wpa-ld {
 	float: right;
 }
 
-div.aligncenter {
+div.aligncenter.wpa-ld {
 	display: block;
 	margin: 0 auto;
 	width: fit-content;
