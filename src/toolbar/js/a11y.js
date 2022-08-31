@@ -13,7 +13,7 @@ function createCookie(name, value, days) {
 		var expires = '';
 	}
 
-	document.cookie = name + "=" + value + expires + "; path=/";
+	document.cookie = name + "=" + value + expires + "; path=/; SameSite=Strict;";
 }
 
 function readCookie(name) {
