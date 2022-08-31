@@ -5,7 +5,7 @@ Tags: title, accessibility, accessible, navigation, wcag, a11y, section508, focu
 Requires at least: 3.4.2
 Requires PHP: 5.6
 Tested up to: 6.0
-Stable tag: 1.9.1
+Stable tag: 1.9.2
 Text Domain: wp-accessibility
 License: GPLv2 or later
 
@@ -75,6 +75,12 @@ The plug-in is intended to help with deficiencies commonly found in themes and t
 = Future =
 
 [Suggest a change!](https://github.com/joedolson/wp-accessibility/issues/)
+
+= 1.9.2 =
+
+* Bug fix: Alignment classes should only apply when wpa-ld class present.
+* Bug fix: Set cookies with SameSite = Strict. Props [@ute-arbeit](https://github.com/joedolson/wp-accessibility/commits?author=ute-arbeit).
+
 
 = 1.9.1 =
 
