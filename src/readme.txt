@@ -79,6 +79,7 @@ The plug-in is intended to help with deficiencies commonly found in themes and t
 = 1.9.2 =
 
 * Bug fix: Alignment classes should only apply when wpa-ld class present.
+* Bug fix: Escape widget title content.
 * Bug fix: Set cookies with SameSite = Strict. Props [@ute-arbeit](https://github.com/joedolson/wp-accessibility/commits?author=ute-arbeit).
 
 
