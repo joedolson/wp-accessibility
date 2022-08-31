@@ -49,7 +49,7 @@ class Wp_Accessibility_Toolbar extends WP_Widget {
 
 		$title = apply_filters( 'widget_title', ( empty( $instance['title'] ) ? false : $instance['title'] ), $instance, $args );
 		echo $before_widget;
-		echo ( $title ) ? $before_title . $title . $after_title : '';
+		echo ( $title ) ? wp_kses_post( $before_title . $title . $after_title ) : '';
 		echo wpa_toolbar_html();
 		echo $after_widget;
 	}
