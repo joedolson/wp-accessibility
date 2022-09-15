@@ -464,7 +464,7 @@ add_filter( 'posts_clauses', 'wpa_search_attachment_alt', 20, 2 );
 function wpa_search_attachment_alt( $clauses, $query ) {
 	if ( is_admin() && 'on' === get_option( 'wpa_search_alt' ) ) {
 		global $wpdb;
-		if ( 'attachment' === $query->query['post_type'] && '' !== $query->query_vars['s'] ) {
+		if ( isset( $query->query['post_type'] ) && 'attachment' === $query->query['post_type'] && '' !== $query->query_vars['s'] ) {
 			$clauses['join'] = " LEFT JOIN {$wpdb->postmeta} AS sq1 ON ( {$wpdb->posts}.ID = sq1.post_id AND ( sq1.meta_key = '_wp_attached_file' OR sq1.meta_key = '_wp_attachment_image_alt' ) )";
 		}
 	}
