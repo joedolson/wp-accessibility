@@ -24,7 +24,6 @@
 		if ( conditions.search(/maximum-scale=1/g) ) {
 			conditions = conditions.replace( 'maximum-scale=1', 'maximum-scale=5' );
 			conditions = conditions.replace( 'maximum-scale=0', 'maximum-scale=5' );
-			console.log( conditions );
 			viewport.setAttribute( 'content', conditions );
 		}
 	}
