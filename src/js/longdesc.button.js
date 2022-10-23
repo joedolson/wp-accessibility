@@ -28,8 +28,10 @@
 			e.preventDefault();
 			var visible = container.is( ':visible' );
 			if ( visible ) {
+				$( this ).attr( 'aria-expanded', 'false' );
 				container.hide();
 			} else {
+				$( this ).attr( 'aria-expanded', 'true' );
 				container.show(150);
 			}
 		});
