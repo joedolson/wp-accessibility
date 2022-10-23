@@ -100,9 +100,11 @@ function wpa_update_settings() {
 		}
 
 		if ( isset( $_POST['action'] ) &amp;&amp; 'features' === $_POST['action'] ) {
+			$wpa_show_alt          = ( isset( $_POST['wpa_show_alt'] ) ) ? 'on' : 'off';
 			$wpa_longdesc          = ( isset( $_POST['wpa_longdesc'] ) ) ? sanitize_text_field( $_POST['wpa_longdesc'] ) : 'false';
 			$wpa_longdesc_featured = ( isset( $_POST['wpa_longdesc_featured'] ) ) ? sanitize_text_field( $_POST['wpa_longdesc_featured'] ) : 'false';
 			$wpa_post_types        = ( isset( $_POST['wpa_post_types'] ) ) ? map_deep( $_POST['wpa_post_types'], 'sanitize_text_field' ) : array();
+			update_option( 'wpa_show_alt', $wpa_show_alt );
 			update_option( 'wpa_longdesc', $wpa_longdesc );
 			update_option( 'wpa_longdesc_featured', $wpa_longdesc_featured );
 			update_option( 'wpa_post_types', $wpa_post_types );
@@ -462,6 +464,10 @@ function wpa_admin_settings() {
 										&lt;li>
 											&lt;input type="checkbox" id="wpa_longdesc_featured" name="wpa_longdesc_featured" &lt;?php checked( get_option( 'wpa_longdesc_featured' ), 'on' ); ?>/>
 											&lt;label for="wpa_longdesc_featured">&lt;?php _e( 'Support &lt;code>longdesc&lt;/code> on featured images', 'wp-accessibility' ); ?>&lt;/label>
+										&lt;/li>
+										&lt;li>
+											&lt;input type="checkbox" id="wpa_show_alt" name="wpa_show_alt" &lt;?php checked( get_option( 'wpa_show_alt' ), 'on' ); ?>/>
+											&lt;label for="wpa_show_alt">&lt;?php _e( 'Add toggle to view image &lt;code>alt&lt;/code> text in comments and post content.', 'wp-accessibility' ); ?>&lt;/label>
 										&lt;/li>
 										&lt;li>
 											&lt;fieldset>

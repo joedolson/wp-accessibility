@@ -195,7 +195,7 @@ function wpacc_enqueue_scripts() {
 			)
 		);
 	}
-	if ( 'on' === get_option( 'wpa_show_alt' ) || 1 == 1 ) {
+	if ( 'on' === get_option( 'wpa_show_alt' ) ) {
 		wp_enqueue_script( 'alt.button', plugins_url( 'js/alt.button.js', __FILE__ ), array( 'jquery' ), $version, true );
 	}
 	if ( 'jquery' === get_option( 'wpa_longdesc' ) ) {
