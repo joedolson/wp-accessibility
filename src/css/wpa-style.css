@@ -31,20 +31,24 @@
 	z-index: 100000; /* Above WP toolbar. */
 }
 
+.wpa-alt,
 .wpa-ld {
 	display: inline-block;
 	position: relative;
 }
 
 /* basic support for themes that don't define alignleft and alignright for non-image elements. */
+div.alignleft.wpa-alt,
 div.alignleft.wpa-ld {
 	float: left;
 }
 
+div.alignright.wpa-alt,
 div.alignright.wpa-ld {
 	float: right;
 }
 
+div.aligncenter.wpa-alt,
 div.aligncenter.wpa-ld {
 	display: block;
 	margin: 0 auto;
@@ -56,6 +60,7 @@ div.aligncenter.wpa-ld {
 	outline-offset: 1px;
 }
 
+.wpa-alt button,
 .wpa-ld a, .wpa-ld button {
 	bottom: 2px;
 	left: 2px;
@@ -64,11 +69,13 @@ div.aligncenter.wpa-ld {
 	min-width: 24px;
 }
 
+.top-left .wpa-alt a, .top-left .wpa-alt button,
 .top-left .wpa-ld a, .top-left .wpa-ld button {
 	top: 2px;
 	bottom: auto;
 }
 
+.top-right .wpa-alt a, .top-right .wpa-alt button,
 .top-right .wpa-ld a, .top-right .wpa-ld button {
 	top: 2px;
 	right: 2px;
@@ -76,15 +83,18 @@ div.aligncenter.wpa-ld {
 	bottom: auto;
 }
 
+.bottom-right .wpa-alt a, .bottom-right .wpa-alt button,
 .bottom-right .wpa-ld a, .bottom-right .wpa-ld button {
 	right: 2px;
 	left: auto;
 }
 
+.wpa-alt img,
 .wpa-ld img {
 	display: block;
 }
 
+.wpa-alt button, .wpa-alt button:active, .wpa-alt button:focus, .wpa-alt button:hover,
 .wpa-ld button, .wpa-ld button:active, .wpa-ld button:focus, .wpa-ld button:hover {
 	border: 1px solid #777;
 	border-radius: 2px;
@@ -105,10 +115,34 @@ div.aligncenter.wpa-ld {
 	text-align: left;
 }
 
+.wpa-alt .wpa-alt-text {
+	position: absolute;
+	width: calc( 100% - 2em );
+	height: 6em;
+	bottom: 0;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	background: rgba(255, 255, 255, .95);
+	padding: 1.5em;
+	margin: 1em;
+	border-radius: 15px;
+	box-shadow: 0 0 6px #333;
+	text-align: left;
+}
+
+.top-right .wpa-alt .wpa-alt-text,
+.top-left .wpa-alt .wpa-alt-text {
+	bottom: auto;
+	top: 0;
+}
+
+.rtl .wpa-alt .wpa-alt-text,
 .rtl .wpa-ld .longdesc {
 	text-align: right;
 }
 
+.wpa-alt button, .wpa-alt button:active, .wpa-alt button:focus, .wpa-alt button:hover, .wpa-alt a,
 .wpa-ld button, .wpa-ld button:active, .wpa-ld button:focus, .wpa-ld button:hover, .wpa-ld a {
 	font-size: 1em;
 	font-weight: 400;
@@ -123,6 +157,7 @@ div.aligncenter.wpa-ld {
 	line-height: inherit;
 }
 
+.wpa-alt button:focus, .wpa-alt button:hover,
 .wpa-ld button:focus, .wpa-ld button:hover {
 	background: rgba(0, 0, 0, .8) !important;
 	color: #fff !important;
