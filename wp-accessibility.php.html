@@ -43,7 +43,7 @@
  * Domain Path: /lang
  * License:     GPL-2.0+
  * License URI: http://www.gnu.org/license/gpl-2.0.txt
- * Version: 1.9.3
+ * Version: 1.9.5
  */
 
 /*
@@ -96,7 +96,7 @@ function wpa_admin_menu() {
  * Install on activation.
  */
 function wpa_install() {
-	$wpa_version = '1.9.3';
+	$wpa_version = '1.9.5';
 	if ( 'true' !== get_option( 'wpa_installed' ) ) {
 		add_option( 'rta_from_tag_clouds', 'on' );
 		add_option( 'asl_styles_focus', '' );
@@ -159,7 +159,7 @@ function wpa_plugin_action( $links, $file ) {
 	return $links;
 }
 
-add_action( 'wp_enqueue_scripts', 'wpacc_enqueue_scripts' );
+add_action( 'wp_enqueue_scripts', 'wpacc_enqueue_scripts', 101 );
 /**
  * Enqueue accessibility scripts dependent on options.
  */
@@ -457,6 +457,7 @@ function wpa_jquery_asl() {
 			),
 			'dir'       => ( is_rtl() ) ? 'rtl' : 'ltr',
 			'lang'      => get_bloginfo( 'language' ),
+			'titles'    => ( 'on' === get_option( 'wpa_image_titles' ) ) ? true : false,
 		)
 	);
 }
@@ -555,29 +556,6 @@ function wpa_search_error( $template ) {
 	}
 
 	return $template;
-}
-
-if ( 'on' === get_option( 'wpa_image_titles' ) ) {
-	add_filter( 'the_content', 'wpa_image_titles', 100 );
-	add_filter( 'post_thumbnail_html', 'wpa_image_titles', 100 );
-	add_filter( 'wp_get_attachment_image', 'wpa_image_titles', 100 );
-}
-
-/**
- * Filter out title attributes on images.
- *
- * @param string $content A block of content in an image, post thumbnail, or post content.
- *
- * @return string $content minus title attributes.
- */
-function wpa_image_titles( $content ) {
-	$results = array();
-	preg_match_all( '|[\s]title="[^"]*"|U', $content, $results );
-	foreach ( $results[0] as $img ) {
-		$content = str_replace( $img, '', $content );
-	}
-
-	return $content;
 }
 
 if ( 'on' === get_option( 'wpa_more' ) ) {
