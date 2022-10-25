@@ -60,8 +60,8 @@ div.aligncenter.wpa-ld {
 	outline-offset: 1px;
 }
 
-.wpa-alt button,
-.wpa-ld a, .wpa-ld button {
+.wpa-alt button.wpa-toggle,
+.wpa-ld a.wpa-toggle, .wpa-ld button.wpa-toggle {
 	bottom: 2px;
 	left: 2px;
 	position: absolute;
@@ -69,22 +69,22 @@ div.aligncenter.wpa-ld {
 	min-width: 24px;
 }
 
-.top-left .wpa-alt a, .top-left .wpa-alt button,
-.top-left .wpa-ld a, .top-left .wpa-ld button {
+.top-left .wpa-alt a.wpa-toggle, .top-left .wpa-alt button.wpa-toggle,
+.top-left .wpa-ld a.wpa-toggle, .top-left .wpa-ld button.wpa-toggle {
 	top: 2px;
 	bottom: auto;
 }
 
-.top-right .wpa-alt a, .top-right .wpa-alt button,
-.top-right .wpa-ld a, .top-right .wpa-ld button {
+.top-right .wpa-alt a.wpa-toggle, .top-right .wpa-alt button.wpa-toggle,
+.top-right .wpa-ld a.wpa-toggle, .top-right .wpa-ld button.wpa-toggle {
 	top: 2px;
 	right: 2px;
 	left: auto;
 	bottom: auto;
 }
 
-.bottom-right .wpa-alt a, .bottom-right .wpa-alt button,
-.bottom-right .wpa-ld a, .bottom-right .wpa-ld button {
+.bottom-right .wpa-alt a.wpa-toggle, .bottom-right .wpa-alt button.wpa-toggle,
+.bottom-right .wpa-ld a.wpa-toggle, .bottom-right .wpa-ld button.wpa-toggle {
 	right: 2px;
 	left: auto;
 }
@@ -94,8 +94,8 @@ div.aligncenter.wpa-ld {
 	display: block;
 }
 
-.wpa-alt button, .wpa-alt button:active, .wpa-alt button:focus, .wpa-alt button:hover,
-.wpa-ld button, .wpa-ld button:active, .wpa-ld button:focus, .wpa-ld button:hover {
+.wpa-alt button.wpa-toggle, .wpa-alt button.wpa-toggle:active, .wpa-alt button.wpa-toggle:focus, .wpa-alt button.wpa-toggle:hover,
+.wpa-ld button.wpa-toggle, .wpa-ld button.wpa-toggle:active, .wpa-ld button.wpa-toggle:focus, .wpa-ld button.wpa-toggle:hover {
 	border: 1px solid #777;
 	border-radius: 2px;
 	z-index: 10;
@@ -142,8 +142,8 @@ div.aligncenter.wpa-ld {
 	text-align: right;
 }
 
-.wpa-alt button, .wpa-alt button:active, .wpa-alt button:focus, .wpa-alt button:hover, .wpa-alt a,
-.wpa-ld button, .wpa-ld button:active, .wpa-ld button:focus, .wpa-ld button:hover, .wpa-ld a {
+.wpa-alt button.wpa-toggle, .wpa-alt button.wpa-toggle:active, .wpa-alt button.wpa-toggle:focus, .wpa-alt button.wpa-toggle:hover, .wpa-alt a.wpa-toggle,
+.wpa-ld button.wpa-toggle, .wpa-ld button.wpa-toggle:active, .wpa-ld button.wpa-toggle:focus, .wpa-ld button.wpa-toggle:hover, .wpa-ld a.wpa-toggle {
 	font-size: 1em;
 	font-weight: 400;
 	background: rgba(255, 255, 255, .8) !important;
