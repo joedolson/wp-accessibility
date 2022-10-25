@@ -700,8 +700,6 @@ function wpa_admin_sidebar() {
 						<ul>
 							<li><a href="http://www.accessibleculture.org/articles/2010/08/continue-reading-links-in-wordpress/">Continue Reading Links in WordPress</a></li>
 							<li><a href="http://www.mothereffingtoolconfuser.com">Mother Effing Tool Confuser</a></li>
-							<li><a href="https://wordpress.org/extend/plugins/remove-title-attributes/">Remove Title Attributes</a></li>
-							<li><a href="https://wordpress.org/extend/plugins/img-title-removal/">IMG Title Removal</a></li>
 						</ul>
 					</div>
 				</div>
