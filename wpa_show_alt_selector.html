@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Filter: wpa_case_insensitive - WP Accessibility Hook Doumentation</title>
+    <title>Filter: wpa_show_alt_selector - WP Accessibility Hook Doumentation</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -15,7 +15,7 @@
 
 <div id="main">
 
-    <header><h1 class="page-title">Filter: wpa_case_insensitive</h1></header>
+    <header><h1 class="page-title">Filter: wpa_show_alt_selector</h1></header>
 	<main>
     
 
@@ -36,14 +36,14 @@
 
     
 
-    <h4 class="name" id="wpa_case_insensitive">apply_filters( 'wpa_case_insensitive', <span class="signature">$case_insensitive )</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="wpa_show_alt_selector">apply_filters( 'wpa_show_alt_selector', <span class="signature">$selector )</span><span class="type-signature"> &rarr; {string}</span></h4>
 
     
 
 
 
 <div class="description">
-    <p>Filter array of case insensitive strings that make alt text suspicious.</p>
+    <p>Modify the selector used to attach the alt attribute toggle button on images.</p>
 </div>
 
 
@@ -77,13 +77,13 @@
 
         <tr>
             
-                <td class="name"><code>$case_insensitive</code></td>
+                <td class="name"><code>$selector</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">array</span>
+<span class="param-type">string</span>
 
 
             
@@ -93,7 +93,7 @@
 
             
 
-            <td class="description last"><p>Array of strings.</p></td>
+            <td class="description last"><p>Valid jQuery selector string.</p></td>
         </tr>
 
     
@@ -109,6 +109,9 @@
 
     
 
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>2.0.0</li></ul></dd>
     
 
     
@@ -134,7 +137,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="wp-accessibility-alt.php.html">wp-accessibility-alt.php</a>, <a href="wp-accessibility-alt.php.html#line121">line 121</a>
+        <a href="wp-accessibility.php.html">wp-accessibility.php</a>, <a href="wp-accessibility.php.html#line176">line 176</a>
     </li></ul></dd>
     
 
@@ -160,11 +163,19 @@
 <h5>Returns:</h5>
 
         
-<div class="param-desc">
-    <p>array</p>
-</div>
 
 
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+    </dd>
+</dl>
 
     
 
