@@ -113,6 +113,9 @@ function wpa_check_version() {
 			update_option( 'wpa_toolbar_ct', 'on' );
 		}
 	}
+	if ( SCRIPT_DEBUG ) {
+		$version = mt_rand( 10000, 100000 );
+	}
 
 	return $version;
 }
@@ -170,7 +173,25 @@ function wpacc_enqueue_scripts() {
 		);
 	}
 	if ( 'on' === get_option( 'wpa_show_alt' ) ) {
+		/**
+		 * Modify the selector used to attach the alt attribute toggle button on images.
+		 *
+		 * @hook wpa_show_alt_selector
+		 * @since 2.0.0
+		 *
+		 * @param {string} $selector Valid jQuery selector string.
+		 *
+		 * @return {string}
+		 */
+		$selector = apply_filters( 'wpa_show_alt_selector',  '.hentry img[alt!=""], .comment-content img[alt!=""]' );
 		wp_enqueue_script( 'alt.button', plugins_url( 'js/alt.button.js', __FILE__ ), array( 'jquery' ), $version, true );
+		wp_localize_script(
+			'alt.button',
+			'wpalt',
+			array(
+				'selector' => $selector,
+			)
+		);
 	}
 	if ( 'jquery' === get_option( 'wpa_longdesc' ) ) {
 		wp_enqueue_script( 'longdesc.button', plugins_url( 'js/longdesc.button.js', __FILE__ ), array( 'jquery' ), $version, true );

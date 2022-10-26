@@ -1,10 +1,11 @@
 (function ($) {
 	'use strict';
-	$('.hentry img[alt!=""], .comment-content img[alt!=""]').each(function () {
+	var selector = ( wpalt.selector ) ? wpalt.selector : '.hentry img[alt!=""], .comment-content img[alt!=""]';
+	$( selector ).each(function () {
 		var inLink   = ( $(this).closest( 'a' ) ) ? true : false;
 		var inButton = ( $(this).closest( 'button' ) ) ? true : false;
-		var width    = $(this).attr( 'width' );
-		var height   = $(this).attr( 'height' );
+		var width    = $(this).innerWidth();
+		var height   = $(this).innerHeight();
 		if ( width || height ) {
 			width    = ( ! width ) ? 56 : width; // Enough width for button to be visible.
 			height   = ( ! height ) ? 56 : height; // Enough height for button & first line to be visible.
