@@ -10,7 +10,7 @@
 			width    = ( ! width ) ? 56 : width; // Enough width for button to be visible.
 			height   = ( ! height ) ? 56 : height; // Enough height for button & first line to be visible.
 			var area = height * width;
-			if ( area < ( 80 * 300 ) ) {
+			if ( area < ( 150 * 300 ) ) {
 				// Small images won't get displayed alt text containers.
 				return;
 			}
