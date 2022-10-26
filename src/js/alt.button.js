@@ -16,6 +16,10 @@
 			}
 		}
 		var alt = $(this).attr('alt');
+		// The default selector will also pick up images with missing alt attribute, so eliminate those els.
+		if ( ! alt ) {
+			return;
+		}
 		var img = $(this);
 		var classes = img.attr('class');
 
