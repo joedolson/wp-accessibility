@@ -66,7 +66,7 @@
 						var ariaLabelled     = el.getAttribute( 'aria-labelledby' );
 						var ariaLabeller     = ( ariaLabelled ) ? document.getElementById( ariaLabelled ) : false;
 						var labelId          = el.getAttribute( 'id' );
-						var label            = ( labelId ) ? document.querySelector( 'for="' + labelId + '"' ) : false;
+						var label            = ( labelId ) ? document.querySelector( 'label[for="' + labelId + '"]' ) : false;
 						var parentLabel      = el.closest( 'label' );
 						var hasAriaLabel     = ( ariaLabel && '' !== ariaLabel ) ? true : false;
 						var hasRealLabel     = ( label && '' !== wpaElementText( label ) ) ? true : false;
