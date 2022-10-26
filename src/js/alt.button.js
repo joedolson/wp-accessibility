@@ -1,11 +1,13 @@
 (function ($) {
 	'use strict';
 	var selector = ( wpalt.selector ) ? wpalt.selector : '.hentry img[alt!=""], .comment-content img[alt!=""]';
-	$( selector ).each(function () {
-		var inLink   = ( $(this).closest( 'a' ) ) ? true : false;
-		var inButton = ( $(this).closest( 'button' ) ) ? true : false;
-		var width    = $(this).innerWidth();
-		var height   = $(this).innerHeight();
+	var collection = $( selector );
+	collection.each(function () {
+		var img      = $( this );
+		var inLink   = ( 1 == img.closest( 'a' ).length ) ? true : false;
+		var inButton = ( 1 == img.closest( 'button' ).length ) ? true : false;
+		var width    = img.innerWidth();
+		var height   = img.innerHeight();
 		if ( width || height ) {
 			width    = ( ! width ) ? 56 : width; // Enough width for button to be visible.
 			height   = ( ! height ) ? 56 : height; // Enough height for button & first line to be visible.
@@ -15,22 +17,20 @@
 				return;
 			}
 		}
-		var alt = $(this).attr('alt');
+		var alt = img.attr('alt');
 		// The default selector will also pick up images with missing alt attribute, so eliminate those els.
 		if ( ! alt ) {
 			return;
 		}
-		var img = $(this);
 		var classes = img.attr('class');
-
 		img.attr('class', '');
 		if ( inLink || inButton ) {
-			var wrapper = ( inLink ) ? $( this ).closest( 'a' ) : $( this ).closest( 'button' );
+			var wrapper = ( inLink ) ? img.closest( 'a' ) : img.closest( 'button' );
 			wrapper.wrap( '<div class="wpa-alt" />' );
 		} else {
 			img.wrap('<div class="wpa-alt" />')
 		}
-		img.closest('.wpa-alt').addClass(classes);
+		img.closest('.wpa-alt').addClass( classes );
 		img.closest('.wpa-alt').append('<div class="wpa-alt-text" aria-live="assertive"></div>');
 		img.closest('.wpa-alt').append('<button aria-expanded="false" class="wpa-toggle">alt</button>');
 		var container = img.closest('.wpa-alt').children('.wpa-alt-text');
