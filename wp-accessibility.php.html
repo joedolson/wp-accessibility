@@ -209,7 +209,7 @@ function wpacc_enqueue_scripts() {
 		 *
 		 * @return {string}
 		 */
-		$selector = apply_filters( 'wpa_show_alt_selector',  '.hentry img[alt!=""], .comment-content img[alt!=""]' );
+		$selector = apply_filters( 'wpa_show_alt_selector', '.hentry img[alt!=""], .comment-content img[alt!=""]' );
 		wp_enqueue_script( 'alt.button', plugins_url( 'js/alt.button.js', __FILE__ ), array( 'jquery' ), $version, true );
 		wp_localize_script(
 			'alt.button',
