@@ -431,6 +431,16 @@ function wpa_jquery_asl() {
 	 * @return string
 	 */
 	$target = apply_filters( 'wpa_underline_target', 'a' );
+	/**
+	 * Filter whether console log messages about remediation actions will be sent.
+	 *
+	 * @hook wpa_view_remediation_logs
+	 *
+	 * @param {bool} $visible Default `true` if user is logged in and has capabilities to manage options.
+	 *
+	 * @return {bool}
+	 */
+	$errors_enabled = apply_filters( 'wpa_view_remediation_logs', current_user_can( 'manage_options' ) );
 	wp_localize_script(
 		'wp-accessibility',
 		'wpa',
@@ -451,7 +461,7 @@ function wpa_jquery_asl() {
 			'labels'    => ( 'on' === get_option( 'wpa_labels' ) ) ? true : false,
 			'wpalabels' => $labels,
 			'current'   => ( version_compare( $GLOBALS['wp_version'], '5.3', '<' ) ) ? true : false,
-			'errors'    => ( current_user_can( 'manage_options' ) ) ? true : false,
+			'errors'    => ( $errors_enabled ) ? true : false,
 		)
 	);
 }
