@@ -159,6 +159,11 @@
 	}
 }(jQuery));
 
+/**
+ * Check whether an element contains text, including inspecting contained content for image alt attributes or aria-label attributes.
+ *
+ * Based on work by Roger Johansson https://www.456bereastreet.com/archive/201105/get_element_text_including_alt_text_for_images_with_javascript/
+ */
 function wpaElementText(el) {
 	var text = '';
 	// Text node (3) or CDATA node (4) - return its text
@@ -175,7 +180,9 @@ function wpaElementText(el) {
 	} else if ( (el.nodeType === 1) && !el.tagName.match(/^(script|style)$/i) ) {
 		var children = el.childNodes;
 		for (var i = 0, l = children.length; i < l; i++) {
-			text += wpaElementText(children[i]);
+			// If an element has an aria-label, that will override any other contained text.
+			var ariaLabel = el.getAttribute( 'aria-label' );
+			text += ( ariaLabel ) ? ariaLabel : wpaElementText( children[i] ) + ' ';
 		}
 	}
 
