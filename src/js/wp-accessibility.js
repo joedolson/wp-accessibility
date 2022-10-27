@@ -197,13 +197,17 @@
 	}
 
 	if ( wpa.underline.enabled ) {
-		$( wpa.underline.target ).not( 'nav ' + wpa.underline.target ).css( 'text-decoration','underline' );
-		$(  wpa.underline.target ).on( 'focusin mouseenter', function() {
-			$(this).css( 'text-decoration','none' );
+		// Underline any link not inside a `nav` region. Using JS for this avoids problems with cascade precedence.
+		$( wpa.underline.target ).not( 'nav ' + wpa.underline.target ).css( 'text-decoration', 'underline' );
+		$( wpa.underline.target ).on( 'focusin mouseenter', function() {
+			// Ensure there's a visible change of appearance on hover or focus.
+			$(this).css( 'text-decoration', 'none' );
 		});
 		$(  wpa.underline.target ).on( 'focusout mouseleave', function() {
-			$(this).css( 'text-decoration','underline' );
+			// Reset visible appearance on exit.
+			$(this).css( 'text-decoration', 'underline' );
 		});
+		*/
 	}
 }(jQuery));
 
