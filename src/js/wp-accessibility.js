@@ -175,20 +175,34 @@
 	}
 
 	if ( wpa.target ) {
-		var targeted = $('a:not(.wpa-allow-target)');
-		targeted.removeAttr( 'target' );
-		if ( targeted.length > 0 && wpa.errors ) {
-			console.log( targeted.length + ' target attributes removed from links by WP Accessibility' );
+		var targeted      = $('a:not(.wpa-allow-target)');
+		var targetRemoved = 0;
+		targeted.each( function() {
+			var target = $( this ).attr( 'target' );
+			if ( target ) {
+				$( this ).removeAttr( 'target' );
+				targetRemoved++;
+			}
+		});
+		if ( targetRemoved > 0 && wpa.errors ) {
+			console.log( targetRemoved + ' target attributes removed from links by WP Accessibility' );
 		}
 	}
 
 	if ( wpa.tabindex ) {
 		// Remove tabindex from elements that should be natively focusable.
-		var focusable = $('input,a,select,textarea,button').not('a:not([href])');
-		focusable.removeAttr('tabindex');
+		var focusable  = $('input,a,select,textarea,button').not('a:not([href])');
+		var tabRemoved = 0;
+		focusable.each( function() {
+			var tabindex = $( this ).attr( 'tabindex' );
+			if ( tabindex ) {
+				$( this ).removeAttr('tabindex');
+				tabRemoved++;
+			}
+		});
 
-		if ( focusable.length > 0 && wpa.errors ) {
-			console.log( focusable.length + ' tabindex attributes removed from links, buttons and inputs by WP Accessibility' );
+		if ( tabRemoved > 0 && wpa.errors ) {
+			console.log( tabRemoved + ' tabindex attributes removed from links, buttons and inputs by WP Accessibility' );
 		}
 
 		// Add tabindex to elements that appear active but are not natively focusable.
