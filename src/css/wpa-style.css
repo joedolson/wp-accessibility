@@ -94,6 +94,16 @@ div.aligncenter.wpa-ld {
 	display: block;
 }
 
+.wpa-alt .wpa-ld button {
+	left: 2.5em;
+}
+
+.top-right .wpa-alt .wpa-ld button,
+.bottom-right .wpa-alt .wpa-ld button {
+	left: auto;
+	right: 2.5em;
+}
+
 .wpa-alt button.wpa-toggle, .wpa-alt button.wpa-toggle:active, .wpa-alt button.wpa-toggle:focus, .wpa-alt button.wpa-toggle:hover,
 .wpa-ld button.wpa-toggle, .wpa-ld button.wpa-toggle:active, .wpa-ld button.wpa-toggle:focus, .wpa-ld button.wpa-toggle:hover {
 	border: 1px solid #777;
@@ -111,7 +121,7 @@ div.aligncenter.wpa-ld {
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 	background: rgba(255, 255, 255, .95);
-	padding: 1.5em;
+	padding: 2em 1em;
 	text-align: left;
 }
 
@@ -135,6 +145,7 @@ div.aligncenter.wpa-ld {
 .top-left .wpa-alt .wpa-alt-text {
 	bottom: auto;
 	top: 0;
+	margin-top: 2.5em;
 }
 
 .rtl .wpa-alt .wpa-alt-text,
