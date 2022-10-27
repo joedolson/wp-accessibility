@@ -475,6 +475,7 @@ function wpa_jquery_asl() {
 			'labels'    => ( 'on' === get_option( 'wpa_labels' ) ) ? true : false,
 			'wpalabels' => $labels,
 			'current'   => ( version_compare( $GLOBALS['wp_version'], '5.3', '&lt;' ) ) ? true : false,
+			'errors'    => ( current_user_can( 'manage_options' ) ) ? true : false,
 		)
 	);
 }
