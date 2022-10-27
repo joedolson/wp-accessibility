@@ -220,14 +220,36 @@
 
 	if ( wpa.underline.enabled ) {
 		// Underline any link not inside a `nav` region. Using JS for this avoids problems with cascade precedence.
+		var originalOutline = $( wpa.underline.target ).css( 'outline-width' );
+		var originalOffset  = $( wpa.underline.target ).css( 'outline-offset' );
+		var textColor       = $( wpa.underline.target ).css( 'color' );
+		var originalColor   = $( wpa.underline.target ).css( 'outline-color' );
+		console.log( {originalOutline,originalOffset,textColor,originalColor} );
 		$( wpa.underline.target ).not( 'nav ' + wpa.underline.target ).css( 'text-decoration', 'underline' );
-		$( wpa.underline.target ).on( 'focusin mouseenter', function() {
-			// Ensure there's a visible change of appearance on hover or focus.
-			$(this).css( 'text-decoration', 'none' );
+
+		$( wpa.underline.target ).on( 'mouseenter', function() {
+			$( this ).css( 'text-decoration', 'none' );
 		});
-		$(  wpa.underline.target ).on( 'focusout mouseleave', function() {
+		$(  wpa.underline.target ).on( 'mouseleave', function() {
 			// Reset visible appearance on exit.
-			$(this).css( 'text-decoration', 'underline' );
+			$( this ).css( 'text-decoration', 'underline' );
+		});
+
+		$( wpa.underline.target ).on( 'focusin', function() {
+			var newOutline = '2px';
+			if ( originalOutline == '2px' ) {
+				newOutline = '4px';
+			}
+			// Ensure there's a visible change of appearance on hover or focus.
+			$(this).css( 'outline-width', newOutline );
+			$(this).css( 'outline-color', textColor );
+			$(this).css( 'outline-offset', '2px' );
+		});
+		$(  wpa.underline.target ).on( 'focusout', function() {
+			// Reset visible appearance on exit.
+			$(this).css( 'outline-width', originalOutline );
+			$(this).css( 'outline-color', originalColor );
+			$(this).css( 'outline-offset', originalOffset );
 		});
 	}
 }(jQuery));
