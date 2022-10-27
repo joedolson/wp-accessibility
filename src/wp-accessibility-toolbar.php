@@ -41,7 +41,7 @@ function wpa_toolbar_enqueue_scripts() {
 	if ( 'on' === get_option( 'wpa_toolbar' ) ) {
 		// Enqueue Toolbar JS if enabled.
 		wp_enqueue_script( 'wpa-toolbar' );
-		wp_localize_script( 'wpa-toolbar', 'wpa', wpa_toolbar_js() );
+		wp_localize_script( 'wpa-toolbar', 'wpatb', wpa_toolbar_js() );
 	}
 	wp_enqueue_script( 'ui-a11y' );
 
