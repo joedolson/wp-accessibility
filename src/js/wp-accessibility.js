@@ -1,13 +1,16 @@
 (function( $ ) { 'use strict';
-
-	var html = document.querySelector( 'html' );
-	var lang = html.getAttribute( 'lang' );
+	var html   = document.querySelector( 'html' );
+	var lang   = html.getAttribute( 'lang' );
 	if ( ! lang ) {
 		$('html').attr( 'lang', wpa.lang );
+		
 	}
 	var dir  = html.getAttribute( 'dir' );
 	if ( ! dir ) {
 		$('html').attr( 'dir', wpa.dir );
+		if ( wpa.errors ) {
+			console.log( 'HTML Language set by WP Accessibility' );
+		}
 	}
 
 	var viewport = document.querySelector( 'meta[name="viewport"]' );
@@ -16,22 +19,34 @@
 		if ( conditions.search(/user-scalable=no/g) ) {
 			conditions = conditions.replace( 'user-scalable=no', 'user-scalable=yes' );
 			viewport.setAttribute( 'content', conditions );
+			if ( wpa.errors ) {
+				console.log( 'Viewport made scalable by WP Accessibility' );
+			}
 		}
 		if ( conditions.search(/maximum-scale=1/g) ) {
 			conditions = conditions.replace( 'maximum-scale=1', 'maximum-scale=5' );
 			conditions = conditions.replace( 'maximum-scale=0', 'maximum-scale=5' );
 			viewport.setAttribute( 'content', conditions );
+			if ( wpa.errors ) {
+				console.log( 'Viewport maximum scale set by WP Accessibility' );
+			}
 		}
 	}
 
 	if ( wpa.skiplinks.enabled ) {
 		$('body').prepend( wpa.skiplinks.output );
+		if ( wpa.errors ) {
+			console.log( 'Skip links added by WP Accessibility' );
+		}
 	}
 
 	if ( wpa.current ) {
 		$(function() {
 			$( '.current-menu-item a, .current_page_item a' ).attr( 'aria-current', 'page' );
 		});
+		if ( wpa.errors ) {
+			console.log( 'ARIA current added by WP Accessibility' );
+		}
 	}
 
 	if ( wpa.labels ) {
@@ -43,7 +58,7 @@
 				var field = $( 'input[name=' + value + ']' ).not( '#adminbar-search' );
 			}
 			if ( 0 !== field.length ) {
-				var form_id = field.attr( 'id' );
+				var field_id = field.attr( 'id' );
 				var implicit = $( field ).parent( 'label' );
 				var aria = $( field ).attr( 'aria-label' );
 				var ariaId = $( field ).attr( 'aria-labelledby' );
@@ -55,17 +70,20 @@
 				var hasAriaId = ( '' == ariaId || 'undefined' == typeof( ariaId ) ) ? false : true;
 				// Add label if aria label empty, aria labelledby empty, or aria reference ID does not exist.
 				if ( ( ! hasAria && ! hasAriaId ) || ( ! hasAria && ( hasAriaId && 0 === ariaTarget.length ) ) ) {
-					if ( hasAriaId && 0 === ariaTarget.length ) {
-						console.log( 'aria-labelledby target ID does not exist: ', ariaId );
-					}
-					if ( form_id ) {
-						var label = $( 'label[for=' + form_id + ']' );
+					if ( field_id ) {
+						var label = $( 'label[for=' + field_id + ']' );
 						if ( !label.length && !implicit.length ) {
-							field.before( "<label for='" + form_id + "' class='wpa-screen-reader-text'>" + wpa.wpalabels[value] + "</label>" );
+							field.before( "<label for='" + field_id + "' class='wpa-screen-reader-text'>" + wpa.wpalabels[value] + "</label>" );
+							if ( wpa.errors ) {
+								console.log( 'Explicit label on ' + wpa.wpalabels[value] + 'added by WP Accessibility' );
+							}
 						}
 					} else {
 						if ( !implicit.length ) {
 							field.attr( 'id', 'wpa_label_' + value ).before( "<label for='wpa_label_" + value + "' class='wpa-screen-reader-text'>" + wpa.wpalabels[value] + "</label>" );
+							if ( wpa.errors ) {
+								console.log( 'Implicit label on ' + wpa.wpalabels[value] + 'added by WP Accessibility' );
+							}
 						}
 					}
 				}
@@ -75,7 +93,10 @@
 
 
 	if ( wpa.titles ) {
-		const els = document.querySelectorAll( 'img, a, input, textarea, select, button' );
+		var images   = 0;
+		var controls = 0;
+		var fields   = 0;
+		const els    = document.querySelectorAll( 'img, a, input, textarea, select, button' );
 		els.forEach((el) => {
 			var title = el.getAttribute( 'title' );
 			if ( title && '' !== title ) {
@@ -89,6 +110,7 @@
 						} else {
 							el.removeAttribute( 'title' );
 						}
+						images++;
 						break;
 					case 'A':
 					case 'BUTTON':
@@ -103,6 +125,7 @@
 						} else {
 							el.removeAttribute( 'title' );
 						}
+						controls++;
 						break;
 					case 'INPUT':
 					case 'SELECT':
@@ -125,15 +148,30 @@
 							el.setAttribute( 'aria-label', title );
 							el.removeAttribute( 'title' );
 						}
+						fields++;
 						break;
 				}
 			}
 		});
-
+		if ( wpa.errors ) {
+			if ( images > 0 ) {
+				console.log( images + ' title attributes removed from images by WP Accessibility' );
+			}
+			if ( controls > 0 ) {
+				console.log( controls + ' title attributes removed from links and buttons by WP Accessibility' );
+			}
+			if ( fields > 0 ) {
+				console.log( fields + ' title attributes removed from input fields by WP Accessibility' );
+			}
+		}
 	}
 
 	if ( wpa.target ) {
-		$('a:not(.wpa-allow-target)').removeAttr( 'target' );
+		var targeted = $('a:not(.wpa-allow-target)');
+		targeted.removeAttr( 'target' );
+		if ( targeted.length > 0 && wpa.errors ) {
+			console.log( targeted.length + ' target attributes removed from links by WP Accessibility' );
+		}
 	}
 
 	if ( wpa.tabindex ) {
@@ -141,11 +179,21 @@
 		var focusable = $('input,a,select,textarea,button').not('a:not([href])');
 		focusable.removeAttr('tabindex');
 
+		if ( focusable.length > 0 && wpa.errors ) {
+			console.log( focusable.length + ' tabindex attributes removed from links, buttons and inputs by WP Accessibility' );
+		}
+
 		// Add tabindex to elements that appear active but are not natively focusable.
 		var fakeButtons = $('div[role="button"]').not('div[tabindex]' );
 		var buttonLinks = $('a[role="button"]').not('a[tabindex],a[href]');
 		fakeButtons.attr( 'tabindex', '0' ).addClass('wpa-focusable');
+		if ( fakeButtons.length > 0 && wpa.errors ) {
+			console.log( fakeButtons.length + ' tabindex attributes added to divs with the button role by WP Accessibility' );
+		}
 		buttonLinks.attr( 'tabindex', '0' ).addClass('wpa-focusable');
+		if ( buttonLinks.length > 0 && wpa.errors ) {
+			console.log( buttonLinks.length + ' tabindex attributes added to anchor elements with the button role and no href value by WP Accessibility' );
+		}
 	}
 
 	if ( wpa.underline.enabled ) {
