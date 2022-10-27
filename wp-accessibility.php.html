@@ -443,6 +443,8 @@ function wpa_jquery_asl() {
 	 * @return {array}
 	 */
 	$labels = apply_filters( 'wpa_labels', $labels );
+	$dir    = ( 'on' === get_option( 'wpa_lang' ) ) ? ( ( is_rtl() ) ? 'rtl' : 'ltr' ) : false;
+	$lang   = ( 'on' === get_option( 'wpa_lang' ) ) ? get_bloginfo( 'language' ) : false;
 
 	wp_enqueue_script( 'wp-accessibility', plugins_url( 'js/wp-accessibility.js', __FILE__ ), array( 'jquery' ), $version, true );
 	/**
@@ -469,8 +471,8 @@ function wpa_jquery_asl() {
 				'enabled' => ( 'on' === get_option( 'wpa_underline' ) ) ? true : false,
 				'target'  => $target,
 			),
-			'dir'       => ( is_rtl() ) ? 'rtl' : 'ltr',
-			'lang'      => get_bloginfo( 'language' ),
+			'dir'       => $dir,
+			'lang'      => $lang,
 			'titles'    => ( 'on' === get_option( 'wpa_image_titles' ) ) ? true : false,
 			'labels'    => ( 'on' === get_option( 'wpa_labels' ) ) ? true : false,
 			'wpalabels' => $labels,
