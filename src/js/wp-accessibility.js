@@ -1,33 +1,41 @@
 (function( $ ) { 'use strict';
 	var html   = document.querySelector( 'html' );
-	var lang   = html.getAttribute( 'lang' );
-	if ( ! lang ) {
-		$('html').attr( 'lang', wpa.lang );
-		
+	if ( wpa.lang ) {
+		var lang   = html.getAttribute( 'lang' );
+		if ( ! lang ) {
+			$('html').attr( 'lang', wpa.lang );
+			if ( wpa.errors ) {
+				console.log( 'HTML language set by WP Accessibility' );
+			}
+		}
 	}
-	var dir  = html.getAttribute( 'dir' );
-	if ( ! dir ) {
-		$('html').attr( 'dir', wpa.dir );
-		if ( wpa.errors ) {
-			console.log( 'HTML Language set by WP Accessibility' );
+
+	if ( wpa.dir ) {
+		var dir  = html.getAttribute( 'dir' );
+		if ( ! dir ) {
+			$('html').attr( 'dir', wpa.dir );
+			if ( wpa.errors ) {
+				console.log( 'HTML language direction set by WP Accessibility' );
+			}
 		}
 	}
 
 	var viewport = document.querySelector( 'meta[name="viewport"]' );
 	if ( viewport ) {
-		var conditions = viewport.getAttribute( 'content' );
-		if ( conditions.search(/user-scalable=no/g) ) {
-			conditions = conditions.replace( 'user-scalable=no', 'user-scalable=yes' );
-			viewport.setAttribute( 'content', conditions );
-			if ( wpa.errors ) {
+		var conditionsBefore = viewport.getAttribute( 'content' );
+		var conditionsAfter  = viewport.getAttribute( 'content' );
+		if ( conditionsBefore.search(/user-scalable=no/g) ) {
+			conditionsAfter = conditionsBefore.replace( 'user-scalable=no', 'user-scalable=yes' );
+			viewport.setAttribute( 'content', conditionsAfter );
+			if ( wpa.errors && conditionsAfter != conditionsBefore ) {
 				console.log( 'Viewport made scalable by WP Accessibility' );
 			}
 		}
-		if ( conditions.search(/maximum-scale=1/g) ) {
-			conditions = conditions.replace( 'maximum-scale=1', 'maximum-scale=5' );
-			conditions = conditions.replace( 'maximum-scale=0', 'maximum-scale=5' );
-			viewport.setAttribute( 'content', conditions );
-			if ( wpa.errors ) {
+		if ( conditionsBefore.search(/maximum-scale=1/g) ) {
+			conditionsAfter = conditionsBefore.replace( 'maximum-scale=1', 'maximum-scale=5' );
+			conditionsAfter = conditionsAfter.replace( 'maximum-scale=0', 'maximum-scale=5' );
+			viewport.setAttribute( 'content', conditionsAfter );
+			if ( wpa.errors && conditionsAfter != conditionsBefore  ) {
 				console.log( 'Viewport maximum scale set by WP Accessibility' );
 			}
 		}
@@ -207,7 +215,6 @@
 			// Reset visible appearance on exit.
 			$(this).css( 'text-decoration', 'underline' );
 		});
-		*/
 	}
 }(jQuery));
 
