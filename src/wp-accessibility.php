@@ -138,30 +138,10 @@ function wpa_plugin_action( $links, $file ) {
 
 add_action( 'wp_enqueue_scripts', 'wpacc_enqueue_scripts', 101 );
 /**
- * Enqueue accessibility scripts dependent on options.
+ * Enqueue accessibility feature scripts.
  */
 function wpacc_enqueue_scripts() {
 	$version = wpa_check_version();
-	if ( 'on' === get_option( 'wpa_labels' ) ) {
-		wp_enqueue_script( 'wpa-labels', plugins_url( 'js/wpa.labels.js', __FILE__ ), array( 'jquery' ), $version, true );
-		$labels = array(
-			's'       => __( 'Search', 'wp-accessibility' ),
-			'author'  => __( 'Name', 'wp-accessibility' ),
-			'email'   => __( 'Email', 'wp-accessibility' ),
-			'url'     => __( 'Website', 'wp-accessibility' ),
-			'comment' => __( 'Comment', 'wp-accessibility' ),
-		);
-		/**
-		 * Customize labels passed to automatically label core WordPress fields.
-		 *
-		 * @hook wpa_labels
-		 * @param {array} $labels Array of labels for search and comment fields.
-		 *
-		 * @return {array}
-		 */
-		$labels = apply_filters( 'wpa_labels', $labels );
-		wp_localize_script( 'wpa-labels', 'wpalabels', $labels );
-	}
 	if ( 'link' === get_option( 'wpa_longdesc' ) ) {
 		wp_enqueue_script( 'longdesc.link', plugins_url( 'js/longdesc.link.js', __FILE__ ), array( 'jquery' ), $version, true );
 		wp_localize_script(
@@ -203,10 +183,6 @@ function wpacc_enqueue_scripts() {
 				'text' => '<span class="dashicons dashicons-media-text" aria-hidden="true"></span><span class="screen-reader">' . __( 'Long Description', 'wp-accessibility' ) . '</span>',
 			)
 		);
-	}
-	// aria-current was added in 5.3; don't enqueue this script on newer versions.
-	if ( version_compare( $GLOBALS['wp_version'], '5.3', '<' ) ) {
-		wp_enqueue_script( 'current.menu', plugins_url( 'js/current-menu-item.js', __FILE__ ), array( 'jquery' ), $version, true );
 	}
 }
 
@@ -425,6 +401,23 @@ function wpa_jquery_asl() {
 		$output          = ( '' !== $html ) ? "<div class=\"$visibility$is_rtl\" id=\"skiplinks\" role=\"navigation\" aria-label=\"" . esc_attr( $skiplinks ) . "\">$html</div>" : '';
 	}
 
+	$labels = array(
+		's'       => __( 'Search', 'wp-accessibility' ),
+		'author'  => __( 'Name', 'wp-accessibility' ),
+		'email'   => __( 'Email', 'wp-accessibility' ),
+		'url'     => __( 'Website', 'wp-accessibility' ),
+		'comment' => __( 'Comment', 'wp-accessibility' ),
+	);
+	/**
+	 * Customize labels passed to automatically label core WordPress fields.
+	 *
+	 * @hook wpa_labels
+	 * @param {array} $labels Array of labels for search and comment fields.
+	 *
+	 * @return {array}
+	 */
+	$labels = apply_filters( 'wpa_labels', $labels );
+
 	wp_enqueue_script( 'wp-accessibility', plugins_url( 'js/wp-accessibility.js', __FILE__ ), array( 'jquery' ), $version, true );
 	/**
 	 * Filter target element selector for underlines. Default `a`.
@@ -453,6 +446,9 @@ function wpa_jquery_asl() {
 			'dir'       => ( is_rtl() ) ? 'rtl' : 'ltr',
 			'lang'      => get_bloginfo( 'language' ),
 			'titles'    => ( 'on' === get_option( 'wpa_image_titles' ) ) ? true : false,
+			'labels'    => ( 'on' === get_option( 'wpa_labels' ) ) ? true : false,
+			'wpalabels' => $labels,
+			'current'   => ( version_compare( $GLOBALS['wp_version'], '5.3', '<' ) ) ? true : false;
 		)
 	);
 }
