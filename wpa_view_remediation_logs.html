@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Filter: asl_extra_target - WP Accessibility Hook Doumentation</title>
+    <title>Filter: wpa_view_remediation_logs - WP Accessibility Hook Doumentation</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -15,7 +15,7 @@
 
 <div id="main">
 
-    <header><h1 class="page-title">Filter: asl_extra_target</h1></header>
+    <header><h1 class="page-title">Filter: wpa_view_remediation_logs</h1></header>
 	<main>
     
 
@@ -36,14 +36,14 @@
 
     
 
-    <h4 class="name" id="asl_extra_target">apply_filters( 'asl_extra_target', <span class="signature">Value )</span><span class="type-signature"> &rarr; {string}</span></h4>
+    <h4 class="name" id="wpa_view_remediation_logs">apply_filters( 'wpa_view_remediation_logs', <span class="signature">$visible )</span><span class="type-signature"> &rarr; {bool}</span></h4>
 
     
 
 
 
 <div class="description">
-    <p>Customize the default value for extra skiplink. Turns on extra skiplink options in WP Accessibility versions &gt; 1.9.0.</p>
+    <p>Filter whether console log messages about remediation actions will be sent.</p>
 </div>
 
 
@@ -77,13 +77,13 @@
 
         <tr>
             
-                <td class="name"><code>Value</code></td>
+                <td class="name"><code>$visible</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">bool</span>
 
 
             
@@ -93,7 +93,7 @@
 
             
 
-            <td class="description last"><p>to use as a default for the extra skiplink target.</p></td>
+            <td class="description last"><p>Default <code>true</code> if user is logged in and has capabilities to manage options.</p></td>
         </tr>
 
     
@@ -134,7 +134,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="wp-accessibility-settings.php.html">wp-accessibility-settings.php</a>, <a href="wp-accessibility-settings.php.html#line226">line 226</a>
+        <a href="wp-accessibility.php.html">wp-accessibility.php</a>, <a href="wp-accessibility.php.html#line434">line 434</a>
     </li></ul></dd>
     
 
@@ -168,177 +168,7 @@
     </dt>
     <dd>
         
-<span class="param-type">string</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-    
-    </div>
-
-    
-</article>
-
-</section>
-
-
-
-
-
-
-
-<section>
-
-<header>
-    <h2></h2>
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-
-    
-
-    <h4 class="name" id="asl_extra_target">apply_filters( 'asl_extra_target', <span class="signature">Value )</span><span class="type-signature"> &rarr; {string}</span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Customize the default value for extra skiplink. Turns on extra skiplink options in WP Accessibility versions &gt; 1.9.0.</p>
-</div>
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>Value</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>to use as a default for the extra skiplink.</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="wp-accessibility.php.html">wp-accessibility.php</a>, <a href="wp-accessibility.php.html#line368">line 368</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">string</span>
+<span class="param-type">bool</span>
 
 
     </dd>
