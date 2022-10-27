@@ -67,7 +67,11 @@
 	}
 
 	function wpa_load_image( img ) {
-		var id = img.attr( 'class' ).replace( 'wp-image-', '' );
+		var classes = img.attr( 'class' );
+		if ( '' === classes ) {
+			classes = img.parent( '.wpa-alt' ).attr( 'class' ).replace( 'wpa-alt ', '' );
+		}
+		var id = classes.replace( 'wp-image-', '' );
 		var api = wparest.url + '/' + id;
 
 		$.get( api )
