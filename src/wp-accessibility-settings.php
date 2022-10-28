@@ -111,7 +111,6 @@ function wpa_update_settings() {
 			$wpa_focus                   = ( isset( $_POST['wpa_focus'] ) ) ? 'on' : '';
 			$wpa_focus_color             = ( isset( $_POST['wpa_focus_color'] ) ) ? str_replace( '#', '', $_POST['wpa_focus_color'] ) : '';
 			$wpa_continue                = ( isset( $_POST['wpa_continue'] ) ) ? sanitize_text_field( $_POST['wpa_continue'] ) : __( 'Continue Reading', 'wp-accessibility' );
-			$wpa_insert_roles            = ( isset( $_POST['wpa_insert_roles'] ) ) ? 'on' : '';
 			$wpa_complementary_container = ( isset( $_POST['wpa_complementary_container'] ) ) ? str_replace( '#', '', sanitize_text_field( $_POST['wpa_complementary_container'] ) ) : '';
 			update_option( 'wpa_lang', $wpa_lang );
 			update_option( 'wpa_target', $wpa_target );
@@ -124,7 +123,6 @@ function wpa_update_settings() {
 			update_option( 'wpa_focus', $wpa_focus );
 			update_option( 'wpa_focus_color', $wpa_focus_color );
 			update_option( 'wpa_continue', $wpa_continue );
-			update_option( 'wpa_insert_roles', $wpa_insert_roles );
 			$message = __( 'Miscellaneous Accessibility Settings Updated', 'wp-accessibility' );
 
 			return "<div class='updated'><p>" . $message . '</p></div>';
