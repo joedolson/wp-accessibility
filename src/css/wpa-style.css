@@ -212,3 +212,13 @@ label.wpa-screen-reader-text {
 	margin-bottom: 0;
 	padding-bottom: 0;
 }
+
+.wpa-excerpt .wp-block-read-more,
+.wpa-excerpt .wp-block-post-excerpt__more-text {
+	display: none !important;
+}
+
+.wpa-excerpt .wp-block-post-excerpt .continue {
+	margin-top: 1rem;
+	display: block;
+}

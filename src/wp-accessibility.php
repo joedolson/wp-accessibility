@@ -563,6 +563,12 @@ function wpa_search_error( $template ) {
 }
 
 if ( 'on' === get_option( 'wpa_more' ) ) {
+	add_filter(
+		'body_class',
+		function( $classes ) {
+			return array_merge( $classes, array( 'wpa-excerpt' ) );
+		}
+	);
 	add_filter( 'get_the_excerpt', 'wpa_custom_excerpt_more', 100 );
 	add_filter( 'excerpt_more', 'wpa_excerpt_more', 100 );
 	add_filter( 'the_content_more_link', 'wpa_content_more', 100 );
