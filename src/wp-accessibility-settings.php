@@ -632,7 +632,7 @@ function wpa_admin_sidebar() {
 									}
 								}(document, "script", "twitter-wjs");</script>
 						</p>
-						<p><?php _e( "If you've found WP Accessibility useful, then please <a href='https://wordpress.org/plugins/wp-accessibility/'>rate it five stars</a>, <a href='https://www.joedolson.com/donate/'>make a donation</a>, or <a href='https://translate.wordpress.org/projects/wp-plugins/wp-accessibility'>help with translation</a>.", 'wp-accessibility' ); ?></p>
+						<p><?php _e( "If you've found WP Accessibility useful, then please <a href='https://wordpress.org/plugins/wp-accessibility/'>rate it five stars</a>, <a href='https://github.com/sponsors/joedolson'>sponsor me on GitHub</a>, or <a href='https://translate.wordpress.org/projects/wp-plugins/wp-accessibility'>help with translation</a>.", 'wp-accessibility' ); ?></p>
 
 						<div>
 							<p class="wpa-donate">
@@ -647,7 +647,7 @@ function wpa_admin_sidebar() {
 
 					<div class="inside">
 						<ul>
-							<li><a href="http://make.wordpress.org/accessibility/wp-accessibility-plugin/">Plugin Documentation</a></li>
+							<li><a href="https://make.wordpress.org/accessibility/handbook/which-tools-can-i-use/wp-accessibility-plugin/">Plugin Documentation</a></li>
 							<li><a href="http://make.wordpress.org/accessibility/">Make WordPress: Accessibility</a></li>
 							<li><a href="https://make.wordpress.org/themes/handbook/review/accessibility/">WordPress Theme Accessibility Guidelines</a></li>
 							<li><a href="https://www.joedolson.com/tools/color-contrast.php">Color Contrast Testing</a></li>
@@ -694,15 +694,6 @@ function wpa_admin_sidebar() {
 				</div>
 			<?php } ?>
 
-				<div class="postbox">
-					<h2 class='hndle'><?php _e( 'Contributing References', 'wp-accessibility' ); ?></h2>
-					<div class="inside">
-						<ul>
-							<li><a href="http://www.accessibleculture.org/articles/2010/08/continue-reading-links-in-wordpress/">Continue Reading Links in WordPress</a></li>
-							<li><a href="http://www.mothereffingtoolconfuser.com">Mother Effing Tool Confuser</a></li>
-						</ul>
-					</div>
-				</div>
 				<div class="postbox" id="privacy">
 					<h2 class='hndle'><?php _e( 'Privacy', 'wp-accessibility' ); ?></h2>
 
