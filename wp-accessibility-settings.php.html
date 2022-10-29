@@ -137,7 +137,6 @@ function wpa_update_settings() {
 			$wpa_focus                   = ( isset( $_POST['wpa_focus'] ) ) ? 'on' : '';
 			$wpa_focus_color             = ( isset( $_POST['wpa_focus_color'] ) ) ? str_replace( '#', '', $_POST['wpa_focus_color'] ) : '';
 			$wpa_continue                = ( isset( $_POST['wpa_continue'] ) ) ? sanitize_text_field( $_POST['wpa_continue'] ) : __( 'Continue Reading', 'wp-accessibility' );
-			$wpa_insert_roles            = ( isset( $_POST['wpa_insert_roles'] ) ) ? 'on' : '';
 			$wpa_complementary_container = ( isset( $_POST['wpa_complementary_container'] ) ) ? str_replace( '#', '', sanitize_text_field( $_POST['wpa_complementary_container'] ) ) : '';
 			update_option( 'wpa_lang', $wpa_lang );
 			update_option( 'wpa_target', $wpa_target );
@@ -150,7 +149,6 @@ function wpa_update_settings() {
 			update_option( 'wpa_focus', $wpa_focus );
 			update_option( 'wpa_focus_color', $wpa_focus_color );
 			update_option( 'wpa_continue', $wpa_continue );
-			update_option( 'wpa_insert_roles', $wpa_insert_roles );
 			$message = __( 'Miscellaneous Accessibility Settings Updated', 'wp-accessibility' );
 
 			return "&lt;div class='updated'>&lt;p>" . $message . '&lt;/p>&lt;/div>';
@@ -404,7 +402,7 @@ function wpa_admin_settings() {
 											&lt;?php
 										} else {
 											?>
-											&lt;li>&lt;?php _e( '&lt;strong>Four disabled features:&lt;/strong> Site language, continue reading text, landmark roles and standard form labels are defined in your &lt;code>accessibility-ready&lt;/code> theme.', 'wp-accessibility' ); ?>&lt;/li>
+											&lt;li>&lt;?php _e( '&lt;strong>Three disabled features:&lt;/strong> Site language, continue reading text and standard form labels are defined in your &lt;code>accessibility-ready&lt;/code> theme.', 'wp-accessibility' ); ?>&lt;/li>
 											&lt;?php
 										}
 										?>
@@ -426,7 +424,7 @@ function wpa_admin_settings() {
 										&lt;/li>
 										&lt;li>
 											&lt;input type="checkbox" id="wpa_image_titles" name="wpa_image_titles" &lt;?php checked( get_option( 'wpa_image_titles' ), 'on' ); ?>/>
-											&lt;label for="wpa_image_titles">&lt;?php _e( 'Remove title attributes inserted into post content and featured images.', 'wp-accessibility' ); ?>&lt;/label>
+											&lt;label for="wpa_image_titles">&lt;?php _e( 'Remove title attributes from elements with preferred accessible names.', 'wp-accessibility' ); ?>&lt;/label>
 										&lt;/li>
 										&lt;li>
 											&lt;input type="checkbox" id="wpa_focus" name="wpa_focus" &lt;?php checked( get_option( 'wpa_focus' ), 'on' ); ?>/>
@@ -673,7 +671,7 @@ function wpa_admin_sidebar() {
 
 					&lt;div class="inside">
 						&lt;ul>
-							&lt;li>&lt;a href="https://make.wordpress.org/accessibility/handbook/which-tools-can-i-use/wp-accessibility-plugin/">Plugin Documentation&lt;/a>&lt;/li>
+							&lt;li>&lt;a href="https://docs.joedolson.com/wp-accessibility/">Plugin Documentation&lt;/a>&lt;/li>
 							&lt;li>&lt;a href="http://make.wordpress.org/accessibility/">Make WordPress: Accessibility&lt;/a>&lt;/li>
 							&lt;li>&lt;a href="https://make.wordpress.org/themes/handbook/review/accessibility/">WordPress Theme Accessibility Guidelines&lt;/a>&lt;/li>
 							&lt;li>&lt;a href="https://www.joedolson.com/tools/color-contrast.php">Color Contrast Testing&lt;/a>&lt;/li>
