@@ -4,7 +4,7 @@ Donate link: http://www.joedolson.com/donate/
 Tags: title, accessibility, accessible, navigation, wcag, a11y, section508, focus, alt text, labels, aria
 Requires at least: 3.4.2
 Requires PHP: 5.6
-Tested up to: 6.0
+Tested up to: 6.1
 Stable tag: 1.9.2
 Text Domain: wp-accessibility
 License: GPLv2 or later
@@ -55,7 +55,7 @@ These are tools provided to help you identify issues you may need to fix.
 * Enable diagnostic CSS to show CSS-detectable problems in visual editor or on front-end of site.
 * Search your media library on content in alt text fields.
 
-Learn more! <a href="http://make.wordpress.org/accessibility/wp-accessibility-plugin/">Read about the accessibility issues corrected</a> by WP Accessibility!
+Learn more! <a href="https://docs.joedolson.com/wp-accessibility/">Read about the accessibility issues corrected</a> by WP Accessibility!
 
 The plug-in is intended to help with deficiencies commonly found in themes and to solve some issues in WordPress core. It can't correct every problem (by a long shot), but provides tools to fix some issues, supplement the accessibility of your site, or identify problems.
 
@@ -75,6 +75,16 @@ The plug-in is intended to help with deficiencies commonly found in themes and t
 = Future =
 
 [Suggest a change!](https://github.com/joedolson/wp-accessibility/issues/)
+
+= 2.0 =
+
+* New feature: Show alt attributes toggle on content images.
+* New feature: Ensure users can adjust scale even if maximum-scale set to 1.0.
+* Updated feature: Remove title attributes now more intelligent. See [URL HERE]
+* Change: Combine remediation scripting in wp-accessibility.js.
+* Bug fix: aria-expanded missing in some cases for longdesc disclosures.
+* Bug fix: Main JS file did not have a version number.
+* Bug fix: Run feature JS after running remediation JS.
 
 = 1.9.2 =
 

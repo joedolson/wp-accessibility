@@ -376,7 +376,7 @@ function wpa_admin_settings() {
 											<?php
 										} else {
 											?>
-											<li><?php _e( '<strong>Four disabled features:</strong> Site language, continue reading text, landmark roles and standard form labels are defined in your <code>accessibility-ready</code> theme.', 'wp-accessibility' ); ?></li>
+											<li><?php _e( '<strong>Three disabled features:</strong> Site language, continue reading text and standard form labels are defined in your <code>accessibility-ready</code> theme.', 'wp-accessibility' ); ?></li>
 											<?php
 										}
 										?>
@@ -398,7 +398,7 @@ function wpa_admin_settings() {
 										</li>
 										<li>
 											<input type="checkbox" id="wpa_image_titles" name="wpa_image_titles" <?php checked( get_option( 'wpa_image_titles' ), 'on' ); ?>/>
-											<label for="wpa_image_titles"><?php _e( 'Remove title attributes inserted into post content and featured images.', 'wp-accessibility' ); ?></label>
+											<label for="wpa_image_titles"><?php _e( 'Remove title attributes from elements with preferred accessible names.', 'wp-accessibility' ); ?></label>
 										</li>
 										<li>
 											<input type="checkbox" id="wpa_focus" name="wpa_focus" <?php checked( get_option( 'wpa_focus' ), 'on' ); ?>/>
@@ -645,7 +645,7 @@ function wpa_admin_sidebar() {
 
 					<div class="inside">
 						<ul>
-							<li><a href="https://make.wordpress.org/accessibility/handbook/which-tools-can-i-use/wp-accessibility-plugin/">Plugin Documentation</a></li>
+							<li><a href="https://docs.joedolson.com/wp-accessibility/">Plugin Documentation</a></li>
 							<li><a href="http://make.wordpress.org/accessibility/">Make WordPress: Accessibility</a></li>
 							<li><a href="https://make.wordpress.org/themes/handbook/review/accessibility/">WordPress Theme Accessibility Guidelines</a></li>
 							<li><a href="https://www.joedolson.com/tools/color-contrast.php">Color Contrast Testing</a></li>

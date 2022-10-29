@@ -224,7 +224,6 @@
 		var originalOffset  = $( wpa.underline.target ).css( 'outline-offset' );
 		var textColor       = $( wpa.underline.target ).css( 'color' );
 		var originalColor   = $( wpa.underline.target ).css( 'outline-color' );
-		console.log( {originalOutline,originalOffset,textColor,originalColor} );
 		$( wpa.underline.target ).not( 'nav ' + wpa.underline.target ).css( 'text-decoration', 'underline' );
 
 		$( wpa.underline.target ).on( 'mouseenter', function() {
@@ -256,6 +255,9 @@
 
 /**
  * Check whether an element contains text, including inspecting contained content for image alt attributes or aria-label attributes.
+ *
+ *
+ * @arg el DOM element to check.
  *
  * Based on work by Roger Johansson https://www.456bereastreet.com/archive/201105/get_element_text_including_alt_text_for_images_with_javascript/
  */
