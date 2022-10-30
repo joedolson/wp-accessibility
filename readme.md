@@ -9,7 +9,7 @@ Improving the Accessibility of your WordPress site.
 * Donate link: https://www.joedolson.com/donate/
 * Tags: accessibility, WordPress
 * Requires at least: 4.4
-* Tested up to: 6.0
+* Tested up to: 6.1
 * Requires PHP: 5.6
 * Stable tag: `1.9.2`
 * License: GPLv2 or later
