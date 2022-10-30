@@ -1,4 +1,26 @@
+.wp-block-image {
+	position: relative;
+}
+
+img[alt*="This image has an empty alt"],
+.wp-block-image img[alt=""],
 .wpa-image-missing-alt {
-	border: 2px solid red;
-	box-shadow: 0 0 2px 2px #ffa;
+	outline: 4px solid #b32d2e;
+	outline-offset: 2px;
+}
+
+.wp-block-image:has(img[alt*="This image has an empty alt"]):after,
+.wp-block-image:has(img[alt=""]):after,
+.wpa-image-missing-alt:after {
+	content: 'alt text missing';
+	position: absolute;
+	left: 10px;
+	top: 10px;
+	background: rgba( 0,0,0,.65 );
+	color: #fff;
+	padding: 3px 5px;
+	border-radius: 5px;
+	border: 1px solid #b32d2e;
+	font-size: .875rem;
+	font-weight: 700;
 }

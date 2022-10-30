@@ -224,7 +224,7 @@ function wpa_alt_attribute( $html, $id, $caption, $title, $align, $url, $size, $
 	if ( true === $noalt ) {
 		$html = str_replace( 'alt="' . $alt . '"', 'alt=""', $html );
 	}
-	if ( ( '' === $alt || $alt === $title ) && true !== $noalt ) {
+	if ( ( '' === $alt || $alt === $title || wpa_suspicious_alt( $alt ) ) && true !== $noalt ) {
 		if ( $alt === $title ) {
 			$warning = __( 'The alt text for this image is the same as the title. In most cases, that means that the alt attribute has been automatically provided from the image file name.', 'wp-accessibility' );
 			$image   = 'alt-same.png';
@@ -234,8 +234,9 @@ function wpa_alt_attribute( $html, $id, $caption, $title, $align, $url, $size, $
 		}
 	}
 	if ( $warning ) {
-		return $html . "<img class='wpa-image-missing-alt size-" . esc_attr( $size ) . ' ' . esc_attr( $align ) . "' src='" . plugins_url( "imgs/$image", __FILE__ ) . "' alt='" . esc_attr( $warning ) . "' />";
+		return '<div class="wp-block-image">' . $html . '</div>';
 	}
+
 	return $html;
 }
 
@@ -244,5 +245,13 @@ add_action( 'init', 'wpa_add_editor_styles' );
  * Enqueue custom editor styles for WP Accessibility. Used in display of img replacements.
  */
 function wpa_add_editor_styles() {
-	add_editor_style( plugins_url( 'css/editor-style.css', __FILE__ ) );
+	add_editor_style( plugins_url( 'css/editor-style.css', __FILE__ ), false, wpa_check_version() );
+}
+
+add_action( 'enqueue_block_editor_assets', 'wpa_block_editor_assets' );
+/**
+ * Enqueue custom block editor styles for WP Accessibility. Used in display of img replacements.
+ */
+function wpa_block_editor_assets() {
+	wp_enqueue_style( 'wpa-block-styles', plugins_url( 'css/editor-style.css', __FILE__ ), false, wpa_check_version() );
 }
