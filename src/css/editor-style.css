@@ -2,6 +2,11 @@
 	position: relative;
 }
 
+.wp-video-shortcode:not(.wp-video-shortcode:has(track[kind="captions"],track[kind="subtitles"])),
+.wp-block-video:not(.wp-block-video:has(track[kind="captions"],track[kind="subtitles"])) {
+	border: 4px solid #b32d2e;
+}
+
 img[alt*="This image has an empty alt"],
 .wp-block-image img[alt=""],
 .wpa-image-missing-alt {
@@ -13,6 +18,21 @@ img[alt*="This image has an empty alt"],
 .wp-block-image:has(img[alt=""]):after,
 .wpa-image-missing-alt:after {
 	content: 'alt text missing';
+	position: absolute;
+	left: 10px;
+	top: 10px;
+	background: rgba( 0,0,0,.65 );
+	color: #fff;
+	padding: 3px 5px;
+	border-radius: 5px;
+	border: 1px solid #b32d2e;
+	font-size: .875rem;
+	font-weight: 700;
+}
+
+.wp-video-shortcode:not(.wp-video-shortcode:has(track[kind="captions"],track[kind="subtitles"])):after,
+.wp-block-video:not(.wp-block-video:has(track[kind="captions"],track[kind="subtitles"])):after {
+	content: 'no captions or subtitles';
 	position: absolute;
 	left: 10px;
 	top: 10px;
