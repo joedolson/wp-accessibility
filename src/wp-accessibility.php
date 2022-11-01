@@ -17,7 +17,7 @@
  * Domain Path: /lang
  * License:     GPL-2.0+
  * License URI: http://www.gnu.org/license/gpl-2.0.txt
- * Version: 1.9.5
+ * Version: 2.0
  */
 
 /*
@@ -70,7 +70,7 @@ function wpa_admin_menu() {
  * Install on activation.
  */
 function wpa_install() {
-	$wpa_version = '1.9.5';
+	$wpa_version = '2.0';
 	if ( 'true' !== get_option( 'wpa_installed' ) ) {
 		add_option( 'rta_from_tag_clouds', 'on' );
 		add_option( 'asl_styles_focus', '' );
@@ -112,9 +112,6 @@ function wpa_check_version() {
 		if ( '' === $wpa_toolbar_ct ) {
 			update_option( 'wpa_toolbar_ct', 'on' );
 		}
-	}
-	if ( SCRIPT_DEBUG ) {
-		$version = mt_rand( 10000, 100000 );
 	}
 
 	return $version;
@@ -323,6 +320,16 @@ $class#skiplinks a:active, $vis $class#skiplinks a:focus {
 	$focus
 }
 	";
+	/**
+	 * Filter CSS styles output on front-end for skip links.
+	 *
+	 * @hook wpa_skiplink_styles
+	 *
+	 * @param {string} $styles Styles configured by settings.
+	 *
+	 * @return {string}
+	 */
+	$styles = apply_filters( 'wpa_skiplink_styles', $styles );
 
 	return $styles;
 }
@@ -834,7 +841,7 @@ function wpa_get_content_summary( $post_id ) {
 	 */
 	$heading = apply_filters( 'wpa_summary_heading', __( 'Summary', 'wp-accessibility' ), $post_id );
 	/**
-	 * Filter the heading leve for content summaries. Default `h2`.
+	 * Filter the heading level for content summaries. Default `h2`.
 	 *
 	 * @hook wpa_summary_heading_level
 	 *
