@@ -348,6 +348,7 @@ function wpa_css() {
 		:focus { outline: 2px solid$color!important; outline-offset: 2px !important; }
 		";
 	}
+
 	return $styles;
 }
 
