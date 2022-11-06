@@ -245,7 +245,8 @@ add_action( 'init', 'wpa_add_editor_styles' );
  * Enqueue custom editor styles for WP Accessibility. Used in display of img replacements.
  */
 function wpa_add_editor_styles() {
-	add_editor_style( plugins_url( 'css/editor-style.css', __FILE__ ), false, wpa_check_version() );
+	$wpa_version = ( SCRIPT_DEBUG ) ? rand( 10000, 100000 ) : wpa_check_version();
+	add_editor_style( plugins_url( 'css/editor-style.css', __FILE__ ), false, $wpa_version );
 }
 
 add_action( 'enqueue_block_editor_assets', 'wpa_block_editor_assets' );
