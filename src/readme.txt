@@ -88,6 +88,7 @@ The plug-in is intended to help with deficiencies commonly found in themes and t
 * Bug fix: aria-expanded missing in some cases for longdesc disclosures.
 * Bug fix: Main JS file did not have a version number.
 * Bug fix: Run feature JS after running remediation JS.
+* Retired language directory call. Translation files haven't been updated since version 1.3.9 (Oct 2014).
 
 = 1.9.2 =
 
