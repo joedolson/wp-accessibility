@@ -139,6 +139,7 @@ div.aligncenter.wpa-ld {
 	border-radius: 15px;
 	box-shadow: 0 0 6px #333;
 	text-align: left;
+	z-index: 10;
 }
 
 .top-right .wpa-alt .wpa-alt-text,
