@@ -80,7 +80,7 @@ add_action( 'plugins_loaded', 'wpa_load_textdomain' );
  * Load internationalization.
  */
 function wpa_load_textdomain() {
-	load_plugin_textdomain( 'wp-accessibility', false, dirname( plugin_basename( __FILE__ ) ) . '/lang' );
+	load_plugin_textdomain( 'wp-accessibility' );
 }
 
 add_action( 'admin_menu', 'wpa_admin_menu' );
