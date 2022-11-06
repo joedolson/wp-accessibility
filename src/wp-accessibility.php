@@ -197,7 +197,7 @@ function wpa_stylesheet() {
 		if ( is_admin_bar_showing() ) {
 			$top = '37px';
 		}
-		$add_css    = wpa_css();
+		$add_css    = ( ! wpa_accessible_theme() ) ? wpa_css() : '';
 		$custom_css = ':root { --admin-bar-top : ' . $top . '; }';
 		wp_add_inline_style( 'wpa-style', wp_filter_nohtml_kses( stripcslashes( $add_css . $custom_css ) ) );
 	}
@@ -371,7 +371,7 @@ function wpa_jquery_asl() {
 	$version    = wpa_check_version();
 	$visibility = ( 'on' === get_option( 'asl_visible' ) ) ? 'wpa-visible' : 'wpa-hide';
 	$output     = '';
-	if ( 'on' === get_option( 'asl_enable' ) ) {
+	if ( 'on' === get_option( 'asl_enable' ) && ! wpa_accessible_theme() ) {
 		$html = '';
 		/**
 		 * Customize the default value for extra skiplink. Turns on extra skiplink options in WP Accessibility versions > 1.9.0.
@@ -425,8 +425,8 @@ function wpa_jquery_asl() {
 	 * @return {array}
 	 */
 	$labels = apply_filters( 'wpa_labels', $labels );
-	$dir    = ( 'on' === get_option( 'wpa_lang' ) ) ? ( ( is_rtl() ) ? 'rtl' : 'ltr' ) : false;
-	$lang   = ( 'on' === get_option( 'wpa_lang' ) ) ? get_bloginfo( 'language' ) : false;
+	$dir    = ( 'on' === get_option( 'wpa_lang' ) && ! wpa_accessible_theme() ) ? ( ( is_rtl() ) ? 'rtl' : 'ltr' ) : false;
+	$lang   = ( 'on' === get_option( 'wpa_lang' ) && ! wpa_accessible_theme() ) ? get_bloginfo( 'language' ) : false;
 
 	wp_enqueue_script( 'wp-accessibility', plugins_url( 'js/wp-accessibility.js', __FILE__ ), array( 'jquery' ), $version, true );
 	/**
@@ -466,7 +466,7 @@ function wpa_jquery_asl() {
 			'dir'       => $dir,
 			'lang'      => $lang,
 			'titles'    => ( 'on' === get_option( 'wpa_image_titles' ) ) ? true : false,
-			'labels'    => ( 'on' === get_option( 'wpa_labels' ) ) ? true : false,
+			'labels'    => ( 'on' === get_option( 'wpa_labels' ) && ! wpa_accessible_theme() ) ? true : false,
 			'wpalabels' => $labels,
 			'current'   => ( version_compare( $GLOBALS['wp_version'], '5.3', '<' ) ) ? true : false,
 			'errors'    => ( $errors_enabled ) ? true : false,
@@ -570,7 +570,7 @@ function wpa_search_error( $template ) {
 	return $template;
 }
 
-if ( 'on' === get_option( 'wpa_more' ) ) {
+if ( 'on' === get_option( 'wpa_more' ) && ! wpa_accessible_theme() ) {
 	add_filter(
 		'body_class',
 		function( $classes ) {
