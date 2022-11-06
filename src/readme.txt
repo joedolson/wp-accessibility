@@ -5,7 +5,7 @@ Tags: title, accessibility, accessible, navigation, wcag, a11y, section508, focu
 Requires at least: 3.4.2
 Requires PHP: 5.6
 Tested up to: 6.1
-Stable tag: 1.9.2
+Stable tag: 2.0.0
 Text Domain: wp-accessibility
 License: GPLv2 or later
 
@@ -76,7 +76,7 @@ The plug-in is intended to help with deficiencies commonly found in themes and t
 
 [Suggest a change!](https://github.com/joedolson/wp-accessibility/issues/)
 
-= 2.0 =
+= 2.0.0 =
 
 * New feature: Show alt attributes toggle on content images.
 * New feature: Ensure users can adjust scale even if maximum-scale set to 1.0.
@@ -85,10 +85,12 @@ The plug-in is intended to help with deficiencies commonly found in themes and t
 * Updated feature: [Remove title attributes])https://docs.joedolson.com/wp-accessibility/2022/10/29/remove-title-attributes/) now more intelligent.
 * Updated feature: Modernized alt attribute enforcement tools.
 * Change: Combine remediation scripting in wp-accessibility.js.
+* Change: Disable accessibility-ready duplicating features if theme changed to accessibility-ready.
 * Bug fix: aria-expanded missing in some cases for longdesc disclosures.
 * Bug fix: Main JS file did not have a version number.
 * Bug fix: Run feature JS after running remediation JS.
-* Retired language directory call. Translation files haven't been updated since version 1.3.9 (Oct 2014).
+* Bug fix: Fix DOM ordering with image disclosure buttons.
+* Retired language directory call. Translation files haven't been updated since version Oct 2014.
 
 = 1.9.2 =
 
