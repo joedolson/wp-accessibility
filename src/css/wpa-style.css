@@ -89,11 +89,6 @@ div.aligncenter.wpa-ld {
 	left: auto;
 }
 
-.wpa-alt img,
-.wpa-ld img {
-	display: block;
-}
-
 .wpa-alt .wpa-ld button {
 	left: 2.5em;
 }
@@ -156,12 +151,13 @@ div.aligncenter.wpa-ld {
 
 .wpa-alt button.wpa-toggle, .wpa-alt button.wpa-toggle:active, .wpa-alt button.wpa-toggle:focus, .wpa-alt button.wpa-toggle:hover, .wpa-alt a.wpa-toggle,
 .wpa-ld button.wpa-toggle, .wpa-ld button.wpa-toggle:active, .wpa-ld button.wpa-toggle:focus, .wpa-ld button.wpa-toggle:hover, .wpa-ld a.wpa-toggle {
-	font-size: 1em;
-	font-weight: 400;
+	font-size: 1rem;
 	background: rgba(255, 255, 255, .8) !important;
 	padding: 0;
+	font-weight: 700;
+	font-family: Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace;
 	color: #000 !important;
-	padding: 3px 6px;
+	padding: 2px 4px;
 	border-radius: 3px;
 }
 
@@ -175,6 +171,8 @@ div.aligncenter.wpa-ld {
 	color: #fff !important;
 	border: 1px solid #000 !important;
 	cursor: pointer;
+	outline: 2px solid #a00 !important;
+	outline-offset: 1px;
 }
 
 .template-longdesc {
