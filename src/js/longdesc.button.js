@@ -19,8 +19,8 @@
 		img.attr('class', '');
 		img.wrap('<div class="wpa-ld" />')
 		img.parent('.wpa-ld').addClass(classes);
-		img.parent('.wpa-ld').append('<div class="longdesc" aria-live="assertive"></div>');
 		img.parent('.wpa-ld').append('<button aria-expanded="false" class="wpa-toggle">' + wparest.text + '</button>');
+		img.parent('.wpa-ld').append('<div class="longdesc"></div>');
 		var container = img.parent('.wpa-ld').children('.longdesc');
 		container.hide();
 		container.load( longdesc + ' #desc_' + image_id );
@@ -49,7 +49,7 @@
 		img.wrap('<div class="wpa-ld" />')
 		img.parent('.wpa-ld').addClass(classes);
 		img.parent('.wpa-ld').append('<button aria-expanded="false" class="wpa-toggle">' + wparest.text + '</button>');
-		img.parent('.wpa-ld').append('<div class="longdesc" aria-live="assertive"></div>');
+		img.parent('.wpa-ld').append('<div class="longdesc"></div>');
 		var container = img.parent('.wpa-ld').children('.longdesc');
 		container.hide();
 		container.load( longdesc + ' #desc_' + image_id, {limit:25}, 

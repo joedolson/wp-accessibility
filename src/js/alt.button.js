@@ -31,8 +31,8 @@
 			img.wrap('<div class="wpa-alt" />')
 		}
 		img.closest('.wpa-alt').addClass( classes );
-		img.closest('.wpa-alt').append('<div class="wpa-alt-text" aria-live="assertive"></div>');
 		img.closest('.wpa-alt').append('<button aria-expanded="false" class="wpa-toggle">alt</button>');
+		img.closest('.wpa-alt').append('<div class="wpa-alt-text"></div>');
 		var container = img.closest('.wpa-alt').children('.wpa-alt-text');
 		container.hide();
 		container.html( alt );

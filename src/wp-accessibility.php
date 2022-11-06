@@ -151,9 +151,10 @@ function wpacc_enqueue_scripts() {
 	}
 	if ( 'on' === get_option( 'wpa_show_alt' ) ) {
 		/**
-		 * Modify the selector used to attach the alt attribute toggle button on images.
+		 * Modify the selector used to attach the alt attribute toggle button on images. Default `.hentry img[alt!=""], .comment-content img[alt!=""]`.
 		 *
 		 * @hook wpa_show_alt_selector
+		 *
 		 * @since 2.0.0
 		 *
 		 * @param {string} $selector Valid jQuery selector string.
