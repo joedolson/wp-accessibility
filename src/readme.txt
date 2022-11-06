@@ -82,7 +82,7 @@ The plug-in is intended to help with deficiencies commonly found in themes and t
 * New feature: Ensure users can adjust scale even if maximum-scale set to 1.0.
 * New feature: Alt enforcement indicators now present in block editor.
 * New feature: Flag missing captions or subtitles in uploaded videos in editor.
-* Updated feature: Remove title attributes now more intelligent. See [URL HERE]
+* Updated feature: [Remove title attributes])https://docs.joedolson.com/wp-accessibility/2022/10/29/remove-title-attributes/) now more intelligent.
 * Updated feature: Modernized alt attribute enforcement tools.
 * Change: Combine remediation scripting in wp-accessibility.js.
 * Bug fix: aria-expanded missing in some cases for longdesc disclosures.
