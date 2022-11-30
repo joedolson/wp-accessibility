@@ -5,7 +5,7 @@ Tags: title, accessibility, accessible, navigation, wcag, a11y, section508, focu
 Requires at least: 3.4.2
 Requires PHP: 5.6
 Tested up to: 6.1
-Stable tag: 2.0.0
+Stable tag: 2.0.1
 Text Domain: wp-accessibility
 License: GPLv2 or later
 
