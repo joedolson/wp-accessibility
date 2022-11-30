@@ -427,10 +427,10 @@ function wpa_jquery_asl() {
 		 */
 		$default_sitemap = apply_filters( 'asl_sitemap', '' );
 		$sitemap         = esc_url( get_option( 'asl_sitemap', $default_sitemap ) );
-		$html           .= ( '' !== $content ) ? "&lt;a href=\"#$content\" class='no-scroll'>" . __( 'Skip to Content', 'wp-accessibility' ) . '&lt;/a> ' : '';
-		$html           .= ( '' !== $nav ) ? "&lt;a href=\"#$nav\" class='no-scroll'>" . __( 'Skip to navigation', 'wp-accessibility' ) . '&lt;/a> ' : '';
-		$html           .= ( '' !== $sitemap ) ? "&lt;a href=\"$sitemap\" class='no-scroll'>" . __( 'Site map', 'wp-accessibility' ) . '&lt;/a> ' : '';
-		$html           .= ( '' !== $extra &amp;&amp; '' !== $extra_text ) ? "&lt;a href=\"$extra\" class='no-scroll'>$extra_text&lt;/a> " : '';
+		$html           .= ( '' !== $content ) ? "&lt;a href=\"#$content\" class='no-scroll et_smooth_scroll_disabled'>" . __( 'Skip to Content', 'wp-accessibility' ) . '&lt;/a> ' : '';
+		$html           .= ( '' !== $nav ) ? "&lt;a href=\"#$nav\" class='no-scroll et_smooth_scroll_disabled'>" . __( 'Skip to navigation', 'wp-accessibility' ) . '&lt;/a> ' : '';
+		$html           .= ( '' !== $sitemap ) ? "&lt;a href=\"$sitemap\" class='no-scroll et_smooth_scroll_disabled'>" . __( 'Site map', 'wp-accessibility' ) . '&lt;/a> ' : '';
+		$html           .= ( '' !== $extra &amp;&amp; '' !== $extra_text ) ? "&lt;a href=\"$extra\" class='no-scroll et_smooth_scroll_disabled'>$extra_text&lt;/a> " : '';
 		$is_rtl          = ( is_rtl() ) ? '-rtl' : '-ltr';
 		$skiplinks       = __( 'Skip links', 'wp-accessibility' );
 		$output          = ( '' !== $html ) ? "&lt;div class=\"$visibility$is_rtl\" id=\"skiplinks\" role=\"navigation\" aria-label=\"" . esc_attr( $skiplinks ) . "\">$html&lt;/div>" : '';
