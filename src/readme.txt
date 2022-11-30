@@ -76,6 +76,10 @@ The plug-in is intended to help with deficiencies commonly found in themes and t
 
 [Suggest a change!](https://github.com/joedolson/wp-accessibility/issues/)
 
+= 2.0.1 =
+
+* Add `.et_smooth_scroll_disabled` to skip links to override Divi's inaccessible smooth scrolling.
+
 = 2.0.0 =
 
 * New feature: Show alt attributes toggle on content images.

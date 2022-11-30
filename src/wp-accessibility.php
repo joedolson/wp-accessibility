@@ -401,10 +401,10 @@ function wpa_jquery_asl() {
 		 */
 		$default_sitemap = apply_filters( 'asl_sitemap', '' );
 		$sitemap         = esc_url( get_option( 'asl_sitemap', $default_sitemap ) );
-		$html           .= ( '' !== $content ) ? "<a href=\"#$content\" class='no-scroll'>" . __( 'Skip to Content', 'wp-accessibility' ) . '</a> ' : '';
-		$html           .= ( '' !== $nav ) ? "<a href=\"#$nav\" class='no-scroll'>" . __( 'Skip to navigation', 'wp-accessibility' ) . '</a> ' : '';
-		$html           .= ( '' !== $sitemap ) ? "<a href=\"$sitemap\" class='no-scroll'>" . __( 'Site map', 'wp-accessibility' ) . '</a> ' : '';
-		$html           .= ( '' !== $extra && '' !== $extra_text ) ? "<a href=\"$extra\" class='no-scroll'>$extra_text</a> " : '';
+		$html           .= ( '' !== $content ) ? "<a href=\"#$content\" class='no-scroll et_smooth_scroll_disabled'>" . __( 'Skip to Content', 'wp-accessibility' ) . '</a> ' : '';
+		$html           .= ( '' !== $nav ) ? "<a href=\"#$nav\" class='no-scroll et_smooth_scroll_disabled'>" . __( 'Skip to navigation', 'wp-accessibility' ) . '</a> ' : '';
+		$html           .= ( '' !== $sitemap ) ? "<a href=\"$sitemap\" class='no-scroll et_smooth_scroll_disabled'>" . __( 'Site map', 'wp-accessibility' ) . '</a> ' : '';
+		$html           .= ( '' !== $extra && '' !== $extra_text ) ? "<a href=\"$extra\" class='no-scroll et_smooth_scroll_disabled'>$extra_text</a> " : '';
 		$is_rtl          = ( is_rtl() ) ? '-rtl' : '-ltr';
 		$skiplinks       = __( 'Skip links', 'wp-accessibility' );
 		$output          = ( '' !== $html ) ? "<div class=\"$visibility$is_rtl\" id=\"skiplinks\" role=\"navigation\" aria-label=\"" . esc_attr( $skiplinks ) . "\">$html</div>" : '';
