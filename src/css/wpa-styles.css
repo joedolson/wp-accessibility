@@ -88,26 +88,6 @@
 	margin-left: .5em;
 }
 
-.wpa-donate a {
-	font-size: 1.2rem;
-	padding: .5rem .1rem .6rem;
-	background: #79b3e1;
-	color: #031c5f;
-	border: 2px solid #233c7f;
-	display: block;
-	text-align: center;
-	text-decoration: none;
-	border-radius: 5px;
-}
-
-.wpa-donate a:hover {
-	text-decoration: underline;
-}
-
-p.wpa-donate {
-	margin: 1em 0 0;
-}
-
 #contrast-tester {
 	display: flex;
 	flex-wrap: wrap;
@@ -128,15 +108,24 @@ p.wpa-donate {
 }
 
 .promotion img {
-	max-width: 150px;
+	max-width: 130px;
 	height: auto;
 	margin: 0 auto;
 	display: block;
 }
 
+.wpa-support-me img {
+	max-width: 120px;
+}
+
 .wpa-support-me {
 	background: #007eb3;
 	text-shadow: 1px 1px rgb( 35, 60, 127 );
+}
+
+.wpa-flex {
+	display: flex;
+	align-items: center;
 }
 
 #wpa-sidebar .postbox .wpa-affiliate-notice {

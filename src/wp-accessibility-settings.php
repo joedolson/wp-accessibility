@@ -630,10 +630,12 @@ function wpa_admin_sidebar() {
 									}
 								}(document, "script", "twitter-wjs");</script>
 						</p>
-						<p class="small">
-							<?php _e( "If you find WP Accessibility useful, please <a href='https://wordpress.org/plugins/wp-accessibility/'>rate it five stars</a> or <a href='https://translate.wordpress.org/projects/wp-plugins/wp-accessibility'>help with translation</a>.", 'wp-accessibility' ); ?>
-						</p>
-
+						<div class="wpa-flex">
+							<img src="<?php echo plugins_url( 'imgs/awd-logo-disc.png', __FILE__ ); ?>" alt="Joe Dolson Accessible Web Design" />
+							<p class="small">
+								<?php _e( "If you find WP Accessibility useful, please <a href='https://wordpress.org/plugins/wp-accessibility/'>rate it five stars</a> or <a href='https://translate.wordpress.org/projects/wp-plugins/wp-accessibility'>help with translation</a>.", 'wp-accessibility' ); ?>
+							</p>
+						</div>
 						<p>
 							<a href="https://github.com/sponsors/joedolson"><?php _e( 'Support WP Accessibility', 'wp-accessibility' ); ?></a>
 						</p>
@@ -644,15 +646,17 @@ function wpa_admin_sidebar() {
 					<h2 class='hndle'><?php _e( 'Ready to fix your site?', 'wp-accessibility' ); ?></h2>
 
 					<div class="inside">
-						<img src="<?php echo plugins_url( 'imgs/Equalize-Digital-Accessibility-Emblem-400x400-1.png', __FILE__ ); ?>" alt="Accessibility Checker" />
-						<p class="small">
-							<?php _e( "Try Accessibility Checker by Equalize Digital - fast and efficient accessibility testing for your site!", 'wp-accessibility' ); ?>
-						</p>
+						<div class="wpa-flex">
+							<img src="<?php echo plugins_url( 'imgs/Equalize-Digital-Accessibility-Emblem-400x400-1.png', __FILE__ ); ?>" alt="Accessibility Checker" />
+							<p class="small">
+								<?php _e( 'Try Accessibility Checker by Equalize Digital - fast and efficient accessibility testing for your site!', 'wp-accessibility' ); ?>
+							</p>
+						</div>
 						<p class="wpa-affiliate">
 							<a href="https://equalizedigital.com/accessibility-checker/?ref=joedolson" aria-describedby="wpa-affiliate-notice"><?php _e( 'Get Accessibility Checker', 'wp-accessibility' ); ?></a>
 						</p>
 						<p class="wpa-affiliate-notice" id="wpa-affiliate-notice">
-							<?php _e( 'Affiliate Link', 'wp-accessibility' ); ?>
+							(<?php _e( 'Affiliate Link', 'wp-accessibility' ); ?>)
 						</p>
 					</div>
 				</div>
