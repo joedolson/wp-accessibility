@@ -640,7 +640,7 @@ function wpa_admin_sidebar() {
 	&lt;div class="postbox-container" id="wpa-sidebar">
 		&lt;div class="metabox-holder">
 			&lt;div class="ui-sortable meta-box-sortables">
-				&lt;div class="postbox">
+				&lt;div class="postbox wpa-support-me promotion">
 					&lt;h2 class='hndle'>&lt;?php _e( 'Support this Plugin', 'wp-accessibility' ); ?>&lt;/h2>
 
 					&lt;div class="inside">
@@ -656,13 +656,30 @@ function wpa_admin_sidebar() {
 									}
 								}(document, "script", "twitter-wjs");&lt;/script>
 						&lt;/p>
-						&lt;p>&lt;?php _e( "If you've found WP Accessibility useful, then please &lt;a href='https://wordpress.org/plugins/wp-accessibility/'>rate it five stars&lt;/a>, &lt;a href='https://github.com/sponsors/joedolson'>sponsor me on GitHub&lt;/a>, or &lt;a href='https://translate.wordpress.org/projects/wp-plugins/wp-accessibility'>help with translation&lt;/a>.", 'wp-accessibility' ); ?>&lt;/p>
+						&lt;p class="small">
+							&lt;?php _e( "If you find WP Accessibility useful, please &lt;a href='https://wordpress.org/plugins/wp-accessibility/'>rate it five stars&lt;/a> or &lt;a href='https://translate.wordpress.org/projects/wp-plugins/wp-accessibility'>help with translation&lt;/a>.", 'wp-accessibility' ); ?>
+						&lt;/p>
 
-						&lt;div>
-							&lt;p class="wpa-donate">
-								&lt;a href="https://www.joedolson.com/donate/">&lt;?php _e( 'Support WP Accessibility', 'wp-accessibility' ); ?>&lt;/a>
-							&lt;/p>
-						&lt;/div>
+						&lt;p>
+							&lt;a href="https://github.com/sponsors/joedolson">&lt;?php _e( 'Support WP Accessibility', 'wp-accessibility' ); ?>&lt;/a>
+						&lt;/p>
+					&lt;/div>
+				&lt;/div>
+
+				&lt;div class="postbox equalize-digital-promotion promotion">
+					&lt;h2 class='hndle'>&lt;?php _e( 'Ready to fix your site?', 'wp-accessibility' ); ?>&lt;/h2>
+
+					&lt;div class="inside">
+						&lt;img src="&lt;?php echo plugins_url( 'imgs/Equalize-Digital-Accessibility-Emblem-400x400-1.png', __FILE__ ); ?>" alt="Accessibility Checker" />
+						&lt;p class="small">
+							&lt;?php _e( "Try Accessibility Checker by Equalize Digital - fast and efficient accessibility testing for your site!", 'wp-accessibility' ); ?>
+						&lt;/p>
+						&lt;p class="wpa-affiliate">
+							&lt;a href="https://equalizedigital.com/accessibility-checker/?ref=joedolson" aria-describedby="wpa-affiliate-notice">&lt;?php _e( 'Get Accessibility Checker', 'wp-accessibility' ); ?>&lt;/a>
+						&lt;/p>
+						&lt;p class="wpa-affiliate-notice" id="wpa-affiliate-notice">
+							&lt;?php _e( 'Affiliate Link', 'wp-accessibility' ); ?>
+						&lt;/p>
 					&lt;/div>
 				&lt;/div>
 
