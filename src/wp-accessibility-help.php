@@ -28,7 +28,7 @@ function wpa_help_screen() {
 							<h2 class='hndle'><?php _e( 'Get Plug-in Support', 'wp-accessibility' ); ?></h2>
 
 							<div class="inside">
-							<div class='wpa-support-me'>
+							<div class='wpa-support-me promotion'>
 								<p>
 								<?php
 								// Translators: URL to donate.

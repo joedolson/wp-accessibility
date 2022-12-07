@@ -114,14 +114,54 @@ p.wpa-donate {
 	column-gap: 20px;
 }
 
-.wpa-support-me p {
-	font-size: 1.6em;
+.promotion h2 {
+	text-align: left;
+}
+
+.wpa-support-me h2 {
+	color: #fff;
+}
+
+.promotion {
 	font-weight: 600;
+	text-align: center;
+}
+
+.promotion img {
+	max-width: 150px;
+	height: auto;
+	margin: 0 auto;
+	display: block;
+}
+
+.wpa-support-me {
 	background: #007eb3;
 	text-shadow: 1px 1px rgb( 35, 60, 127 );
-	padding: 1em;
-	text-align: center;
+}
+
+#wpa-sidebar .postbox .wpa-affiliate-notice {
+	font-size: 1rem;
+	padding: .5rem;
+	background: #0000000c;
+	font-weight: 400;
+	padding: .5em;
+	margin: 0 -12px -23px !important;
+}
+
+.promotion p {
+	font-size: 1.6em;
 	margin: 0 0 1em;
+	padding: 1em;
+}
+
+.promotion p.small {
+	font-size: 1.3em;
+	font-weight: 400;
+	text-align: left;
+}
+
+.postbox.promotion p {
+	padding: 0 1em;
 }
 
 .wpa-support-me p, .wpa-support-me a {
