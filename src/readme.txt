@@ -79,6 +79,7 @@ The plug-in is intended to help with deficiencies commonly found in themes and t
 = 2.0.1 =
 
 * Add `.et_smooth_scroll_disabled` to skip links to override Divi's inaccessible smooth scrolling.
+* Add promotional affiliate links for Equalize Digital's Accessibility Checker
 
 = 2.0.0 =
 
