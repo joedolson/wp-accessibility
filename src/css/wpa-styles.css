@@ -114,6 +114,16 @@
 	display: block;
 }
 
+.postbox.promotion p.coupon {
+	padding: 1em;
+	border: 2px dashed #ccc;
+	text-align: center;
+}
+
+.promotion .coupon code {
+	font-size: 1em;
+}
+
 .wpa-support-me img {
 	max-width: 120px;
 }

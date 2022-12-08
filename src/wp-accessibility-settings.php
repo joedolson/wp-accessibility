@@ -641,7 +641,16 @@ function wpa_admin_sidebar() {
 						</p>
 					</div>
 				</div>
-
+				<?php
+				$pro  = false;
+				$edac = false;
+				if ( function_exists( 'edac_check_plugin_active' ) ) {
+					$pro  = edac_check_plugin_active( 'accessibility-checker-pro/accessibility-checker-pro.php' );
+					$edac = true;
+				}
+				if ( ! $pro ) {
+					$promo_text = ( $edac ) ? __( 'Finding Accessibility Checker useful? Go Pro for more advanced accessibility testing options!', 'wp-accessibility' ) : __( 'Try Accessibility Checker by Equalize Digital - fast and efficient accessibility testing for your site!', 'wp-accessibility' );
+					?>
 				<div class="postbox equalize-digital-promotion promotion">
 					<h2 class='hndle'><?php _e( 'Ready to fix your site?', 'wp-accessibility' ); ?></h2>
 
@@ -649,9 +658,10 @@ function wpa_admin_sidebar() {
 						<div class="wpa-flex">
 							<img src="<?php echo plugins_url( 'imgs/Equalize-Digital-Accessibility-Emblem-400x400-1.png', __FILE__ ); ?>" alt="Accessibility Checker" />
 							<p class="small">
-								<?php _e( 'Try Accessibility Checker by Equalize Digital - fast and efficient accessibility testing for your site!', 'wp-accessibility' ); ?>
+								<?php echo esc_html( $promo_text ); ?>
 							</p>
 						</div>
+						<p class="coupon small"><strong><?php _e( 'Use coupon code <code>WPAccessibility</code> for 20% off!', 'wp-accessibility' ); ?></strong></p>
 						<p class="wpa-affiliate">
 							<a href="https://equalizedigital.com/accessibility-checker/?ref=joedolson&campaign=wpaccessibility" aria-describedby="wpa-affiliate-notice"><?php _e( 'Get Accessibility Checker', 'wp-accessibility' ); ?></a>
 						</p>
@@ -660,6 +670,9 @@ function wpa_admin_sidebar() {
 						</p>
 					</div>
 				</div>
+					<?php
+				}
+				?>
 
 				<div class="postbox">
 					<h2 class='hndle'><?php _e( 'Accessibility References', 'wp-accessibility' ); ?></h2>
