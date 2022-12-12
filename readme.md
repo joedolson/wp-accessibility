@@ -11,7 +11,7 @@ Improving the Accessibility of your WordPress site.
 * Requires at least: 4.4
 * Tested up to: 6.1
 * Requires PHP: 5.6
-* Stable tag: `2.0.0`
+* Stable tag: `2.0.1`
 * License: GPLv2 or later
 * License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
