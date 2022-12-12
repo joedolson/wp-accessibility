@@ -663,7 +663,7 @@ function wpa_admin_sidebar() {
 						</div>
 						<p class="coupon small"><strong><?php _e( 'Use coupon code <code>WPAccessibility</code> for 20% off!', 'wp-accessibility' ); ?></strong></p>
 						<p class="wpa-affiliate">
-							<a href="https://equalizedigital.com/accessibility-checker/?ref=joedolson&campaign=wpaccessibility" aria-describedby="wpa-affiliate-notice"><?php _e( 'Get Accessibility Checker', 'wp-accessibility' ); ?></a>
+							<a href="https://equalizedigital.com/accessibility-checker/pricing/?ref=joedolson&discount=WPAccessibility&campaign=wpaccessibility" aria-describedby="wpa-affiliate-notice"><?php _e( 'Get Accessibility Checker', 'wp-accessibility' ); ?></a>
 						</p>
 						<p class="wpa-affiliate-notice" id="wpa-affiliate-notice">
 							(<?php _e( 'Affiliate Link', 'wp-accessibility' ); ?>)
