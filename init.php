@@ -43,3 +43,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 include( dirname( __FILE__ ) . '/src/wp-accessibility.php' );
+
+register_activation_hook( __FILE__, 'wpa_install' );
