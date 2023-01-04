@@ -4,7 +4,7 @@
  *
  * @package     WP Accessibility
  * @author      Joe Dolson
- * @copyright   2012-2022 Joe Dolson
+ * @copyright   2012-2023 Joe Dolson
  * @license     GPL-2.0+
  *
  * @wordpress-plugin
@@ -21,7 +21,7 @@
  */
 
 /*
-	Copyright 2012-2022  Joe Dolson (email : joe@joedolson.com)
+	Copyright 2012-2023  Joe Dolson (email : joe@joedolson.com)
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
