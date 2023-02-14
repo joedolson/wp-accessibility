@@ -459,7 +459,7 @@ function wpa_admin_settings() {
 													$name    = $type->labels->singular_name;
 													$checked = ( in_array( $id, $enabled, true ) ) ? ' checked="checked"' : '';
 
-													echo '<li><input type="checkbox" name="wpa_post_types[]" id="wpa_post_types_' . $id . '" value="' . $id . '"' . $checked . '/> <label for="wpa_post_types_"' . $id . '">' . $name . '</label></li>';
+													echo '<li><input type="checkbox" name="wpa_post_types[]" id="wpa_post_types_' . $id . '" value="' . $id . '"' . $checked . '/> <label for="wpa_post_types_' . $id . '">' . $name . '</label></li>';
 												}
 												?>
 												</ul>
