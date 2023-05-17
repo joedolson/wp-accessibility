@@ -1,10 +1,12 @@
 (function( $ ) { 'use strict';
 	var html   = document.querySelector( 'html' );
+	var errors = [];
 	if ( wpa.lang ) {
 		var lang   = html.getAttribute( 'lang' );
 		if ( ! lang ) {
 			$('html').attr( 'lang', wpa.lang );
 			if ( wpa.errors ) {
+				errors.push( 'html-lang' );
 				console.log( 'HTML language set by WP Accessibility' );
 			}
 		}
@@ -15,6 +17,7 @@
 		if ( ! dir ) {
 			$('html').attr( 'dir', wpa.dir );
 			if ( wpa.errors ) {
+				errors.push( 'html-lang-direction' );
 				console.log( 'HTML language direction set by WP Accessibility' );
 			}
 		}
@@ -28,6 +31,7 @@
 			conditionsAfter = conditionsBefore.replace( 'user-scalable=no', 'user-scalable=yes' );
 			viewport.setAttribute( 'content', conditionsAfter );
 			if ( wpa.errors && conditionsAfter != conditionsBefore ) {
+				errors.push( 'viewport-scalable' );
 				console.log( 'Viewport made scalable by WP Accessibility' );
 			}
 		}
@@ -36,6 +40,7 @@
 			conditionsAfter = conditionsAfter.replace( 'maximum-scale=0', 'maximum-scale=5' );
 			viewport.setAttribute( 'content', conditionsAfter );
 			if ( wpa.errors && conditionsAfter != conditionsBefore  ) {
+				errors.push( 'viewport-maxscale' );
 				console.log( 'Viewport maximum scale set by WP Accessibility' );
 			}
 		}
@@ -44,6 +49,7 @@
 	if ( wpa.skiplinks.enabled ) {
 		$('body').prepend( wpa.skiplinks.output );
 		if ( wpa.errors ) {
+			errors.push( 'skiplinks' );
 			console.log( 'Skip links added by WP Accessibility' );
 		}
 	}
@@ -53,6 +59,7 @@
 			$( '.current-menu-item a, .current_page_item a' ).attr( 'aria-current', 'page' );
 		});
 		if ( wpa.errors ) {
+			errors.push( 'aria-current' );
 			console.log( 'ARIA current added by WP Accessibility' );
 		}
 	}
@@ -83,6 +90,7 @@
 						if ( !label.length && !implicit.length ) {
 							field.before( "<label for='" + field_id + "' class='wpa-screen-reader-text'>" + wpa.wpalabels[value] + "</label>" );
 							if ( wpa.errors ) {
+								errors.push( ['explicit-label', wpa.wpalabels[value]] );
 								console.log( 'Explicit label on ' + wpa.wpalabels[value] + 'added by WP Accessibility' );
 							}
 						}
@@ -90,6 +98,7 @@
 						if ( !implicit.length ) {
 							field.attr( 'id', 'wpa_label_' + value ).before( "<label for='wpa_label_" + value + "' class='wpa-screen-reader-text'>" + wpa.wpalabels[value] + "</label>" );
 							if ( wpa.errors ) {
+								errors.push( ['implicit-label', wpa.wpalabels[value]] );
 								console.log( 'Implicit label on ' + wpa.wpalabels[value] + 'added by WP Accessibility' );
 							}
 						}
@@ -163,12 +172,15 @@
 		});
 		if ( wpa.errors ) {
 			if ( images > 0 ) {
+				errors.push( ['images-titles', images] );
 				console.log( images + ' title attributes removed from images by WP Accessibility' );
 			}
 			if ( controls > 0 ) {
+				errors.push( ['control-titles', controls] );
 				console.log( controls + ' title attributes removed from links and buttons by WP Accessibility' );
 			}
 			if ( fields > 0 ) {
+				errors.push( ['input-titles', fields] );
 				console.log( fields + ' title attributes removed from input fields by WP Accessibility' );
 			}
 		}
@@ -185,6 +197,7 @@
 			}
 		});
 		if ( targetRemoved > 0 && wpa.errors ) {
+			errors.push( ['link-targets', targetRemoved] );
 			console.log( targetRemoved + ' target attributes removed from links by WP Accessibility' );
 		}
 	}
@@ -202,6 +215,7 @@
 		});
 
 		if ( tabRemoved > 0 && wpa.errors ) {
+			errors.push( ['control-tabindex', tabRemoved] );
 			console.log( tabRemoved + ' tabindex attributes removed from links, buttons and inputs by WP Accessibility' );
 		}
 
@@ -210,12 +224,17 @@
 		var buttonLinks = $('a[role="button"]').not('a[tabindex],a[href]');
 		fakeButtons.attr( 'tabindex', '0' ).addClass('wpa-focusable');
 		if ( fakeButtons.length > 0 && wpa.errors ) {
+			errors.push( ['button-add-tabindex', fakeButtons] );
 			console.log( fakeButtons.length + ' tabindex attributes added to divs with the button role by WP Accessibility' );
 		}
 		buttonLinks.attr( 'tabindex', '0' ).addClass('wpa-focusable');
 		if ( buttonLinks.length > 0 && wpa.errors ) {
+			errors.push( ['link-add-tabindex', buttonLinks] );
 			console.log( buttonLinks.length + ' tabindex attributes added to anchor elements with the button role and no href value by WP Accessibility' );
 		}
+	}
+	if ( wpa.errors && errors.length >= 1 ) {
+		console.log( errors );
 	}
 
 	if ( wpa.underline.enabled ) {
