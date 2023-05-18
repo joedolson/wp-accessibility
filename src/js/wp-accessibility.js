@@ -108,7 +108,6 @@
 		});
 	}
 
-
 	if ( wpa.titles ) {
 		var images   = 0;
 		var controls = 0;
@@ -224,12 +223,12 @@
 		var buttonLinks = $('a[role="button"]').not('a[tabindex],a[href]');
 		fakeButtons.attr( 'tabindex', '0' ).addClass('wpa-focusable');
 		if ( fakeButtons.length > 0 && wpa.errors ) {
-			errors.push( ['button-add-tabindex', fakeButtons] );
+			errors.push( ['button-add-tabindex', fakeButtons.length] );
 			console.log( fakeButtons.length + ' tabindex attributes added to divs with the button role by WP Accessibility' );
 		}
 		buttonLinks.attr( 'tabindex', '0' ).addClass('wpa-focusable');
 		if ( buttonLinks.length > 0 && wpa.errors ) {
-			errors.push( ['link-add-tabindex', buttonLinks] );
+			errors.push( ['link-add-tabindex', buttonLinks.length] );
 			console.log( buttonLinks.length + ' tabindex attributes added to anchor elements with the button role and no href value by WP Accessibility' );
 		}
 	}
