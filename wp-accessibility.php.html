@@ -521,7 +521,7 @@ function wpa_jquery_asl() {
 			'ajaxurl'   => admin_url( 'admin-ajax.php' ),
 			'security'  => wp_create_nonce( 'wpa-stats-action' ),
 			'action'    => 'wpa_stats_action',
-			'url'       => 	wpa_get_current_url(),
+			'url'       => wpa_get_current_url(),
 			'post_id'   => ( is_singular() ) ? $post_ID : '',
 		)
 	);
