@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Filter: wpa_toolbar_css - WP Accessibility Hook Doumentation</title>
+    <title>Filter: wpa_get_current_url - WP Accessibility Hook Doumentation</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -15,7 +15,7 @@
 
 <div id="main">
 
-    <header><h1 class="page-title">Filter: wpa_toolbar_css</h1></header>
+    <header><h1 class="page-title">Filter: wpa_get_current_url</h1></header>
 	<main>
     
 
@@ -36,14 +36,14 @@
 
     
 
-    <h4 class="name" id="wpa_toolbar_css">apply_filters( 'wpa_toolbar_css', <span class="signature">$url )</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="wpa_get_current_url">apply_filters( 'wpa_get_current_url', <span class="signature">$current_url )</span><span class="type-signature"> &rarr; {string}</span></h4>
 
     
 
 
 
 <div class="description">
-    <p>Filter URL for toolbar CSS.</p>
+    <p>Filter the URL returned for the current URL.</p>
 </div>
 
 
@@ -77,7 +77,7 @@
 
         <tr>
             
-                <td class="name"><code>$url</code></td>
+                <td class="name"><code>$current_url</code></td>
             
 
             <td class="type">
@@ -93,7 +93,7 @@
 
             
 
-            <td class="description last"><p>URL to stylesheet for accessibility toolbar.</p></td>
+            <td class="description last"><p>Current URL according to wp_rewrite.</p></td>
         </tr>
 
     
@@ -134,7 +134,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="wp-accessibility-toolbar.php.html">wp-accessibility-toolbar.php</a>, <a href="wp-accessibility-toolbar.php.html#line63">line 63</a>
+        <a href="wp-accessibility-stats.php.html">wp-accessibility-stats.php</a>, <a href="wp-accessibility-stats.php.html#line115">line 115</a>
     </li></ul></dd>
     
 
@@ -160,11 +160,19 @@
 <h5>Returns:</h5>
 
         
-<div class="param-desc">
-    <p>string</p>
-</div>
 
 
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+    </dd>
+</dl>
 
     
 
