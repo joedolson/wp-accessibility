@@ -363,10 +363,6 @@ function wpa_admin_settings() {
 											<label for="wpa_continue"><?php _e( 'Continue reading prefix text', 'wp-accessibility' ); ?></label><br />
 											<input type="text" id="wpa_continue" name="wpa_continue" value="<?php echo esc_attr( get_option( 'wpa_continue', __( 'Continue Reading', 'wp-accessibility' ) ) ); ?>"/>
 										</li>
-										<li>
-											<input type="checkbox" id="wpa_labels" name="wpa_labels" <?php checked( get_option( 'wpa_labels' ), 'on' ); ?> />
-											<label for='wpa_labels'><?php _e( 'Automatically Label WordPress search form and comment forms', 'wp-accessibility' ); ?></label>
-										</li>
 											<?php
 										} else {
 											?>

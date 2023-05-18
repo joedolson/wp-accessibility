@@ -450,6 +450,16 @@ function wpa_jquery_asl() {
 	 * @return {bool}
 	 */
 	$errors_enabled = apply_filters( 'wpa_view_remediation_logs', current_user_can( 'manage_options' ) );
+	/**
+	 * Filter whether automatic labeling is enabled.
+	 *
+	 * @hook wpa_disable_labels
+	 *
+	 * @param {bool} $enabled True if labels are automatically added.
+	 *
+	 * @return {bool}
+	 */
+	$apply_labels = apply_filters( 'wpa_disable_labels', true );
 	wp_localize_script(
 		'wp-accessibility',
 		'wpa',
@@ -467,7 +477,7 @@ function wpa_jquery_asl() {
 			'dir'       => $dir,
 			'lang'      => $lang,
 			'titles'    => ( 'on' === get_option( 'wpa_image_titles' ) ) ? true : false,
-			'labels'    => ( 'on' === get_option( 'wpa_labels' ) && ! wpa_accessible_theme() ) ? true : false,
+			'labels'    => $apply_labels,
 			'wpalabels' => $labels,
 			'current'   => ( version_compare( $GLOBALS['wp_version'], '5.3', '<' ) ) ? true : false,
 			'errors'    => ( $errors_enabled ) ? true : false,
