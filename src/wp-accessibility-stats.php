@@ -82,7 +82,7 @@ function wpa_add_stats( $stats, $url, $post_ID ) {
  *
  * @param mixed $title The title of a stats post.
  *
- * @return int 
+ * @return int
  */
 function wpa_get_post_by_title( $title ) {
 	global $wpdb;
