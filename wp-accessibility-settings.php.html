@@ -126,15 +126,15 @@ function wpa_update_settings() {
 		}
 
 		if ( isset( $_POST['action'] ) &amp;&amp; 'misc' === $_POST['action'] ) {
-			$wpa_target                  = ( isset( $_POST['wpa_target'] ) ) ? 'on' : '';
-			$wpa_search                  = ( isset( $_POST['wpa_search'] ) ) ? 'on' : '';
-			$wpa_tabindex                = ( isset( $_POST['wpa_tabindex'] ) ) ? 'on' : '';
-			$wpa_underline               = ( isset( $_POST['wpa_underline'] ) ) ? 'on' : '';
-			$wpa_image_titles            = ( isset( $_POST['wpa_image_titles'] ) ) ? 'on' : '';
-			$wpa_more                    = ( isset( $_POST['wpa_more'] ) ) ? 'on' : '';
-			$wpa_focus                   = ( isset( $_POST['wpa_focus'] ) ) ? 'on' : '';
-			$wpa_focus_color             = ( isset( $_POST['wpa_focus_color'] ) ) ? str_replace( '#', '', $_POST['wpa_focus_color'] ) : '';
-			$wpa_continue                = ( isset( $_POST['wpa_continue'] ) ) ? sanitize_text_field( $_POST['wpa_continue'] ) : __( 'Continue Reading', 'wp-accessibility' );
+			$wpa_target       = ( isset( $_POST['wpa_target'] ) ) ? 'on' : '';
+			$wpa_search       = ( isset( $_POST['wpa_search'] ) ) ? 'on' : '';
+			$wpa_tabindex     = ( isset( $_POST['wpa_tabindex'] ) ) ? 'on' : '';
+			$wpa_underline    = ( isset( $_POST['wpa_underline'] ) ) ? 'on' : '';
+			$wpa_image_titles = ( isset( $_POST['wpa_image_titles'] ) ) ? 'on' : '';
+			$wpa_more         = ( isset( $_POST['wpa_more'] ) ) ? 'on' : '';
+			$wpa_focus        = ( isset( $_POST['wpa_focus'] ) ) ? 'on' : '';
+			$wpa_focus_color  = ( isset( $_POST['wpa_focus_color'] ) ) ? str_replace( '#', '', $_POST['wpa_focus_color'] ) : '';
+			$wpa_continue     = ( isset( $_POST['wpa_continue'] ) ) ? sanitize_text_field( $_POST['wpa_continue'] ) : __( 'Continue Reading', 'wp-accessibility' );
 			update_option( 'wpa_target', $wpa_target );
 			update_option( 'wpa_search', $wpa_search );
 			update_option( 'wpa_tabindex', $wpa_tabindex );
