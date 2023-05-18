@@ -104,7 +104,6 @@ function wpa_update_settings() {
 			$wpa_search       = ( isset( $_POST['wpa_search'] ) ) ? 'on' : '';
 			$wpa_tabindex     = ( isset( $_POST['wpa_tabindex'] ) ) ? 'on' : '';
 			$wpa_underline    = ( isset( $_POST['wpa_underline'] ) ) ? 'on' : '';
-			$wpa_image_titles = ( isset( $_POST['wpa_image_titles'] ) ) ? 'on' : '';
 			$wpa_more         = ( isset( $_POST['wpa_more'] ) ) ? 'on' : '';
 			$wpa_focus        = ( isset( $_POST['wpa_focus'] ) ) ? 'on' : '';
 			$wpa_focus_color  = ( isset( $_POST['wpa_focus_color'] ) ) ? str_replace( '#', '', $_POST['wpa_focus_color'] ) : '';
@@ -113,7 +112,6 @@ function wpa_update_settings() {
 			update_option( 'wpa_search', $wpa_search );
 			update_option( 'wpa_tabindex', $wpa_tabindex );
 			update_option( 'wpa_underline', $wpa_underline );
-			update_option( 'wpa_image_titles', $wpa_image_titles );
 			update_option( 'wpa_more', $wpa_more );
 			update_option( 'wpa_focus', $wpa_focus );
 			update_option( 'wpa_focus_color', $wpa_focus_color );
@@ -382,10 +380,6 @@ function wpa_admin_settings() {
 										<li>
 											<input type="checkbox" id="wpa_underline" aria-describedby="wpa-underline-note" name="wpa_underline" <?php checked( get_option( 'wpa_underline' ), 'on' ); ?>/>
 											<label for="wpa_underline"><?php _e( 'Force underline on links', 'wp-accessibility' ); ?></label> <em id="wpa-underline-note" class="wpa-note"><?php _e( 'Excludes links inside <code>nav</code> elements.', 'wp-accessibility' ); ?></em>
-										</li>
-										<li>
-											<input type="checkbox" id="wpa_image_titles" name="wpa_image_titles" <?php checked( get_option( 'wpa_image_titles' ), 'on' ); ?>/>
-											<label for="wpa_image_titles"><?php _e( 'Remove title attributes from elements with preferred accessible names.', 'wp-accessibility' ); ?></label>
 										</li>
 										<li>
 											<input type="checkbox" id="wpa_focus" name="wpa_focus" <?php checked( get_option( 'wpa_focus' ), 'on' ); ?>/>

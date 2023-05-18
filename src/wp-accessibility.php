@@ -460,6 +460,16 @@ function wpa_jquery_asl() {
 	 * @return {bool}
 	 */
 	$apply_labels = apply_filters( 'wpa_disable_labels', true );
+	/**
+	 * Filter whether title attributes are removed. Used to be image titles only, now applies buttons and links, as well.
+	 *
+	 * @hook wpa_remove_titles
+	 *
+	 * @param {bool} $enabled True if title attributes are removed.
+	 *
+	 * @return {bool}
+	 */
+	$remove_titles = apply_filters( 'wpa_remove_titles', true );
 	wp_localize_script(
 		'wp-accessibility',
 		'wpa',
@@ -476,7 +486,7 @@ function wpa_jquery_asl() {
 			),
 			'dir'       => $dir,
 			'lang'      => $lang,
-			'titles'    => ( 'on' === get_option( 'wpa_image_titles' ) ) ? true : false,
+			'titles'    => $remove_titles,
 			'labels'    => $apply_labels,
 			'wpalabels' => $labels,
 			'current'   => ( version_compare( $GLOBALS['wp_version'], '5.3', '<' ) ) ? true : false,
