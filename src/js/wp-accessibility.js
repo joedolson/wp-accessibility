@@ -234,6 +234,16 @@
 	}
 	if ( wpa.errors && errors.length >= 1 ) {
 		console.log( errors );
+		var data = {
+			'action' : wpa.action,
+			'security' : wpa.security,
+			'stats' : errors,
+			'post_id' : wpa.post_id,
+			'url' : wpa.url
+		};
+		$.post( wpa.ajaxurl, data, function (response) {
+			console.log( response );
+		}, "json" );
 	}
 
 	if ( wpa.underline.enabled ) {
