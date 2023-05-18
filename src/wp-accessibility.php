@@ -426,8 +426,8 @@ function wpa_jquery_asl() {
 	 * @return {array}
 	 */
 	$labels = apply_filters( 'wpa_labels', $labels );
-	$dir    = ( 'on' === get_option( 'wpa_lang' ) && ! wpa_accessible_theme() ) ? ( ( is_rtl() ) ? 'rtl' : 'ltr' ) : false;
-	$lang   = ( 'on' === get_option( 'wpa_lang' ) && ! wpa_accessible_theme() ) ? get_bloginfo( 'language' ) : false;
+	$dir    = ( is_rtl() ) ? 'rtl' : 'ltr';
+	$lang   = get_bloginfo( 'language' );
 
 	wp_enqueue_script( 'wp-accessibility', plugins_url( 'js/wp-accessibility.js', __FILE__ ), array( 'jquery' ), $version, true );
 	/**

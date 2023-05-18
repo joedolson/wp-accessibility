@@ -100,7 +100,6 @@ function wpa_update_settings() {
 		}
 
 		if ( isset( $_POST['action'] ) && 'misc' === $_POST['action'] ) {
-			$wpa_lang                    = ( isset( $_POST['wpa_lang'] ) ) ? 'on' : '';
 			$wpa_target                  = ( isset( $_POST['wpa_target'] ) ) ? 'on' : '';
 			$wpa_labels                  = ( isset( $_POST['wpa_labels'] ) ) ? 'on' : '';
 			$wpa_search                  = ( isset( $_POST['wpa_search'] ) ) ? 'on' : '';
@@ -112,7 +111,6 @@ function wpa_update_settings() {
 			$wpa_focus_color             = ( isset( $_POST['wpa_focus_color'] ) ) ? str_replace( '#', '', $_POST['wpa_focus_color'] ) : '';
 			$wpa_continue                = ( isset( $_POST['wpa_continue'] ) ) ? sanitize_text_field( $_POST['wpa_continue'] ) : __( 'Continue Reading', 'wp-accessibility' );
 			$wpa_complementary_container = ( isset( $_POST['wpa_complementary_container'] ) ) ? str_replace( '#', '', sanitize_text_field( $_POST['wpa_complementary_container'] ) ) : '';
-			update_option( 'wpa_lang', $wpa_lang );
 			update_option( 'wpa_target', $wpa_target );
 			update_option( 'wpa_labels', $wpa_labels );
 			update_option( 'wpa_search', $wpa_search );
@@ -357,10 +355,6 @@ function wpa_admin_settings() {
 										<?php
 										if ( ! wpa_accessible_theme() ) {
 											?>
-										<li>
-											<input type="checkbox" id="wpa_lang" name="wpa_lang" <?php checked( get_option( 'wpa_lang' ), 'on' ); ?>/>
-											<label for="wpa_lang"><?php _e( 'Add Site Language and text direction to HTML element', 'wp-accessibility' ); ?></label>
-										</li>
 										<li>
 											<input type="checkbox" id="wpa_more" name="wpa_more" <?php checked( get_option( 'wpa_more' ), 'on' ); ?>/>
 											<label for="wpa_more"><?php _e( 'Add post title to "more" links.', 'wp-accessibility' ); ?></label>
