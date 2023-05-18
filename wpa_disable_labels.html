@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Filter: wpa_summary_heading - WP Accessibility Hook Doumentation</title>
+    <title>Filter: wpa_disable_labels - WP Accessibility Hook Doumentation</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -15,7 +15,7 @@
 
 <div id="main">
 
-    <header><h1 class="page-title">Filter: wpa_summary_heading</h1></header>
+    <header><h1 class="page-title">Filter: wpa_disable_labels</h1></header>
 	<main>
     
 
@@ -36,14 +36,14 @@
 
     
 
-    <h4 class="name" id="wpa_summary_heading">apply_filters( 'wpa_summary_heading', <span class="signature">$heading, $post_id )</span><span class="type-signature"> &rarr; {string}</span></h4>
+    <h4 class="name" id="wpa_disable_labels">apply_filters( 'wpa_disable_labels', <span class="signature">$enabled )</span><span class="type-signature"> &rarr; {bool}</span></h4>
 
     
 
 
 
 <div class="description">
-    <p>Filter the heading text for content summaries. Default <code>Summary</code>.</p>
+    <p>Filter whether automatic labeling is enabled.</p>
 </div>
 
 
@@ -77,13 +77,13 @@
 
         <tr>
             
-                <td class="name"><code>$heading</code></td>
+                <td class="name"><code>$enabled</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">bool</span>
 
 
             
@@ -93,30 +93,7 @@
 
             
 
-            <td class="description last"><p>Heading text.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>$post_id</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">int</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Post ID.</p></td>
+            <td class="description last"><p>True if labels are automatically added.</p></td>
         </tr>
 
     
@@ -157,7 +134,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="wp-accessibility.php.html">wp-accessibility.php</a>, <a href="wp-accessibility.php.html#line844">line 844</a>
+        <a href="wp-accessibility.php.html">wp-accessibility.php</a>, <a href="wp-accessibility.php.html#line453">line 453</a>
     </li></ul></dd>
     
 
@@ -191,7 +168,7 @@
     </dt>
     <dd>
         
-<span class="param-type">string</span>
+<span class="param-type">bool</span>
 
 
     </dd>
