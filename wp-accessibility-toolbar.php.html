@@ -55,7 +55,7 @@ add_action( 'wp_enqueue_scripts', 'wpa_register_scripts' );
 function wpa_register_scripts() {
 	$wpa_version = ( SCRIPT_DEBUG ) ? rand( 10000, 100000 ) : wpa_check_version();
 	wp_register_script( 'wpa-toolbar', plugins_url( 'js/wpa-toolbar.js', __FILE__ ), array(), $wpa_version, true );
-	wp_register_script( 'ui-a11y', plugins_url( 'js/toolbar/js/a11y.js', __FILE__ ), array( 'jquery' ), $wpa_version, true );
+	wp_register_script( 'ui-a11y', plugins_url( 'toolbar/js/a11y.js', __FILE__ ), array( 'jquery' ), $wpa_version, true );
 }
 
 add_action( 'wp_enqueue_scripts', 'wpa_toolbar_enqueue_scripts' );
@@ -73,7 +73,7 @@ function wpa_toolbar_enqueue_scripts() {
 	wp_enqueue_script( 'ui-a11y' );
 
 	// High Contrast CSS.
-	$plugin_path = plugins_url( 'wp-accessibility/toolbar/css/a11y-contrast.css' );
+	$plugin_path = plugins_url( 'toolbar/css/a11y-contrast.css', __FILE__ );
 	if ( file_exists( get_stylesheet_directory() . '/a11y-contrast.css' ) ) {
 		$plugin_path = get_stylesheet_directory_uri() . '/a11y-contrast.css';
 	}
