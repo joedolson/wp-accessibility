@@ -91,20 +91,21 @@ function wpa_add_stats( $stats, $title, $type = 'view', $post_ID = 0 ) {
 				add_post_meta( $exists, 'wpa_event', $stats );
 			}
 		}
-	}
-	$post = array(
-		'post_title'   => $title,
-		'post_content' => $stats,
-		'post_status'  => 'publish',
-		'post_name'    => sanitize_title( $title ),
-		'post_date'    => current_time( 'Y-m-d H:i:s' ),
-		'post_type'    => 'wpa-stats',
-	);
-	$stat = wp_insert_post( $post );
-	if ( $post_ID ) {
-		// Set up relationships between stats and posts.
-		update_post_meta( $stat, '_wpa_post_id', $post_ID );
-		update_post_meta( $post, '_wpa_stat_id', $stat );
+	} else {
+		$post = array(
+			'post_title'   => $title,
+			'post_content' => $stats,
+			'post_status'  => 'publish',
+			'post_name'    => sanitize_title( $title ),
+			'post_date'    => current_time( 'Y-m-d H:i:s' ),
+			'post_type'    => 'wpa-stats',
+		);
+		$stat = wp_insert_post( $post );
+		if ( $post_ID ) {
+			// Set up relationships between stats and posts.
+			update_post_meta( $stat, '_wpa_post_id', $post_ID );
+			update_post_meta( $post, '_wpa_stat_id', $stat );
+		}
 	}
 }
 
@@ -175,10 +176,10 @@ function wpa_stats_action() {
 		}
 		$stats   = map_deep( $_REQUEST['stats'], 'sanitize_text_field' );
 		$post_id = absint( $_REQUEST['post_id'] );
-		$url     = esc_url_raw( $_REQUEST['url'] );
+		$title   = esc_url_raw( $_REQUEST['title'] );
 		$type    = ( 'view' === $_REQUEST['type'] ) ? 'view' : 'event';
 
-		wpa_add_stats( $stats, $url, $type, $post_id );
+		wpa_add_stats( $stats, $title, $type, $post_id );
 	}
 }
 add_action( 'wp_ajax_wpa_stats_action', 'wpa_stats_action' );
