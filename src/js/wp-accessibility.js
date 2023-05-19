@@ -232,6 +232,54 @@
 			console.log( buttonLinks.length + ' tabindex attributes added to anchor elements with the button role and no href value by WP Accessibility' );
 		}
 	}
+
+	var event = {};
+	$('.toggle-contrast').on('click', function (e) {
+		if ($(this).attr('id') == "is_normal_contrast") {
+			// high contrast turned on.
+			event = { 'contrast' : 'enabled' };
+		} else {
+			// high contrast turned off.
+			event = { 'contrast' : 'disabled' };
+		}
+		var data = {
+			'action' : wpa.action,
+			'security' : wpa.security,
+			'stats' : event,
+			'post_id' : wpa.post_id,
+			'url' : wpa.hash,
+			'type' : 'event'
+		};
+		$.post( wpa.ajaxurl, data, function (response) {
+			console.log( response );
+		}, "json" );
+
+		return false;
+	});
+
+	$('.toggle-fontsize').on('click', function (e) {
+		if ($(this).attr('id') == "is_normal_fontsize") {
+			// fontsizes turned on.
+			event = { 'fontsize' : 'enabled' };
+		} else {
+			// fontsizes turned off.
+			event = { 'fontsize' : 'disabled' };
+		}
+		var data = {
+			'action' : wpa.action,
+			'security' : wpa.security,
+			'stats' : event,
+			'post_id' : wpa.post_id,
+			'url' : wpa.hash,
+			'type' : 'event'
+		};
+		$.post( wpa.ajaxurl, data, function (response) {
+			console.log( response );
+		}, "json" );
+
+		return false;
+	});
+
 	if ( wpa.errors && errors.length >= 1 ) {
 		console.log( errors );
 		var data = {
@@ -239,7 +287,8 @@
 			'security' : wpa.security,
 			'stats' : errors,
 			'post_id' : wpa.post_id,
-			'url' : wpa.url
+			'url' : wpa.url,
+			'type' : 'view'
 		};
 		$.post( wpa.ajaxurl, data, function (response) {
 			console.log( response );

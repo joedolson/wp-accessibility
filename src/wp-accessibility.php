@@ -471,6 +471,8 @@ function wpa_jquery_asl() {
 	 * @return {bool}
 	 */
 	$remove_titles = apply_filters( 'wpa_remove_titles', true );
+	$ip            = sanitize_text_field( $_SERVER['REMOTE_ADDR'] );
+	$user_agent    = sanitize_text_field( $_SERVER['HTTP_USER_AGENT'] );
 	wp_localize_script(
 		'wp-accessibility',
 		'wpa',
@@ -497,6 +499,7 @@ function wpa_jquery_asl() {
 			'action'    => 'wpa_stats_action',
 			'url'       => wpa_get_current_url(),
 			'post_id'   => ( is_singular() ) ? $post_ID : '',
+			'hash'      => hash( 'sha256', $ip . '-' . $user_agent );
 		)
 	);
 }
