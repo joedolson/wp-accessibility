@@ -73,18 +73,23 @@ add_action( 'init', 'wpa_post_type' );
  * Register statistics.
  *
  * @param array      $stats Stats data for a page. Array of tests &amp; results.
- * @param string     $url URL of the page tested.
+ * @param string     $title Title for the stats record. Usually a relative URL.
+ * @param string     $type Type of stat: view or action.
  * @param int|string $post_ID ID of the post if singular.
  */
-function wpa_add_stats( $stats, $url, $post_ID ) {
+function wpa_add_stats( $stats, $title, $type = 'view', $post_ID = 0 ) {
 	$stats  = json_encode( $stats, 'sanitize_text_field' );
-	$title  = str_replace( home_url(), '', $url );
 	$exists = wpa_get_post_by_title( $title );
 	if ( $exists ) {
-		$old_stats = get_post( $exists )->post_content;
-		if ( $stats !== $old_stats ) {
-			// stats have changed; record the change.
-			add_post_meta( $exists, 'wpa_results', $stats );
+		if ( 'action' === $type ) {
+			// Log all on/off states for toolbar.
+			add_post_meta( $exists, 'wpa_event', $stats );
+		} else {
+			$old_stats = get_post( $exists )->post_content;
+			if ( $stats !== $old_stats ) {
+				// stats have changed; record the change.
+				add_post_meta( $exists, 'wpa_event', $stats );
+			}
 		}
 	}
 	$post = array(
@@ -171,8 +176,9 @@ function wpa_stats_action() {
 		$stats   = map_deep( $_REQUEST['stats'], 'sanitize_text_field' );
 		$post_id = absint( $_REQUEST['post_id'] );
 		$url     = esc_url_raw( $_REQUEST['url'] );
+		$type    = ( 'view' === $_REQUEST['type'] ) ? 'view' : 'event';
 
-		wpa_add_stats( $stats, $url, $post_id );
+		wpa_add_stats( $stats, $url, $type, $post_id );
 	}
 }
 add_action( 'wp_ajax_wpa_stats_action', 'wpa_stats_action' );
