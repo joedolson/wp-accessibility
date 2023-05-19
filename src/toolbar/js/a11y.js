@@ -33,12 +33,6 @@ function eraseCookie(name) {
 }
 
 ( function( $ ) {
-	// Saturation handler
-	if (readCookie('a11y-desaturated')) {
-		$('body').addClass('desaturated');
-		$('#is_normal_color').attr('id', 'is_grayscale').attr('aria-pressed', true).addClass('active');
-	}
-
 	$( '.a11y-toggle' ).on( 'focus', function(e) {
 		$( this ).removeClass( 'tooltip-dismissed' );
 	});
@@ -49,14 +43,19 @@ function eraseCookie(name) {
 		}
 	});
 
-
+	// Saturation handler.
+	if (readCookie('a11y-desaturated')) {
+		$('body').addClass('desaturated');
+		$('#is_normal_color').attr('id', 'is_grayscale').attr('aria-pressed', true).addClass('active');
+	}
+	// high contrast handler.
 	if (readCookie('a11y-high-contrast')) {
 		$('body').addClass('contrast');
 		$('head').append($("<link href='" + wpa11y.path + "' id='highContrastStylesheet' rel='stylesheet' type='text/css' />"));
 		$('#is_normal_contrast').attr('id', 'is_high_contrast').attr('aria-pressed', true).addClass('active');
 		$('.a11y-toolbar ul li a i').addClass('icon-white');
 	}
-
+	// font size switcher.
 	if (readCookie('a11y-larger-fontsize')) {
 		$('html').addClass('fontsize');
 		$('#is_normal_fontsize').attr('id', 'is_large_fontsize').attr('aria-pressed', true).addClass('active');
