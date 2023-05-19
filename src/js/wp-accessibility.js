@@ -247,12 +247,12 @@
 			'security' : wpa.security,
 			'stats' : event,
 			'post_id' : wpa.post_id,
-			'url' : wpa.hash,
+			'title' : wpa.hash,
 			'type' : 'event'
 		};
 		console.log( data );
 		$.post( wpa.ajaxurl, data, function (response) {
-			console.log( response );
+			console.log( { response } );
 		}, "json" );
 	});
 
@@ -269,7 +269,7 @@
 			'security' : wpa.security,
 			'stats' : event,
 			'post_id' : wpa.post_id,
-			'url' : wpa.hash,
+			'title' : wpa.hash,
 			'type' : 'event'
 		};
 		$.post( wpa.ajaxurl, data, function (response) {
@@ -284,7 +284,7 @@
 			'security' : wpa.security,
 			'stats' : errors,
 			'post_id' : wpa.post_id,
-			'url' : wpa.url,
+			'title' : wpa.url,
 			'type' : 'view'
 		};
 		$.post( wpa.ajaxurl, data, function (response) {
