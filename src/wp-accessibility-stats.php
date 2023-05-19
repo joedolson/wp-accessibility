@@ -9,7 +9,6 @@
  * @link     https://www.joedolson.com/wp-accessibility/
  */
 
-add_action( 'init', 'wpa_post_type' );
 /**
  * Define Stats collection post type.
  */
@@ -42,6 +41,7 @@ function wpa_post_type() {
 	);
 	register_post_type( 'wpa-stats', $args );
 }
+add_action( 'init', 'wpa_post_type' );
 
 /**
  * Register statistics.
@@ -52,7 +52,7 @@ function wpa_post_type() {
  */
 function wpa_add_stats( $stats, $url, $post_ID ) {
 	$stats  = json_encode( $stats, 'sanitize_text_field' );
-	$title  = $url;
+	$title  = str_replace( home_url(), '', $url );
 	$exists = wpa_get_post_by_title( $title );
 	if ( $exists ) {
 		$old_stats = get_post( $exists )->post_content;
