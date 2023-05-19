@@ -78,7 +78,7 @@ add_action( 'init', 'wpa_post_type' );
  * @param int|string $post_ID ID of the post if singular.
  */
 function wpa_add_stats( $stats, $title, $type = 'view', $post_ID = 0 ) {
-	$stats  = json_encode( $stats, 'sanitize_text_field' );
+	$stats  = json_encode( $stats );
 	$exists = wpa_get_post_by_title( $title );
 	if ( $exists ) {
 		if ( 'action' === $type ) {
@@ -91,6 +91,7 @@ function wpa_add_stats( $stats, $title, $type = 'view', $post_ID = 0 ) {
 				add_post_meta( $exists, 'wpa_event', $stats );
 			}
 		}
+		return array( 'metadata logged' );
 	} else {
 		$post = array(
 			'post_title'   => $title,
@@ -106,6 +107,7 @@ function wpa_add_stats( $stats, $title, $type = 'view', $post_ID = 0 ) {
 			update_post_meta( $stat, '_wpa_post_id', $post_ID );
 			update_post_meta( $post, '_wpa_stat_id', $stat );
 		}
+		return array( 'stats logged' );
 	}
 }
 
@@ -172,14 +174,17 @@ function wpa_stats_action() {
 	if ( isset( $_REQUEST['action'] ) &amp;&amp; 'wpa_stats_action' === $_REQUEST['action'] ) {
 		$security = $_REQUEST['security'];
 		if ( ! wp_verify_nonce( $security, 'wpa-stats-action' ) ) {
-			wp_die( 'WP Accessibility: stats request not validated.' );
+			wp_send_json( array( 'failed' => $_REQUEST ) );
 		}
 		$stats   = map_deep( $_REQUEST['stats'], 'sanitize_text_field' );
 		$post_id = absint( $_REQUEST['post_id'] );
-		$title   = esc_url_raw( $_REQUEST['title'] );
+		$title   = ( wpa_is_url( $_REQUEST['title'] ) ) ? esc_url( $_REQUEST['title'] ) : sanitize_text_field( $_REQUEST['title'] );
 		$type    = ( 'view' === $_REQUEST['type'] ) ? 'view' : 'event';
 
-		wpa_add_stats( $stats, $title, $type, $post_id );
+		$response = wpa_add_stats( $stats, $title, $type, $post_id );
+		wp_send_json( $response );
+	} else {
+		wp_send_json( array( 'no-request' => $_REQUEST ) );
 	}
 }
 add_action( 'wp_ajax_wpa_stats_action', 'wpa_stats_action' );
