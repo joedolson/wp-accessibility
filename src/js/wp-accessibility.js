@@ -250,11 +250,10 @@
 			'url' : wpa.hash,
 			'type' : 'event'
 		};
+		console.log( data );
 		$.post( wpa.ajaxurl, data, function (response) {
 			console.log( response );
 		}, "json" );
-
-		return false;
 	});
 
 	$('.toggle-fontsize').on('click', function (e) {
@@ -276,8 +275,6 @@
 		$.post( wpa.ajaxurl, data, function (response) {
 			console.log( response );
 		}, "json" );
-
-		return false;
 	});
 
 	if ( wpa.errors && errors.length >= 1 ) {
