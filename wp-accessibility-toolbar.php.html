@@ -54,8 +54,8 @@ add_action( 'wp_enqueue_scripts', 'wpa_register_scripts' );
  */
 function wpa_register_scripts() {
 	$wpa_version = ( SCRIPT_DEBUG ) ? rand( 10000, 100000 ) : wpa_check_version();
-	wp_register_script( 'wpa-toolbar', plugins_url( 'wp-accessibility/js/wpa-toolbar.js' ), array(), $wpa_version, true );
-	wp_register_script( 'ui-a11y', plugins_url( 'wp-accessibility/toolbar/js/a11y.js' ), array( 'jquery' ), $wpa_version, true );
+	wp_register_script( 'wpa-toolbar', plugins_url( 'js/wpa-toolbar.js', __FILE__ ), array(), $wpa_version, true );
+	wp_register_script( 'ui-a11y', plugins_url( 'js/toolbar/js/a11y.js', __FILE__ ), array( 'jquery' ), $wpa_version, true );
 }
 
 add_action( 'wp_enqueue_scripts', 'wpa_toolbar_enqueue_scripts' );
