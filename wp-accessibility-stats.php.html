@@ -211,17 +211,13 @@ add_action( 'wp_dashboard_setup', 'wpa_dashboard_widget' );
  * @return void
  */
 function wpa_dashboard_widget_stats_handler() {
-	$stats = wpa_get_stats();
-
-	echo '&lt;pre>';
-	print_r( $stats );
-	echo '&lt;/pre>';
+	wpa_get_stats();
 }
 
 /**
  * Get stats data for WP Accessibility.
  *
- * @return array
+ * @return void
  */
 function wpa_get_stats() {
 	$query = array(
@@ -239,33 +235,42 @@ function wpa_get_stats() {
 		&lt;/thead>
 		&lt;tbody>
 		&lt;?php
-	foreach ( $posts->posts as $post ) {
-		$post_ID  = $post->ID;
-		$data     = json_decode( $post->post_content );
-		$history  = get_post_meta( $post_ID, 'wpa_event' );
-		$relative = get_post_meta( $post_ID, '_wpa_post_id', true );
-		$type     = get_post_meta( $post_ID, '_toolbar', true );
-		echo '&lt;tr>';
-		if ( is_object( $data ) &amp;&amp; property_exists( $data, 'contrast') ) {
-			echo '&lt;td>Visitor ' . substr( $post->post_title, 0, 12 ) . '...&lt;/td>';
-		} elseif ( is_object( $data ) &amp;&amp; property_exists( $data, 'fontsize') ) {
-			echo '&lt;td>Fontsize Toggled&lt;/td>';
-		} else {
-			$post = ( $relative ) ? get_the_title( $relative ) : $post->post_title;
-			echo '&lt;td>View: ' . $post . '&lt;/td>';
-		}
-		$history = wpa_format_stats( $type, $data, $history );
+		foreach ( $posts->posts as $post ) {
+			$post_ID  = $post->ID;
+			$data     = json_decode( $post->post_content );
+			$history  = get_post_meta( $post_ID, 'wpa_event' );
+			$relative = get_post_meta( $post_ID, '_wpa_post_id', true );
+			$type     = get_post_meta( $post_ID, '_toolbar', true );
+			echo '&lt;tr>';
+			if ( is_object( $data ) &amp;&amp; property_exists( $data, 'contrast') ) {
+				echo '&lt;td>Visitor ' . substr( $post->post_title, 0, 12 ) . '...&lt;/td>';
+			} elseif ( is_object( $data ) &amp;&amp; property_exists( $data, 'fontsize') ) {
+				echo '&lt;td>Fontsize Toggled&lt;/td>';
+			} else {
+				$post = ( $relative ) ? get_the_title( $relative ) : $post->post_title;
+				echo '&lt;td>View: ' . $post . '&lt;/td>';
+			}
+			$history = wpa_format_stats( $type, $data, $history );
 
-		echo '&lt;td>' . gmdate( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $data->timestamp ) . '&lt;/td>';
-		echo '&lt;td>' . print_r( $history, 1 ) . '&lt;/td>';
-		echo '&lt;/tr>';
-	}
+			echo '&lt;td>' . gmdate( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $data->timestamp ) . '&lt;/td>';
+			echo '&lt;td>' . print_r( $history, 1 ) . '&lt;/td>';
+			echo '&lt;/tr>';
+		}
 		?>
 		&lt;/tbody>
 	&lt;/table>
 	&lt;?php
 }
 
+/**
+ * Format stats for brief display.
+ *
+ * @param string $type Type of stat to display.
+ * @param array  $data Array of saved data.
+ * @param array  $history History for this stat.
+ *
+ * @return string 
+ */
 function wpa_format_stats( $type, $data, $history ) {
 	if ( 'toolbar' === $type ) {
 		$history = (array) $history;
@@ -280,6 +285,7 @@ function wpa_format_stats( $type, $data, $history ) {
 		}
 		return $i;
 	}
+	return '';
 }</code></pre>
         </article>
     </section>
