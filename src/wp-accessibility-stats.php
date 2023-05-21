@@ -216,9 +216,9 @@ function wpa_get_stats() {
 			$relative = get_post_meta( $post_ID, '_wpa_post_id', true );
 			$type     = get_post_meta( $post_ID, '_toolbar', true );
 			echo '<tr>';
-			if ( is_object( $data ) && property_exists( $data, 'contrast') ) {
+			if ( is_object( $data ) && property_exists( $data, 'contrast' ) ) {
 				echo '<td>Visitor ' . substr( $post->post_title, 0, 12 ) . '...</td>';
-			} elseif ( is_object( $data ) && property_exists( $data, 'fontsize') ) {
+			} elseif ( is_object( $data ) && property_exists( $data, 'fontsize' ) ) {
 				echo '<td>Fontsize Toggled</td>';
 			} else {
 				$post = ( $relative ) ? get_the_title( $relative ) : $post->post_title;
@@ -243,7 +243,7 @@ function wpa_get_stats() {
  * @param array  $data Array of saved data.
  * @param array  $history History for this stat.
  *
- * @return string 
+ * @return string
  */
 function wpa_format_stats( $type, $data, $history ) {
 	if ( 'toolbar' === $type ) {
