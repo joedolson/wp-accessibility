@@ -155,7 +155,7 @@ function wpa_stats_action() {
 		$title   = ( wpa_is_url( $_REQUEST['title'] ) ) ? esc_url( $_REQUEST['title'] ) : sanitize_text_field( $_REQUEST['title'] );
 		$type    = ( 'view' === $_REQUEST['type'] ) ? 'view' : 'event';
 		// Add timestamp for this stat.
-		$stats->timestamp = current_datetime()->getTimestamp();
+		$stats->timestamp = current_time( 'timestamp' ); // phpcs:ignore WordPress.DateTime.CurrentTimeTimestamp.Requested
 
 		$response = wpa_add_stats( $stats, $title, $type, $post_id );
 		wp_send_json( $response );
