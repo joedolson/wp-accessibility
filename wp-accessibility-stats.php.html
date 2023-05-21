@@ -102,6 +102,9 @@ function wpa_add_stats( $stats, $title, $type = 'view', $post_ID = 0 ) {
 			'post_type'    => 'wpa-stats',
 		);
 		$stat = wp_insert_post( $post );
+		if ( 'view' !== $type ) {
+			update_post_meta( $stat, '_toolbar', 'toolbar' );
+		}
 		if ( $post_ID ) {
 			// Set up relationships between stats and posts.
 			update_post_meta( $stat, '_wpa_post_id', $post_ID );
@@ -181,7 +184,7 @@ function wpa_stats_action() {
 		$title   = ( wpa_is_url( $_REQUEST['title'] ) ) ? esc_url( $_REQUEST['title'] ) : sanitize_text_field( $_REQUEST['title'] );
 		$type    = ( 'view' === $_REQUEST['type'] ) ? 'view' : 'event';
 		// Add timestamp for this stat.
-		$stats->timestamp = current_time( 'timestamp' ); // phpcs:ignore WordPress.DateTime.CurrentTimeTimestamp.Requested
+		$stats['timestamp'] = current_time( 'timestamp' ); // phpcs:ignore WordPress.DateTime.CurrentTimeTimestamp.Requested
 
 		$response = wpa_add_stats( $stats, $title, $type, $post_id );
 		wp_send_json( $response );
@@ -229,18 +232,54 @@ function wpa_get_stats() {
 	);
 
 	$posts = new WP_Query( $query );
+	?>
+	&lt;table class="widefat">
+		&lt;thead>
+			&lt;tr>&lt;th scope="col">Event&lt;/th>&lt;th>Timestamp&lt;/th>&lt;th>Data&lt;/th>&lt;/tr>
+		&lt;/thead>
+		&lt;tbody>
+		&lt;?php
 	foreach ( $posts->posts as $post ) {
 		$post_ID  = $post->ID;
 		$data     = json_decode( $post->post_content );
 		$history  = get_post_meta( $post_ID, 'wpa_event' );
 		$relative = get_post_meta( $post_ID, '_wpa_post_id', true );
-		echo '&lt;pre>';
-		print_r( $data );
-		print_r( $history );
-		echo '&lt;/pre>';
-		echo "$relative";
+		$type     = get_post_meta( $post_ID, '_toolbar', true );
+		echo '&lt;tr>';
+		if ( is_object( $data ) &amp;&amp; property_exists( $data, 'contrast') ) {
+			echo '&lt;td>Visitor ' . substr( $post->post_title, 0, 12 ) . '...&lt;/td>';
+		} elseif ( is_object( $data ) &amp;&amp; property_exists( $data, 'fontsize') ) {
+			echo '&lt;td>Fontsize Toggled&lt;/td>';
+		} else {
+			$post = ( $relative ) ? get_the_title( $relative ) : $post->post_title;
+			echo '&lt;td>View: ' . $post . '&lt;/td>';
+		}
+		$history = wpa_format_stats( $type, $data, $history );
+
+		echo '&lt;td>' . gmdate( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $data->timestamp ) . '&lt;/td>';
+		echo '&lt;td>' . print_r( $history, 1 ) . '&lt;/td>';
+		echo '&lt;/tr>';
 	}
-	return $posts->posts;
+		?>
+		&lt;/tbody>
+	&lt;/table>
+	&lt;?php
+}
+
+function wpa_format_stats( $type, $data, $history ) {
+	if ( 'toolbar' === $type ) {
+		$history = (array) $history;
+		foreach ( $history as $k => $d ) {
+			return $k . ':' . print_r( $d, 1 );
+		}
+	} else {
+		$data = (array) $data;
+		$i    = 0;
+		foreach ( $data as $k => $d ) {
+			$i++;
+		}
+		return $i;
+	}
 }</code></pre>
         </article>
     </section>
