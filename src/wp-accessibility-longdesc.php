@@ -152,7 +152,6 @@ add_filter( 'image_send_to_editor', 'wpa_longdesc_add_attr', 10, 8 );
 function wpa_longdesc_add_attr( $html, $id, $caption, $title, $align, $url, $size, $alt ) {
 	// Get data for the image attachment.
 	$image = get_post( $id );
-	global $post_ID;
 	if ( isset( $image->ID ) && ! empty( $image->ID ) ) {
 		$args = array( 'longdesc' => $image->ID );
 		// The referrer is the post that the image is inserted into.
