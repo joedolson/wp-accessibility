@@ -195,7 +195,6 @@ function wpa_insert_alt_verification( $form_fields, $post ) {
 	$mime = get_post_mime_type( $post->ID );
 	if ( 'image/jpeg' === $mime || 'image/png' === $mime || 'image/gif' === $mime ) {
 		$no_alt                = get_post_meta( $post->ID, '_no_alt', true );
-		$alt                   = get_post_meta( $post->ID, '_wp_attachment_image_alt', true );
 		$checked               = checked( $no_alt, 1, false );
 		$form_fields['no_alt'] = array(
 			'label' => __( 'Decorative', 'wp-accessibility' ),
@@ -245,22 +244,24 @@ function wpa_alt_attribute( $html, $id, $caption, $title, $align, $url, $size, $
 	// Get data for the image attachment.
 	$noalt = (bool) get_post_meta( $id, '_no_alt', true );
 	// Get the original title to compare to alt.
-	$title   = get_the_title( $id );
 	$warning = false;
 	if ( true === $noalt ) {
 		$html = str_replace( 'alt="' . $alt . '"', 'alt=""', $html );
 	}
-	if ( ( '' === $alt || $alt === $title || wpa_suspicious_alt( $alt ) ) &amp;&amp; true !== $noalt ) {
-		if ( $alt === $title ) {
-			$warning = __( 'The alt text for this image is the same as the title. In most cases, that means that the alt attribute has been automatically provided from the image file name.', 'wp-accessibility' );
-			$image   = 'alt-same.png';
+	$suspicious = wpa_suspicious_alt( $alt );
+	$long       = wpa_long_alt( $alt );
+	if ( ( '' === $alt || $suspicious ) &amp;&amp; true !== $noalt ) {
+		if ( $long ) {
+			$warning = __( 'The alt text for this image is very long. Should this information be in the content?', 'wp-accessibility' );
+		} elseif ( $suspicious ) {
+			$warning = __( 'The alt text for this image looks questionable.', 'wp-accessibility' );
 		} else {
-			$warning = __( 'This image requires alt text, but the alt text is currently blank. Either add alt text or mark the image as decorative.', 'wp-accessibility' );
-			$image   = 'alt-missing.png';
+			$warning = __( 'This image requires alt text, but the alt text is blank. Add alt text or mark the image as decorative.', 'wp-accessibility' );
 		}
 	}
 	if ( $warning ) {
-		return '&lt;div class="wp-block-image">' . $html . '&lt;/div>';
+		$warning = '&lt;span class="wpa-image-warning">' . $warning . '&lt;/span>';
+		$html    = '&lt;div class="wp-block-image">' . $warning . $html . '&lt;/div>';
 	}
 
 	return $html;
