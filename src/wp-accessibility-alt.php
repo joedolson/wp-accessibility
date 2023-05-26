@@ -226,16 +226,22 @@ function wpa_alt_attribute( $html, $id, $caption, $title, $align, $url, $size, $
 	$long       = wpa_long_alt( $alt );
 	if ( ( '' === $alt || $suspicious ) && true !== $noalt ) {
 		if ( $long ) {
-			$warning = __( 'The alt text for this image is very long. Should this information be in the content?', 'wp-accessibility' );
+			$warning         = 'wpa-warning wpa-long-alt';
+			$caption_warning = __( 'Long alt text', 'wp-accessibility' );
 		} elseif ( $suspicious ) {
-			$warning = __( 'The alt text for this image looks questionable.', 'wp-accessibility' );
+			$warning         = 'wpa-warning wpa-suspicious-alt';
+			$caption_warning = __( 'Suspicious alt text', 'wp-accessibility' );
+		} elseif ( $alt && $caption === $alt ) {
+			$warning         = 'wpa-warning wpa-caption-is-alt';
+			$caption_warning = __( 'Caption and alt text are the same', 'wp-accessibility' );
 		} else {
-			$warning = __( 'This image requires alt text, but the alt text is blank. Add alt text or mark the image as decorative.', 'wp-accessibility' );
+			$warning         = 'wpa-warning wpa-image-missing-alt';
+			$caption_warning = __( 'Missing alt text', 'wp-accessibility' );
 		}
+		$html = str_replace( 'class="', 'data-warning="' . $caption_warning . '" class="' . $warning . ' ', $html );
 	}
-	if ( $warning ) {
-		$warning = '<span class="wpa-image-warning">' . $warning . '</span>';
-		$html    = '<div class="wp-block-image">' . $warning . $html . '</div>';
+	if ( $warning && ! $caption ) {
+		return '<div class="wp-block-image">' . $html . '</div>';
 	}
 
 	return $html;
@@ -255,5 +261,6 @@ add_action( 'enqueue_block_editor_assets', 'wpa_block_editor_assets' );
  * Enqueue custom block editor styles for WP Accessibility. Used in display of img replacements.
  */
 function wpa_block_editor_assets() {
-	wp_enqueue_style( 'wpa-block-styles', plugins_url( 'css/editor-style.css', __FILE__ ), false, wpa_check_version() );
+	$wpa_version = ( SCRIPT_DEBUG ) ? rand( 10000, 100000 ) : wpa_check_version();
+	wp_enqueue_style( 'wpa-block-styles', plugins_url( 'css/editor-style.css', __FILE__ ), false, $wpa_version );
 }

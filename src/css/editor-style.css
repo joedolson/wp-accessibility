@@ -1,17 +1,18 @@
 .wp-block-image {
 	position: relative;
 	max-width: fit-content;
+	display: inline-block;
 }
 
-.wp-block-image .wpa-image-warning {
-	position: absolute;
-	z-index: 10;
-	background: rgba( 255,255,255,.7 );
-	padding: 4px;
-}
 .wp-video-shortcode:not(.wp-video-shortcode:has(track[kind="captions"],track[kind="subtitles"])),
 .wp-block-video:not(.wp-block-video:has(track[kind="captions"],track[kind="subtitles"])) {
 	border: 4px solid #b32d2e;
+}
+
+.wp-caption-dt,
+.wp-block-image {
+	position: relative;
+	display: inline-block;
 }
 
 img[alt*="This image has an empty alt"],
@@ -21,13 +22,60 @@ img[alt*="This image has an empty alt"],
 	outline-offset: 2px;
 }
 
+.wp-caption-dt:has(img[alt*="This image has an empty alt"]):after,
+.wp-caption-dt:has(img[alt=""]):after,
 .wp-block-image:has(img[alt*="This image has an empty alt"]):after,
 .wp-block-image:has(img[alt=""]):after,
 .wpa-image-missing-alt:after {
 	content: 'alt text missing';
 	position: absolute;
-	left: 10px;
-	top: 10px;
+	left: 8px;
+	top: 8px;
+	background: rgba( 0,0,0,.65 );
+	color: #fff;
+	padding: 3px 5px;
+	border-radius: 5px;
+	border: 1px solid #b32d2e;
+	font-size: .875rem;
+	font-weight: 700;
+}
+
+.wp-caption-dt:has(img.wpa-long-alt):after,
+.wp-block-image:has(img.wpa-long-alt):after {
+	content: 'long alt text';
+	position: absolute;
+	left: 8px;
+	top: 8px;
+	background: rgba( 0,0,0,.65 );
+	color: #fff;
+	padding: 3px 5px;
+	border-radius: 5px;
+	border: 1px solid #b32d2e;
+	font-size: .875rem;
+	font-weight: 700;
+}
+
+.wp-caption-dt:has(img.wpa-suspicious-alt):after,
+.wp-block-image:has(img.wpa-suspicious-alt):after {
+	content: 'suspicious alt text';
+	position: absolute;
+	left: 8px;
+	top: 8px;
+	background: rgba( 0,0,0,.65 );
+	color: #fff;
+	padding: 3px 5px;
+	border-radius: 5px;
+	border: 1px solid #b32d2e;
+	font-size: .875rem;
+	font-weight: 700;
+}
+
+.wp-caption-dt:has(img.wpa-caption-is-alt):after,
+.wp-block-image:has(img.wpa-caption-is-alt):after {
+	content: 'caption and alt text are the same';
+	position: absolute;
+	left: 8px;
+	top: 8px;
 	background: rgba( 0,0,0,.65 );
 	color: #fff;
 	padding: 3px 5px;
