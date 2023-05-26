@@ -1,7 +1,14 @@
 .wp-block-image {
 	position: relative;
+	max-width: fit-content;
 }
 
+.wp-block-image .wpa-image-warning {
+	position: absolute;
+	z-index: 10;
+	background: rgba( 255,255,255,.7 );
+	padding: 4px;
+}
 .wp-video-shortcode:not(.wp-video-shortcode:has(track[kind="captions"],track[kind="subtitles"])),
 .wp-block-video:not(.wp-block-video:has(track[kind="captions"],track[kind="subtitles"])) {
 	border: 4px solid #b32d2e;
