@@ -164,13 +164,13 @@ function wpa_toolbar_html( $type = 'widget', $control = 'button' ) {
 	$enable_fontsize  = ( 'off' === get_option( 'wpa_toolbar_fs' ) ) ? false : true;
 	$responsive       = ( 'on' === get_option( 'wpa_toolbar_mobile' ) ) ? 'a11y-responsive ' : '';
 	$is_rtl           = ( is_rtl() ) ? ' rtl' : ' ltr';
-	$is_right         = ( 'on' === get_option( 'wpa_toolbar_right' ) ) ? ' right' : ' left';
+	$is_reversed      = ( 'on' === get_option( 'wpa_toolbar_right' ) ) ? ' reverse' : ' default';
 	$toolbar_type     = ( 'widget' === $type ) ? 'a11y-toolbar-widget' : 'a11y-toolbar';
 	$control_type     = ( 'button' !== $control ) ? 'a href="#" role="button"' : 'button type="button"'; // button control does not work in Edge.
 	$closure          = ( 'button' !== $control ) ? 'a' : 'button';  // button control does not work in Edge.
 	$toolbar          = '
 &lt;!-- a11y toolbar widget -->
-&lt;div class="' . $responsive . ' ' . $is_rtl . ' ' . $is_right . ' ' . $toolbar_type . '">
+&lt;div class="' . $responsive . ' ' . $is_rtl . ' ' . $is_reversed . ' ' . $toolbar_type . '">
 	&lt;ul>';
 	if ( $enable_contrast ) {
 		$toolbar .= '&lt;li>&lt;' . $control_type . ' class="a11y-toggle a11y-toggle-contrast toggle-contrast" id="is_normal_contrast" aria-pressed="false">&lt;span class="offscreen">' . $contrast . '&lt;/span> &lt;span class="aticon aticon-adjust" aria-hidden="true">&lt;/span>&lt;/' . $closure . '>&lt;/li>';
@@ -203,10 +203,10 @@ function wpa_toolbar_js() {
 	 *
 	 * @return string
 	 */
-	$location   = apply_filters( 'wpa_move_toolbar', $default );
-	$is_rtl     = ( is_rtl() ) ? 'rtl' : 'ltr';
-	$is_right   = ( 'on' === get_option( 'wpa_toolbar_right' ) ) ? 'right' : 'left';
-	$responsive = ( 'on' === get_option( 'wpa_toolbar_mobile' ) ) ? 'a11y-responsive' : 'a11y-non-responsive';
+	$location    = apply_filters( 'wpa_move_toolbar', $default );
+	$is_rtl      = ( is_rtl() ) ? 'rtl' : 'ltr';
+	$is_reversed = ( 'on' === get_option( 'wpa_toolbar_right' ) ) ? 'reversed' : 'default';
+	$responsive  = ( 'on' === get_option( 'wpa_toolbar_mobile' ) ) ? 'a11y-responsive' : 'a11y-non-responsive';
 
 	$contrast         = esc_html__( 'Toggle High Contrast', 'wp-accessibility' );
 	$grayscale        = esc_html__( 'Toggle Grayscale', 'wp-accessibility' );
@@ -218,7 +218,7 @@ function wpa_toolbar_js() {
 	return array(
 		'location'         => $location,
 		'is_rtl'           => $is_rtl,
-		'is_right'         => $is_right,
+		'is_right'         => $is_reversed,
 		'responsive'       => $responsive,
 		'contrast'         => $contrast,
 		'grayscale'        => $grayscale,
