@@ -109,24 +109,24 @@
 }
 
 /* a11y toolbar RTL */
-.a11y-toolbar.rtl,
-.a11y-toolbar.right {
+.a11y-toolbar.rtl.default,
+.a11y-toolbar.ltr.reversed {
 	right: 0;
 	left: auto;
 }
 
-.a11y-toolbar.rtl ul,
-.a11y-toolbar.right ul {
+.a11y-toolbar.rtl.default ul,
+.a11y-toolbar.ltr.reversed ul {
 	border-radius: 4px 0 0 4px;
 }
 
-.a11y-toolbar.rtl ul li:first-child button,
-.a11y-toolbar.right ul li:first-child button {
+.a11y-toolbar.rtl.default ul li:first-child button,
+.a11y-toolbar.ltr.reversed ul li:first-child button {
 	border-radius: 4px 0 0 0;
 }
 
-.a11y-toolbar.rtl ul li:last-child button,
-.a11y-toolbar.right ul li:last-child button {
+.a11y-toolbar.rtl.default ul li:last-child button,
+.a11y-toolbar.ltr.reversed ul li:last-child button {
 	border-radius: 0 0 0 4px;
 }
 
