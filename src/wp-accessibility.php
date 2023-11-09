@@ -76,6 +76,7 @@ function wpa_install() {
 		add_option( 'rta_from_tag_clouds', 'on' );
 		add_option( 'asl_styles_focus', '' );
 		add_option( 'asl_styles_passive', '' );
+		add_option( 'asl_default_styles', 'true' );
 		add_option( 'wpa_target', 'on' );
 		add_option( 'wpa_search', 'on' );
 		add_option( 'wpa_tabindex', 'on' );
