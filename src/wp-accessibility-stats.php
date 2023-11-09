@@ -202,20 +202,22 @@ add_action( 'wp_dashboard_setup', 'wpa_dashboard_widget' );
  * @return void
  */
 function wpa_dashboard_widget_stats_handler() {
-	wpa_get_stats();
+	echo '<p>' . __( 'WP Accessibility is tracking accessibility changes it makes to your site, and recording when vistors toggle the font size and high contrast options. No personally identifying data is stored.', 'wp-accessibility' ) . '</p>';
+	wpa_get_stats( 'view' );
+	wpa_get_stats( 'event' );
 }
 
 /**
  * Get stats data for WP Accessibility.
  *
- * @param string $type Type of stats to fetch. 'view' or 'action'.
+ * @param string $type Type of stats to fetch. 'view' or 'event'.
  *
  * @return void
  */
 function wpa_get_stats( $type = 'view' ) {
 	$query = array(
 		'post_type'  => 'wpa-stats',
-		'numberpost' => -1,
+		'numberpost' => 5,
 		'orderby'    => 'date',
 		'order'      => 'desc',
 		'tax_query'  => array(
@@ -228,7 +230,11 @@ function wpa_get_stats( $type = 'view' ) {
 	);
 
 	$posts = new WP_Query( $query );
-	echo '<ul>';
+	if ( 'view' === $type ) {
+		echo '<div class="activity-block"><h3>' . __( 'Accessibility Fixes', 'wp-accessibility' ) . '</h3><ul>';
+	} else {
+		echo '<div class="activity-block"><h3>' . __( 'User Actions', 'wp-accessibility' ) . '</h3><ul>';
+	}
 
 	foreach ( $posts->posts as $post ) {
 		$post_ID  = $post->ID;
@@ -237,11 +243,11 @@ function wpa_get_stats( $type = 'view' ) {
 		$relative = get_post_meta( $post_ID, '_wpa_post_id', true );
 		echo '<li><div class="wpa-header"><h3>' . gmdate( get_option( 'date_format' ), $data->timestamp ) . '<br />' . gmdate( get_option( 'time_format' ), $data->timestamp ) . '</h3>';
 
-		$post = ( $relative ) ? get_the_title( $relative ) : 'User action';
-		echo '<p><strong>' . $post . '</strong></p></div>';
+		$post_title = ( $relative ) ? get_the_title( $relative ) : 'User action';
+		echo '<p><strong>' . $post_title . '</strong></p></div>';
 
 		$line = '';
-		if ( 'action' === $type ) {
+		if ( 'event' === $type ) {
 			$first = ( property_exists( $data, 'contrast' ) ) ? 'Contrast' : 'Font size';
 			$date  = gmdate( 'Y-m-d H:i', $data->timestamp );
 			// translators: Control type; date enabled.
@@ -261,7 +267,7 @@ function wpa_get_stats( $type = 'view' ) {
 					$key   = $d[0];
 					$count = $d[1];
 					// translators: count of fixes, type of item fixed.
-					$stat  = sprintf( __( '%d %s fixed', 'wp-accessibility' ), $count, '<strong>' . $key . '</strong>' );
+					$stat = sprintf( __( '%1$d %2$s fixed', 'wp-accessibility' ), $count, '<strong>' . $key . '</strong>' );
 				} else {
 					$key   = $d;
 					$count = 1;
@@ -274,7 +280,7 @@ function wpa_get_stats( $type = 'view' ) {
 
 		echo '<ul class="stats">' . $line . '</ul></li>';
 	}
-	echo '</ul>';
+	echo '</ul></div>';
 }
 
 /**
