@@ -140,7 +140,7 @@ add_action( 'wp_enqueue_scripts', 'wpacc_enqueue_scripts', 101 );
  * Enqueue accessibility feature scripts.
  */
 function wpacc_enqueue_scripts() {
-	$version = ( SCRIPT_DEBUG ) ? rand( 10000, 100000 ) : wpa_check_version();
+	$version = ( SCRIPT_DEBUG ) ? wp_rand( 10000, 100000 ) : wpa_check_version();
 	if ( 'link' === get_option( 'wpa_longdesc' ) ) {
 		wp_enqueue_script( 'longdesc.link', plugins_url( 'js/longdesc.link.js', __FILE__ ), array( 'jquery' ), $version, true );
 		wp_localize_script(
@@ -191,7 +191,7 @@ add_action( 'wp_enqueue_scripts', 'wpa_stylesheet' );
  * Enqueue stylesheets for WP Accessibility.
  */
 function wpa_stylesheet() {
-	$version = ( SCRIPT_DEBUG ) ? rand( 10000, 100000 ) : wpa_check_version();
+	$version = ( SCRIPT_DEBUG ) ? wp_rand( 10000, 100000 ) : wpa_check_version();
 	wp_register_style( 'wpa-style', plugins_url( 'css/wpa-style.css', __FILE__ ), array(), $version );
 	if ( 'link' === get_option( 'wpa_longdesc' ) || 'jquery' === get_option( 'wpa_longdesc' ) || 'on' === get_option( 'asl_enable' ) || ! empty( get_option( 'wpa_post_types', array() ) ) ) {
 		wp_enqueue_style( 'wpa-style' );
@@ -371,7 +371,7 @@ add_action( 'wp_enqueue_scripts', 'wpa_jquery_asl', 100 );
  * Enqueue JS needed for WP Accessibility options.
  */
 function wpa_jquery_asl() {
-	$version    = ( SCRIPT_DEBUG ) ? rand( 10000, 100000 ) : wpa_check_version();
+	$version    = ( SCRIPT_DEBUG ) ? wp_rand( 10000, 100000 ) : wpa_check_version();
 	$visibility = ( 'on' === get_option( 'asl_visible' ) ) ? 'wpa-visible' : 'wpa-hide';
 	$output     = '';
 	if ( 'on' === get_option( 'asl_enable' ) && ! wpa_accessible_theme() ) {
