@@ -113,7 +113,7 @@ function wpa_add_stats( $stats, $title, $type = 'view', $post_ID = 0 ) {
 		return array( 'metadata logged' );
 	} else {
 		$post = array(
-			'post_title'   => $title,
+			'post_title'   => str_replace( home_url(), '', $title ),
 			'post_content' => $stats,
 			'post_status'  => 'publish',
 			'post_name'    => sanitize_title( $title ),
@@ -228,20 +228,22 @@ add_action( 'wp_dashboard_setup', 'wpa_dashboard_widget' );
  * @return void
  */
 function wpa_dashboard_widget_stats_handler() {
-	wpa_get_stats();
+	echo '&lt;p>' . __( 'WP Accessibility is tracking accessibility changes it makes to your site, and recording when vistors toggle the font size and high contrast options. No personally identifying data is stored.', 'wp-accessibility' ) . '&lt;/p>';
+	wpa_get_stats( 'view' );
+	wpa_get_stats( 'event' );
 }
 
 /**
  * Get stats data for WP Accessibility.
  *
- * @param string $type Type of stats to fetch. 'view' or 'action'.
+ * @param string $type Type of stats to fetch. 'view' or 'event'.
  *
  * @return void
  */
 function wpa_get_stats( $type = 'view' ) {
 	$query = array(
 		'post_type'  => 'wpa-stats',
-		'numberpost' => -1,
+		'numberpost' => 5,
 		'orderby'    => 'date',
 		'order'      => 'desc',
 		'tax_query'  => array(
@@ -254,7 +256,11 @@ function wpa_get_stats( $type = 'view' ) {
 	);
 
 	$posts = new WP_Query( $query );
-	echo '&lt;ul>';
+	if ( 'view' === $type ) {
+		echo '&lt;div class="activity-block">&lt;h3>' . __( 'Accessibility Fixes', 'wp-accessibility' ) . '&lt;/h3>&lt;ul>';
+	} else {
+		echo '&lt;div class="activity-block">&lt;h3>' . __( 'User Actions', 'wp-accessibility' ) . '&lt;/h3>&lt;ul>';
+	}
 
 	foreach ( $posts->posts as $post ) {
 		$post_ID  = $post->ID;
@@ -263,11 +269,11 @@ function wpa_get_stats( $type = 'view' ) {
 		$relative = get_post_meta( $post_ID, '_wpa_post_id', true );
 		echo '&lt;li>&lt;div class="wpa-header">&lt;h3>' . gmdate( get_option( 'date_format' ), $data->timestamp ) . '&lt;br />' . gmdate( get_option( 'time_format' ), $data->timestamp ) . '&lt;/h3>';
 
-		$post = ( $relative ) ? get_the_title( $relative ) : 'User action';
-		echo '&lt;p>&lt;strong>' . $post . '&lt;/strong>&lt;/p>&lt;/div>';
+		$post_title = ( $relative ) ? get_the_title( $relative ) : 'User action';
+		echo '&lt;p>&lt;strong>' . $post_title . '&lt;/strong>&lt;/p>&lt;/div>';
 
 		$line = '';
-		if ( 'action' === $type ) {
+		if ( 'event' === $type ) {
 			$first = ( property_exists( $data, 'contrast' ) ) ? 'Contrast' : 'Font size';
 			$date  = gmdate( 'Y-m-d H:i', $data->timestamp );
 			// translators: Control type; date enabled.
@@ -287,7 +293,7 @@ function wpa_get_stats( $type = 'view' ) {
 					$key   = $d[0];
 					$count = $d[1];
 					// translators: count of fixes, type of item fixed.
-					$stat  = sprintf( __( '%d %s fixed', 'wp-accessibility' ), $count, '&lt;strong>' . $key . '&lt;/strong>' );
+					$stat = sprintf( __( '%1$d %2$s fixed', 'wp-accessibility' ), $count, '&lt;strong>' . $key . '&lt;/strong>' );
 				} else {
 					$key   = $d;
 					$count = 1;
@@ -300,7 +306,7 @@ function wpa_get_stats( $type = 'view' ) {
 
 		echo '&lt;ul class="stats">' . $line . '&lt;/ul>&lt;/li>';
 	}
-	echo '&lt;/ul>';
+	echo '&lt;/ul>&lt;/div>';
 }
 
 /**
