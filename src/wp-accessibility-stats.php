@@ -87,7 +87,7 @@ function wpa_add_stats( $stats, $title, $type = 'view', $post_ID = 0 ) {
 		return array( 'metadata logged' );
 	} else {
 		$post = array(
-			'post_title'   => $title,
+			'post_title'   => str_replace( home_url(), '', $title ),
 			'post_content' => $stats,
 			'post_status'  => 'publish',
 			'post_name'    => sanitize_title( $title ),
