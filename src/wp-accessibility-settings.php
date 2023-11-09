@@ -21,6 +21,9 @@ function wpa_admin_styles() {
 	$screen = get_current_screen();
 	if ( 'dashboard' === $screen->base || ( isset( $_GET['page'] ) && ( 'wp-accessibility' === $_GET['page'] || 'wp-accessibility-help' === $_GET['page'] ) ) ) {
 		$version = wpa_check_version();
+		if ( WP_DEBUG ) {
+			$version = $version . '-' . wp_rand( 10000, 50000 );
+		}
 		wp_enqueue_style( 'wpa-styles', plugins_url( 'css/wpa-styles.css', __FILE__ ), array( 'farbtastic' ), $version );
 		wp_enqueue_style( 'wp-color-picker' );
 		// Switch to wp_add_inline_script when no longer supporting WP 4.4.x.
