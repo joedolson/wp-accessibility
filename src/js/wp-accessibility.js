@@ -233,48 +233,44 @@
 		}
 	}
 
-	var event = {};
+	var events = [];
 	$('.toggle-contrast').on('click', function (e) {
 		if ($(this).attr('id') == "is_normal_contrast") {
 			// high contrast turned on.
-			event = { 'contrast' : 'enabled' };
+			events.push( [ 'contrast', 'enabled'] );
 		} else {
 			// high contrast turned off.
-			event = { 'contrast' : 'disabled' };
+			events.push( [ 'contrast', 'disabled'] );
 		}
 		var data = {
 			'action' : wpa.action,
 			'security' : wpa.security,
-			'stats' : event,
+			'stats' : events,
 			'post_id' : wpa.post_id,
 			'title' : wpa.hash,
 			'type' : 'event'
 		};
 		console.log( data );
-		$.post( wpa.ajaxurl, data, function (response) {
-			console.log( { response } );
-		}, "json" );
+		$.post( wpa.ajaxurl, data, function () {}, "json" );
 	});
 
 	$('.toggle-fontsize').on('click', function (e) {
 		if ($(this).attr('id') == "is_normal_fontsize") {
 			// fontsizes turned on.
-			event = { 'fontsize' : 'enabled' };
+			events.push( [ 'fontsize', 'enabled'] );
 		} else {
 			// fontsizes turned off.
-			event = { 'fontsize' : 'disabled' };
+			events.push( [ 'fontsize', 'disabled'] );
 		}
 		var data = {
 			'action' : wpa.action,
 			'security' : wpa.security,
-			'stats' : event,
+			'stats' : events,
 			'post_id' : wpa.post_id,
 			'title' : wpa.hash,
 			'type' : 'event'
 		};
-		$.post( wpa.ajaxurl, data, function (response) {
-			console.log( response );
-		}, "json" );
+		$.post( wpa.ajaxurl, data, function () {}, "json" );
 	});
 
 	if ( wpa.errors && errors.length >= 1 ) {

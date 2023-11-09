@@ -44,6 +44,25 @@ function wpa_post_type() {
 add_action( 'init', 'wpa_post_type' );
 
 /**
+ * Register taxonomies on WP Accessibility stats posts.
+ */
+function wpa_taxonomies() {
+	register_taxonomy(
+		'wpa-stats-type',
+		// Internal name = machine-readable taxonomy name.
+		array( 'wpa-stats' ),
+		array(
+			'hierarchical' => true,
+			'label'        => __( 'WP Accessibility Stats Type', 'my-calendar' ),
+			'query_var'    => true,
+			'rewrite'      => array( 'slug' => 'wpa-stats-type' ),
+		)
+	);
+}
+add_action( 'init', 'wpa_taxonomies', 0 );
+
+
+/**
  * Register statistics.
  *
  * @param array      $stats Stats data for a page. Array of tests & results.
@@ -76,9 +95,7 @@ function wpa_add_stats( $stats, $title, $type = 'view', $post_ID = 0 ) {
 			'post_type'    => 'wpa-stats',
 		);
 		$stat = wp_insert_post( $post );
-		if ( 'view' !== $type ) {
-			update_post_meta( $stat, '_toolbar', 'toolbar' );
-		}
+		wp_set_object_terms( $stat, array( $type ), 'wpa-stats-type' );
 		if ( $post_ID ) {
 			// Set up relationships between stats and posts.
 			update_post_meta( $stat, '_wpa_post_id', $post_ID );
@@ -191,49 +208,70 @@ function wpa_dashboard_widget_stats_handler() {
 /**
  * Get stats data for WP Accessibility.
  *
+ * @param string $type Type of stats to fetch. 'view' or 'action'.
+ *
  * @return void
  */
-function wpa_get_stats() {
+function wpa_get_stats( $type = 'view' ) {
 	$query = array(
 		'post_type'  => 'wpa-stats',
 		'numberpost' => -1,
 		'orderby'    => 'date',
 		'order'      => 'desc',
+		'tax_query'  => array(
+			array(
+				'taxonomy' => 'wpa-stats-type',
+				'field'    => 'slug',
+				'terms'    => $type,
+			),
+		),
 	);
 
 	$posts = new WP_Query( $query );
-	?>
-	<table class="widefat">
-		<thead>
-			<tr><th scope="col">Event</th><th>Timestamp</th><th>Data</th></tr>
-		</thead>
-		<tbody>
-		<?php
-		foreach ( $posts->posts as $post ) {
-			$post_ID  = $post->ID;
-			$data     = json_decode( $post->post_content );
-			$history  = get_post_meta( $post_ID, 'wpa_event' );
-			$relative = get_post_meta( $post_ID, '_wpa_post_id', true );
-			$type     = get_post_meta( $post_ID, '_toolbar', true );
-			echo '<tr>';
-			if ( is_object( $data ) && property_exists( $data, 'contrast' ) ) {
-				echo '<td>Visitor ' . substr( $post->post_title, 0, 12 ) . '...</td>';
-			} elseif ( is_object( $data ) && property_exists( $data, 'fontsize' ) ) {
-				echo '<td>Fontsize Toggled</td>';
-			} else {
-				$post = ( $relative ) ? get_the_title( $relative ) : $post->post_title;
-				echo '<td>View: ' . $post . '</td>';
-			}
-			$history = wpa_format_stats( $type, $data, $history );
+	echo '<ul>';
 
-			echo '<td>' . gmdate( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $data->timestamp ) . '</td>';
-			echo '<td>' . print_r( $history, 1 ) . '</td>';
-			echo '</tr>';
+	foreach ( $posts->posts as $post ) {
+		$post_ID  = $post->ID;
+		$data     = json_decode( $post->post_content );
+		$history  = get_post_meta( $post_ID, 'wpa_event' );
+		$relative = get_post_meta( $post_ID, '_wpa_post_id', true );
+		echo '<li><div class="wpa-header"><h3>' . gmdate( get_option( 'date_format' ), $data->timestamp ) . '<br />' . gmdate( get_option( 'time_format' ), $data->timestamp ) . '</h3>';
+
+		$post = ( $relative ) ? get_the_title( $relative ) : 'User action';
+		echo '<p><strong>' . $post . '</strong></p></div>';
+
+		$line = '';
+		if ( 'action' === $type ) {
+			$first = ( property_exists( $data, 'contrast' ) ) ? 'Contrast' : 'Font size';
+			$date  = gmdate( 'Y-m-d H:i', $data->timestamp );
+			$line  = '<li>' . sprintf( __( '%s enabled at %s', 'wp-accessibility' ), $first, $date ) . '</li>';
+			foreach ( $history as $h ) {
+				$has_font_size = ( property_exists( $h, 'fontsize' ) ) ? 'Font size' : false;
+				$toggle_type   = ( property_exists( $h, 'contrast' ) ) ? 'Contrast' : $has_font_size;
+				if ( $toggle_type ) {
+					$change      = ( 'Contrast' === $toggle_type ) ? $h->contrast : $h->fontsize;
+					$change_date = gmdate( 'Y-m-d H:i', $h->timestamp );
+					$line       .= '<li>' . $toggle_type . ' ' . $change . ' at ' . $change_date . '</li>';
+				}
+			}
+		} else {
+			foreach ( $data as $d ) {	
+					if ( is_array( $d ) ) {
+						$key   = $d[0];
+						$count = $d[1];
+						$stat  = sprintf( __( '%d %s fixed', 'wp-accessibility' ), $count, '<strong>' . $key . '</strong>' );
+					} else {
+						$key   = $d;
+						$count = 1;
+						$stat  = sprintf( __( '%s fixed', 'wp-accessibility' ), '<strong>' . $key . '</strong>' );
+					}
+					$line .= '<li>'. $stat . '</li>';
+			}
 		}
-		?>
-		</tbody>
-	</table>
-	<?php
+
+		echo '<ul class="stats">' . $line . '</ul></li>';
+	}
+	echo '</ul>';
 }
 
 /**
@@ -249,7 +287,7 @@ function wpa_format_stats( $type, $data, $history ) {
 	if ( 'toolbar' === $type ) {
 		$history = (array) $history;
 		foreach ( $history as $k => $d ) {
-			return $k . ':' . print_r( $d, 1 );
+			return '<strong>' . $k . '</strong>:' . print_r( $d, 1 );
 		}
 	} else {
 		$data = (array) $data;

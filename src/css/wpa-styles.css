@@ -181,3 +181,27 @@
 #wpa_settings_page .hndle, .settings_page_wp-accessibility-wp-accessibility .hndle {
 	cursor: auto !important;
 }
+
+#wpa_dashboard_widget_stats div.wpa-header {
+	display: grid;
+	grid-template-columns: 70% 1fr;
+	align-items: start;
+}
+
+#wpa_dashboard_widget_stats .wpa-header p,
+#wpa_dashboard_widget_stats .wpa-header h3 {
+	margin: 0;
+	padding: 0;
+}
+
+#wpa_dashboard_widget_stats ul.stats {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 2px;
+	margin: 10px 0;
+}
+
+#wpa_dashboard_widget_stats .stats li {
+	padding: 3px;
+	background: rgba( 0,0,0, .02 );
+}
