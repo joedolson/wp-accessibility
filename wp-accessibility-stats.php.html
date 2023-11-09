@@ -79,7 +79,7 @@ function wpa_taxonomies() {
 		array( 'wpa-stats' ),
 		array(
 			'hierarchical' => true,
-			'label'        => __( 'WP Accessibility Stats Type', 'my-calendar' ),
+			'label'        => __( 'WP Accessibility Statistic Type', 'wp-accessibility' ),
 			'query_var'    => true,
 			'rewrite'      => array( 'slug' => 'wpa-stats-type' ),
 		)
@@ -270,7 +270,8 @@ function wpa_get_stats( $type = 'view' ) {
 		if ( 'action' === $type ) {
 			$first = ( property_exists( $data, 'contrast' ) ) ? 'Contrast' : 'Font size';
 			$date  = gmdate( 'Y-m-d H:i', $data->timestamp );
-			$line  = '&lt;li>' . sprintf( __( '%s enabled at %s', 'wp-accessibility' ), $first, $date ) . '&lt;/li>';
+			// translators: Control type; date enabled.
+			$line = '&lt;li>' . sprintf( __( '%1$s enabled at %2$s', 'wp-accessibility' ), $first, $date ) . '&lt;/li>';
 			foreach ( $history as $h ) {
 				$has_font_size = ( property_exists( $h, 'fontsize' ) ) ? 'Font size' : false;
 				$toggle_type   = ( property_exists( $h, 'contrast' ) ) ? 'Contrast' : $has_font_size;
@@ -281,17 +282,19 @@ function wpa_get_stats( $type = 'view' ) {
 				}
 			}
 		} else {
-			foreach ( $data as $d ) {	
-					if ( is_array( $d ) ) {
-						$key   = $d[0];
-						$count = $d[1];
-						$stat  = sprintf( __( '%d %s fixed', 'wp-accessibility' ), $count, '&lt;strong>' . $key . '&lt;/strong>' );
-					} else {
-						$key   = $d;
-						$count = 1;
-						$stat  = sprintf( __( '%s fixed', 'wp-accessibility' ), '&lt;strong>' . $key . '&lt;/strong>' );
-					}
-					$line .= '&lt;li>'. $stat . '&lt;/li>';
+			foreach ( $data as $d ) {
+				if ( is_array( $d ) ) {
+					$key   = $d[0];
+					$count = $d[1];
+					// translators: count of fixes, type of item fixed.
+					$stat  = sprintf( __( '%d %s fixed', 'wp-accessibility' ), $count, '&lt;strong>' . $key . '&lt;/strong>' );
+				} else {
+					$key   = $d;
+					$count = 1;
+					// translators: type of item fixed.
+					$stat = sprintf( __( '%s fixed', 'wp-accessibility' ), '&lt;strong>' . $key . '&lt;/strong>' );
+				}
+				$line .= '&lt;li>' . $stat . '&lt;/li>';
 			}
 		}
 

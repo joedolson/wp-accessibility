@@ -53,7 +53,7 @@ add_action( 'wp_enqueue_scripts', 'wpa_register_scripts' );
  * Register jQuery scripts.
  */
 function wpa_register_scripts() {
-	$wpa_version = ( SCRIPT_DEBUG ) ? rand( 10000, 100000 ) : wpa_check_version();
+	$wpa_version = ( SCRIPT_DEBUG ) ? wp_rand( 10000, 100000 ) : wpa_check_version();
 	wp_register_script( 'wpa-toolbar', plugins_url( 'js/wpa-toolbar.js', __FILE__ ), array(), $wpa_version, true );
 	wp_register_script( 'ui-a11y', plugins_url( 'toolbar/js/a11y.js', __FILE__ ), array( 'jquery' ), $wpa_version, true );
 }
@@ -63,7 +63,7 @@ add_action( 'wp_enqueue_scripts', 'wpa_toolbar_enqueue_scripts' );
  * Enqueue Toolbar scripts dependent on options.
  */
 function wpa_toolbar_enqueue_scripts() {
-	$wpa_version = ( SCRIPT_DEBUG ) ? rand( 10000, 100000 ) : wpa_check_version();
+	$wpa_version = ( SCRIPT_DEBUG ) ? wp_rand( 10000, 100000 ) : wpa_check_version();
 	wp_enqueue_script( 'jquery' );
 	if ( 'on' === get_option( 'wpa_toolbar' ) ) {
 		// Enqueue Toolbar JS if enabled.
