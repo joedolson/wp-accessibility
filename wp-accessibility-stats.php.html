@@ -240,10 +240,10 @@ function wpa_dashboard_widget_stats_handler() {
  *
  * @return void
  */
-function wpa_get_stats( $type = 'view' ) {
+function wpa_get_stats( $type = 'view', $count = 3 ) {
 	$query = array(
 		'post_type'  => 'wpa-stats',
-		'numberpost' => 5,
+		'numberpost' => $count,
 		'orderby'    => 'date',
 		'order'      => 'desc',
 		'tax_query'  => array(
@@ -267,38 +267,57 @@ function wpa_get_stats( $type = 'view' ) {
 		$data     = json_decode( $post->post_content );
 		$history  = get_post_meta( $post_ID, 'wpa_event' );
 		$relative = get_post_meta( $post_ID, '_wpa_post_id', true );
-		echo '&lt;li>&lt;div class="wpa-header">&lt;h3>' . gmdate( get_option( 'date_format' ), $data->timestamp ) . '&lt;br />' . gmdate( get_option( 'time_format' ), $data->timestamp ) . '&lt;/h3>';
+		echo '&lt;li>&lt;div class="wpa-header">&lt;h3>&lt;strong>' . gmdate( get_option( 'date_format' ), $data->timestamp ) . '&lt;/strong>&lt;br />' . gmdate( get_option( 'time_format' ), $data->timestamp ) . '&lt;/h3>';
 
 		$post_title = ( $relative ) ? get_the_title( $relative ) : 'User action';
-		echo '&lt;p>&lt;strong>' . $post_title . '&lt;/strong>&lt;/p>&lt;/div>';
+		$post_link  = ( $relative ) ? get_the_permalink( $relative ) : '';
+		$append     = '';
+		if ( 'event' === $type ) {
+			// translators: Post ID.
+			$append = ' / ' . sprintf( __( 'User %s', 'wp-accessibility' ), '&lt;code>' . $post->ID . '&lt;/code>' );
+		}
+		if ( $post_link ) {
+			echo '&lt;p>&lt;a href="' . esc_url( $post_link ) . '">' . $post_title . '&lt;/a>' . $append . '&lt;/p>';
+		} else {
+			echo '&lt;p>&lt;strong>' . $post_title . '&lt;/strong>' . $append . '&lt;/p>';		
+		}
+		echo '&lt;/div>';
 
 		$line = '';
 		if ( 'event' === $type ) {
-			$first = ( property_exists( $data, 'contrast' ) ) ? 'Contrast' : 'Font size';
-			$date  = gmdate( 'Y-m-d H:i', $data->timestamp );
-			// translators: Control type; date enabled.
-			$line = '&lt;li>' . sprintf( __( '%1$s enabled at %2$s', 'wp-accessibility' ), $first, $date ) . '&lt;/li>';
+			// translators: change made, date changed, time changed.
+			$hc_text = __( 'High contrast %1$s on %2$s at %3$s', 'wp-accessibility' );
+			// translators: change made, date changed, time changed.
+			$lf_text = __( 'Large font size %1$s on %2$s at %3$s', 'wp-accessibility' );
+			$first = ( property_exists( $data, 'contrast' ) ) ? $hc_text : $lf_text;
+			$param = ( property_exists( $data, 'contrast' ) ) ? 'contrast' : 'fontsize';
+			$date  = gmdate( 'Y-m-d', $data->timestamp );
+			$time  = gmdate( 'H:i', $data->timestamp );
+			$line = '&lt;li>' . sprintf( $first, $data->{$param}, $date, $time ) . '&lt;/li>';
 			foreach ( $history as $h ) {
-				$has_font_size = ( property_exists( $h, 'fontsize' ) ) ? 'Font size' : false;
-				$toggle_type   = ( property_exists( $h, 'contrast' ) ) ? 'Contrast' : $has_font_size;
-				if ( $toggle_type ) {
-					$change      = ( 'Contrast' === $toggle_type ) ? $h->contrast : $h->fontsize;
-					$change_date = gmdate( 'Y-m-d H:i', $h->timestamp );
-					$line       .= '&lt;li>' . $toggle_type . ' ' . $change . ' at ' . $change_date . '&lt;/li>';
+				$h             = json_decode( $h );
+				$has_font_size = ( property_exists( $h, 'fontsize' ) ) ? $h->fontsize : false;
+				$has_contrast  = ( property_exists( $h, 'contrast' ) ) ? $h->contrast : false;
+				$change_date   = gmdate( 'Y-m-d', $h->timestamp );
+				$change_time   = gmdate( 'H:i', $h->timestamp );
+				if ( $has_font_size ) {
+					$line .= '&lt;li>' . sprintf( $lf_text, $has_font_size, $change_date, $change_time ) . '&lt;/li>';
+				} elseif ( $has_contrast ) {
+					$line .= '&lt;li>' . sprintf( $hc_text, $has_contrast, $change_date, $change_time ) . '&lt;/li>';
 				}
 			}
 		} else {
 			foreach ( $data as $d ) {
 				if ( is_array( $d ) ) {
-					$key   = $d[0];
+					$key   = wpa_map_key( $d[0] );
 					$count = $d[1];
-					// translators: count of fixes, type of item fixed.
-					$stat = sprintf( __( '%1$d %2$s fixed', 'wp-accessibility' ), $count, '&lt;strong>' . $key . '&lt;/strong>' );
+					$stat = "&lt;span class='wpa-item-count'>$count&lt;/span> " . $key;
 				} else {
-					$key   = $d;
-					$count = 1;
-					// translators: type of item fixed.
-					$stat = sprintf( __( '%s fixed', 'wp-accessibility' ), '&lt;strong>' . $key . '&lt;/strong>' );
+					// If this is the timestamp, don't display here.
+					if ( is_numeric( $d ) ) {
+						continue;
+					}
+					$stat = wpa_map_key( $d );
 				}
 				$line .= '&lt;li>' . $stat . '&lt;/li>';
 			}
@@ -307,6 +326,36 @@ function wpa_get_stats( $type = 'view' ) {
 		echo '&lt;ul class="stats">' . $line . '&lt;/ul>&lt;/li>';
 	}
 	echo '&lt;/ul>&lt;/div>';
+}
+
+/**
+ * Map an array key to a text string.
+ *
+ * @param string $key Stats array key.
+ *
+ * @return string
+ */
+function wpa_map_key( $key ) {
+	$strings = array(
+		'link-add-tabindex'   => __( '&lt;code>tabindex&lt;/code> was removed from a link.', 'wp-accessibility' ),
+		'button-add-tabindex' => __( '&lt;code>tabindex&lt;/code> was added to a fake button.', 'wp-accessibility' ),
+		'control-tabindex'    => __( '&lt;code>tabindex&lt;/code> were removed from links, inputs, and buttons.', 'wp-accessibility' ),
+		'link-targets'        => __( '&lt;code>target&lt;/code> attributes were removed from links.', 'wp-accessibility' ),
+		'input-titles'        => __( '&lt;code>title&lt;/code> attributes were removed from inputs.', 'wp-accessibility' ),
+		'control-titles'      => __( '&lt;code>title&lt;/code> attributes removed from inputs and buttons.', 'wp-accessibility' ),
+		'images-titles'       => __( '&lt;code>title&lt;/code> attributes removed from images.', 'wp-accessibility' ),
+		'implicit-label'      => __( 'Implicit &lt;code>label&lt;/code> elements added to inputs.', 'wp-accessibility' ),
+		'explicit-label'      => __( 'Explicit &lt;code>label&lt;/code> elements added to inputs.', 'wp-accessibility' ),
+		'aria-current'        => __( '&lt;code>aria-current&lt;/code> was assigned to a link.', 'wp-accessibility' ),
+		'skiplinks'           => __( 'Skiplinks added to the page.', 'wp-accessibility' ),
+		'viewport-maxscale'   => __( 'The viewport maximum scale was fixed.', 'wp-accessibility' ),
+		'viewport-scalable'   => __( 'The scalability of the viewport was fixed.', 'wp-accessibility' ),
+		'html-lang-direction' => __( 'The language direction was set.', 'wp-accessibility' ),
+		'html-lang'           => __( 'The language of the page was set.', 'wp-accessibility' ),
+	);
+	$string = ( isset( $strings[ $key ] ) ) ? $strings[ $key ] : $key;
+
+	return $string;
 }
 
 /**
