@@ -202,9 +202,13 @@ add_action( 'wp_dashboard_setup', 'wpa_dashboard_widget' );
  * @return void
  */
 function wpa_dashboard_widget_stats_handler() {
-	echo '<p>' . __( 'WP Accessibility is tracking accessibility changes it makes to your site, and recording when vistors toggle the font size and high contrast options. No personally identifying data is stored.', 'wp-accessibility' ) . '</p>';
+	echo '<p>';
+	_e( 'WP Accessibility tracks accessibility changes it makes to your site, and records when vistors change font size and high contrast options. No personally identifying data is stored.', 'wp-accessibility' );
+	echo ' <a href="' . admin_url( 'edit.php?post_type=wpa-stats' ) . '">' . __( 'More stats', 'wp-accessibility' ) . '</a>';
+	echo '</p>';
 	wpa_get_stats( 'view' );
 	wpa_get_stats( 'event' );
+	wpa_edac_promotion( 'small' );
 }
 
 /**
@@ -214,13 +218,13 @@ function wpa_dashboard_widget_stats_handler() {
  *
  * @return void
  */
-function wpa_get_stats( $type = 'view', $count = 3 ) {
+function wpa_get_stats( $type = 'view', $count = 1 ) {
 	$query = array(
-		'post_type'  => 'wpa-stats',
-		'numberpost' => $count,
-		'orderby'    => 'date',
-		'order'      => 'desc',
-		'tax_query'  => array(
+		'post_type'   => 'wpa-stats',
+		'numberposts' => $count,
+		'orderby'     => 'date',
+		'order'       => 'desc',
+		'tax_query'   => array(
 			array(
 				'taxonomy' => 'wpa-stats-type',
 				'field'    => 'slug',

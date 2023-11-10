@@ -196,8 +196,61 @@
 	padding: 0;
 }
 
+.wpad-small-promotion,
 #wpa_dashboard_widget_stats .activity-block > ul > li {
 	margin: 8px -12px 0 -12px;
+}
+
+#wpa_dashboard_widget_stats .inside {
+	padding-bottom: 0;
+}
+
+#wpa_dashboard_widget_stats .inside p:last-of-type {
+	margin-bottom: 0;
+	padding-bottom: 1rem;
+}
+
+.wpad-small-promotion {
+	background: #F3CD1E;
+	color: #072446;
+	margin-top: 0;
+	border-top: 4px solid #072446;
+	padding: 12px 0;
+}
+
+.wpad-small-promotion .wpa-affiliate a {
+	font-size: 1rem;
+	color: #072446;
+	border: 1px solid;
+	padding: 4px;
+	border-radius:3px;
+	background: rgba(255,255,255,.44);
+}
+
+.wpad-small-promotion .wpa-affiliate a:hover,
+.wpad-small-promotion .wpa-affiliate a:focus {
+	background: #072446;
+	color: #fff;
+}
+
+.wpad-small-promotion .wpa-affiliate-notice,
+.wpad-small-promotion .wpa-affiliate {
+	text-align: center;
+}
+
+#wpa_dashboard_widget_stats .wpad-small-promotion h3 {
+	font-weight: 600;
+	color: #072446;
+	font-size: 1rem;
+}
+
+.wpad-small-promotion > * {
+	padding: 0px 12px !important;
+}
+
+.wpad-small-promotion > *:first {
+	padding-top: 12px;
+
 }
 
 #wpa_dashboard_widget_stats ul.stats {
