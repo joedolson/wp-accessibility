@@ -427,6 +427,46 @@ function wpa_stats_title( $post_title, $post_id ) {
 	return $post_title;
 }
 add_filter( 'the_title', 'wpa_stats_title', 10, 2 );
+
+
+// Actions/Filters for various tables and the css output.
+add_action( 'admin_init', 'wpa_add' );
+/**
+ * Add custom columns to payments post type page.
+ */
+function wpa_add() {
+	add_action( 'admin_head', 'wpa_css' );
+	add_filter( 'manage_wpa-stats_posts_columns', 'wpa_column' );
+	add_action( 'manage_wpa-stats_posts_custom_column', 'wpa_custom_column', 10, 2 );
+}
+
+/**
+ * Add columns to WPA stats post type.
+ *
+ * @param array $cols All columns.
+ *
+ * @return mixed
+ */
+function wpa_column( $cols ) {
+	$cols['wpa_type'] = __( 'Statistic Type', 'my-tickets' );
+
+	return $cols;
+}
+
+/**
+ * Show data for stats post type.
+ *
+ * @param string $column_name Name of the current column.
+ * @param int    $id Post ID.
+ */
+function wpa_custom_column( $column_name, $post_id ) {
+	switch ( $column_name ) {
+		case 'wpa_type':
+			$type = ( has_term( 'event', 'wpa-stats-type', $post_id ) ) ? __( 'User Action', 'wp-accessibility' ) : __( 'Page View', 'wp-accessibility' );
+			echo $type;
+			break;
+	}
+}
 </code></pre>
         </article>
     </section>
