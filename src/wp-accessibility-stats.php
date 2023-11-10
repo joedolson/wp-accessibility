@@ -214,7 +214,8 @@ function wpa_dashboard_widget_stats_handler() {
 /**
  * Get stats data for WP Accessibility.
  *
- * @param string $type Type of stats to fetch. 'view' or 'event'.
+ * @param string $type Type of stats to fetch. 'view' or 'event'. Default 'view'.
+ * @param int    $count Number of results to fetch. Default 1.
  *
  * @return void
  */
@@ -257,7 +258,7 @@ function wpa_get_stats( $type = 'view', $count = 1 ) {
 		if ( $post_link ) {
 			echo '<p><a href="' . esc_url( $post_link ) . '">' . $post_title . '</a>' . $append . '</p>';
 		} else {
-			echo '<p><strong>' . $post_title . '</strong>' . $append . '</p>';		
+			echo '<p><strong>' . $post_title . '</strong>' . $append . '</p>';
 		}
 		echo '</div>';
 
@@ -289,8 +290,8 @@ function wpa_get_stats( $type = 'view', $count = 1 ) {
 						$text = $lf_text_disabled;
 				}
 			}
-			$date  = gmdate( 'Y-m-d', $data->timestamp );
-			$time  = gmdate( 'H:i', $data->timestamp );
+			$date = gmdate( 'Y-m-d', $data->timestamp );
+			$time = gmdate( 'H:i', $data->timestamp );
 			$line = '<li>' . sprintf( $text, $date, $time ) . '</li>';
 			foreach ( $history as $h ) {
 				$h             = json_decode( $h );
@@ -311,7 +312,7 @@ function wpa_get_stats( $type = 'view', $count = 1 ) {
 				if ( is_array( $d ) ) {
 					$key   = wpa_map_key( $d[0] );
 					$count = $d[1];
-					$stat = "<span class='wpa-item-count'>$count</span> " . $key;
+					$stat  = "<span class='wpa-item-count'>$count</span> " . $key;
 				} else {
 					// If this is the timestamp, don't display here.
 					if ( is_numeric( $d ) ) {
@@ -353,7 +354,7 @@ function wpa_map_key( $key ) {
 		'html-lang-direction' => __( 'The language direction was set.', 'wp-accessibility' ),
 		'html-lang'           => __( 'The language of the page was set.', 'wp-accessibility' ),
 	);
-	$string = ( isset( $strings[ $key ] ) ) ? $strings[ $key ] : $key;
+	$string  = ( isset( $strings[ $key ] ) ) ? $strings[ $key ] : $key;
 
 	return $string;
 }
@@ -383,3 +384,20 @@ function wpa_format_stats( $type, $data, $history ) {
 	}
 	return '';
 }
+
+/**
+ * Filter post titles for user stats to display post ID.
+ *
+ * @param string $post_title The post title.
+ * @param int    $post_id The post ID.
+ *
+ * @return string
+ */
+function wpa_stats_title( $post_title, $post_id ) {
+	if ( 'wpa-stats' === get_post_type( $post_id ) && has_term( 'event', 'wpa-stats-type', $post_id ) ) {
+		return $post_id;
+	}
+
+	return $post_title;
+}
+add_filter( 'the_title', 'wpa_stats_title', 10, 2 );
