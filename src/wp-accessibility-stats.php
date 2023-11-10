@@ -259,15 +259,35 @@ function wpa_get_stats( $type = 'view', $count = 3 ) {
 
 		$line = '';
 		if ( 'event' === $type ) {
-			// translators: change made, date changed, time changed.
-			$hc_text = __( 'High contrast %1$s on %2$s at %3$s', 'wp-accessibility' );
-			// translators: change made, date changed, time changed.
-			$lf_text = __( 'Large font size %1$s on %2$s at %3$s', 'wp-accessibility' );
-			$first = ( property_exists( $data, 'contrast' ) ) ? $hc_text : $lf_text;
-			$param = ( property_exists( $data, 'contrast' ) ) ? 'contrast' : 'fontsize';
+			// translators: date changed, time changed.
+			$hc_text_enabled = __( 'High contrast enabled on %1$s at %2$s', 'wp-accessibility' );
+			// translators: date changed, time changed.
+			$lf_text_enabled = __( 'Large font size enabled on %1$s at %2$s', 'wp-accessibility' );
+			// translators: date changed, time changed.
+			$hc_text_disabled = __( 'High contrast disabled on %1$s at %2$s', 'wp-accessibility' );
+			// translators: date changed, time changed.
+			$lf_text_disabled = __( 'Large font size disabled on %1$s at %2$s', 'wp-accessibility' );
+			$param            = ( property_exists( $data, 'contrast' ) ) ? 'contrast' : 'fontsize';
+			if ( 'contrast' === $param ) {
+				switch ( $data->contrast ) {
+					case 'enabled':
+						$text = $hc_text_enabled;
+						break;
+					case 'disabled':
+						$text = $hc_text_disabled;
+				}
+			} else {
+				switch ( $data->fontsize ) {
+					case 'enabled':
+						$text = $lf_text_enabled;
+						break;
+					case 'disabled':
+						$text = $lf_text_disabled;
+				}
+			}
 			$date  = gmdate( 'Y-m-d', $data->timestamp );
 			$time  = gmdate( 'H:i', $data->timestamp );
-			$line = '<li>' . sprintf( $first, $data->{$param}, $date, $time ) . '</li>';
+			$line = '<li>' . sprintf( $text, $date, $time ) . '</li>';
 			foreach ( $history as $h ) {
 				$h             = json_decode( $h );
 				$has_font_size = ( property_exists( $h, 'fontsize' ) ) ? $h->fontsize : false;
@@ -275,9 +295,11 @@ function wpa_get_stats( $type = 'view', $count = 3 ) {
 				$change_date   = gmdate( 'Y-m-d', $h->timestamp );
 				$change_time   = gmdate( 'H:i', $h->timestamp );
 				if ( $has_font_size ) {
-					$line .= '<li>' . sprintf( $lf_text, $has_font_size, $change_date, $change_time ) . '</li>';
+					$lf_text = ( 'enabled' === $has_font_size ) ? $lf_text_enabled : $lf_text_disabled;
+					$line   .= '<li>' . sprintf( $lf_text, $change_date, $change_time ) . '</li>';
 				} elseif ( $has_contrast ) {
-					$line .= '<li>' . sprintf( $hc_text, $has_contrast, $change_date, $change_time ) . '</li>';
+					$hc_text = ( 'enabled' === $has_contrast ) ? $hc_text_enabled : $hc_text_disabled;
+					$line   .= '<li>' . sprintf( $hc_text, $change_date, $change_time ) . '</li>';
 				}
 			}
 		} else {
