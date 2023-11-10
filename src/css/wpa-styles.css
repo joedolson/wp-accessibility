@@ -184,8 +184,10 @@
 
 #wpa_dashboard_widget_stats div.wpa-header {
 	display: grid;
-	grid-template-columns: 70% 1fr;
+	grid-template-columns: clamp(160px, calc(2vw + 140px), 200px) auto;
 	align-items: start;
+	column-gap: 10px;
+	padding: 4px 12px;
 }
 
 #wpa_dashboard_widget_stats .wpa-header p,
@@ -194,14 +196,15 @@
 	padding: 0;
 }
 
-#wpa_dashboard_widget_stats ul.stats {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 2px;
-	margin: 10px 0;
+#wpa_dashboard_widget_stats .activity-block > ul > li {
+	margin: 8px -12px 0 -12px;
 }
 
-#wpa_dashboard_widget_stats .stats li {
-	padding: 3px;
-	background: rgba( 0,0,0, .02 );
+#wpa_dashboard_widget_stats ul.stats {
+	list-style-type: disc;
+	padding: .5rem 0 .5rem 2rem;
+}
+
+#wpa_dashboard_widget_stats .activity-block > ul > li:nth-child(2n+1) {
+	background-color: #f6f7f7;
 }
