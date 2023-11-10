@@ -652,38 +652,7 @@ function wpa_admin_sidebar() {
 						&lt;/p>
 					&lt;/div>
 				&lt;/div>
-				&lt;?php
-				$pro  = false;
-				$edac = false;
-				if ( function_exists( 'edac_check_plugin_active' ) ) {
-					$pro  = edac_check_plugin_active( 'accessibility-checker-pro/accessibility-checker-pro.php' );
-					$edac = true;
-				}
-				if ( ! $pro ) {
-					$promo_text = ( $edac ) ? __( 'Finding Accessibility Checker useful? Go Pro for more advanced accessibility testing options!', 'wp-accessibility' ) : __( 'Try Accessibility Checker by Equalize Digital - fast and efficient accessibility testing for your site!', 'wp-accessibility' );
-					?>
-				&lt;div class="postbox equalize-digital-promotion promotion">
-					&lt;h2 class='hndle'>&lt;?php _e( 'Ready to fix your site?', 'wp-accessibility' ); ?>&lt;/h2>
-
-					&lt;div class="inside">
-						&lt;div class="wpa-flex">
-							&lt;img src="&lt;?php echo plugins_url( 'imgs/Equalize-Digital-Accessibility-Emblem-400x400-1.png', __FILE__ ); ?>" alt="Accessibility Checker" />
-							&lt;p class="small">
-								&lt;?php echo esc_html( $promo_text ); ?>
-							&lt;/p>
-						&lt;/div>
-						&lt;p class="coupon small">&lt;strong>&lt;?php _e( 'Use coupon code &lt;code>WPAccessibility&lt;/code> for 20% off!', 'wp-accessibility' ); ?>&lt;/strong>&lt;/p>
-						&lt;p class="wpa-affiliate">
-							&lt;a href="https://equalizedigital.com/accessibility-checker/pricing/?ref=joedolson&amp;discount=WPAccessibility&amp;campaign=wpaccessibility" aria-describedby="wpa-affiliate-notice">&lt;?php _e( 'Get Accessibility Checker', 'wp-accessibility' ); ?>&lt;/a>
-						&lt;/p>
-						&lt;p class="wpa-affiliate-notice" id="wpa-affiliate-notice">
-							(&lt;?php _e( 'Affiliate Link', 'wp-accessibility' ); ?>)
-						&lt;/p>
-					&lt;/div>
-				&lt;/div>
-					&lt;?php
-				}
-				?>
+				&lt;?php wpa_edac_promotion(); ?>
 
 				&lt;div class="postbox">
 					&lt;h2 class='hndle'>&lt;?php _e( 'Accessibility References', 'wp-accessibility' ); ?>&lt;/h2>
@@ -751,6 +720,57 @@ function wpa_admin_sidebar() {
 		&lt;/div>
 	&lt;/div>
 	&lt;?php
+}
+
+/**
+ * Show Equalize Digital Accessibility Checker promotion.
+ */
+function wpa_edac_promotion( $type = 'large' ) {
+	$pro  = false;
+	$edac = false;
+	if ( function_exists( 'edac_check_plugin_active' ) ) {
+		$pro  = edac_check_plugin_active( 'accessibility-checker-pro/accessibility-checker-pro.php' );
+		$edac = true;
+	}
+	if ( ! $pro ) {
+		if ( 'large' === $type ) {
+			$promo_text = ( $edac ) ? __( 'Finding Accessibility Checker useful? Go Pro for more advanced accessibility testing options!', 'wp-accessibility' ) : __( 'Try Accessibility Checker by Equalize Digital - fast and efficient accessibility testing for your site!', 'wp-accessibility' );
+			?>
+		&lt;div class="postbox equalize-digital-promotion promotion">
+			&lt;h2 class='hndle'>&lt;?php _e( 'Ready to fix your site?', 'wp-accessibility' ); ?>&lt;/h2>
+
+			&lt;div class="inside">
+				&lt;div class="wpa-flex">
+					&lt;img src="&lt;?php echo plugins_url( 'imgs/Equalize-Digital-Accessibility-Emblem-400x400-1.png', __FILE__ ); ?>" alt="Accessibility Checker" />
+					&lt;p class="small">
+						&lt;?php echo esc_html( $promo_text ); ?>
+					&lt;/p>
+				&lt;/div>
+				&lt;p class="coupon small">&lt;strong>&lt;?php _e( 'Use coupon code &lt;code>WPAccessibility&lt;/code> for 20% off!', 'wp-accessibility' ); ?>&lt;/strong>&lt;/p>
+				&lt;p class="wpa-affiliate">
+					&lt;a href="https://equalizedigital.com/accessibility-checker/pricing/?ref=joedolson&amp;discount=WPAccessibility&amp;campaign=wpaccessibility" aria-describedby="wpa-affiliate-notice">&lt;?php _e( 'Get Accessibility Checker', 'wp-accessibility' ); ?>&lt;/a>
+				&lt;/p>
+				&lt;p class="wpa-affiliate-notice" id="wpa-affiliate-notice">
+					(&lt;?php _e( 'Affiliate Link', 'wp-accessibility' ); ?>)
+				&lt;/p>
+			&lt;/div>
+		&lt;/div>
+			&lt;?php
+		} else {
+			?>
+		&lt;div class="wpad-small-promotion">
+			&lt;h3>Need help fixing accessibility issues?&lt;/h3>
+			&lt;p class="coupon small">&lt;strong>&lt;?php _e( 'Use coupon code &lt;code>WPAccessibility&lt;/code> for 20% off!', 'wp-accessibility' ); ?>&lt;/strong>&lt;/p>
+			&lt;p class="wpa-affiliate">
+				&lt;a href="https://equalizedigital.com/accessibility-checker/pricing/?ref=joedolson&amp;discount=WPAccessibility&amp;campaign=wpaccessibility" aria-describedby="wpa-affiliate-notice">&lt;?php _e( 'Buy Accessibility Checker from Equalize Digital', 'wp-accessibility' ); ?>&lt;/a>
+			&lt;/p>
+			&lt;p class="wpa-affiliate-notice" id="wpa-affiliate-notice">
+				(&lt;?php _e( 'Affiliate Link', 'wp-accessibility' ); ?>)
+			&lt;/p>
+		&lt;/div>
+			&lt;?php
+		}
+	}
 }
 
 // Use Codemirror for Skiplink style fields.
