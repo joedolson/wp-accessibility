@@ -14,12 +14,12 @@
  */
 function wpa_post_type() {
 	$labels = array(
-		'name'               => 'WP Accessibility Stats Record',
-		'singular_name'      => 'Stats',
-		'menu_name'          => 'Accessibility Stats',
+		'name'               => __( 'WP Accessibility Stats Record', 'wp-accessibility' ),
+		'singular_name'      => __( 'Stats', 'wp-accessibility' ),
+		'menu_name'          => __( 'Accessibility Stats', 'wp-accessibility' ),
 		'add_new'            => __( 'Add New', 'wp-accessibility' ),
 		'add_new_item'       => __( 'Create New', 'wp-accessibility' ),
-		'edit_item'          => __( 'Modify', 'wp-accessibility' ),
+		'edit_item'          => __( 'Edit Stats', 'wp-accessibility' ),
 		'new_item'           => __( 'New', 'wp-accessibility' ),
 		'view_item'          => __( 'View', 'wp-accessibility' ),
 		'search_items'       => __( 'Search', 'wp-accessibility' ),
@@ -37,7 +37,11 @@ function wpa_post_type() {
 		'menu_icon'           => 'dashicons-universal-access',
 		'query_var'           => true,
 		'hierarchical'        => false,
-		'supports'            => array( 'title', 'editor', 'custom-fields' ),
+		'supports'            => array( 'title', 'custom-fields' ),
+		'capabilities'        => array(
+			'create_posts' => false,
+		),
+		'map_meta_cap'        => true,
 	);
 	register_post_type( 'wpa-stats', $args );
 }
@@ -60,7 +64,6 @@ function wpa_taxonomies() {
 	);
 }
 add_action( 'init', 'wpa_taxonomies', 0 );
-
 
 /**
  * Register statistics.
@@ -242,91 +245,107 @@ function wpa_get_stats( $type = 'view', $count = 1 ) {
 	}
 
 	foreach ( $posts->posts as $post ) {
-		$post_ID  = $post->ID;
-		$data     = json_decode( $post->post_content );
-		$history  = get_post_meta( $post_ID, 'wpa_event' );
-		$relative = get_post_meta( $post_ID, '_wpa_post_id', true );
-		echo '<li><div class="wpa-header"><h3><strong>' . gmdate( get_option( 'date_format' ), $data->timestamp ) . '</strong><br />' . gmdate( get_option( 'time_format' ), $data->timestamp ) . '</h3>';
-
-		$post_title = ( $relative ) ? get_the_title( $relative ) : 'User action';
-		$post_link  = ( $relative ) ? get_the_permalink( $relative ) : '';
-		$append     = '';
-		if ( 'event' === $type ) {
-			// translators: Post ID.
-			$append = ' / ' . sprintf( __( 'User %s', 'wp-accessibility' ), '<code>' . $post->ID . '</code>' );
-		}
-		if ( $post_link ) {
-			echo '<p><a href="' . esc_url( $post_link ) . '">' . $post_title . '</a>' . $append . '</p>';
-		} else {
-			echo '<p><strong>' . $post_title . '</strong>' . $append . '</p>';
-		}
-		echo '</div>';
-
-		$line = '';
-		if ( 'event' === $type ) {
-			// translators: date changed, time changed.
-			$hc_text_enabled = __( 'High contrast enabled on %1$s at %2$s', 'wp-accessibility' );
-			// translators: date changed, time changed.
-			$lf_text_enabled = __( 'Large font size enabled on %1$s at %2$s', 'wp-accessibility' );
-			// translators: date changed, time changed.
-			$hc_text_disabled = __( 'High contrast disabled on %1$s at %2$s', 'wp-accessibility' );
-			// translators: date changed, time changed.
-			$lf_text_disabled = __( 'Large font size disabled on %1$s at %2$s', 'wp-accessibility' );
-			$param            = ( property_exists( $data, 'contrast' ) ) ? 'contrast' : 'fontsize';
-			if ( 'contrast' === $param ) {
-				switch ( $data->contrast ) {
-					case 'enabled':
-						$text = $hc_text_enabled;
-						break;
-					case 'disabled':
-						$text = $hc_text_disabled;
-				}
-			} else {
-				switch ( $data->fontsize ) {
-					case 'enabled':
-						$text = $lf_text_enabled;
-						break;
-					case 'disabled':
-						$text = $lf_text_disabled;
-				}
-			}
-			$date = gmdate( 'Y-m-d', $data->timestamp );
-			$time = gmdate( 'H:i', $data->timestamp );
-			$line = '<li>' . sprintf( $text, $date, $time ) . '</li>';
-			foreach ( $history as $h ) {
-				$h             = json_decode( $h );
-				$has_font_size = ( property_exists( $h, 'fontsize' ) ) ? $h->fontsize : false;
-				$has_contrast  = ( property_exists( $h, 'contrast' ) ) ? $h->contrast : false;
-				$change_date   = gmdate( 'Y-m-d', $h->timestamp );
-				$change_time   = gmdate( 'H:i', $h->timestamp );
-				if ( $has_font_size ) {
-					$lf_text = ( 'enabled' === $has_font_size ) ? $lf_text_enabled : $lf_text_disabled;
-					$line   .= '<li>' . sprintf( $lf_text, $change_date, $change_time ) . '</li>';
-				} elseif ( $has_contrast ) {
-					$hc_text = ( 'enabled' === $has_contrast ) ? $hc_text_enabled : $hc_text_disabled;
-					$line   .= '<li>' . sprintf( $hc_text, $change_date, $change_time ) . '</li>';
-				}
-			}
-		} else {
-			foreach ( $data as $d ) {
-				if ( is_array( $d ) ) {
-					$key   = wpa_map_key( $d[0] );
-					$count = $d[1];
-					$stat  = "<span class='wpa-item-count'>$count</span> " . $key;
-				} else {
-					// If this is the timestamp, don't display here.
-					if ( is_numeric( $d ) ) {
-						continue;
-					}
-					$stat = wpa_map_key( $d );
-				}
-				$line .= '<li>' . $stat . '</li>';
-			}
-		}
-
-		echo '<ul class="stats">' . $line . '</ul></li>';
+		$data_point = wpa_stats_data_point( $post, $type );
+		echo $data_point;
+	
 	}
 	echo '</ul></div>';
+}
+
+/**
+ * Format a single stats data point.
+ *
+ * @param object $post WP Post.
+ * @param string $type Stats type.
+ *
+ * @return string
+ */
+function wpa_stats_data_point( $post, $type ) {
+	$output   = '';
+	$post_ID  = $post->ID;
+	$data     = json_decode( $post->post_content );
+	$history  = get_post_meta( $post_ID, 'wpa_event' );
+	$relative = get_post_meta( $post_ID, '_wpa_post_id', true );
+	$output  .= '<li><div class="wpa-header"><h3><strong>' . gmdate( get_option( 'date_format' ), $data->timestamp ) . '</strong><br />' . gmdate( get_option( 'time_format' ), $data->timestamp ) . '</h3>';
+
+	$post_title = ( $relative ) ? get_the_title( $relative ) : 'User action';
+	$post_link  = ( $relative ) ? get_the_permalink( $relative ) : '';
+	$append     = '';
+	if ( 'event' === $type ) {
+		// translators: Post ID.
+		$append = ' / ' . sprintf( __( 'User %s', 'wp-accessibility' ), '<code>' . $post->ID . '</code>' );
+	}
+	if ( $post_link ) {
+		$output .= '<p><a href="' . esc_url( $post_link ) . '">' . $post_title . '</a>' . $append . '</p>';
+	} else {
+		$output .= '<p><strong>' . $post_title . '</strong>' . $append . '</p>';
+	}
+	$output .= '</div>';
+
+	$line = '';
+	if ( 'event' === $type ) {
+		// translators: date changed, time changed.
+		$hc_text_enabled = __( 'High contrast enabled on %1$s at %2$s', 'wp-accessibility' );
+		// translators: date changed, time changed.
+		$lf_text_enabled = __( 'Large font size enabled on %1$s at %2$s', 'wp-accessibility' );
+		// translators: date changed, time changed.
+		$hc_text_disabled = __( 'High contrast disabled on %1$s at %2$s', 'wp-accessibility' );
+		// translators: date changed, time changed.
+		$lf_text_disabled = __( 'Large font size disabled on %1$s at %2$s', 'wp-accessibility' );
+		$param            = ( property_exists( $data, 'contrast' ) ) ? 'contrast' : 'fontsize';
+		if ( 'contrast' === $param ) {
+			switch ( $data->contrast ) {
+				case 'enabled':
+					$text = $hc_text_enabled;
+					break;
+				case 'disabled':
+					$text = $hc_text_disabled;
+			}
+		} else {
+			switch ( $data->fontsize ) {
+				case 'enabled':
+					$text = $lf_text_enabled;
+					break;
+				case 'disabled':
+					$text = $lf_text_disabled;
+			}
+		}
+		$date = gmdate( 'Y-m-d', $data->timestamp );
+		$time = gmdate( 'H:i', $data->timestamp );
+		$line = '<li>' . sprintf( $text, $date, $time ) . '</li>';
+		foreach ( $history as $h ) {
+			$h             = json_decode( $h );
+			$has_font_size = ( property_exists( $h, 'fontsize' ) ) ? $h->fontsize : false;
+			$has_contrast  = ( property_exists( $h, 'contrast' ) ) ? $h->contrast : false;
+			$change_date   = gmdate( 'Y-m-d', $h->timestamp );
+			$change_time   = gmdate( 'H:i', $h->timestamp );
+			if ( $has_font_size ) {
+				$lf_text = ( 'enabled' === $has_font_size ) ? $lf_text_enabled : $lf_text_disabled;
+				$line   .= '<li>' . sprintf( $lf_text, $change_date, $change_time ) . '</li>';
+			} elseif ( $has_contrast ) {
+				$hc_text = ( 'enabled' === $has_contrast ) ? $hc_text_enabled : $hc_text_disabled;
+				$line   .= '<li>' . sprintf( $hc_text, $change_date, $change_time ) . '</li>';
+			}
+		}
+	} else {
+		foreach ( $data as $d ) {
+			if ( is_array( $d ) ) {
+				$key   = wpa_map_key( $d[0] );
+				$count = $d[1];
+				$stat  = "<span class='wpa-item-count'>$count</span> " . $key;
+			} else {
+				// If this is the timestamp, don't display here.
+				if ( is_numeric( $d ) ) {
+					continue;
+				}
+				$stat = wpa_map_key( $d );
+			}
+			$line .= '<li>' . $stat . '</li>';
+		}
+	}
+	$output .= '<ul class="stats">' . $line . '</ul></li>';
+
+	return $output;
 }
 
 /**
@@ -395,7 +414,11 @@ function wpa_format_stats( $type, $data, $history ) {
  */
 function wpa_stats_title( $post_title, $post_id ) {
 	if ( 'wpa-stats' === get_post_type( $post_id ) && has_term( 'event', 'wpa-stats-type', $post_id ) ) {
-		return $post_id;
+		// translators: Post ID.
+		return sprintf( __( 'User: %d', 'wp-accessibility' ), $post_id );
+	} elseif ( 'wpa-stats' === get_post_type( $post_id ) ) {
+		// translators: URL path.
+		return sprintf( __( 'Page view: %s', 'wp-accessibility' ), $post_title );
 	}
 
 	return $post_title;
@@ -409,7 +432,6 @@ add_action( 'admin_init', 'wpa_add' );
  * Add custom columns to payments post type page.
  */
 function wpa_add() {
-	add_action( 'admin_head', 'wpa_css' );
 	add_filter( 'manage_wpa-stats_posts_columns', 'wpa_column' );
 	add_action( 'manage_wpa-stats_posts_custom_column', 'wpa_custom_column', 10, 2 );
 }
@@ -423,6 +445,7 @@ function wpa_add() {
  */
 function wpa_column( $cols ) {
 	$cols['wpa_type'] = __( 'Statistic Type', 'my-tickets' );
+	$cols['wpa_last'] = __( 'Last Action', 'wp-accessibility' );
 
 	return $cols;
 }
@@ -434,10 +457,55 @@ function wpa_column( $cols ) {
  * @param int    $id Post ID.
  */
 function wpa_custom_column( $column_name, $post_id ) {
+	$stat = ( has_term( 'event', 'wpa-stats-type', $post_id ) ) ? 'event' : 'view';
 	switch ( $column_name ) {
 		case 'wpa_type':
-			$type = ( has_term( 'event', 'wpa-stats-type', $post_id ) ) ? __( 'User Action', 'wp-accessibility' ) : __( 'Page View', 'wp-accessibility' );
-			echo $type;
+			$type = ( 'event' === $stat ) ? __( 'User Action', 'wp-accessibility' ) : __( 'Page View', 'wp-accessibility' );
+			echo '<span class="dashicons dashicons-admin-page" aria-hidden="true"></span> ' . $type;
+			break;
+		case 'wpa_last':
+			$events = get_post_meta( $post_id, 'wpa_event' );
+			if ( $events && is_array( $events ) ) {
+				$event  = json_decode( end( $events ) );
+			} else {
+				$event = json_decode( get_post( $post_id )->post_content );
+			}
+			if ( 'event' === $stat ) {
+				$data  = ( property_exists( $event, 'contrast' ) ) ? 'contrast' : 'fontsize';
+				$icon  = ( 'contrast' === $data ) ? ' aticon aticon-adjust' : ' aticon aticon-font';
+				$label = ( property_exists( $event, 'contrast' ) ) ? __( 'High Contrast', 'wp-accessibility' ) : __( 'Large Font Size', 'wp-accessibility' );
+				// translators: Action taken. High Contrast or Large Font Size.
+				$last_action = (  'enabled' === $event->{$data} ) ? sprintf( __( '%s enabled', 'wp-accessibility' ), $label ) : sprintf( __( '%s disabled', 'wp-accessibility' ), $label );
+			} else {
+				if ( ! $events ) {
+					$icon        = 'download';
+					$last_action = __( 'Page loaded', 'wp-accessibility' );
+				} else {
+					$icon = 'update';
+					// translators: Date of change.
+					$last_action = sprintf( __( 'Accessibility Fixes changed on %s', 'wp-accessibility' ), gmdate( 'Y-m-d', $event->timestamp ) );
+				}
+			}
+			echo '<span class="dashicons dashicons-' . $icon . '" aria-hidden="true"></span> ' . $last_action;
 			break;
 	}
+}
+
+add_action( 'add_meta_boxes', 'wpa_add_meta_boxes' );
+/**
+ * Load  meta boxes for tickets.
+ *
+ * @return void
+ */
+function wpa_add_meta_boxes() {
+	add_meta_box( 'wpa_stats', __( 'WP Accessibility Statistics', 'my-tickets' ), 'wpa_display_stats', 'wpa-stats', 'normal', 'high' );
+}
+
+/**
+ * Display stats data.
+ */
+function wpa_display_stats() {
+	global $post;
+	$type = ( has_term( 'event', 'wpa-stats-type', $post->ID ) ) ? 'event' : 'view';
+	echo '<div class="activity-block"><ul>' . wpa_stats_data_point( $post, $type ) . '</ul></div>';
 }

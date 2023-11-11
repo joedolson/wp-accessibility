@@ -181,7 +181,7 @@
 #wpa_settings_page .hndle, .settings_page_wp-accessibility-wp-accessibility .hndle {
 	cursor: auto !important;
 }
-
+#wpa_stats .wpa-header,
 #wpa_dashboard_widget_stats div.wpa-header {
 	display: grid;
 	grid-template-columns: clamp(160px, calc(2vw + 140px), 200px) auto;
@@ -190,6 +190,8 @@
 	padding: 4px 12px;
 }
 
+#wpa_stats .wpa-header p,
+#wpa_stats .wpa-header h3,
 #wpa_dashboard_widget_stats .wpa-header p,
 #wpa_dashboard_widget_stats .wpa-header h3 {
 	margin: 0;
@@ -197,14 +199,17 @@
 }
 
 .wpad-small-promotion,
+#wpa_stats .activity-block > ul > li,
 #wpa_dashboard_widget_stats .activity-block > ul > li {
 	margin: 8px -12px 0 -12px;
 }
 
+#wpa_stats .inside,
 #wpa_dashboard_widget_stats .inside {
 	padding-bottom: 0;
 }
 
+#wpa_stats .inside p:last-of-type,
 #wpa_dashboard_widget_stats .inside p:last-of-type {
 	margin-bottom: 0;
 	padding-bottom: 1rem;
@@ -253,11 +258,17 @@
 
 }
 
+#wpa_stats ul.stats,
 #wpa_dashboard_widget_stats ul.stats {
 	list-style-type: disc;
 	padding: .5rem 0 .5rem 2rem;
 }
 
+#wpa_stats .activity-block > ul > li:nth-child(2n+1),
 #wpa_dashboard_widget_stats .activity-block > ul > li:nth-child(2n+1) {
 	background-color: #f6f7f7;
+}
+
+#wpa-stats-typediv {
+	display: none;
 }
