@@ -44,12 +44,16 @@ add_action( 'admin_enqueue_scripts', 'wpa_admin_styles' );
  * Enqueue admin stylesheets.
  */
 function wpa_admin_styles() {
-	$screen = get_current_screen();
-	if ( 'dashboard' === $screen->base || ( isset( $_GET['page'] ) &amp;&amp; ( 'wp-accessibility' === $_GET['page'] || 'wp-accessibility-help' === $_GET['page'] ) ) ) {
+	$screen        = get_current_screen();
+	$is_stats_type = ( 'wpa-stats' === $screen->id || 'edit-wpa-stats' === $screen->id ) ? true : false;
+	if ( $is_stats_type || 'dashboard' === $screen->base || ( isset( $_GET['page'] ) &amp;&amp; ( 'wp-accessibility' === $_GET['page'] || 'wp-accessibility-help' === $_GET['page'] ) ) ) {
 		$version = wpa_check_version();
 		if ( WP_DEBUG ) {
 			$version = $version . '-' . wp_rand( 10000, 50000 );
 		}
+		wp_register_style( 'ui-font', plugins_url( 'toolbar/fonts/css/a11y-toolbar.css', __FILE__ ), array(), $version );
+		wp_enqueue_style( 'ui-font' );
+
 		wp_enqueue_style( 'wpa-styles', plugins_url( 'css/wpa-styles.css', __FILE__ ), array( 'farbtastic' ), $version );
 		wp_enqueue_style( 'wp-color-picker' );
 		// Switch to wp_add_inline_script when no longer supporting WP 4.4.x.
