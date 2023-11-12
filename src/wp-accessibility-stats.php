@@ -97,11 +97,14 @@ function wpa_add_stats( $stats, $title, $type = 'view', $post_ID = 0 ) {
 			'post_date'    => current_time( 'Y-m-d H:i:s' ),
 			'post_type'    => 'wpa-stats',
 		);
-		$stat = wp_insert_post( $post );
-		wp_set_object_terms( $stat, array( $type ), 'wpa-stats-type' );
+		$stat  = wp_insert_post( $post );
+		$terms = array( $type );
 		require_once( ABSPATH . '/wp-admin/includes/dashboard.php' );
 		$browser = wp_check_browser_version();
 		add_post_meta( $stat, '_wpa_browser', json_encode( $browser ) );
+		$terms[] = $browser['name'];
+		$terms[] = $browser['platform'];
+		wp_set_object_terms( $stat, $terms, 'wpa-stats-type' );
 		if ( $post_ID ) {
 			// Set up relationships between stats and posts.
 			update_post_meta( $stat, '_wpa_post_id', $post_ID );
@@ -242,7 +245,7 @@ function wpa_get_stats( $type = 'view', $count = 1 ) {
 
 	$posts = new WP_Query( $query );
 	if ( 'view' === $type ) {
-		echo '<div class="activity-block"><div class="wpa-stats-heading"><h3>' . __( 'Pages Viewed', 'wp-accessibility' ) . '</h3><a href="' . add_query_arg( 'wpa-stats-type', $type, admin_url( 'edit.php?post_type=wpa-stats' ) ) . '">' . __( 'View Stats', 'wp-accessibility' ) . '</a></div><ul>';
+		echo '<div class="activity-block"><div class="wpa-stats-heading"><h3>' . __( 'Pages Viewed', 'wp-accessibility' ) . '</h3><a href="' . add_query_arg( 'wpa-stats-type', $type, admin_url( 'edit.php?post_type=wpa-stats' ) ) . '">' . __( 'Page Stats', 'wp-accessibility' ) . '</a></div><ul>';
 	} else {
 		echo '<div class="activity-block"><div class="wpa-stats-heading"><h3>' . __( 'User Actions', 'wp-accessibility' ) . '</h3><a href="' . add_query_arg( 'wpa-stats-type', $type, admin_url( 'edit.php?post_type=wpa-stats' ) ) . '">' . __( 'User Stats', 'wp-accessibility' ) . '</a></div><ul>';
 	}
@@ -364,7 +367,7 @@ function wpa_get_browser_stat( $post_ID ) {
 	$browser = get_post_meta( $post_ID, '_wpa_browser', true );
 	if ( $browser ) {
 		$browser = json_decode( $browser );
-		$browser = '<span class="wpa-browser"><img src="' . esc_url( $browser->img_src_ssl ) . '" alt="" width="20" height="20"> ' . esc_html( $browser->name . '/' . $browser->platform ) . '</span>';
+		$browser = '<span class="wpa-browser"><img src="' . esc_url( $browser->img_src_ssl ) . '" alt="" width="20" height="20"> ' . esc_html( $browser->name . ' ' . $browser->version . '/' . $browser->platform ) . '</span>';
 	} else {
 		$browser = __( 'Unknown browser', 'wp-accessibility' );
 	}
@@ -517,9 +520,8 @@ function wpa_custom_column( $column_name, $post_id ) {
 			if ( 'event' === $stat ) {
 				echo wpa_get_browser_stat( $post_id );
 			} else {
-				echo '--';
+				echo __( 'N/A', 'wp-accessibility' );
 			}
-
 	}
 }
 

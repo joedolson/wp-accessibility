@@ -254,8 +254,13 @@ span.wpa-browser {
 	margin-bottom: 0;
 }
 
+#wpa_dashboard_widget_stats .activity-block {
+	margin-bottom: 0;
+}
+
 .wpa-stats-heading + ul {
 	margin-top: 0;
+	margin-bottom: 0;
 }
 
 .wpa-stats-heading a {
