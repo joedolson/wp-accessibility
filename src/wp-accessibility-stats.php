@@ -69,7 +69,7 @@ add_action( 'init', 'wpa_taxonomies', 0 );
  * Register statistics.
  *
  * @param array      $stats Stats data for a page. Array of tests & results.
- * @param string     $title Title for the stats record. Usually a relative URL.
+ * @param string     $title Title for the stats record. Usually a relative URL for page views, 
  * @param string     $type Type of stat: view or action.
  * @param int|string $post_ID ID of the post if singular.
  */
@@ -79,15 +79,15 @@ function wpa_add_stats( $stats, $title, $type = 'view', $post_ID = 0 ) {
 	if ( $exists ) {
 		if ( 'action' === $type ) {
 			// Log all on/off states for toolbar.
-			add_post_meta( $exists, 'wpa_event', $stats );
+			add_post_meta( $exists, '_wpa_event', $stats );
 		} else {
 			$old_stats = get_post( $exists )->post_content;
 			if ( $stats !== $old_stats ) {
 				// stats have changed; record the change.
-				add_post_meta( $exists, 'wpa_event', $stats );
+				add_post_meta( $exists, '_wpa_event', $stats );
 			}
 		}
-		return array( 'metadata logged' );
+		return array( $exists, $stats );
 	} else {
 		$post = array(
 			'post_title'   => str_replace( home_url(), '', $title ),
@@ -99,12 +99,15 @@ function wpa_add_stats( $stats, $title, $type = 'view', $post_ID = 0 ) {
 		);
 		$stat = wp_insert_post( $post );
 		wp_set_object_terms( $stat, array( $type ), 'wpa-stats-type' );
+		require_once( ABSPATH . '/wp-admin/includes/dashboard.php' );
+		$browser = wp_check_browser_version();
+		add_post_meta( $stat, '_wpa_browser', json_encode( $browser ) );
 		if ( $post_ID ) {
 			// Set up relationships between stats and posts.
 			update_post_meta( $stat, '_wpa_post_id', $post_ID );
 			update_post_meta( $post, '_wpa_stat_id', $stat );
 		}
-		return array( 'stats logged' );
+		return array( 'newpost' => $stat, 'query' => $post );
 	}
 }
 
@@ -206,8 +209,7 @@ add_action( 'wp_dashboard_setup', 'wpa_dashboard_widget' );
  */
 function wpa_dashboard_widget_stats_handler() {
 	echo '<p>';
-	_e( 'WP Accessibility tracks accessibility changes it makes to your site, and records when vistors change font size and high contrast options. No personally identifying data is stored.', 'wp-accessibility' );
-	echo ' <a href="' . admin_url( 'edit.php?post_type=wpa-stats' ) . '">' . __( 'More stats', 'wp-accessibility' ) . '</a>';
+	_e( 'WP Accessibility tracks accessibility changes it makes to your site, and records when visitors change font size and high contrast options. No personally identifying data is stored.', 'wp-accessibility' );
 	echo '</p>';
 	wpa_get_stats( 'view' );
 	wpa_get_stats( 'event' );
@@ -224,11 +226,12 @@ function wpa_dashboard_widget_stats_handler() {
  */
 function wpa_get_stats( $type = 'view', $count = 1 ) {
 	$query = array(
-		'post_type'   => 'wpa-stats',
-		'numberposts' => $count,
-		'orderby'     => 'date',
-		'order'       => 'desc',
-		'tax_query'   => array(
+		'post_type'      => 'wpa-stats',
+		'numberposts'    => $count,
+		'posts_per_page' => $count,
+		'orderby'        => 'date',
+		'order'          => 'desc',
+		'tax_query'      => array(
 			array(
 				'taxonomy' => 'wpa-stats-type',
 				'field'    => 'slug',
@@ -239,9 +242,9 @@ function wpa_get_stats( $type = 'view', $count = 1 ) {
 
 	$posts = new WP_Query( $query );
 	if ( 'view' === $type ) {
-		echo '<div class="activity-block"><h3>' . __( 'Accessibility Fixes', 'wp-accessibility' ) . '</h3><ul>';
+		echo '<div class="activity-block"><div class="wpa-stats-heading"><h3>' . __( 'Pages Viewed', 'wp-accessibility' ) . '</h3><a href="' . add_query_arg( 'wpa-stats-type', $type, admin_url( 'edit.php?post_type=wpa-stats' ) ) . '">' . __( 'View Stats', 'wp-accessibility' ) . '</a></div><ul>';
 	} else {
-		echo '<div class="activity-block"><h3>' . __( 'User Actions', 'wp-accessibility' ) . '</h3><ul>';
+		echo '<div class="activity-block"><div class="wpa-stats-heading"><h3>' . __( 'User Actions', 'wp-accessibility' ) . '</h3><a href="' . add_query_arg( 'wpa-stats-type', $type, admin_url( 'edit.php?post_type=wpa-stats' ) ) . '">' . __( 'User Stats', 'wp-accessibility' ) . '</a></div><ul>';
 	}
 
 	foreach ( $posts->posts as $post ) {
@@ -264,16 +267,24 @@ function wpa_stats_data_point( $post, $type ) {
 	$output   = '';
 	$post_ID  = $post->ID;
 	$data     = json_decode( $post->post_content );
-	$history  = get_post_meta( $post_ID, 'wpa_event' );
+	$history  = get_post_meta( $post_ID, '_wpa_event' );
 	$relative = get_post_meta( $post_ID, '_wpa_post_id', true );
 	$output  .= '<li><div class="wpa-header"><h3><strong>' . gmdate( get_option( 'date_format' ), $data->timestamp ) . '</strong><br />' . gmdate( get_option( 'time_format' ), $data->timestamp ) . '</h3>';
 
-	$post_title = ( $relative ) ? get_the_title( $relative ) : 'User action';
-	$post_link  = ( $relative ) ? get_the_permalink( $relative ) : '';
+	// translators: path stats are related to.
+	$url        = ( str_contains( $post->post_title, '/' ) ) ? home_url( $post->post_title ) : '';
+	$post_title = ( $relative ) ? get_the_title( $relative ) : sprintf( __( 'View: %s', 'wp-accessibility' ), $url );
+	$post_link  = ( $relative ) ? get_the_permalink( $relative ) : $url;
 	$append     = '';
 	if ( 'event' === $type ) {
+		$browser = get_post_meta( $post_ID, '_wpa_browser', true );
+		if ( $browser ) {
+			$browser = json_decode( $browser );
+			$browser = '<span class="wpa-browser"><img src="' . esc_url( $browser->img_src_ssl ) . '" alt="" width="20" height="20"> ' . esc_html( $browser->name . '/' . $browser->platform ) . '</span>';
+		}
+		// version = 'version'.
 		// translators: Post ID.
-		$append = ' / ' . sprintf( __( 'User %s', 'wp-accessibility' ), '<code>' . $post->ID . '</code>' );
+		$append = ' / ' . sprintf( __( 'User %s', 'wp-accessibility' ), '<code>' . $post->ID . '</code>' ) . '<br />' . $browser;
 	}
 	if ( $post_link ) {
 		$output .= '<p><a href="' . esc_url( $post_link ) . '">' . $post_title . '</a>' . $append . '</p>';
@@ -464,7 +475,7 @@ function wpa_custom_column( $column_name, $post_id ) {
 			echo '<span class="dashicons dashicons-admin-page" aria-hidden="true"></span> ' . $type;
 			break;
 		case 'wpa_last':
-			$events = get_post_meta( $post_id, 'wpa_event' );
+			$events = get_post_meta( $post_id, '_wpa_event' );
 			if ( $events && is_array( $events ) ) {
 				$event  = json_decode( end( $events ) );
 			} else {

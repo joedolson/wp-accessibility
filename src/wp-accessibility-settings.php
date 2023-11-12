@@ -740,13 +740,15 @@ function wpa_edac_promotion( $type = 'large' ) {
 			?>
 		<div class="wpad-small-promotion">
 			<h3>Need help fixing accessibility issues?</h3>
-			<p class="coupon small"><strong><?php _e( 'Use coupon code <code>WPAccessibility</code> for 20% off!', 'wp-accessibility' ); ?></strong></p>
-			<p class="wpa-affiliate">
-				<a href="https://equalizedigital.com/accessibility-checker/pricing/?ref=joedolson&discount=WPAccessibility&campaign=wpaccessibility" aria-describedby="wpa-affiliate-notice"><?php _e( 'Buy Accessibility Checker from Equalize Digital', 'wp-accessibility' ); ?></a>
-			</p>
-			<p class="wpa-affiliate-notice" id="wpa-affiliate-notice">
-				(<?php _e( 'Affiliate Link', 'wp-accessibility' ); ?>)
-			</p>
+			<p class="coupon small"><?php _e( 'Use coupon code <code>WPAccessibility</code> for 20% off <strong>Accessibility Checker Pro</strong> at <a href="https://equalizedigital.com/?ref=joedolson&discount=WPAccessibility&campaign=wpaccessibility" aria-describedby="wpa-affiliate-notice">Equalize Digital</a>!', 'wp-accessibility' ); ?></p>
+			<div class="wpa-flex">
+				<p class="wpa-affiliate">
+					<a href="https://equalizedigital.com/accessibility-checker/pricing/?ref=joedolson&discount=WPAccessibility&campaign=wpaccessibility" aria-describedby="wpa-affiliate-notice"><?php _e( 'Buy Accessibility Checker', 'wp-accessibility' ); ?></a>
+				</p>
+				<p class="wpa-affiliate-notice" id="wpa-affiliate-notice">
+					<?php _e( 'Affiliate Links', 'wp-accessibility' ); ?>
+				</p>
+			</div>
 		</div>
 			<?php
 		}

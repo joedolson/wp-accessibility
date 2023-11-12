@@ -250,7 +250,6 @@
 			'title' : wpa.hash,
 			'type' : 'event'
 		};
-		console.log( data );
 		$.post( wpa.ajaxurl, data, function () {}, "json" );
 	});
 

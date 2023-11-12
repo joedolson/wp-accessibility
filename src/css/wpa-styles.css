@@ -216,25 +216,55 @@
 }
 
 .wpad-small-promotion {
-	background: #F3CD1E;
-	color: #072446;
+	background: #dbf6ff;
+	color: #233c7f;
 	margin-top: 0;
-	border-top: 4px solid #072446;
+	border-top: 4px solid #233c7f;
 	padding: 12px 0;
 }
 
 .wpad-small-promotion .wpa-affiliate a {
 	font-size: 1rem;
-	color: #072446;
-	border: 1px solid;
+	color: #233c7f;
+	border: 2px solid #233c7f;
 	padding: 4px;
 	border-radius:3px;
 	background: rgba(255,255,255,.44);
 }
 
+.wpa-stats-heading {
+	display: grid;
+	grid-template-columns: auto auto;
+	align-items: start;
+	column-gap: 10px;
+}
+
+.wpa-flex,
+span.wpa-browser {
+	display: flex;
+	align-items: center;
+	column-gap: 6px;
+}
+
+.wpa-flex {
+	justify-content: center;
+}
+
+#dashboard-widgets .wpa-stats-heading h3 {
+	margin-bottom: 0;
+}
+
+.wpa-stats-heading + ul {
+	margin-top: 0;
+}
+
+.wpa-stats-heading a {
+	justify-self: end;
+}
+
 .wpad-small-promotion .wpa-affiliate a:hover,
 .wpad-small-promotion .wpa-affiliate a:focus {
-	background: #072446;
+	background: #233c7f;
 	color: #fff;
 }
 
@@ -245,7 +275,7 @@
 
 #wpa_dashboard_widget_stats .wpad-small-promotion h3 {
 	font-weight: 600;
-	color: #072446;
+	color: #233c7f;
 	font-size: 1rem;
 }
 
