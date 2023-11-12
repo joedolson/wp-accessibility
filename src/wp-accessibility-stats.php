@@ -69,7 +69,7 @@ add_action( 'init', 'wpa_taxonomies', 0 );
  * Register statistics.
  *
  * @param array      $stats Stats data for a page. Array of tests & results.
- * @param string     $title Title for the stats record. Usually a relative URL for page views, 
+ * @param string     $title Title for the stats record. Usually a relative URL for page views.
  * @param string     $type Type of stat: view or action.
  * @param int|string $post_ID ID of the post if singular.
  */
@@ -87,7 +87,7 @@ function wpa_add_stats( $stats, $title, $type = 'view', $post_ID = 0 ) {
 				add_post_meta( $exists, '_wpa_event', $stats );
 			}
 		}
-		return array( $exists, $stats );
+		return array();
 	} else {
 		$post = array(
 			'post_title'   => str_replace( home_url(), '', $title ),
@@ -107,7 +107,7 @@ function wpa_add_stats( $stats, $title, $type = 'view', $post_ID = 0 ) {
 			update_post_meta( $stat, '_wpa_post_id', $post_ID );
 			update_post_meta( $post, '_wpa_stat_id', $stat );
 		}
-		return array( 'newpost' => $stat, 'query' => $post );
+		return array();
 	}
 }
 
@@ -250,7 +250,6 @@ function wpa_get_stats( $type = 'view', $count = 1 ) {
 	foreach ( $posts->posts as $post ) {
 		$data_point = wpa_stats_data_point( $post, $type );
 		echo $data_point;
-	
 	}
 	echo '</ul></div>';
 }
@@ -271,18 +270,13 @@ function wpa_stats_data_point( $post, $type ) {
 	$relative = get_post_meta( $post_ID, '_wpa_post_id', true );
 	$output  .= '<li><div class="wpa-header"><h3><strong>' . gmdate( get_option( 'date_format' ), $data->timestamp ) . '</strong><br />' . gmdate( get_option( 'time_format' ), $data->timestamp ) . '</h3>';
 
+	$url = ( str_contains( $post->post_title, '/' ) ) ? home_url( $post->post_title ) : '';
 	// translators: path stats are related to.
-	$url        = ( str_contains( $post->post_title, '/' ) ) ? home_url( $post->post_title ) : '';
 	$post_title = ( $relative ) ? get_the_title( $relative ) : sprintf( __( 'View: %s', 'wp-accessibility' ), $url );
 	$post_link  = ( $relative ) ? get_the_permalink( $relative ) : $url;
 	$append     = '';
 	if ( 'event' === $type ) {
-		$browser = get_post_meta( $post_ID, '_wpa_browser', true );
-		if ( $browser ) {
-			$browser = json_decode( $browser );
-			$browser = '<span class="wpa-browser"><img src="' . esc_url( $browser->img_src_ssl ) . '" alt="" width="20" height="20"> ' . esc_html( $browser->name . '/' . $browser->platform ) . '</span>';
-		}
-		// version = 'version'.
+		$browser = wpa_get_browser_stat( $post_ID );
 		// translators: Post ID.
 		$append = ' / ' . sprintf( __( 'User %s', 'wp-accessibility' ), '<code>' . $post->ID . '</code>' ) . '<br />' . $browser;
 	}
@@ -357,6 +351,25 @@ function wpa_stats_data_point( $post, $type ) {
 	$output .= '<ul class="stats">' . $line . '</ul></li>';
 
 	return $output;
+}
+
+/**
+ * Get the browser information for a stats record.
+ *
+ * @param int $post_ID Post ID for stats post.
+ *
+ * @return string
+ */
+function wpa_get_browser_stat( $post_ID ) {
+	$browser = get_post_meta( $post_ID, '_wpa_browser', true );
+	if ( $browser ) {
+		$browser = json_decode( $browser );
+		$browser = '<span class="wpa-browser"><img src="' . esc_url( $browser->img_src_ssl ) . '" alt="" width="20" height="20"> ' . esc_html( $browser->name . '/' . $browser->platform ) . '</span>';
+	} else {
+		$browser = __( 'Unknown browser', 'wp-accessibility' );
+	}
+
+	return $browser;
 }
 
 /**
@@ -455,8 +468,9 @@ function wpa_add() {
  * @return mixed
  */
 function wpa_column( $cols ) {
-	$cols['wpa_type'] = __( 'Statistic Type', 'my-tickets' );
-	$cols['wpa_last'] = __( 'Last Action', 'wp-accessibility' );
+	$cols['wpa_type']    = __( 'Statistic Type', 'wp-accessibility' );
+	$cols['wpa_last']    = __( 'Last Action', 'wp-accessibility' );
+	$cols['wpa_browser'] = __( 'Browser', 'wp-accessibility' );
 
 	return $cols;
 }
@@ -465,7 +479,7 @@ function wpa_column( $cols ) {
  * Show data for stats post type.
  *
  * @param string $column_name Name of the current column.
- * @param int    $id Post ID.
+ * @param int    $post_id Post ID.
  */
 function wpa_custom_column( $column_name, $post_id ) {
 	$stat = ( has_term( 'event', 'wpa-stats-type', $post_id ) ) ? 'event' : 'view';
@@ -477,7 +491,7 @@ function wpa_custom_column( $column_name, $post_id ) {
 		case 'wpa_last':
 			$events = get_post_meta( $post_id, '_wpa_event' );
 			if ( $events && is_array( $events ) ) {
-				$event  = json_decode( end( $events ) );
+				$event = json_decode( end( $events ) );
 			} else {
 				$event = json_decode( get_post( $post_id )->post_content );
 			}
@@ -486,7 +500,7 @@ function wpa_custom_column( $column_name, $post_id ) {
 				$icon  = ( 'contrast' === $data ) ? ' aticon aticon-adjust' : ' aticon aticon-font';
 				$label = ( property_exists( $event, 'contrast' ) ) ? __( 'High Contrast', 'wp-accessibility' ) : __( 'Large Font Size', 'wp-accessibility' );
 				// translators: Action taken. High Contrast or Large Font Size.
-				$last_action = (  'enabled' === $event->{$data} ) ? sprintf( __( '%s enabled', 'wp-accessibility' ), $label ) : sprintf( __( '%s disabled', 'wp-accessibility' ), $label );
+				$last_action = ( 'enabled' === $event->{$data} ) ? sprintf( __( '%s enabled', 'wp-accessibility' ), $label ) : sprintf( __( '%s disabled', 'wp-accessibility' ), $label );
 			} else {
 				if ( ! $events ) {
 					$icon        = 'download';
@@ -499,6 +513,13 @@ function wpa_custom_column( $column_name, $post_id ) {
 			}
 			echo '<span class="dashicons dashicons-' . $icon . '" aria-hidden="true"></span> ' . $last_action;
 			break;
+		case 'wpa_browser':
+			if ( 'event' === $stat ) {
+				echo wpa_get_browser_stat( $post_id );
+			} else {
+				echo '--';
+			}
+
 	}
 }
 
@@ -509,7 +530,7 @@ add_action( 'add_meta_boxes', 'wpa_add_meta_boxes' );
  * @return void
  */
 function wpa_add_meta_boxes() {
-	add_meta_box( 'wpa_stats', __( 'WP Accessibility Statistics', 'my-tickets' ), 'wpa_display_stats', 'wpa-stats', 'normal', 'high' );
+	add_meta_box( 'wpa_stats', __( 'WP Accessibility Statistics', 'wp-accessibility' ), 'wpa_display_stats', 'wpa-stats', 'normal', 'high' );
 }
 
 /**
