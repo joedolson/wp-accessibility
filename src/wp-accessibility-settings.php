@@ -746,7 +746,7 @@ function wpa_edac_promotion( $type = 'large' ) {
 					<a href="https://equalizedigital.com/accessibility-checker/pricing/?ref=joedolson&discount=WPAccessibility&campaign=wpaccessibility" aria-describedby="wpa-affiliate-notice"><?php _e( 'Buy Accessibility Checker', 'wp-accessibility' ); ?></a>
 				</p>
 				<p class="wpa-affiliate-notice" id="wpa-affiliate-notice">
-					<?php _e( 'Affiliate Links', 'wp-accessibility' ); ?>
+					<em><?php _e( 'Affiliate Links', 'wp-accessibility' ); ?></em>
 				</p>
 			</div>
 		</div>
