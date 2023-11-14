@@ -293,10 +293,11 @@ span.wpa-browser {
 
 }
 
+.wpa-settings-wrapper ul,
 #wpa_stats ul.stats,
 #wpa_dashboard_widget_stats ul.stats {
 	list-style-type: disc;
-	padding: .5rem 0 .5rem 2rem;
+	padding: .5rem 0 .5rem 1.5rem;
 }
 
 #wpa_stats .activity-block > ul > li:nth-child(2n+1),
@@ -306,4 +307,16 @@ span.wpa-browser {
 
 #wpa-stats-typediv {
 	display: none;
+}
+
+.post-type-wpa-stats #post-body-content {
+	display: none;
+}
+
+.post-type-wpa-stats #post-body .activity-block {
+	padding-top: 0;
+}
+
+.post-type-wpa-stats #post-body .activity-block > ul {
+	margin-top: 0;
 }
