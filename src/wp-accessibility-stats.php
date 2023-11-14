@@ -372,6 +372,7 @@ function wpa_compare_views( $post_id ) {
 
 	if ( empty( $history ) ) {
 		$data = wpa_parse_view_data( json_decode( $content ) )['count'];
+		// translators: Number of accessibility issues fixed.
 		$info = sprintf( _n( '%d issue fixed', '%d issues fixed', $data, 'wp-accessibility' ), $data );
 
 		return '<span class="dashicons dashicons-download" aria-hidden="true"></span> ' . $info;
@@ -386,6 +387,7 @@ function wpa_compare_views( $post_id ) {
 	$count_current  = wpa_parse_view_data( json_decode( $current ) )['count'];
 	$count_previous = wpa_parse_view_data( json_decode( $previous ) )['count'];
 
+	// translators: Number of accessibility issues fixed.
 	$info = sprintf( _n( '%d issue fixed', '%d issues fixed', $count_current, 'wp-accessibility' ), $count_current );
 	if ( $count_current > $count_previous ) {
 		return '<span class="dashicons dashicons-arrow-up-alt" aria-hidden="true"></span> ' . $info;

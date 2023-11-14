@@ -503,7 +503,6 @@ function wpa_admin_settings() {
 													</li>
 												</ul>
 											</fieldset>
-						
 										</li>
 									</ul>
 									<p>
