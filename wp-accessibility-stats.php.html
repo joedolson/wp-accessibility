@@ -63,7 +63,7 @@ function wpa_post_type() {
 		'menu_icon'           => 'dashicons-universal-access',
 		'query_var'           => true,
 		'hierarchical'        => false,
-		'supports'            => array( 'title', 'custom-fields' ),
+		'supports'            => array( 'title' ),
 		'capabilities'        => array(
 			'create_posts' => false,
 		),
@@ -83,7 +83,7 @@ function wpa_taxonomies() {
 		array( 'wpa-stats' ),
 		array(
 			'hierarchical' => true,
-			'label'        => __( 'WP Accessibility Statistic Type', 'wp-accessibility' ),
+			'label'        => __( 'Stats Types', 'wp-accessibility' ),
 			'query_var'    => true,
 			'rewrite'      => array( 'slug' => 'wpa-stats-type' ),
 		)
