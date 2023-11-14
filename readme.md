@@ -9,9 +9,9 @@ Improving the Accessibility of your WordPress site.
 * Donate link: https://www.joedolson.com/donate/
 * Tags: accessibility, WordPress
 * Requires at least: 4.4
-* Tested up to: 6.2
-* Requires PHP: 5.6
-* Stable tag: `2.0.2`
+* Tested up to: 6.4
+* Requires PHP: 7.0
+* Stable tag: `2.1.0`
 * License: GPLv2 or later
 * License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -37,3 +37,4 @@ Contributors listed only since moving development to GitHub. [Github Contributor
 * [CodeJhonny](https://github.com/cannona)
 * [jmdaweb](https://github.com/jmdaweb)
 * [uta-arbeit](https://github.com/ute-arbeit)
+* [sabernhardt](https://github.com/sabernhardt)

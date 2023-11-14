@@ -3,10 +3,9 @@ Contributors: joedolson
 Donate link: http://www.joedolson.com/donate/
 Tags: title, accessibility, accessible, navigation, wcag, a11y, section508, focus, alt text, labels, aria
 Requires at least: 3.4.2
-Requires PHP: 5.6
-Tested up to: 6.2
+Tested up to: 6.4
 Requires PHP: 7.0
-Stable tag: 2.0.2
+Stable tag: 2.1.0
 Text Domain: wp-accessibility
 License: GPLv2 or later
 
@@ -76,6 +75,20 @@ The plug-in is intended to help with deficiencies commonly found in themes and t
 = Future =
 
 [Suggest a change!](https://github.com/joedolson/wp-accessibility/issues/)
+
+= 2.1.0 =
+
+* Bug fix: Fix label `for` attributes. Props @sabernhardt.
+* Bug fix: Fix position of image alt attribute warnings.
+* Bug fix: Prevent existence of alt warnings from breaking captions.
+* Change: Render toolbar location relatively instead of absolutely.
+* Change: Improve alt text tests.
+* Change: Record count of occurrences for fake button/link tests.
+* Change: Set `wpa_lang` option to on by default.
+* Change: Switch auto labeling to always one.
+* Change: Switch skiplink CSS to use default by default.
+* Change: Remove setting for filtering title attributes and turn on by default.
+* Feature: Add stats collection to provide view into what WP Accessibility is doing.
 
 = 2.0.1 =
 
