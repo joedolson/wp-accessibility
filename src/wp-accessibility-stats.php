@@ -75,6 +75,7 @@ add_action( 'init', 'wpa_taxonomies', 0 );
  */
 function wpa_add_stats( $stats, $title, $type = 'view', $post_ID = 0 ) {
 	$stats  = json_encode( $stats );
+	$title  = str_replace( home_url(), '', $title );
 	$exists = wpa_get_post_by_title( $title );
 	if ( $exists ) {
 		if ( 'action' === $type ) {
@@ -87,10 +88,10 @@ function wpa_add_stats( $stats, $title, $type = 'view', $post_ID = 0 ) {
 				add_post_meta( $exists, '_wpa_event', $stats );
 			}
 		}
-		return array();
+		return array( $stats, $old_stats );
 	} else {
 		$post  = array(
-			'post_title'   => str_replace( home_url(), '', $title ),
+			'post_title'   => $title,
 			'post_content' => $stats,
 			'post_status'  => 'publish',
 			'post_name'    => sanitize_title( $title ),
@@ -252,7 +253,7 @@ function wpa_get_stats( $type = 'view', $count = 1 ) {
 
 	foreach ( $posts->posts as $post ) {
 		$data_point = wpa_stats_data_point( $post, $type );
-		echo $data_point;
+		echo $data_point['html'];
 	}
 	echo '</ul></div>';
 }
@@ -290,7 +291,8 @@ function wpa_stats_data_point( $post, $type ) {
 	}
 	$output .= '</div>';
 
-	$line = '';
+	$line  = '';
+	$total = 0;
 	if ( 'event' === $type ) {
 		// translators: date changed, time changed.
 		$hc_text_enabled = __( 'High contrast enabled on %1$s at %2$s', 'wp-accessibility' );
@@ -336,24 +338,95 @@ function wpa_stats_data_point( $post, $type ) {
 			}
 		}
 	} else {
-		foreach ( $data as $d ) {
-			if ( is_array( $d ) ) {
-				$key   = wpa_map_key( $d[0] );
-				$count = $d[1];
-				$stat  = "<span class='wpa-item-count'>$count</span> " . $key;
-			} else {
-				// If this is the timestamp, don't display here.
-				if ( is_numeric( $d ) ) {
-					continue;
-				}
-				$stat = wpa_map_key( $d );
+		$info  = wpa_parse_view_data( $data );
+		$line  = $info['html'];
+		$total = $info['count'];
+		// handle additional.
+		if ( $history ) {
+			foreach ( $history as $h ) {
+				$h     = json_decode( $h );
+				$head  = '</ul><div class="wpa-header"><h3>' . gmdate( get_option( 'date_format' ), $h->timestamp ) . '<br />' . gmdate( get_option( 'time_format' ), $h->timestamp ) . '</h3></div>
+				<ul class="stats">';
+				$line .= $head . wpa_parse_view_data( $h )['html'];
 			}
-			$line .= '<li>' . $stat . '</li>';
 		}
 	}
 	$output .= '<ul class="stats">' . $line . '</ul></li>';
 
-	return $output;
+	return array(
+		'count' => $total,
+		'html'  => $output,
+	);
+}
+
+/**
+ * Compare the most recent data to the previous data for page views.
+ *
+ * @param int $post_id Post ID.
+ *
+ * @return string
+ */
+function wpa_compare_views( $post_id ) {
+	$content = get_post_field( 'post_content', $post_id );
+	$history = get_post_meta( $post_id, '_wpa_event' );
+
+	if ( empty( $history ) ) {
+		$data = wpa_parse_view_data( json_decode( $content ) )['count'];
+		$info = sprintf( _n( '%d issue fixed', '%d issues fixed', $data, 'wp-accessibility' ), $data );
+
+		return '<span class="dashicons dashicons-download" aria-hidden="true"></span> ' . $info;
+	}
+	if ( count( $history ) > 1 ) {
+		$current  = array_pop( $history );
+		$previous = array_pop( $history );
+	} else {
+		$current  = array_pop( $history );
+		$previous = $content;
+	}
+	$count_current  = wpa_parse_view_data( json_decode( $current ) )['count'];
+	$count_previous = wpa_parse_view_data( json_decode( $previous ) )['count'];
+
+	$info = sprintf( _n( '%d issue fixed', '%d issues fixed', $count_current, 'wp-accessibility' ), $count_current );
+	if ( $count_current > $count_previous ) {
+		return '<span class="dashicons dashicons-arrow-up-alt" aria-hidden="true"></span> ' . $info;
+	} elseif ( $count_current < $count_previous ) {
+		return '<span class="dashicons dashicons-arrow-down-alt" aria-hidden="true"></span> ' . $info;
+	} else {
+		return '<span class="dashicons dashicons-update" aria-hidden="true"></span> ' . $info;
+	}
+}
+
+/**
+ * Parse the data for a single page view.
+ *
+ * @param array $data Page view data.
+ *
+ * @return array
+ */
+function wpa_parse_view_data( $data ) {
+	$total = 0;
+	$line  = '';
+	foreach ( $data as $d ) {
+		if ( is_array( $d ) ) {
+			$key   = wpa_map_key( $d[0] );
+			$count = absint( $d[1] );
+			$stat  = "<span class='wpa-item-count'>$count</span> " . $key;
+		} else {
+			// If this is the timestamp, don't display here.
+			if ( is_numeric( $d ) ) {
+				continue;
+			}
+			$count = 1;
+			$stat  = wpa_map_key( $d );
+		}
+		$total += $count;
+		$line  .= '<li>' . $stat . '</li>';
+	}
+
+	return array(
+		'html'  => $line,
+		'count' => $total,
+	);
 }
 
 /**
@@ -471,9 +544,9 @@ function wpa_add() {
  * @return mixed
  */
 function wpa_column( $cols ) {
-	$cols['wpa_type']    = __( 'Statistic Type', 'wp-accessibility' );
-	$cols['wpa_last']    = __( 'Last Action', 'wp-accessibility' );
-	$cols['wpa_browser'] = __( 'Browser', 'wp-accessibility' );
+	$cols['wpa_type'] = __( 'Statistic Type', 'wp-accessibility' );
+	$cols['wpa_last'] = __( 'Last Action', 'wp-accessibility' );
+	$cols['wpa_info'] = __( 'Info', 'wp-accessibility' );
 
 	return $cols;
 }
@@ -511,16 +584,16 @@ function wpa_custom_column( $column_name, $post_id ) {
 				} else {
 					$icon = 'update';
 					// translators: Date of change.
-					$last_action = sprintf( __( 'Accessibility Fixes changed on %s', 'wp-accessibility' ), gmdate( 'Y-m-d', $event->timestamp ) );
+					$last_action = sprintf( __( 'Found issues changed on %s', 'wp-accessibility' ), gmdate( 'Y-m-d', $event->timestamp ) );
 				}
 			}
 			echo '<span class="dashicons dashicons-' . $icon . '" aria-hidden="true"></span> ' . $last_action;
 			break;
-		case 'wpa_browser':
+		case 'wpa_info':
 			if ( 'event' === $stat ) {
 				echo wpa_get_browser_stat( $post_id );
 			} else {
-				echo __( 'N/A', 'wp-accessibility' );
+				echo wpa_compare_views( $post_id );
 			}
 	}
 }
@@ -541,5 +614,6 @@ function wpa_add_meta_boxes() {
 function wpa_display_stats() {
 	global $post;
 	$type = ( has_term( 'event', 'wpa-stats-type', $post->ID ) ) ? 'event' : 'view';
-	echo '<div class="activity-block"><ul>' . wpa_stats_data_point( $post, $type ) . '</ul></div>';
+	$data = wpa_stats_data_point( $post, $type );
+	echo '<div class="activity-block"><ul>' . $data['html'] . '</ul></div>';
 }

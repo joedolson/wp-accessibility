@@ -5,7 +5,7 @@
 		var lang   = html.getAttribute( 'lang' );
 		if ( ! lang ) {
 			$('html').attr( 'lang', wpa.lang );
-			if ( wpa.errors ) {
+			if ( wpa.errors || wpa.tracking ) {
 				errors.push( 'html-lang' );
 				console.log( 'HTML language set by WP Accessibility' );
 			}
@@ -16,7 +16,7 @@
 		var dir  = html.getAttribute( 'dir' );
 		if ( ! dir ) {
 			$('html').attr( 'dir', wpa.dir );
-			if ( wpa.errors ) {
+			if ( wpa.errors || wpa.tracking ) {
 				errors.push( 'html-lang-direction' );
 				console.log( 'HTML language direction set by WP Accessibility' );
 			}
@@ -30,7 +30,7 @@
 		if ( conditionsBefore.search(/user-scalable=no/g) ) {
 			conditionsAfter = conditionsBefore.replace( 'user-scalable=no', 'user-scalable=yes' );
 			viewport.setAttribute( 'content', conditionsAfter );
-			if ( wpa.errors && conditionsAfter != conditionsBefore ) {
+			if ( ( wpa.errors || wpa.tracking ) && conditionsAfter != conditionsBefore ) {
 				errors.push( 'viewport-scalable' );
 				console.log( 'Viewport made scalable by WP Accessibility' );
 			}
@@ -39,7 +39,7 @@
 			conditionsAfter = conditionsBefore.replace( 'maximum-scale=1', 'maximum-scale=5' );
 			conditionsAfter = conditionsAfter.replace( 'maximum-scale=0', 'maximum-scale=5' );
 			viewport.setAttribute( 'content', conditionsAfter );
-			if ( wpa.errors && conditionsAfter != conditionsBefore  ) {
+			if ( ( wpa.errors || wpa.tracking ) && conditionsAfter != conditionsBefore  ) {
 				errors.push( 'viewport-maxscale' );
 				console.log( 'Viewport maximum scale set by WP Accessibility' );
 			}
@@ -48,7 +48,7 @@
 
 	if ( wpa.skiplinks.enabled ) {
 		$('body').prepend( wpa.skiplinks.output );
-		if ( wpa.errors ) {
+		if ( wpa.errors || wpa.tracking  ) {
 			errors.push( 'skiplinks' );
 			console.log( 'Skip links added by WP Accessibility' );
 		}
@@ -58,7 +58,7 @@
 		$(function() {
 			$( '.current-menu-item a, .current_page_item a' ).attr( 'aria-current', 'page' );
 		});
-		if ( wpa.errors ) {
+		if ( wpa.errors || wpa.tracking  ) {
 			errors.push( 'aria-current' );
 			console.log( 'ARIA current added by WP Accessibility' );
 		}
@@ -89,7 +89,7 @@
 						var label = $( 'label[for=' + field_id + ']' );
 						if ( !label.length && !implicit.length ) {
 							field.before( "<label for='" + field_id + "' class='wpa-screen-reader-text'>" + wpa.wpalabels[value] + "</label>" );
-							if ( wpa.errors ) {
+							if ( wpa.errors || wpa.tracking ) {
 								errors.push( ['explicit-label', wpa.wpalabels[value]] );
 								console.log( 'Explicit label on ' + wpa.wpalabels[value] + 'added by WP Accessibility' );
 							}
@@ -97,7 +97,7 @@
 					} else {
 						if ( !implicit.length ) {
 							field.attr( 'id', 'wpa_label_' + value ).before( "<label for='wpa_label_" + value + "' class='wpa-screen-reader-text'>" + wpa.wpalabels[value] + "</label>" );
-							if ( wpa.errors ) {
+							if ( wpa.errors || wpa.tracking ) {
 								errors.push( ['implicit-label', wpa.wpalabels[value]] );
 								console.log( 'Implicit label on ' + wpa.wpalabels[value] + 'added by WP Accessibility' );
 							}
@@ -169,7 +169,7 @@
 				}
 			}
 		});
-		if ( wpa.errors ) {
+		if ( wpa.errors || wpa.tracking ) {
 			if ( images > 0 ) {
 				errors.push( ['images-titles', images] );
 				console.log( images + ' title attributes removed from images by WP Accessibility' );
@@ -195,7 +195,7 @@
 				targetRemoved++;
 			}
 		});
-		if ( targetRemoved > 0 && wpa.errors ) {
+		if ( targetRemoved > 0 && ( wpa.errors || wpa.tracking ) ) {
 			errors.push( ['link-targets', targetRemoved] );
 			console.log( targetRemoved + ' target attributes removed from links by WP Accessibility' );
 		}
@@ -213,7 +213,7 @@
 			}
 		});
 
-		if ( tabRemoved > 0 && wpa.errors ) {
+		if ( tabRemoved > 0 && ( wpa.errors || wpa.tracking ) ) {
 			errors.push( ['control-tabindex', tabRemoved] );
 			console.log( tabRemoved + ' tabindex attributes removed from links, buttons and inputs by WP Accessibility' );
 		}
@@ -222,12 +222,12 @@
 		var fakeButtons = $('div[role="button"]').not('div[tabindex]' );
 		var buttonLinks = $('a[role="button"]').not('a[tabindex],a[href]');
 		fakeButtons.attr( 'tabindex', '0' ).addClass('wpa-focusable');
-		if ( fakeButtons.length > 0 && wpa.errors ) {
+		if ( fakeButtons.length > 0 && ( wpa.errors || wpa.tracking ) ) {
 			errors.push( ['button-add-tabindex', fakeButtons.length] );
 			console.log( fakeButtons.length + ' tabindex attributes added to divs with the button role by WP Accessibility' );
 		}
 		buttonLinks.attr( 'tabindex', '0' ).addClass('wpa-focusable');
-		if ( buttonLinks.length > 0 && wpa.errors ) {
+		if ( buttonLinks.length > 0 && ( wpa.errors || wpa.tracking ) ) {
 			errors.push( ['link-add-tabindex', buttonLinks.length] );
 			console.log( buttonLinks.length + ' tabindex attributes added to anchor elements with the button role and no href value by WP Accessibility' );
 		}
@@ -274,8 +274,7 @@
 		$.post( wpa.ajaxurl, data, function () {}, "json" );
 	});
 
-	if ( wpa.errors && errors.length >= 1 ) {
-		console.log( errors );
+	if ( wpa.tracking && errors.length >= 1 ) {
 		var data = {
 			'action' : wpa.action,
 			'security' : wpa.security,

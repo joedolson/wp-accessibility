@@ -453,6 +453,18 @@ function wpa_jquery_asl() {
 	 * @return {bool}
 	 */
 	$errors_enabled = apply_filters( 'wpa_view_remediation_logs', current_user_can( 'manage_options' ) );
+	$track          = ( '' === get_option( 'wpa_track_stats' ) ) ? current_user_can( 'manage_options' ) : true;
+	$track          = ( 'off' === get_option( 'wpa_track_stats' ) ) ? false : $track;
+	/**
+	 * Filter whether data from views will be tracked.
+	 *
+	 * @hook wpa_track_view_statistics
+	 *
+	 * @param {bool} $visible Default `true` if user is logged in and has capabilities to manage options or if enabled in settings.
+	 *
+	 * @return {bool}
+	 */
+	$tracking_enabled = apply_filters( 'wpa_track_view_statistics', $track );
 	/**
 	 * Filter whether automatic labeling is enabled.
 	 *
@@ -496,6 +508,7 @@ function wpa_jquery_asl() {
 			'wpalabels' => $labels,
 			'current'   => ( version_compare( $GLOBALS['wp_version'], '5.3', '<' ) ) ? true : false,
 			'errors'    => ( $errors_enabled ) ? true : false,
+			'tracking'  => ( $tracking_enabled ) ? true : false,
 			'ajaxurl'   => admin_url( 'admin-ajax.php' ),
 			'security'  => wp_create_nonce( 'wpa-stats-action' ),
 			'action'    => 'wpa_stats_action',

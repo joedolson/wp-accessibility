@@ -293,7 +293,7 @@ span.wpa-browser {
 
 }
 
-.wpa-settings-wrapper ul,
+.wpa-settings-wrapper .wpa-sidebar ul,
 #wpa_stats ul.stats,
 #wpa_dashboard_widget_stats ul.stats {
 	list-style-type: disc;

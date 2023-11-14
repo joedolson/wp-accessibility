@@ -99,9 +99,11 @@ function wpa_update_settings() {
 			$wpa_search_alt         = ( isset( $_POST['wpa_search_alt'] ) ) ? 'on' : '';
 			$wpa_diagnostics        = ( isset( $_POST['wpa_diagnostics'] ) ) ? 'on' : '';
 			$wpa_disable_fullscreen = ( isset( $_POST['wpa_disable_fullscreen'] ) ) ? 'on' : '';
+			$wpa_track_stats        = ( isset( $_POST['wpa_track_stats'] ) ) ? sanitize_text_field( $_POST['wpa_track_stats'] ) : '';
 			update_option( 'wpa_search_alt', $wpa_search_alt );
 			update_option( 'wpa_diagnostics', $wpa_diagnostics );
 			update_option( 'wpa_disable_fullscreen', $wpa_disable_fullscreen );
+			update_option( 'wpa_track_stats', $wpa_track_stats );
 			$message = __( 'Accessibility Tools Updated', 'wp-accessibility' );
 
 			return "<div class='updated'><p>" . $message . '</p></div>';
@@ -483,6 +485,26 @@ function wpa_admin_settings() {
 											<input type="checkbox" id="wpa_diagnostics" name="wpa_diagnostics" <?php checked( get_option( 'wpa_diagnostics' ), 'on' ); ?>/>
 											<label for="wpa_diagnostics"><?php _e( 'Enable diagnostic CSS', 'wp-accessibility' ); ?></label>
 										</li>
+										<li>
+											<fieldset>
+												<legend><?php _e( 'Page Statistics Tracking', 'wp-accessibility' ); ?></legend>
+												<ul>
+													<li>
+														<input type="radio" id="wpa_track_stats_none" value="off" name="wpa_track_stats" <?php checked( get_option( 'wpa_track_stats' ), 'off' ); ?>/>
+														<label for="wpa_track_stats_none"><?php _e( 'None', 'wp-accessibility' ); ?></label>
+													</li>
+													<li>
+														<input type="radio" id="wpa_track_stats_all" value="all" name="wpa_track_stats" <?php checked( get_option( 'wpa_track_stats' ), 'all' ); ?>/>
+														<label for="wpa_track_stats_all"><?php _e( 'All Visitors', 'wp-accessibility' ); ?></label>
+													</li>
+													<li>
+														<input type="radio" id="wpa_track_stats_admin" value="" name="wpa_track_stats" <?php checked( get_option( 'wpa_track_stats' ), '' ); ?>/>
+														<label for="wpa_track_stats_admin"><?php _e( 'Site Administrators', 'wp-accessibility' ); ?></label>
+													</li>
+												</ul>
+											</fieldset>
+						
+										</li>
 									</ul>
 									<p>
 										<input type="hidden" name="_wpnonce" value="<?php echo wp_create_nonce( 'wpa-nonce' ); ?>" />
@@ -694,7 +716,8 @@ function wpa_admin_sidebar() {
 						<p><?php _e( 'The accessibility toolbar sets cookies to maintain awareness of the user\'s selected accessibility options. If the toolbar is not in use, WP Accessibility does not set any cookies.', 'wp-accessibility' ); ?></p>
 						<h3><?php _e( 'Information collected by WP Accessibility', 'wp-accessibility' ); ?></h3>
 						<p><?php _e( 'WP Accessibility does not collect any personally identifying information about users or visitors.', 'wp-accessibility' ); ?></p>
-						<p><?php _e( 'User statistics collected by WP Accessibility are tracked using browser fingerprinting, and no identifiable information is stored at any time.', 'wp-accessibility' ); ?></p>
+						<p><?php _e( 'User statistics (toolbar actions) collected by WP Accessibility are tracked using browser fingerprinting, and no identifiable information is stored at any time.', 'wp-accessibility' ); ?></p>
+						<p><?php _e( 'Page statistics are collected when the page is initially viewed, then again if the accessibility values have changed since the last check.', 'wp-accessibility' ); ?></p>
 					</div>
 				</div>
 			</div>
