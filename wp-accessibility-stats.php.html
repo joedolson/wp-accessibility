@@ -101,6 +101,7 @@ add_action( 'init', 'wpa_taxonomies', 0 );
  */
 function wpa_add_stats( $stats, $title, $type = 'view', $post_ID = 0 ) {
 	$stats  = json_encode( $stats );
+	$title  = str_replace( home_url(), '', $title );
 	$exists = wpa_get_post_by_title( $title );
 	if ( $exists ) {
 		if ( 'action' === $type ) {
@@ -113,10 +114,10 @@ function wpa_add_stats( $stats, $title, $type = 'view', $post_ID = 0 ) {
 				add_post_meta( $exists, '_wpa_event', $stats );
 			}
 		}
-		return array();
+		return array( $stats, $old_stats );
 	} else {
 		$post  = array(
-			'post_title'   => str_replace( home_url(), '', $title ),
+			'post_title'   => $title,
 			'post_content' => $stats,
 			'post_status'  => 'publish',
 			'post_name'    => sanitize_title( $title ),
@@ -278,7 +279,7 @@ function wpa_get_stats( $type = 'view', $count = 1 ) {
 
 	foreach ( $posts->posts as $post ) {
 		$data_point = wpa_stats_data_point( $post, $type );
-		echo $data_point;
+		echo $data_point['html'];
 	}
 	echo '&lt;/ul>&lt;/div>';
 }
@@ -316,7 +317,8 @@ function wpa_stats_data_point( $post, $type ) {
 	}
 	$output .= '&lt;/div>';
 
-	$line = '';
+	$line  = '';
+	$total = 0;
 	if ( 'event' === $type ) {
 		// translators: date changed, time changed.
 		$hc_text_enabled = __( 'High contrast enabled on %1$s at %2$s', 'wp-accessibility' );
@@ -362,24 +364,95 @@ function wpa_stats_data_point( $post, $type ) {
 			}
 		}
 	} else {
-		foreach ( $data as $d ) {
-			if ( is_array( $d ) ) {
-				$key   = wpa_map_key( $d[0] );
-				$count = $d[1];
-				$stat  = "&lt;span class='wpa-item-count'>$count&lt;/span> " . $key;
-			} else {
-				// If this is the timestamp, don't display here.
-				if ( is_numeric( $d ) ) {
-					continue;
-				}
-				$stat = wpa_map_key( $d );
+		$info  = wpa_parse_view_data( $data );
+		$line  = $info['html'];
+		$total = $info['count'];
+		// handle additional.
+		if ( $history ) {
+			foreach ( $history as $h ) {
+				$h     = json_decode( $h );
+				$head  = '&lt;/ul>&lt;div class="wpa-header">&lt;h3>' . gmdate( get_option( 'date_format' ), $h->timestamp ) . '&lt;br />' . gmdate( get_option( 'time_format' ), $h->timestamp ) . '&lt;/h3>&lt;/div>
+				&lt;ul class="stats">';
+				$line .= $head . wpa_parse_view_data( $h )['html'];
 			}
-			$line .= '&lt;li>' . $stat . '&lt;/li>';
 		}
 	}
 	$output .= '&lt;ul class="stats">' . $line . '&lt;/ul>&lt;/li>';
 
-	return $output;
+	return array(
+		'count' => $total,
+		'html'  => $output,
+	);
+}
+
+/**
+ * Compare the most recent data to the previous data for page views.
+ *
+ * @param int $post_id Post ID.
+ *
+ * @return string
+ */
+function wpa_compare_views( $post_id ) {
+	$content = get_post_field( 'post_content', $post_id );
+	$history = get_post_meta( $post_id, '_wpa_event' );
+
+	if ( empty( $history ) ) {
+		$data = wpa_parse_view_data( json_decode( $content ) )['count'];
+		$info = sprintf( _n( '%d issue fixed', '%d issues fixed', $data, 'wp-accessibility' ), $data );
+
+		return '&lt;span class="dashicons dashicons-download" aria-hidden="true">&lt;/span> ' . $info;
+	}
+	if ( count( $history ) > 1 ) {
+		$current  = array_pop( $history );
+		$previous = array_pop( $history );
+	} else {
+		$current  = array_pop( $history );
+		$previous = $content;
+	}
+	$count_current  = wpa_parse_view_data( json_decode( $current ) )['count'];
+	$count_previous = wpa_parse_view_data( json_decode( $previous ) )['count'];
+
+	$info = sprintf( _n( '%d issue fixed', '%d issues fixed', $count_current, 'wp-accessibility' ), $count_current );
+	if ( $count_current > $count_previous ) {
+		return '&lt;span class="dashicons dashicons-arrow-up-alt" aria-hidden="true">&lt;/span> ' . $info;
+	} elseif ( $count_current &lt; $count_previous ) {
+		return '&lt;span class="dashicons dashicons-arrow-down-alt" aria-hidden="true">&lt;/span> ' . $info;
+	} else {
+		return '&lt;span class="dashicons dashicons-update" aria-hidden="true">&lt;/span> ' . $info;
+	}
+}
+
+/**
+ * Parse the data for a single page view.
+ *
+ * @param array $data Page view data.
+ *
+ * @return array
+ */
+function wpa_parse_view_data( $data ) {
+	$total = 0;
+	$line  = '';
+	foreach ( $data as $d ) {
+		if ( is_array( $d ) ) {
+			$key   = wpa_map_key( $d[0] );
+			$count = absint( $d[1] );
+			$stat  = "&lt;span class='wpa-item-count'>$count&lt;/span> " . $key;
+		} else {
+			// If this is the timestamp, don't display here.
+			if ( is_numeric( $d ) ) {
+				continue;
+			}
+			$count = 1;
+			$stat  = wpa_map_key( $d );
+		}
+		$total += $count;
+		$line  .= '&lt;li>' . $stat . '&lt;/li>';
+	}
+
+	return array(
+		'html'  => $line,
+		'count' => $total,
+	);
 }
 
 /**
@@ -497,9 +570,9 @@ function wpa_add() {
  * @return mixed
  */
 function wpa_column( $cols ) {
-	$cols['wpa_type']    = __( 'Statistic Type', 'wp-accessibility' );
-	$cols['wpa_last']    = __( 'Last Action', 'wp-accessibility' );
-	$cols['wpa_browser'] = __( 'Browser', 'wp-accessibility' );
+	$cols['wpa_type'] = __( 'Statistic Type', 'wp-accessibility' );
+	$cols['wpa_last'] = __( 'Last Action', 'wp-accessibility' );
+	$cols['wpa_info'] = __( 'Info', 'wp-accessibility' );
 
 	return $cols;
 }
@@ -537,16 +610,16 @@ function wpa_custom_column( $column_name, $post_id ) {
 				} else {
 					$icon = 'update';
 					// translators: Date of change.
-					$last_action = sprintf( __( 'Accessibility Fixes changed on %s', 'wp-accessibility' ), gmdate( 'Y-m-d', $event->timestamp ) );
+					$last_action = sprintf( __( 'Found issues changed on %s', 'wp-accessibility' ), gmdate( 'Y-m-d', $event->timestamp ) );
 				}
 			}
 			echo '&lt;span class="dashicons dashicons-' . $icon . '" aria-hidden="true">&lt;/span> ' . $last_action;
 			break;
-		case 'wpa_browser':
+		case 'wpa_info':
 			if ( 'event' === $stat ) {
 				echo wpa_get_browser_stat( $post_id );
 			} else {
-				echo __( 'N/A', 'wp-accessibility' );
+				echo wpa_compare_views( $post_id );
 			}
 	}
 }
@@ -567,7 +640,8 @@ function wpa_add_meta_boxes() {
 function wpa_display_stats() {
 	global $post;
 	$type = ( has_term( 'event', 'wpa-stats-type', $post->ID ) ) ? 'event' : 'view';
-	echo '&lt;div class="activity-block">&lt;ul>' . wpa_stats_data_point( $post, $type ) . '&lt;/ul>&lt;/div>';
+	$data = wpa_stats_data_point( $post, $type );
+	echo '&lt;div class="activity-block">&lt;ul>' . $data['html'] . '&lt;/ul>&lt;/div>';
 }
 </code></pre>
         </article>
@@ -586,7 +660,7 @@ function wpa_display_stats() {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Filters</h3><ul><li><a href="asl_extra_target.html">asl_extra_target</a></li><li><a href="asl_sitemap.html">asl_sitemap</a></li><li><a href="wpa_case_insensitive.html">wpa_case_insensitive</a></li><li><a href="wpa_case_sensitive.html">wpa_case_sensitive</a></li><li><a href="wpa_disable_labels.html">wpa_disable_labels</a></li><li><a href="wpa_fontsize_css.html">wpa_fontsize_css</a></li><li><a href="wpa_get_current_url.html">wpa_get_current_url</a></li><li><a href="wpa_labels.html">wpa_labels</a></li><li><a href="wpa_long_alt.html">wpa_long_alt</a></li><li><a href="wpa_move_toolbar.html">wpa_move_toolbar</a></li><li><a href="wpa_remove_titles.html">wpa_remove_titles</a></li><li><a href="wpa_show_alt_selector.html">wpa_show_alt_selector</a></li><li><a href="wpa_skiplink_styles.html">wpa_skiplink_styles</a></li><li><a href="wpa_summary_heading.html">wpa_summary_heading</a></li><li><a href="wpa_summary_heading_level.html">wpa_summary_heading_level</a></li><li><a href="wpa_toolbar_css.html">wpa_toolbar_css</a></li><li><a href="wpa_underline_target.html">wpa_underline_target</a></li><li><a href="wpa_view_remediation_logs.html">wpa_view_remediation_logs</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-change-accessibility-toolbar-attachment-element.html">change-accessibility-toolbar-attachment-element</a></li><li><a href="tutorial-custom-fontsize-stylesheet.html">custom-fontsize-stylesheet</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Filters</h3><ul><li><a href="asl_extra_target.html">asl_extra_target</a></li><li><a href="asl_sitemap.html">asl_sitemap</a></li><li><a href="wpa_case_insensitive.html">wpa_case_insensitive</a></li><li><a href="wpa_case_sensitive.html">wpa_case_sensitive</a></li><li><a href="wpa_disable_labels.html">wpa_disable_labels</a></li><li><a href="wpa_fontsize_css.html">wpa_fontsize_css</a></li><li><a href="wpa_get_current_url.html">wpa_get_current_url</a></li><li><a href="wpa_labels.html">wpa_labels</a></li><li><a href="wpa_long_alt.html">wpa_long_alt</a></li><li><a href="wpa_move_toolbar.html">wpa_move_toolbar</a></li><li><a href="wpa_remove_titles.html">wpa_remove_titles</a></li><li><a href="wpa_show_alt_selector.html">wpa_show_alt_selector</a></li><li><a href="wpa_skiplink_styles.html">wpa_skiplink_styles</a></li><li><a href="wpa_summary_heading.html">wpa_summary_heading</a></li><li><a href="wpa_summary_heading_level.html">wpa_summary_heading_level</a></li><li><a href="wpa_toolbar_css.html">wpa_toolbar_css</a></li><li><a href="wpa_track_view_statistics.html">wpa_track_view_statistics</a></li><li><a href="wpa_underline_target.html">wpa_underline_target</a></li><li><a href="wpa_view_remediation_logs.html">wpa_view_remediation_logs</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-change-accessibility-toolbar-attachment-element.html">change-accessibility-toolbar-attachment-element</a></li><li><a href="tutorial-custom-fontsize-stylesheet.html">custom-fontsize-stylesheet</a></li></ul>
 </nav>
 
 <br class="clear">

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Filter: wpa_case_sensitive - WP Accessibility Hook Doumentation</title>
+    <title>Filter: wpa_track_view_statistics - WP Accessibility Hook Doumentation</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -15,7 +15,7 @@
 
 <div id="main">
 
-    <header><h1 class="page-title">Filter: wpa_case_sensitive</h1></header>
+    <header><h1 class="page-title">Filter: wpa_track_view_statistics</h1></header>
 	<main>
     
 
@@ -36,14 +36,14 @@
 
     
 
-    <h4 class="name" id="wpa_case_sensitive">apply_filters( 'wpa_case_sensitive', <span class="signature">$case_sensitive )</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="wpa_track_view_statistics">apply_filters( 'wpa_track_view_statistics', <span class="signature">$visible )</span><span class="type-signature"> &rarr; {bool}</span></h4>
 
     
 
 
 
 <div class="description">
-    <p>Filter array of case sensitive strings that make alt text suspicious.</p>
+    <p>Filter whether data from views will be tracked.</p>
 </div>
 
 
@@ -77,13 +77,13 @@
 
         <tr>
             
-                <td class="name"><code>$case_sensitive</code></td>
+                <td class="name"><code>$visible</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">array</span>
+<span class="param-type">bool</span>
 
 
             
@@ -93,7 +93,7 @@
 
             
 
-            <td class="description last"><p>Array of strings.</p></td>
+            <td class="description last"><p>Default <code>true</code> if user is logged in and has capabilities to manage options or if enabled in settings.</p></td>
         </tr>
 
     
@@ -134,7 +134,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="wp-accessibility-alt.php.html">wp-accessibility-alt.php</a>, <a href="wp-accessibility-alt.php.html#line135">line 135</a>
+        <a href="wp-accessibility.php.html">wp-accessibility.php</a>, <a href="wp-accessibility.php.html#line458">line 458</a>
     </li></ul></dd>
     
 
@@ -160,11 +160,19 @@
 <h5>Returns:</h5>
 
         
-<div class="param-desc">
-    <p>array</p>
-</div>
 
 
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">bool</span>
+
+
+    </dd>
+</dl>
 
     
 

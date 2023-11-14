@@ -125,9 +125,11 @@ function wpa_update_settings() {
 			$wpa_search_alt         = ( isset( $_POST['wpa_search_alt'] ) ) ? 'on' : '';
 			$wpa_diagnostics        = ( isset( $_POST['wpa_diagnostics'] ) ) ? 'on' : '';
 			$wpa_disable_fullscreen = ( isset( $_POST['wpa_disable_fullscreen'] ) ) ? 'on' : '';
+			$wpa_track_stats        = ( isset( $_POST['wpa_track_stats'] ) ) ? sanitize_text_field( $_POST['wpa_track_stats'] ) : '';
 			update_option( 'wpa_search_alt', $wpa_search_alt );
 			update_option( 'wpa_diagnostics', $wpa_diagnostics );
 			update_option( 'wpa_disable_fullscreen', $wpa_disable_fullscreen );
+			update_option( 'wpa_track_stats', $wpa_track_stats );
 			$message = __( 'Accessibility Tools Updated', 'wp-accessibility' );
 
 			return "&lt;div class='updated'>&lt;p>" . $message . '&lt;/p>&lt;/div>';
@@ -509,6 +511,26 @@ function wpa_admin_settings() {
 											&lt;input type="checkbox" id="wpa_diagnostics" name="wpa_diagnostics" &lt;?php checked( get_option( 'wpa_diagnostics' ), 'on' ); ?>/>
 											&lt;label for="wpa_diagnostics">&lt;?php _e( 'Enable diagnostic CSS', 'wp-accessibility' ); ?>&lt;/label>
 										&lt;/li>
+										&lt;li>
+											&lt;fieldset>
+												&lt;legend>&lt;?php _e( 'Page Statistics Tracking', 'wp-accessibility' ); ?>&lt;/legend>
+												&lt;ul>
+													&lt;li>
+														&lt;input type="radio" id="wpa_track_stats_none" value="off" name="wpa_track_stats" &lt;?php checked( get_option( 'wpa_track_stats' ), 'off' ); ?>/>
+														&lt;label for="wpa_track_stats_none">&lt;?php _e( 'None', 'wp-accessibility' ); ?>&lt;/label>
+													&lt;/li>
+													&lt;li>
+														&lt;input type="radio" id="wpa_track_stats_all" value="all" name="wpa_track_stats" &lt;?php checked( get_option( 'wpa_track_stats' ), 'all' ); ?>/>
+														&lt;label for="wpa_track_stats_all">&lt;?php _e( 'All Visitors', 'wp-accessibility' ); ?>&lt;/label>
+													&lt;/li>
+													&lt;li>
+														&lt;input type="radio" id="wpa_track_stats_admin" value="" name="wpa_track_stats" &lt;?php checked( get_option( 'wpa_track_stats' ), '' ); ?>/>
+														&lt;label for="wpa_track_stats_admin">&lt;?php _e( 'Site Administrators', 'wp-accessibility' ); ?>&lt;/label>
+													&lt;/li>
+												&lt;/ul>
+											&lt;/fieldset>
+						
+										&lt;/li>
 									&lt;/ul>
 									&lt;p>
 										&lt;input type="hidden" name="_wpnonce" value="&lt;?php echo wp_create_nonce( 'wpa-nonce' ); ?>" />
@@ -720,7 +742,8 @@ function wpa_admin_sidebar() {
 						&lt;p>&lt;?php _e( 'The accessibility toolbar sets cookies to maintain awareness of the user\'s selected accessibility options. If the toolbar is not in use, WP Accessibility does not set any cookies.', 'wp-accessibility' ); ?>&lt;/p>
 						&lt;h3>&lt;?php _e( 'Information collected by WP Accessibility', 'wp-accessibility' ); ?>&lt;/h3>
 						&lt;p>&lt;?php _e( 'WP Accessibility does not collect any personally identifying information about users or visitors.', 'wp-accessibility' ); ?>&lt;/p>
-						&lt;p>&lt;?php _e( 'User statistics collected by WP Accessibility are tracked using browser fingerprinting, and no identifiable information is stored at any time.', 'wp-accessibility' ); ?>&lt;/p>
+						&lt;p>&lt;?php _e( 'User statistics (toolbar actions) collected by WP Accessibility are tracked using browser fingerprinting, and no identifiable information is stored at any time.', 'wp-accessibility' ); ?>&lt;/p>
+						&lt;p>&lt;?php _e( 'Page statistics are collected when the page is initially viewed, then again if the accessibility values have changed since the last check.', 'wp-accessibility' ); ?>&lt;/p>
 					&lt;/div>
 				&lt;/div>
 			&lt;/div>
@@ -829,7 +852,7 @@ add_action(
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Filters</h3><ul><li><a href="asl_extra_target.html">asl_extra_target</a></li><li><a href="asl_sitemap.html">asl_sitemap</a></li><li><a href="wpa_case_insensitive.html">wpa_case_insensitive</a></li><li><a href="wpa_case_sensitive.html">wpa_case_sensitive</a></li><li><a href="wpa_disable_labels.html">wpa_disable_labels</a></li><li><a href="wpa_fontsize_css.html">wpa_fontsize_css</a></li><li><a href="wpa_get_current_url.html">wpa_get_current_url</a></li><li><a href="wpa_labels.html">wpa_labels</a></li><li><a href="wpa_long_alt.html">wpa_long_alt</a></li><li><a href="wpa_move_toolbar.html">wpa_move_toolbar</a></li><li><a href="wpa_remove_titles.html">wpa_remove_titles</a></li><li><a href="wpa_show_alt_selector.html">wpa_show_alt_selector</a></li><li><a href="wpa_skiplink_styles.html">wpa_skiplink_styles</a></li><li><a href="wpa_summary_heading.html">wpa_summary_heading</a></li><li><a href="wpa_summary_heading_level.html">wpa_summary_heading_level</a></li><li><a href="wpa_toolbar_css.html">wpa_toolbar_css</a></li><li><a href="wpa_underline_target.html">wpa_underline_target</a></li><li><a href="wpa_view_remediation_logs.html">wpa_view_remediation_logs</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-change-accessibility-toolbar-attachment-element.html">change-accessibility-toolbar-attachment-element</a></li><li><a href="tutorial-custom-fontsize-stylesheet.html">custom-fontsize-stylesheet</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Filters</h3><ul><li><a href="asl_extra_target.html">asl_extra_target</a></li><li><a href="asl_sitemap.html">asl_sitemap</a></li><li><a href="wpa_case_insensitive.html">wpa_case_insensitive</a></li><li><a href="wpa_case_sensitive.html">wpa_case_sensitive</a></li><li><a href="wpa_disable_labels.html">wpa_disable_labels</a></li><li><a href="wpa_fontsize_css.html">wpa_fontsize_css</a></li><li><a href="wpa_get_current_url.html">wpa_get_current_url</a></li><li><a href="wpa_labels.html">wpa_labels</a></li><li><a href="wpa_long_alt.html">wpa_long_alt</a></li><li><a href="wpa_move_toolbar.html">wpa_move_toolbar</a></li><li><a href="wpa_remove_titles.html">wpa_remove_titles</a></li><li><a href="wpa_show_alt_selector.html">wpa_show_alt_selector</a></li><li><a href="wpa_skiplink_styles.html">wpa_skiplink_styles</a></li><li><a href="wpa_summary_heading.html">wpa_summary_heading</a></li><li><a href="wpa_summary_heading_level.html">wpa_summary_heading_level</a></li><li><a href="wpa_toolbar_css.html">wpa_toolbar_css</a></li><li><a href="wpa_track_view_statistics.html">wpa_track_view_statistics</a></li><li><a href="wpa_underline_target.html">wpa_underline_target</a></li><li><a href="wpa_view_remediation_logs.html">wpa_view_remediation_logs</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-change-accessibility-toolbar-attachment-element.html">change-accessibility-toolbar-attachment-element</a></li><li><a href="tutorial-custom-fontsize-stylesheet.html">custom-fontsize-stylesheet</a></li></ul>
 </nav>
 
 <br class="clear">
