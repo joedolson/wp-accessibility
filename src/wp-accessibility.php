@@ -431,7 +431,8 @@ function wpa_jquery_asl() {
 	$dir    = ( is_rtl() ) ? 'rtl' : 'ltr';
 	$lang   = get_bloginfo( 'language' );
 
-	wp_enqueue_script( 'wp-accessibility', plugins_url( 'js/wp-accessibility.js', __FILE__ ), array( 'jquery' ), $version, true );
+	wp_register_script( 'wpa-fingerprintjs', plugins_url( 'js/fingerprint.js', __FILE__ ), array(), $version );
+	wp_enqueue_script( 'wp-accessibility', plugins_url( 'js/wp-accessibility.js', __FILE__ ), array( 'jquery', 'wpa-fingerprintjs' ), $version, true );
 	/**
 	 * Filter target element selector for underlines. Default `a`.
 	 *

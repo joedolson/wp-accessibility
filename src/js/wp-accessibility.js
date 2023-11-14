@@ -232,7 +232,8 @@
 			console.log( buttonLinks.length + ' tabindex attributes added to anchor elements with the button role and no href value by WP Accessibility' );
 		}
 	}
-
+	var fingerprint = new Fingerprint().get();
+	
 	$('.toggle-contrast').on('click', function (e) {
 		// This fires after the contrast change happens, and the ID is already changed.
 		if ($(this).attr('id') == "is_normal_contrast") {
@@ -247,7 +248,7 @@
 			'security' : wpa.security,
 			'stats' : event,
 			'post_id' : wpa.post_id,
-			'title' : wpa.hash,
+			'title' : fingerprint,
 			'type' : 'event'
 		};
 		$.post( wpa.ajaxurl, data, function () {}, "json" );
@@ -267,7 +268,7 @@
 			'security' : wpa.security,
 			'stats' : event,
 			'post_id' : wpa.post_id,
-			'title' : wpa.hash,
+			'title' : fingerprint,
 			'type' : 'event'
 		};
 		$.post( wpa.ajaxurl, data, function () {}, "json" );
