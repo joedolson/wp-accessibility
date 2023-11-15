@@ -372,10 +372,23 @@ function wpa_stats_data_point( $post, $type ) {
 	}
 	$output .= '<ul class="stats">' . $line . '</ul></li>';
 
-	return array(
+	$return = array(
 		'count' => $total,
 		'html'  => $output,
 	);
+	/**
+	 * Filter the data displayed about a given stats point.
+	 *
+	 * @hook wpa_stats_data_point
+	 *
+	 * @param {array}   $return Array with an `html` key containing HTML and a `count` string with the number of issues to display.
+	 * @param {WP_Post} $post WordPress post object.
+	 * @param {string}  $type Type of stat; 'event' or 'view'.
+	 *
+	 * @return {array}
+	 */
+	$return = apply_filters( 'wpa_stats_data_point', $return, $post, $type );
+	return $return;
 }
 
 /**
