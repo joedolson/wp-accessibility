@@ -147,7 +147,7 @@ function wpacc_enqueue_scripts() {
 	} elseif ( 'button' === get_option( 'wpa_longdesc' ) ) {
 		$longdesc_type = 'jquery';
 	}
-	if ( $long_desc_type ) {
+	if ( $longdesc_type ) {
 		$wpald = ( SCRIPT_DEBUG ) ? plugins_url( 'js/longdesc.js', __FILE__ ) : plugins_url( 'js/longdesc.min.js', __FILE__ );
 		wp_enqueue_script( 'longdesc', $wpald, array( 'jquery' ), $version, true );
 		wp_localize_script(
