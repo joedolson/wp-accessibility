@@ -170,7 +170,7 @@ function wpacc_enqueue_scripts() {
 	$longdesc_type = false;
 	if ( 'link' === get_option( 'wpa_longdesc' ) ) {
 		$longdesc_type = 'link';
-	} elseif ( 'button' === get_option( 'wpa_longdesc' ) ) {
+	} elseif ( 'jquery' === get_option( 'wpa_longdesc' ) ) {
 		$longdesc_type = 'jquery';
 	}
 	if ( $longdesc_type ) {
@@ -178,7 +178,7 @@ function wpacc_enqueue_scripts() {
 		wp_enqueue_script( 'longdesc', $wpald, array( 'jquery' ), $version, true );
 		wp_localize_script(
 			'longdesc',
-			'wparest',
+			'wpald',
 			array(
 				'url'  => get_rest_url( null, 'wp/v2/media' ),
 				'type' => $longdesc_type,
