@@ -140,14 +140,23 @@ add_action( 'wp_enqueue_scripts', 'wpacc_enqueue_scripts', 101 );
  * Enqueue accessibility feature scripts.
  */
 function wpacc_enqueue_scripts() {
-	$version = ( SCRIPT_DEBUG ) ? wp_rand( 10000, 100000 ) : wpa_check_version();
+	$version       = ( SCRIPT_DEBUG ) ? wp_rand( 10000, 100000 ) : wpa_check_version();
+	$longdesc_type = false;
 	if ( 'link' === get_option( 'wpa_longdesc' ) ) {
-		wp_enqueue_script( 'longdesc.link', plugins_url( 'js/longdesc.link.js', __FILE__ ), array( 'jquery' ), $version, true );
+		$longdesc_type = 'link';
+	} elseif ( 'button' === get_option( 'wpa_longdesc' ) ) {
+		$longdesc_type = 'jquery';
+	}
+	if ( $long_desc_type ) {
+		$wpald = ( SCRIPT_DEBUG ) ? plugins_url( 'js/longdesc.js', __FILE__ ) : plugins_url( 'js/longdesc.min.js', __FILE__ );
+		wp_enqueue_script( 'longdesc', $wpald, array( 'jquery' ), $version, true );
 		wp_localize_script(
-			'longdesc.link',
+			'longdesc',
 			'wparest',
 			array(
-				'url' => get_rest_url( null, 'wp/v2/media' ),
+				'url'  => get_rest_url( null, 'wp/v2/media' ),
+				'type' => $longdesc_type,
+				'text' => '<span class="dashicons dashicons-media-text" aria-hidden="true"></span><span class="screen-reader">' . __( 'Long Description', 'wp-accessibility' ) . '</span>',
 			)
 		);
 	}
@@ -164,23 +173,13 @@ function wpacc_enqueue_scripts() {
 		 * @return {string}
 		 */
 		$selector = apply_filters( 'wpa_show_alt_selector', '.hentry img[alt!=""], .comment-content img[alt!=""]' );
-		wp_enqueue_script( 'alt.button', plugins_url( 'js/alt.button.js', __FILE__ ), array( 'jquery' ), $version, true );
+		$wpaab    = ( SCRIPT_DEBUG ) ? plugins_url( 'js/alt.button.js', __FILE__ ) : plugins_url( 'js/alt.button.min.js', __FILE__ );
+		wp_enqueue_script( 'alt.button', $wpaab, array( 'jquery' ), $version, true );
 		wp_localize_script(
 			'alt.button',
 			'wpalt',
 			array(
 				'selector' => $selector,
-			)
-		);
-	}
-	if ( 'jquery' === get_option( 'wpa_longdesc' ) ) {
-		wp_enqueue_script( 'longdesc.button', plugins_url( 'js/longdesc.button.js', __FILE__ ), array( 'jquery' ), $version, true );
-		wp_localize_script(
-			'longdesc.button',
-			'wparest',
-			array(
-				'url'  => get_rest_url( null, 'wp/v2/media' ),
-				'text' => '<span class="dashicons dashicons-media-text" aria-hidden="true"></span><span class="screen-reader">' . __( 'Long Description', 'wp-accessibility' ) . '</span>',
 			)
 		);
 	}
@@ -431,11 +430,7 @@ function wpa_jquery_asl() {
 	$dir    = ( is_rtl() ) ? 'rtl' : 'ltr';
 	$lang   = get_bloginfo( 'language' );
 
-	if ( SCRIPT_DEBUG ) {
-		$wpafp = plugins_url( 'js/fingerprint.js', __FILE__ );
-	} else {
-		$wpafp = plugins_url( 'js/fingerprint.min.js', __FILE__ );
-	}
+	$wpafp = plugins_url( 'js/fingerprint.min.js', __FILE__ );
 	wp_register_script( 'wpa-fingerprintjs', $wpafp, array(), $version );
 	if ( SCRIPT_DEBUG ) {
 		$wpajs = plugins_url( 'js/wp-accessibility.js', __FILE__ );

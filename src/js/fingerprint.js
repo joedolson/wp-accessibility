@@ -1,4 +1,3 @@
-
 /*
 * fingerprintJS 0.1 - Fast browser fingerprint library
 * https://github.com/Valve/fingerprintJS

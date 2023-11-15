@@ -31,8 +31,8 @@
     "esbuild": "^0.17.10"
   },
   "scripts": {
-    "start": "esbuild fingerprint.min=src/js/fingerprint.js wp-accessibility.min=src/js/wp-accessibility.js --bundle --outdir=src/js --target=chrome58,firefox57,safari11,edge16 --watch --sourcemap",
-    "build:js": "esbuild fingerprint.min=src/js/fingerprint.js wp-accessibility.min=src/js/wp-accessibility.js --bundle --outdir=src/js --target=chrome58,firefox57,safari11,edge16 --minify",
+    "start": "esbuild a11y.min=src/js/a11y.js wpa-toolbar.min=src/js/wpa-toolbar.js alt.button.min=src/js/alt.button.js longdesc.min=src/js/longdesc.js wp-accessibility.min=src/js/wp-accessibility.js --bundle --outdir=src/js --target=chrome58,firefox57,safari11,edge16 --watch --sourcemap",
+    "build:js": "esbuild a11y.min=src/js/a11y.js wpa-toolbar.min=src/js/alt.button.js wpa-toolbar.min=src/js/alt.button.js longdesc.min=src/js/longdesc.js wp-accessibility.min=src/js/wp-accessibility.js --bundle --outdir=src/js --target=chrome58,firefox57,safari11,edge16 --minify",
     "presetup": "find .scripts -type f -exec chmod +x {} \\;",
     "build:docs": "rm -rf docs/ && jsdoc -c hookdoc-conf.json",
     "format-php": "wp-env run composer run-script format",
