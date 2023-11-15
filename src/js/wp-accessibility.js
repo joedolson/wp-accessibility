@@ -274,6 +274,47 @@
 		$.post( wpa.ajaxurl, data, function () {}, "json" );
 	});
 
+	waitForElement('.wpa-ld button').then((elm) => {
+		$('.wpa-ld button').on( 'click', function(e) {
+			// For descriptions, we aren't concerned about state changes; just usage.
+			var visible = ( 'true' === $( this ).attr( 'aria-expanded' ) ) ? true : false;
+			if ( visible ) {
+				var img      = $( this ).parent( 'div' );
+				var image_id = img.attr( 'class' ).replace( 'wpa-ld wp-image-', '' );
+				var event    = { 'longdesc' : image_id };
+				var data     = {
+					'action' : wpa.action,
+					'security' : wpa.security,
+					'stats' : event,
+					'post_id' : wpa.post_id,
+					'title' : fingerprint,
+					'type' : 'event'
+				};
+				$.post( wpa.ajaxurl, data, function (response) { console.log( response ); }, "json" );
+			}
+		});
+	});
+
+	$('.wpa-alt button').on( 'click', function(e) {
+		// For alt text, we aren't concerned about state changes; just usage.
+		var visible = ( 'true' === $( this ).attr( 'aria-expanded' ) ) ? true : false;
+		if ( visible ) {
+			var img      = $( this ).parent( 'div' );
+			console.log( img );
+			var image_id = img.attr( 'class' ).replace( 'wpa-alt wp-image-', '' );
+			var event    = { 'alttext' : image_id };
+			var data     = {
+				'action' : wpa.action,
+				'security' : wpa.security,
+				'stats' : event,
+				'post_id' : wpa.post_id,
+				'title' : fingerprint,
+				'type' : 'event'
+			};
+			$.post( wpa.ajaxurl, data, function (response) { console.log( response ); }, "json" );
+		}
+	});
+
 	if ( wpa.tracking && errors.length >= 1 ) {
 		var data = {
 			'action' : wpa.action,
@@ -355,3 +396,29 @@ function wpaElementText(el) {
 
 	return text;
 };
+
+/**
+ * Wait to see whether an element becomes available. 
+ *
+ * @param {string} selector 
+ * @returns 
+ */
+function waitForElement(selector) {
+    return new Promise(resolve => {
+        if (document.querySelector(selector)) {
+            return resolve(document.querySelector(selector));
+        }
+
+        const observer = new MutationObserver(mutations => {
+            if (document.querySelector(selector)) {
+                observer.disconnect();
+                resolve(document.querySelector(selector));
+            }
+        });
+
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
+    });
+}

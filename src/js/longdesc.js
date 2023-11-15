@@ -81,13 +81,12 @@
 			img.attr('class', '');
 			img.wrap('<div class="wpa-ld" />')
 			img.parent('.wpa-ld').addClass(classes);
-			img.parent('.wpa-ld').append('<button aria-expanded="false" class="wpa-toggle">' + wpald.text + '</button>');
+			img.parent('.wpa-ld').append('<button aria-expanded="false" type="button" class="wpa-toggle">' + wpald.text + '</button>');
 			img.parent('.wpa-ld').append('<div class="longdesc"></div>');
 			var container = img.parent('.wpa-ld').children('.longdesc');
 			container.hide();
 			container.load( longdesc + ' #desc_' + image_id );
 			img.parent('.wpa-ld').children('button').on( 'click', function(e) {
-				e.preventDefault();
 				var visible = container.is( ':visible' );
 				if ( visible ) {
 					$( this ).attr( 'aria-expanded', 'false' );
@@ -141,7 +140,6 @@
 			}
 			var id = classes.replace( 'wp-image-', '' );
 			var api = wpald.url + '/' + id;
-			console.log( api );
 
 			$.get( api )
 				.done( function( response ) {

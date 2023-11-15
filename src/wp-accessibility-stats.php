@@ -97,7 +97,7 @@ function wpa_add_stats( $stats, $title, $type = 'view', $post_ID = 0 ) {
 		 * @param {array} $stats Stats data sent via AJAX.
 		 */
 		do_action( 'wpa_save_stats_update', $exists, $stats );
-		return array( $stats, $old_stats );
+		return array( $stats );
 	} else {
 		$post  = array(
 			'post_title'   => $title,
@@ -341,6 +341,16 @@ function wpa_stats_data_point( $post, $type ) {
 		}
 		$date = gmdate( 'Y-m-d', $data->timestamp );
 		$time = gmdate( 'H:i', $data->timestamp );
+		if ( property_exists( $data, 'alttext' ) ) {
+			$image_link = '<a href="' . esc_url( add_query_arg( 'item', $data->alttext, admin_url( 'upload.php' ) ) ) . '">' . esc_html( $data->alttext ) . '</a>';
+			// translators: 1) image link. 2) date 3) time.
+			$text = sprintf( __( 'Alt text expanded on image %1$s on %$2s at %3$s', 'wp-accessibility' ), $image_link, $date, $time );
+		}
+		if ( property_exists( $data, 'longdesc' ) ) {
+			$image_link = '<a href="' . esc_url( add_query_arg( 'item', $data->longdesc, admin_url( 'upload.php' ) ) ) . '">' . esc_html( $data->longdesc ) . '</a>';
+			// translators: 1) image link. 2) date 3) time.
+			$text = sprintf( __( 'Long description expanded on image %1$s on %$2s at %3$s', 'wp-accessibility' ), $image_link, $date, $time );
+		}
 		$line = '<li>' . sprintf( $text, $date, $time ) . '</li>';
 		foreach ( $history as $h ) {
 			$h             = json_decode( $h );
@@ -354,6 +364,19 @@ function wpa_stats_data_point( $post, $type ) {
 			} elseif ( $has_contrast ) {
 				$hc_text = ( 'enabled' === $has_contrast ) ? $hc_text_enabled : $hc_text_disabled;
 				$line   .= '<li>' . sprintf( $hc_text, $change_date, $change_time ) . '</li>';
+			} else {
+				$text = 'no';
+				if ( property_exists( $h, 'alttext' ) ) {
+					$image_link = '<a href="' . esc_url( add_query_arg( 'item', $h->alttext, admin_url( 'upload.php' ) ) ) . '">' . esc_html( $h->alttext ) . '</a>';
+					// translators: 1) image ID. 2) date 3) time.
+					$text = sprintf( __( 'Alt text expanded on image %1$s on %2$s at %3$s', 'wp-accessibility' ), $image_link, $change_date, $change_time );
+				}
+				if ( property_exists( $h, 'longdesc' ) ) {
+					$image_link = '<a href="' . esc_url( add_query_arg( 'item', $h->longdesc, admin_url( 'upload.php' ) ) ) . '">' . esc_html( $h->longdesc ) . '</a>';
+					// translators: 1) image link. 2) date 3) time.
+					$text = sprintf( __( 'Long description expanded on image %1$s on %2$s at %3$s', 'wp-accessibility' ), $image_link, $change_date, $change_time );
+				}
+				$line .= '<li>' . $text . '</li>';
 			}
 		}
 	} else {

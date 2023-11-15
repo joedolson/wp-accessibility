@@ -88,7 +88,10 @@ The plug-in is intended to help with deficiencies commonly found in themes and t
 * Change: Switch auto labeling to always one.
 * Change: Switch skiplink CSS to use default by default.
 * Change: Remove setting for filtering title attributes and turn on by default.
+* Change: Consolidate and minify JS.
 * Feature: Add stats collection to provide view into what WP Accessibility is doing.
+
+TODO: tracking on longdesc & alt toggles
 
 = 2.0.1 =
 
