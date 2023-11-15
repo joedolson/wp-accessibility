@@ -56,7 +56,7 @@ function wpa_register_scripts() {
 	$wpa_version = ( SCRIPT_DEBUG ) ? wp_rand( 10000, 100000 ) : wpa_check_version();
 	$wpatb       = ( SCRIPT_DEBUG ) ? plugins_url( 'js/wpa-toolbar.js', __FILE__ ) : plugins_url( 'js/wpa-toolbar.min.js', __FILE__ );
 	wp_register_script( 'wpa-toolbar', $wpatb, array(), $wpa_version, true );
-	$wpaui       = ( SCRIPT_DEBUG ) ? plugins_url( 'js/a11y.js', __FILE__ ) : plugins_url( 'js/a11y.min.js', __FILE__ );
+	$wpaui = ( SCRIPT_DEBUG ) ? plugins_url( 'js/a11y.js', __FILE__ ) : plugins_url( 'js/a11y.min.js', __FILE__ );
 	wp_register_script( 'ui-a11y', $wpaui, array( 'jquery' ), $wpa_version, true );
 }
 
