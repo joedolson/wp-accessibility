@@ -1,7 +1,7 @@
 (function ($) {
 	'use strict';
 
-	if ( 'link' === longdesc.type ) {
+	if ( 'link' === wpald.type ) {
 		// Handle longdescriptions with links.
 		$('img[longdesc]').each(function () {
 			var longdesc = $(this).attr('longdesc');
@@ -40,7 +40,7 @@
 
 		function wpa_load_image_link( img ) {
 			var id = img.attr( 'class' ).replace( 'wp-image-', '' );
-			var api = wparest.url + '/' + id;
+			var api = wpald.url + '/' + id;
 
 			$.get( api )
 				.done( function( response ) {
@@ -57,7 +57,7 @@
 					}
 				})
 				.fail( function() {
-					alert( 'cannot load media' )
+					console.log( 'cannot load media for longdesc on ' + id )
 				});
 		}
 	} else {
@@ -81,7 +81,7 @@
 			img.attr('class', '');
 			img.wrap('<div class="wpa-ld" />')
 			img.parent('.wpa-ld').addClass(classes);
-			img.parent('.wpa-ld').append('<button aria-expanded="false" class="wpa-toggle">' + wparest.text + '</button>');
+			img.parent('.wpa-ld').append('<button aria-expanded="false" class="wpa-toggle">' + wpald.text + '</button>');
 			img.parent('.wpa-ld').append('<div class="longdesc"></div>');
 			var container = img.parent('.wpa-ld').children('.longdesc');
 			container.hide();
@@ -110,7 +110,7 @@
 			img.attr('id','longdesc-return-' + image_id );
 			img.wrap('<div class="wpa-ld" />')
 			img.parent('.wpa-ld').addClass(classes);
-			img.parent('.wpa-ld').append('<button aria-expanded="false" class="wpa-toggle">' + wparest.text + '</button>');
+			img.parent('.wpa-ld').append('<button aria-expanded="false" class="wpa-toggle">' + wpald.text + '</button>');
 			img.parent('.wpa-ld').append('<div class="longdesc"></div>');
 			var container = img.parent('.wpa-ld').children('.longdesc');
 			container.hide();
@@ -140,7 +140,8 @@
 				classes = img.parent( '.wpa-alt' ).attr( 'class' ).replace( 'wpa-alt ', '' );
 			}
 			var id = classes.replace( 'wp-image-', '' );
-			var api = wparest.url + '/' + id;
+			var api = wpald.url + '/' + id;
+			console.log( api );
 
 			$.get( api )
 				.done( function( response ) {
@@ -157,7 +158,7 @@
 					}
 				})
 				.fail( function() {
-					alert( 'cannot load media' )
+					console.log( 'cannot load media for longdesc on ' + id )
 				});
 		}
 	}
