@@ -88,6 +88,15 @@ function wpa_add_stats( $stats, $title, $type = 'view', $post_ID = 0 ) {
 				add_post_meta( $exists, '_wpa_event', $stats );
 			}
 		}
+		/**
+		 * Run when a statistic that has already been recorded in the database is updated.
+		 *
+		 * @hook wpa_save_stats_update
+		 *
+		 * @param {int}   $exists Existing post ID.
+		 * @param {array} $stats Stats data sent via AJAX.
+		 */
+		do_action( 'wpa_save_stats_update', $exists, $stats );
 		return array( $stats, $old_stats );
 	} else {
 		$post  = array(
@@ -111,6 +120,16 @@ function wpa_add_stats( $stats, $title, $type = 'view', $post_ID = 0 ) {
 			update_post_meta( $stat, '_wpa_post_id', $post_ID );
 			update_post_meta( $post, '_wpa_stat_id', $stat );
 		}
+		/**
+		 * Run when a new statistic is recorded.
+		 *
+		 * @hook wpa_save_stats_post
+		 *
+		 * @param {int}   $stat New post ID.
+		 * @param {array} $stats Stats data sent via AJAX.
+		 * @param {int}   $post_ID Related post ID or false if a non-singular screen.
+		 */
+		do_action( 'wpa_save_stats_post', $stat, $stats, $post_ID );
 		return array();
 	}
 }
