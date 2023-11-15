@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Filter: wpa_move_toolbar - WP Accessibility Hook Doumentation</title>
+    <title>Action: wpa_save_stats_update - WP Accessibility Hook Doumentation</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -15,7 +15,7 @@
 
 <div id="main">
 
-    <header><h1 class="page-title">Filter: wpa_move_toolbar</h1></header>
+    <header><h1 class="page-title">Action: wpa_save_stats_update</h1></header>
 	<main>
     
 
@@ -36,14 +36,14 @@
 
     
 
-    <h4 class="name" id="wpa_move_toolbar">apply_filters( 'wpa_move_toolbar', <span class="signature">$el )</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="wpa_save_stats_update">do_action( 'wpa_save_stats_update', <span class="signature">$exists, $stats )</span><span class="type-signature"></span></h4>
 
     
 
 
 
 <div class="description">
-    <p>Filter attachment location of the toolbar. Default <code>body</code>.</p>
+    <p>Run when a statistic that has already been recorded in the database is updated.</p>
 </div>
 
 
@@ -77,13 +77,13 @@
 
         <tr>
             
-                <td class="name"><code>$el</code></td>
+                <td class="name"><code>$exists</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">int</span>
 
 
             
@@ -93,7 +93,30 @@
 
             
 
-            <td class="description last"><p>Target element selector.</p></td>
+            <td class="description last"><p>Existing post ID.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>$stats</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Stats data sent via AJAX.</p></td>
         </tr>
 
     
@@ -134,7 +157,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="wp-accessibility-toolbar.php.html">wp-accessibility-toolbar.php</a>, <a href="wp-accessibility-toolbar.php.html#line171">line 171</a>
+        <a href="wp-accessibility-stats.php.html">wp-accessibility-stats.php</a>, <a href="wp-accessibility-stats.php.html#line91">line 91</a>
     </li></ul></dd>
     
 
@@ -157,16 +180,6 @@
 
 
 
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>string</p>
-</div>
-
-
-
-    
 
 
 

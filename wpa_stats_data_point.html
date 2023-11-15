@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Filter: wpa_move_toolbar - WP Accessibility Hook Doumentation</title>
+    <title>Filter: wpa_stats_data_point - WP Accessibility Hook Doumentation</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -15,7 +15,7 @@
 
 <div id="main">
 
-    <header><h1 class="page-title">Filter: wpa_move_toolbar</h1></header>
+    <header><h1 class="page-title">Filter: wpa_stats_data_point</h1></header>
 	<main>
     
 
@@ -36,14 +36,14 @@
 
     
 
-    <h4 class="name" id="wpa_move_toolbar">apply_filters( 'wpa_move_toolbar', <span class="signature">$el )</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="wpa_stats_data_point">apply_filters( 'wpa_stats_data_point', <span class="signature">$return, $post, $type )</span><span class="type-signature"> &rarr; {array}</span></h4>
 
     
 
 
 
 <div class="description">
-    <p>Filter attachment location of the toolbar. Default <code>body</code>.</p>
+    <p>Filter the data displayed about a given stats point.</p>
 </div>
 
 
@@ -77,7 +77,53 @@
 
         <tr>
             
-                <td class="name"><code>$el</code></td>
+                <td class="name"><code>$return</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Array with an <code>html</code> key containing HTML and a <code>count</code> string with the number of issues to display.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>$post</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">WP_Post</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>WordPress post object.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>$type</code></td>
             
 
             <td class="type">
@@ -93,7 +139,7 @@
 
             
 
-            <td class="description last"><p>Target element selector.</p></td>
+            <td class="description last"><p>Type of stat; 'event' or 'view'.</p></td>
         </tr>
 
     
@@ -134,7 +180,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="wp-accessibility-toolbar.php.html">wp-accessibility-toolbar.php</a>, <a href="wp-accessibility-toolbar.php.html#line171">line 171</a>
+        <a href="wp-accessibility-stats.php.html">wp-accessibility-stats.php</a>, <a href="wp-accessibility-stats.php.html#line379">line 379</a>
     </li></ul></dd>
     
 
@@ -160,11 +206,19 @@
 <h5>Returns:</h5>
 
         
-<div class="param-desc">
-    <p>string</p>
-</div>
 
 
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">array</span>
+
+
+    </dd>
+</dl>
 
     
 
