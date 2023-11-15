@@ -1,6 +1,6 @@
 {
   "name": "wp-accessibility",
-  "version": "3.3.0",
+  "version": "2.1.0",
   "private": true,
   "description": "WP Accessibility WordPress plug-in.",
   "author": "Joe Dolson",
@@ -19,17 +19,33 @@
     "npm": ">=6.9.0"
   },
   "devDependencies": {
-    "@wordpress/env": "^4.1",
+    "@wordpress/env": "^5.7",
     "jsdoc": "~3.6.3",
-    "wp-hookdoc": "^0.2.0"
+    "wp-hookdoc": "^0.2.0",
+    "eslint": "^7.25.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "husky": "^6.0.0",
+    "lint-staged": "^10.5.4",
+    "prettier": "^2.8.4",
+    "esbuild": "^0.17.10"
   },
   "scripts": {
+    "start": "esbuild fingerprint.min=src/js/fingerprint.js wp-accessibility.min=src/js/wp-accessibility.js --bundle --outdir=src/js --target=chrome58,firefox57,safari11,edge16 --watch --sourcemap",
+    "build:js": "esbuild fingerprint.min=src/js/fingerprint.js wp-accessibility.min=src/js/wp-accessibility.js --bundle --outdir=src/js --target=chrome58,firefox57,safari11,edge16 --minify",
+    "presetup": "find .scripts -type f -exec chmod +x {} \\;",
     "build:docs": "rm -rf docs/ && jsdoc -c hookdoc-conf.json",
     "format-php": "wp-env run composer run-script format",
     "prelint-php": "wp-env run composer 'install --no-interaction'",
     "lint-php": "wp-env run composer run-script lint",
     "pretest-php": "wp-env run composer 'install --no-interaction'",
     "test-php": "wp-env run phpunit 'phpunit -c /var/www/html/wp-content/plugins/wp-accessibility/phpunit.xml.dist --verbose'",
+    "lint-js": "eslint --fix './src/js'",
     "wp-env": "wp-env"
-  }
+  },
+  "lint-staged": {
+    "./src/js/!(*min).js": ["eslint --fix", "prettier --write"],
+    "./src/css/*.css": "prettier --write"
+  },
+  "dependencies": {}
 }
