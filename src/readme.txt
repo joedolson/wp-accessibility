@@ -91,8 +91,6 @@ The plug-in is intended to help with deficiencies commonly found in themes and t
 * Change: Consolidate and minify JS.
 * Feature: Add stats collection to provide view into what WP Accessibility is doing.
 
-TODO: tracking on longdesc & alt toggles
-
 = 2.0.1 =
 
 * Add `.et_smooth_scroll_disabled` to skip links to override Divi's inaccessible smooth scrolling.
