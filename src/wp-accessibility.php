@@ -431,8 +431,18 @@ function wpa_jquery_asl() {
 	$dir    = ( is_rtl() ) ? 'rtl' : 'ltr';
 	$lang   = get_bloginfo( 'language' );
 
-	wp_register_script( 'wpa-fingerprintjs', plugins_url( 'js/fingerprint.js', __FILE__ ), array(), $version );
-	wp_enqueue_script( 'wp-accessibility', plugins_url( 'js/wp-accessibility.js', __FILE__ ), array( 'jquery', 'wpa-fingerprintjs' ), $version, true );
+	if ( SCRIPT_DEBUG ) {
+		$wpafp = plugins_url( 'js/fingerprint.js', __FILE__ );
+	} else {
+		$wpafp = plugins_url( 'js/fingerprint.min.js', __FILE__ );
+	}
+	wp_register_script( 'wpa-fingerprintjs', $wpafp, array(), $version );
+	if ( SCRIPT_DEBUG ) {
+		$wpajs = plugins_url( 'js/wp-accessibility.js', __FILE__ );
+	} else {
+		$wpajs = plugins_url( 'js/wp-accessibility.min.js', __FILE__ );
+	}
+	wp_enqueue_script( 'wp-accessibility', $wpajs, array( 'jquery', 'wpa-fingerprintjs' ), $version, true );
 	/**
 	 * Filter target element selector for underlines. Default `a`.
 	 *
