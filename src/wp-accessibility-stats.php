@@ -637,8 +637,8 @@ function wpa_custom_column( $column_name, $post_id ) {
 					// translators: Action enabled.
 					$last_action = ( 'enabled' === $event->{$data} ) ? sprintf( __( '%s enabled', 'wp-accessibility' ), $label ) : sprintf( __( '%s disabled', 'wp-accessibility' ), $label );
 				} else {
-					$icon        = 'format-image';
-					$action      = ( property_exists( $data, 'alttext' ) ) ? '<code>alt</code>' : '<code>longdesc</code>';
+					$icon   = 'format-image';
+					$action = ( property_exists( $data, 'alttext' ) ) ? '<code>alt</code>' : '<code>longdesc</code>';
 					// translators: Data expanded; either `alt` or `longdesc`.
 					$last_action = sprintf( __( '%s expanded on image.', 'wp-accessibility' ), $action );
 				}
