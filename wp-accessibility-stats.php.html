@@ -108,7 +108,13 @@ function wpa_add_stats( $stats, $title, $type = 'view', $post_ID = 0 ) {
 			// Log all on/off states for toolbar.
 			add_post_meta( $exists, '_wpa_event', $stats );
 		} else {
-			$old_stats = get_post( $exists )->post_content;
+			// Get most recent test results and compare to current.
+			$history = get_post_meta( $post_id, '_wpa_event' );
+			if ( $history &amp;&amp; is_array( $history ) ) {
+				$old_stats = end( $history );
+			} else {
+				$old_stats = get_post( $post_id )->post_content;
+			}
 			if ( $stats !== $old_stats ) {
 				// stats have changed; record the change.
 				add_post_meta( $exists, '_wpa_event', $stats );
