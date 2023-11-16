@@ -59,6 +59,12 @@ Learn more! <a href="https://docs.joedolson.com/wp-accessibility/">Read about th
 
 The plug-in is intended to help with deficiencies commonly found in themes and to solve some issues in WordPress core. It can't correct every problem (by a long shot), but provides tools to fix some issues, supplement the accessibility of your site, or identify problems.
 
+= Statistics Collection =
+
+WP Accessibility includes a statistics collection feature to help you identify how WP Accessibility is used on your site. This package does not collect any personally identifying data.
+
+<a href="https://docs.joedolson.com/wp-accessibility/2023/11/16/wp-accessibility-statistics/">Learn more about WP Accessibility statistics</a>.
+
 = Contribute! =
 
 * <a href="https://translate.wordpress.org/projects/wp-plugins/wp-accessibility">Help Translate WP Accessibility</a>
