@@ -109,13 +109,19 @@ function wpa_add_stats( $stats, $title, $type = 'view', $post_ID = 0 ) {
 			add_post_meta( $exists, '_wpa_event', $stats );
 		} else {
 			// Get most recent test results and compare to current.
-			$history = get_post_meta( $post_id, '_wpa_event' );
+			$history = get_post_meta( $exists, '_wpa_event' );
 			if ( $history &amp;&amp; is_array( $history ) ) {
 				$old_stats = end( $history );
 			} else {
-				$old_stats = get_post( $post_id )->post_content;
+				$old_stats = get_post( $exists )->post_content;
 			}
-			if ( $stats !== $old_stats ) {
+			// Remove timestamp before comparing.
+			$test_stats = json_decode( $stats );
+			$test_stats->timestamp = '';
+			$test_old = json_decode( $old_stats );
+			$test_old->timestamp = '';
+			if ( json_encode( $test_stats ) !== json_encode( $test_old ) ) {
+				add_post_meta( $exists, '_wpa_old_event', array( $test_stats, $test_old ) );
 				// stats have changed; record the change.
 				add_post_meta( $exists, '_wpa_event', $stats );
 			}
