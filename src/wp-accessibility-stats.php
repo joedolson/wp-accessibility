@@ -633,7 +633,14 @@ function wpa_custom_column( $column_name, $post_id ) {
 				$icon  = ( 'contrast' === $data ) ? ' aticon aticon-adjust' : ' aticon aticon-font';
 				$label = ( property_exists( $event, 'contrast' ) ) ? __( 'High Contrast', 'wp-accessibility' ) : __( 'Large Font Size', 'wp-accessibility' );
 				// translators: Action taken. High Contrast or Large Font Size.
-				$last_action = ( 'enabled' === $event->{$data} ) ? sprintf( __( '%s enabled', 'wp-accessibility' ), $label ) : sprintf( __( '%s disabled', 'wp-accessibility' ), $label );
+				if ( 'fontsize' === $data && property_exists( $data, 'fontisze' ) ) {
+					$last_action = ( 'enabled' === $event->{$data} ) ? sprintf( __( '%s enabled', 'wp-accessibility' ), $label ) : sprintf( __( '%s disabled', 'wp-accessibility' ), $label );
+				} else {
+					$icon        = 'format-image';
+					$action      = ( property_exists( $data, 'alttext' ) ) ? '<code>alt</code>' : '<code>longdesc</code>';
+					$last_action = sprintf( __( '%s expanded on image.', 'wp-accessibility' ), $action );
+				}
+				
 			} else {
 				if ( ! $events ) {
 					$icon        = 'download';
@@ -672,5 +679,5 @@ function wpa_display_stats() {
 	global $post;
 	$type = ( has_term( 'event', 'wpa-stats-type', $post->ID ) ) ? 'event' : 'view';
 	$data = wpa_stats_data_point( $post, $type );
-	echo '<div class="activity-block"><ul>' . $data['html'] . '</ul></div>';
+	echo '<ul>' . $data['html'] . '</ul>';
 }
