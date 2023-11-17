@@ -607,7 +607,11 @@ function wpa_format_stats( $type, $data, $history ) {
  *
  * @return string
  */
-function wpa_stats_title( $post_title, $post_id ) {
+function wpa_stats_title( $post_title, $post_id = false ) {
+	// If `apply_filters( 'the_title' )` is called by a 3rd party without the post ID, return the original title.
+	if ( ! $post_id ) {
+		return $post_title;
+	}
 	if ( 'wpa-stats' === get_post_type( $post_id ) &amp;&amp; has_term( 'event', 'wpa-stats-type', $post_id ) ) {
 		// translators: Post ID.
 		return sprintf( __( 'User: %d', 'wp-accessibility' ), $post_id );
