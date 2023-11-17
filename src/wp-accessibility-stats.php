@@ -232,10 +232,10 @@ add_action( 'wp_ajax_nopriv_wpa_stats_action', 'wpa_stats_action' );
  *
  * @return void
  */
-function wpa_dashboard_widget() {
+function wp_accessibility_dashboard_widget() {
 	wp_add_dashboard_widget( 'wpa_dashboard_widget_stats', __( 'WP Accessibility Stats', 'wp-accessibility' ), 'wpa_dashboard_widget_stats_handler' );
 }
-add_action( 'wp_dashboard_setup', 'wpa_dashboard_widget' );
+add_action( 'wp_dashboard_setup', 'wp_accessibility_dashboard_widget' );
 
 /**
  * Output the WP Accessibility stats widget.
