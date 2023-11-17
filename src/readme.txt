@@ -82,6 +82,10 @@ WP Accessibility includes a statistics collection feature to help you identify h
 
 [Suggest a change!](https://github.com/joedolson/wp-accessibility/issues/)
 
+= 2.1.2 =
+
+* Bug fix: Build error caused JS errors when not running in SCRIPT_DEBUG.
+
 = 2.1.1 =
 
 * Bug fix: Comparison of new stats to old stats didn't remove timestamp, so comparison was always false.
