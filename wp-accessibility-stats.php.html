@@ -501,6 +501,12 @@ function wpa_compare_views( $post_id ) {
 function wpa_parse_view_data( $data ) {
 	$total = 0;
 	$line  = '';
+	if ( ! is_array( $data ) ) {
+		return array(
+			'html'  => __( 'No data found', 'wp-accessibility' ),
+			'count' => 0,
+		);
+	}
 	foreach ( $data as $d ) {
 		if ( is_array( $d ) ) {
 			$key   = wpa_map_key( $d[0] );
