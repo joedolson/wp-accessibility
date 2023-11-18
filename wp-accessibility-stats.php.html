@@ -100,6 +100,10 @@ add_action( 'init', 'wpa_taxonomies', 0 );
  * @param int|string $post_ID ID of the post if singular.
  */
 function wpa_add_stats( $stats, $title, $type = 'view', $post_ID = 0 ) {
+	$admin_only = ( '' === get_option( 'wpa_track_stats' ) ) ? true : false;
+	if ( $admin_only &amp;&amp; ! current_user_can( 'manage_options' ) ) {
+		return;
+	}
 	$stats  = json_encode( $stats );
 	$title  = str_replace( home_url(), '', $title );
 	$exists = wpa_get_post_by_title( $title );
