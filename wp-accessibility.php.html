@@ -72,7 +72,9 @@ require_once( dirname( __FILE__ ) . '/wp-accessibility-alt.php' );
 require_once( dirname( __FILE__ ) . '/wp-accessibility-contrast.php' );
 require_once( dirname( __FILE__ ) . '/wp-accessibility-settings.php' );
 require_once( dirname( __FILE__ ) . '/wp-accessibility-help.php' );
-require_once( dirname( __FILE__ ) . '/wp-accessibility-stats.php' );
+if ( 'off' !== get_option( 'wpa_track_stats' ) ) {
+	require_once( dirname( __FILE__ ) . '/wp-accessibility-stats.php' );
+}
 
 register_activation_hook( __FILE__, 'wpa_install' );
 
@@ -542,7 +544,7 @@ function wpa_jquery_asl() {
 			'ajaxurl'   => admin_url( 'admin-ajax.php' ),
 			'security'  => wp_create_nonce( 'wpa-stats-action' ),
 			'action'    => 'wpa_stats_action',
-			'url'       => wpa_get_current_url(),
+			'url'       => ( function_exists( 'wpa_get_current_url' ) ) ? wpa_get_current_url() : 'disabled',
 			'post_id'   => ( is_singular() ) ? get_the_ID() : '',
 		)
 	);
