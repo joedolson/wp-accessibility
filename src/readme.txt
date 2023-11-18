@@ -5,7 +5,7 @@ Tags: title, accessibility, accessible, navigation, wcag, a11y, section508, focu
 Requires at least: 3.4.2
 Tested up to: 6.4
 Requires PHP: 7.0
-Stable tag: 2.1.1
+Stable tag: 2.1.3
 Text Domain: wp-accessibility
 License: GPLv2 or later
 
@@ -81,6 +81,14 @@ WP Accessibility includes a statistics collection feature to help you identify h
 = Future =
 
 [Suggest a change!](https://github.com/joedolson/wp-accessibility/issues/)
+
+= 2.1.3 =
+
+* Bug fix: Error thrown if a 3rd party is using `the_title` filters improperly.
+* Bug fix: Handle case if passed data is invalid.
+* Bug fix: Change dashboard widget function name to minimize conflict.
+* Bug fix: Setting stats to 'none' should fully disable stats collection.
+* Bug fix: Ensure that admin status is verified on server side when stats set to 'admin'.
 
 = 2.1.2 =
 
