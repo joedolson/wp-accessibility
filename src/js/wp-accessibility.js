@@ -234,54 +234,77 @@
 	}
 	var fingerprint = new Fingerprint().get();
 	
-	$('.toggle-contrast').on('click', function (e) {
-		// This fires after the contrast change happens, and the ID is already changed.
-		if ($(this).attr('id') == "is_normal_contrast") {
-			// high contrast turned on.
-			var event = {'contrast' : 'disabled'};
-		} else {
-			// high contrast turned off.
-			var event = {'contrast' : 'enabled'};
-		}
-		var data = {
-			'action' : wpa.action,
-			'security' : wpa.security,
-			'stats' : event,
-			'post_id' : wpa.post_id,
-			'title' : fingerprint,
-			'type' : 'event'
-		};
-		$.post( wpa.ajaxurl, data, function () {}, "json" );
-	});
+	// If stats are disabled, skip this.
+	if ( 'disabled' !== wpa.url ) {
+		$('.toggle-contrast').on('click', function (e) {
+			// This fires after the contrast change happens, and the ID is already changed.
+			if ($(this).attr('id') == "is_normal_contrast") {
+				// high contrast turned on.
+				var event = {'contrast' : 'disabled'};
+			} else {
+				// high contrast turned off.
+				var event = {'contrast' : 'enabled'};
+			}
+			var data = {
+				'action' : wpa.action,
+				'security' : wpa.security,
+				'stats' : event,
+				'post_id' : wpa.post_id,
+				'title' : fingerprint,
+				'type' : 'event'
+			};
+			$.post( wpa.ajaxurl, data, function () {}, "json" );
+		});
 
-	$('.toggle-fontsize').on('click', function (e) {
-		// This fires after the fontsize change happens, and the ID is already changed.
-		if ($(this).attr('id') == "is_normal_fontsize") {
-			// fontsizes turned on.
-			var event = {'fontsize' : 'disabled'};
-		} else {
-			// fontsizes turned off.
-			var event = {'fontsize' : 'enabled'};
-		}
-		var data = {
-			'action' : wpa.action,
-			'security' : wpa.security,
-			'stats' : event,
-			'post_id' : wpa.post_id,
-			'title' : fingerprint,
-			'type' : 'event'
-		};
-		$.post( wpa.ajaxurl, data, function () {}, "json" );
-	});
+		$('.toggle-fontsize').on('click', function (e) {
+			// This fires after the fontsize change happens, and the ID is already changed.
+			if ($(this).attr('id') == "is_normal_fontsize") {
+				// fontsizes turned on.
+				var event = {'fontsize' : 'disabled'};
+			} else {
+				// fontsizes turned off.
+				var event = {'fontsize' : 'enabled'};
+			}
+			var data = {
+				'action' : wpa.action,
+				'security' : wpa.security,
+				'stats' : event,
+				'post_id' : wpa.post_id,
+				'title' : fingerprint,
+				'type' : 'event'
+			};
+			$.post( wpa.ajaxurl, data, function () {}, "json" );
+		});
 
-	waitForElement('.wpa-ld button').then((elm) => {
-		$('.wpa-ld button').on( 'click', function(e) {
-			// For descriptions, we aren't concerned about state changes; just usage.
+		waitForElement('.wpa-ld button').then((elm) => {
+			$('.wpa-ld button').on( 'click', function(e) {
+				// For descriptions, we aren't concerned about state changes; just usage.
+				var visible = ( 'true' === $( this ).attr( 'aria-expanded' ) ) ? true : false;
+				if ( visible ) {
+					var img      = $( this ).parent( 'div' );
+					var image_id = img.attr( 'class' ).replace( 'wpa-ld wp-image-', '' );
+					var event    = { 'longdesc' : image_id };
+					var data     = {
+						'action' : wpa.action,
+						'security' : wpa.security,
+						'stats' : event,
+						'post_id' : wpa.post_id,
+						'title' : fingerprint,
+						'type' : 'event'
+					};
+					$.post( wpa.ajaxurl, data, function (response) { console.log( response ); }, "json" );
+				}
+			});
+		});
+
+		$('.wpa-alt button').on( 'click', function(e) {
+			// For alt text, we aren't concerned about state changes; just usage.
 			var visible = ( 'true' === $( this ).attr( 'aria-expanded' ) ) ? true : false;
 			if ( visible ) {
 				var img      = $( this ).parent( 'div' );
-				var image_id = img.attr( 'class' ).replace( 'wpa-ld wp-image-', '' );
-				var event    = { 'longdesc' : image_id };
+				console.log( img );
+				var image_id = img.attr( 'class' ).replace( 'wpa-alt wp-image-', '' );
+				var event    = { 'alttext' : image_id };
 				var data     = {
 					'action' : wpa.action,
 					'security' : wpa.security,
@@ -293,42 +316,22 @@
 				$.post( wpa.ajaxurl, data, function (response) { console.log( response ); }, "json" );
 			}
 		});
-	});
 
-	$('.wpa-alt button').on( 'click', function(e) {
-		// For alt text, we aren't concerned about state changes; just usage.
-		var visible = ( 'true' === $( this ).attr( 'aria-expanded' ) ) ? true : false;
-		if ( visible ) {
-			var img      = $( this ).parent( 'div' );
-			console.log( img );
-			var image_id = img.attr( 'class' ).replace( 'wpa-alt wp-image-', '' );
-			var event    = { 'alttext' : image_id };
-			var data     = {
+		if ( wpa.tracking && errors.length >= 1 ) {
+			var data = {
 				'action' : wpa.action,
 				'security' : wpa.security,
-				'stats' : event,
+				'stats' : errors,
 				'post_id' : wpa.post_id,
-				'title' : fingerprint,
-				'type' : 'event'
+				'title' : wpa.url,
+				'type' : 'view'
 			};
-			$.post( wpa.ajaxurl, data, function (response) { console.log( response ); }, "json" );
+			$.post( wpa.ajaxurl, data, function (response) {
+				console.log( response );
+			}, "json" );
 		}
-	});
 
-	if ( wpa.tracking && errors.length >= 1 ) {
-		var data = {
-			'action' : wpa.action,
-			'security' : wpa.security,
-			'stats' : errors,
-			'post_id' : wpa.post_id,
-			'title' : wpa.url,
-			'type' : 'view'
-		};
-		$.post( wpa.ajaxurl, data, function (response) {
-			console.log( response );
-		}, "json" );
 	}
-
 	if ( wpa.underline.enabled ) {
 		// Underline any link not inside a `nav` region. Using JS for this avoids problems with cascade precedence.
 		var originalOutline = $( wpa.underline.target ).css( 'outline-width' );
