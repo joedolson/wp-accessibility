@@ -298,10 +298,11 @@ function wpa_get_stats( $type = 'view', $count = 1 ) {
  *
  * @param object $post WP Post.
  * @param string $type Stats type.
+ * @param int    $limit Number of stat points to show.
  *
  * @return string
  */
-function wpa_stats_data_point( $post, $type ) {
+function wpa_stats_data_point( $post, $type, $limit = 5 ) {
 	$output   = '';
 	$post_ID  = $post->ID;
 	$data     = json_decode( $post->post_content );
@@ -368,7 +369,10 @@ function wpa_stats_data_point( $post, $type ) {
 			$text = sprintf( __( 'Long description expanded on image %1$s on %$2s at %3$s', 'wp-accessibility' ), $image_link, $date, $time );
 		}
 		$line = '<li>' . sprintf( $text, $date, $time ) . '</li>';
-		$i = 5;
+		if ( 'all' === $limit ) {
+			$limit = count( $history ) + 1;
+		}
+		$i = $limit;
 		foreach ( $history as $h ) {
 			$i --;
 			if ( $i < 1 ) {
@@ -711,6 +715,6 @@ function wpa_add_meta_boxes() {
 function wpa_display_stats() {
 	global $post;
 	$type = ( has_term( 'event', 'wpa-stats-type', $post->ID ) ) ? 'event' : 'view';
-	$data = wpa_stats_data_point( $post, $type );
+	$data = wpa_stats_data_point( $post, $type, 'all' );
 	echo '<ul>' . $data['html'] . '</ul>';
 }
