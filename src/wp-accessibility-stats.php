@@ -368,7 +368,13 @@ function wpa_stats_data_point( $post, $type ) {
 			$text = sprintf( __( 'Long description expanded on image %1$s on %$2s at %3$s', 'wp-accessibility' ), $image_link, $date, $time );
 		}
 		$line = '<li>' . sprintf( $text, $date, $time ) . '</li>';
+		$i = 5;
 		foreach ( $history as $h ) {
+			$i --;
+			if ( $i < 1 ) {
+				$line .= '<li><a href="' . get_edit_post_link( $post_ID ) . '">' . __( 'View full record', 'wp-accessibility' ) . '</a></li>';
+				break;
+			}
 			$h             = json_decode( $h );
 			$has_font_size = ( property_exists( $h, 'fontsize' ) ) ? $h->fontsize : false;
 			$has_contrast  = ( property_exists( $h, 'contrast' ) ) ? $h->contrast : false;
