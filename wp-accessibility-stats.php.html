@@ -250,8 +250,6 @@ function wpa_stats_action() {
 
 		$response = wpa_add_stats( $stats, $title, $type, $post_id );
 		wp_send_json( $response );
-	} else {
-		wp_send_json( array( 'no-request' => $_REQUEST ) );
 	}
 }
 add_action( 'wp_ajax_wpa_stats_action', 'wpa_stats_action' );
