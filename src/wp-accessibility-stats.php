@@ -213,7 +213,7 @@ function wpa_stats_action() {
 	if ( isset( $_REQUEST['action'] ) && 'wpa_stats_action' === $_REQUEST['action'] ) {
 		$security = $_REQUEST['security'];
 		if ( ! wp_verify_nonce( $security, 'wpa-stats-action' ) ) {
-			wp_send_json( array( 'failed' => $_REQUEST ) );
+			wp_die();
 		}
 		$stats   = map_deep( $_REQUEST['stats'], 'sanitize_text_field' );
 		$post_id = absint( $_REQUEST['post_id'] );
