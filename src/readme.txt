@@ -5,7 +5,7 @@ Tags: title, accessibility, accessible, navigation, wcag, a11y, section508, focu
 Requires at least: 3.4.2
 Tested up to: 6.4
 Requires PHP: 7.0
-Stable tag: 2.1.5
+Stable tag: 2.1.6
 Text Domain: wp-accessibility
 License: GPLv2 or later
 
@@ -82,7 +82,7 @@ WP Accessibility includes a statistics collection feature to help you identify h
 
 [Suggest a change!](https://github.com/joedolson/wp-accessibility/issues/)
 
-= 2.1.5 =
+=  2.1.5, 2.1.6 =
 
 * Security fix: XSS vulnerability caused by a debugging statement left in place. Props Joshua Bixler.
 
@@ -651,4 +651,4 @@ Even if WP Accessibility is running correctly, not all accessibility testing too
 
 == Upgrade Notice ==
 
-* 2.1.5 Security Fix. Please update promptly.
+* 2.1.6 Security Fix. Please update promptly.
