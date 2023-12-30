@@ -5,7 +5,7 @@ Tags: title, accessibility, accessible, navigation, wcag, a11y, section508, focu
 Requires at least: 3.4.2
 Tested up to: 6.4
 Requires PHP: 7.0
-Stable tag: 2.1.6
+Stable tag: 2.1.7
 Text Domain: wp-accessibility
 License: GPLv2 or later
 
@@ -81,6 +81,10 @@ WP Accessibility includes a statistics collection feature to help you identify h
 = Future =
 
 [Suggest a change!](https://github.com/joedolson/wp-accessibility/issues/)
+
+= 2.1.7 =
+
+* Bug fix: Two incorrect placeholder formats in `sprintf` call.
 
 =  2.1.5, 2.1.6 =
 
