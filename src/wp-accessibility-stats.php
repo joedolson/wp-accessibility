@@ -359,12 +359,12 @@ function wpa_stats_data_point( $post, $type, $limit = 5 ) {
 		if ( property_exists( $data, 'alttext' ) ) {
 			$image_link = '<a href="' . esc_url( add_query_arg( 'item', $data->alttext, admin_url( 'upload.php' ) ) ) . '">' . esc_html( $data->alttext ) . '</a>';
 			// translators: 1) image link. 2) date 3) time.
-			$text = sprintf( __( 'Alt text expanded on image %1$s on %$2s at %3$s', 'wp-accessibility' ), $image_link, $date, $time );
+			$text = sprintf( __( 'Alt text expanded on image %1$s on %2$s at %3$s', 'wp-accessibility' ), $image_link, $date, $time );
 		}
 		if ( property_exists( $data, 'longdesc' ) ) {
 			$image_link = '<a href="' . esc_url( add_query_arg( 'item', $data->longdesc, admin_url( 'upload.php' ) ) ) . '">' . esc_html( $data->longdesc ) . '</a>';
 			// translators: 1) image link. 2) date 3) time.
-			$text = sprintf( __( 'Long description expanded on image %1$s on %$2s at %3$s', 'wp-accessibility' ), $image_link, $date, $time );
+			$text = sprintf( __( 'Long description expanded on image %1$s on %2$s at %3$s', 'wp-accessibility' ), $image_link, $date, $time );
 		}
 		$line = '<li>' . sprintf( $text, $date, $time ) . '</li>';
 		if ( 'all' === $limit ) {
