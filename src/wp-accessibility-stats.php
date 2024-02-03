@@ -99,7 +99,7 @@ function wpa_add_stats( $stats, $title, $type = 'view', $post_ID = 0 ) {
 				// If decode fails, don't attempt to unset timestamp.
 				$test_stats->timestamp = '';
 			}
-			$test_old              = json_decode( $old_stats );
+			$test_old = json_decode( $old_stats );
 			if ( null !== $test_old ) {
 				// If decode fails for any reason, move on, don't try to unset the timestamp.
 				$test_old->timestamp = '';
