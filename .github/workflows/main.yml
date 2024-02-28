@@ -9,8 +9,6 @@ on:
       - 'composer.json'
       - 'composer.lock'
   pull_request:
-    branches:
-      - trunk
     # Only run if PHP-related files changed.
     paths:
       - '.github/workflows/main.yml'
@@ -49,4 +47,8 @@ jobs:
       - name: Composer Install
         run: composer install --no-interaction --no-progress
       - name: PHP Lint
-        run: composer lint
+        id: phplint
+        run: composer lint -- --no-cache --report-full --report-checkstyle=./phpcs-report.xml
+      - name: Show PHPCS results in PR
+        if: ${{ always() && steps.phplint.outcome == 'failure' }}
+        run: cs2pr ./phpcs-report.xml
