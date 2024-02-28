@@ -783,7 +783,7 @@ function wpa_edac_promotion( $type = 'large' ) {
 // Use Codemirror for Skiplink style fields.
 add_action(
 	'admin_enqueue_scripts',
-	function() {
+	function () {
 		if ( ! function_exists( 'wp_enqueue_code_editor' ) ) {
 			return;
 		}

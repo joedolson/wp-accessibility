@@ -131,7 +131,7 @@ function wpa_add_stats( $stats, $title, $type = 'view', $post_ID = 0 ) {
 		);
 		$stat  = wp_insert_post( $post );
 		$terms = array( $type );
-		require_once( ABSPATH . '/wp-admin/includes/dashboard.php' );
+		require_once ABSPATH . '/wp-admin/includes/dashboard.php';
 		$browser = wp_check_browser_version();
 		add_post_meta( $stat, '_wpa_browser', json_encode( $browser ) );
 		$terms[] = $browser['name'];
@@ -378,7 +378,7 @@ function wpa_stats_data_point( $post, $type, $limit = 5 ) {
 		}
 		$i = $limit;
 		foreach ( $history as $h ) {
-			$i --;
+			--$i;
 			if ( $i < 1 ) {
 				$line .= '<li><a href="' . get_edit_post_link( $post_ID ) . '">' . __( 'View full record', 'wp-accessibility' ) . '</a></li>';
 				break;
@@ -590,7 +590,7 @@ function wpa_format_stats( $type, $data, $history ) {
 		$data = (array) $data;
 		$i    = 0;
 		foreach ( $data as $k => $d ) {
-			$i++;
+			++$i;
 		}
 		return $i;
 	}

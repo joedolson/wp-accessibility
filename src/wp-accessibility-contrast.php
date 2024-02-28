@@ -100,7 +100,7 @@ function wpa_hex2rgb( $color ) {
 		return array( 0, 0, 0 );
 	}
 	$rgb = array();
-	for ( $x = 0; $x < 3; $x ++ ) {
+	for ( $x = 0; $x < 3; $x++ ) {
 		$rgb[ $x ] = hexdec( substr( $color, ( 2 * $x ), 2 ) );
 	}
 

@@ -47,7 +47,7 @@ function wpa_featured_longdesc( $attr, $attachment, $size ) {
 
 
 // longdesc support, based on work by Michael Fields (http://wordpress.org/plugins/long-description-for-image-attachments/).
-define( 'WPA_TEMPLATES', trailingslashit( dirname( __FILE__ ) ) . 'templates/' );
+define( 'WPA_TEMPLATES', trailingslashit( __DIR__ ) . 'templates/' );
 add_action( 'template_redirect', 'wpa_longdesc_template' );
 /**
  * Load Template.
@@ -100,11 +100,11 @@ function wpa_longdesc_template() {
 	// Check to see if there is a template in the theme.
 	$template = locate_template( array( 'longdesc-template.php' ) );
 	if ( ! empty( $template ) ) {
-		require_once( $template );
+		require_once $template;
 		exit;
 	} else {
 		// Use plugin's template file.
-		require_once( WPA_TEMPLATES . 'longdesc-template.php' );
+		require_once WPA_TEMPLATES . 'longdesc-template.php';
 		exit;
 	}
 

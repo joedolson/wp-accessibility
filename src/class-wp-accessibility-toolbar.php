@@ -27,7 +27,7 @@ class Wp_Accessibility_Toolbar extends WP_Widget {
 	/**
 	 * Construct widget.
 	 */
-	function __construct() {
+	public function __construct() {
 		parent::__construct(
 			false,
 			$name = __( 'Accessibility Toolbar', 'wp-accessibility' ),
@@ -41,7 +41,7 @@ class Wp_Accessibility_Toolbar extends WP_Widget {
 	 * @param array $args Theme widget arguments.
 	 * @param array $instance Widget settings.
 	 */
-	function widget( $args, $instance ) {
+	public function widget( $args, $instance ) {
 		$before_widget = $args['before_widget'];
 		$after_widget  = $args['after_widget'];
 		$before_title  = $args['before_title'];
@@ -59,7 +59,7 @@ class Wp_Accessibility_Toolbar extends WP_Widget {
 	 *
 	 * @param array $instance Current widget settings.
 	 */
-	function form( $instance ) {
+	public function form( $instance ) {
 		$title = ( isset( $instance['title'] ) ) ? esc_attr( $instance['title'] ) : '';
 		?>
 		<p>
@@ -77,7 +77,7 @@ class Wp_Accessibility_Toolbar extends WP_Widget {
 	 *
 	 * @return array updated settings.
 	 */
-	function update( $new_instance, $old_instance ) {
+	public function update( $new_instance, $old_instance ) {
 		$instance          = $old_instance;
 		$instance['title'] = strip_tags( $new_instance['title'] );
 

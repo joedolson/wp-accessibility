@@ -39,15 +39,15 @@
 */
 
 if ( 'on' === get_option( 'wpa_toolbar' ) || 'on' === get_option( 'wpa_widget_toolbar' ) ) {
-	require_once( dirname( __FILE__ ) . '/wp-accessibility-toolbar.php' );
+	require_once __DIR__ . '/wp-accessibility-toolbar.php';
 }
-require_once( dirname( __FILE__ ) . '/wp-accessibility-longdesc.php' );
-require_once( dirname( __FILE__ ) . '/wp-accessibility-alt.php' );
-require_once( dirname( __FILE__ ) . '/wp-accessibility-contrast.php' );
-require_once( dirname( __FILE__ ) . '/wp-accessibility-settings.php' );
-require_once( dirname( __FILE__ ) . '/wp-accessibility-help.php' );
+require_once __DIR__ . '/wp-accessibility-longdesc.php';
+require_once __DIR__ . '/wp-accessibility-alt.php';
+require_once __DIR__ . '/wp-accessibility-contrast.php';
+require_once __DIR__ . '/wp-accessibility-settings.php';
+require_once __DIR__ . '/wp-accessibility-help.php';
 if ( 'off' !== get_option( 'wpa_track_stats' ) ) {
-	require_once( dirname( __FILE__ ) . '/wp-accessibility-stats.php' );
+	require_once __DIR__ . '/wp-accessibility-stats.php';
 }
 
 register_activation_hook( __FILE__, 'wpa_install' );
@@ -129,7 +129,7 @@ add_filter( 'plugin_action_links', 'wpa_plugin_action', 10, 2 );
  * @param string $file File name.
  */
 function wpa_plugin_action( $links, $file ) {
-	if ( plugin_basename( dirname( __FILE__ ) . '/wp-accessibility.php' ) === $file ) {
+	if ( plugin_basename( __DIR__ . '/wp-accessibility.php' ) === $file ) {
 		$admin_url = admin_url( 'admin.php?page=wp-accessibility' );
 		$links[]   = "<a href='$admin_url'>" . __( 'Accessibility Settings', 'wp-accessibility' ) . '</a>';
 	}
@@ -623,7 +623,7 @@ function wpa_search_error( $template ) {
 if ( 'on' === get_option( 'wpa_more' ) && ! wpa_accessible_theme() ) {
 	add_filter(
 		'body_class',
-		function( $classes ) {
+		function ( $classes ) {
 			return array_merge( $classes, array( 'wpa-excerpt' ) );
 		}
 	);

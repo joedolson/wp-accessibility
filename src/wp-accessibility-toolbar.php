@@ -12,7 +12,7 @@
 /**
  * Toolbar class.
  */
-require_once( dirname( __FILE__ ) . '/class-wp-accessibility-toolbar.php' );
+require_once __DIR__ . '/class-wp-accessibility-toolbar.php';
 
 add_action( 'widgets_init', 'wpa_register_toolbar_widget' );
 /**
