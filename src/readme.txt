@@ -3,9 +3,9 @@ Contributors: joedolson
 Donate link: http://www.joedolson.com/donate/
 Tags: title, accessibility, accessible, navigation, wcag, a11y, section508, focus, alt text, labels, aria
 Requires at least: 3.4.2
-Tested up to: 6.4
+Tested up to: 6.5
 Requires PHP: 7.0
-Stable tag: 2.1.7
+Stable tag: 2.1.8
 Text Domain: wp-accessibility
 License: GPLv2 or later
 
@@ -81,6 +81,11 @@ WP Accessibility includes a statistics collection feature to help you identify h
 = Future =
 
 [Suggest a change!](https://github.com/joedolson/wp-accessibility/issues/)
+
+= 2.1.8 =
+
+* Update to PHPCS 3
+* Fix error thrown if json_decode returns null value.
 
 = 2.1.7 =
 
