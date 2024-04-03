@@ -1,7 +1,7 @@
 === WP Accessibility ===
 Contributors: joedolson
 Donate link: http://www.joedolson.com/donate/
-Tags: title, accessibility, accessible, navigation, wcag, a11y, section508, focus, alt text, labels, aria
+Tags: accessibility, wcag, a11y, section508, alt text
 Requires at least: 3.4.2
 Tested up to: 6.5
 Requires PHP: 7.0
