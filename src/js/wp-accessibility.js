@@ -120,9 +120,14 @@
 		var images   = 0;
 		var controls = 0;
 		var fields   = 0;
+		let noremove = false;
 		const els    = document.querySelectorAll( 'img, a, input, textarea, select, button' );
 		els.forEach((el) => {
 			var title = el.getAttribute( 'title' );
+			if ( el.classList.contains( 'nturl' ) ) {
+				// Exempt title attributes from Translate WordPress - Google Language Translator, which uses them as a CSS hook.
+				noremove = true;
+			}
 			if ( title && '' !== title ) {
 				switch ( el.tagName ) {
 					case 'IMG':
@@ -144,7 +149,9 @@
 							var ariaLabel = el.getAttribute( 'aria-label' );
 							if ( ! ariaLabel || '' === ariaLabel ) {
 								el.setAttribute( 'aria-label', title );
-								el.removeAttribute( 'title' );
+								if ( ! noremove ) {
+									el.removeAttribute( 'title' );
+								}
 							}
 						} else {
 							el.removeAttribute( 'title' );
