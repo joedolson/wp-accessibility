@@ -423,7 +423,7 @@ function wpa_admin_settings() {
 										&lt;/li>
 										&lt;li>
 											&lt;label for="wpa_focus_color">&lt;?php _e( 'Outline color (hexadecimal, optional)', 'wp-accessibility' ); ?>&lt;/label>&lt;br />
-											&lt;input type="text" id="wpa_focus_color" name="wpa_focus_color" value="#&lt;?php echo esc_attr( get_option( 'wpa_focus_color' ) ); ?>"/>
+											&lt;input type="text" id="wpa_focus_color" name="wpa_focus_color" value="#&lt;?php echo esc_attr( str_replace( '#', '', get_option( 'wpa_focus_color' ) ) ); ?>"/>
 										&lt;/li>
 									&lt;/ul>
 									&lt;p>
