@@ -371,7 +371,7 @@ function wpa_admin_settings() {
 											<?php
 										} else {
 											?>
-											<li><?php _e( '<strong>Three disabled features:</strong> Site language, continue reading text and standard form labels are defined in your <code>accessibility-ready</code> theme.', 'wp-accessibility' ); ?></li>
+											<li><div class="notice notice-info"><p><?php _e( '<strong>Three disabled features:</strong> Site language, continue reading text and standard form labels are provided in your <code>accessibility-ready</code> theme.', 'wp-accessibility' ); ?></p></div></li>
 											<?php
 										}
 										?>

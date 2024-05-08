@@ -82,6 +82,11 @@ WP Accessibility includes a statistics collection feature to help you identify h
 
 [Suggest a change!](https://github.com/joedolson/wp-accessibility/issues/)
 
+= 2.1.9 =
+
+* Feature: Add label fix when `label` element present but has no text.
+* Feature: Live Preview support via Playground.
+
 = 2.1.8 =
 
 * Update to PHPCS 3

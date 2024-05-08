@@ -60,6 +60,28 @@ function wpa_load_textdomain() {
 	load_plugin_textdomain( 'wp-accessibility' );
 }
 
+add_action( 'admin_notices', 'wpa_status_notice', 10 );
+/**
+ * Display notice in Playground for demo purposes.
+ */
+function wpa_status_notice() {
+	// Only shown when in the Playground preview.
+	if ( 'true' === get_option( 'wpa_show_playground_intro', '' ) ) {
+		echo '<div class="notice notice-info">';
+		echo '<h3>' . __( 'Thanks for trying out WP Accessibility!', 'wp-accessibility' ) . '</h3>';
+		echo '<p>' . __( "Let me give you a few quick things to try out while you're here:", 'wp-accessibility' ) . '</p>';
+		echo '<ol>';
+		// translators: Post edit link.
+		echo '<li>' . __( 'Create a new page and add media to observe some WP Accessibility features.', 'wp-accessibility' ) . '</li>';
+		echo '<li>' . __( 'Go to the Themes page and install a theme of your choice, then explore the site. Errors corrected are logged in the console and saved to stats.', 'wp-accessibility' ) . '</li>';
+		echo '<li>' . __( 'Visit the WP Accessibility Stats to view what WP Accessibility did on each page.', 'wp-accessibility' ) . '</li>';
+		echo '</ol>';
+		// translators: link to plugin documentation.
+		echo '<p>' . sprintf( __( 'To learn more, check out the <a href="%s">plugin documentation</a>.', 'wp-accessibility' ), 'https://docs.joedolson.com/wp-accessibility/' ) . '</p>';
+		echo '</div>';
+	}
+}
+
 add_action( 'admin_menu', 'wpa_admin_menu' );
 /**
  * Set up admin menu.
