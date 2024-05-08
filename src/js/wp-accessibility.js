@@ -87,6 +87,14 @@
 				if ( ( ! hasAria && ! hasAriaId ) || ( ! hasAria && ( hasAriaId && 0 === ariaTarget.length ) ) ) {
 					if ( field_id ) {
 						var label = $( 'label[for=' + field_id + ']' );
+						var labelText = label.text();
+						if ( label.length && ! labelText ) {
+							label.text( wpa.wpalabels[value] );
+							if ( wpa.errors || wpa.tracking ) {
+								errors.push( ['empty-label', wpa.wpalabels[value]] );
+								console.log( 'Empty label on ' + wpa.wpalabels[value] + 'added by WP Accessibility' );
+							}
+						}
 						if ( !label.length && !implicit.length ) {
 							field.before( "<label for='" + field_id + "' class='wpa-screen-reader-text'>" + wpa.wpalabels[value] + "</label>" );
 							if ( wpa.errors || wpa.tracking ) {
