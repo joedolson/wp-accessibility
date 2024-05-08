@@ -92,14 +92,14 @@
 							label.text( wpa.wpalabels[value] );
 							if ( wpa.errors || wpa.tracking ) {
 								errors.push( ['empty-label', wpa.wpalabels[value]] );
-								console.log( 'Empty label on ' + wpa.wpalabels[value] + 'added by WP Accessibility' );
+								console.log( 'Empty label on ' + wpa.wpalabels[value] + ' added by WP Accessibility' );
 							}
 						}
 						if ( !label.length && !implicit.length ) {
 							field.before( "<label for='" + field_id + "' class='wpa-screen-reader-text'>" + wpa.wpalabels[value] + "</label>" );
 							if ( wpa.errors || wpa.tracking ) {
 								errors.push( ['explicit-label', wpa.wpalabels[value]] );
-								console.log( 'Explicit label on ' + wpa.wpalabels[value] + 'added by WP Accessibility' );
+								console.log( 'Explicit label on ' + wpa.wpalabels[value] + ' added by WP Accessibility' );
 							}
 						}
 					} else {
@@ -107,7 +107,7 @@
 							field.attr( 'id', 'wpa_label_' + value ).before( "<label for='wpa_label_" + value + "' class='wpa-screen-reader-text'>" + wpa.wpalabels[value] + "</label>" );
 							if ( wpa.errors || wpa.tracking ) {
 								errors.push( ['implicit-label', wpa.wpalabels[value]] );
-								console.log( 'Implicit label on ' + wpa.wpalabels[value] + 'added by WP Accessibility' );
+								console.log( 'Implicit label on ' + wpa.wpalabels[value] + ' added by WP Accessibility' );
 							}
 						}
 					}
