@@ -71,8 +71,7 @@ function wpa_status_notice() {
 		echo '<h3>' . __( 'Thanks for trying out WP Accessibility!', 'wp-accessibility' ) . '</h3>';
 		echo '<p>' . __( "Let me give you a few quick things to try out while you're here:", 'wp-accessibility' ) . '</p>';
 		echo '<ol>';
-		// translators: Post edit link.
-		echo '<li>' . __( 'Create a new page and add media to observe some WP Accessibility features.', 'wp-accessibility' ) . '</li>';
+		echo '<li>' . __( 'Create a new post and add media to observe some WP Accessibility features.', 'wp-accessibility' ) . '</li>';
 		echo '<li>' . __( 'Go to the Themes page and install a theme of your choice, then explore the site. Errors corrected are logged in the console and saved to stats.', 'wp-accessibility' ) . '</li>';
 		echo '<li>' . __( 'Visit the WP Accessibility Stats to view what WP Accessibility did on each page.', 'wp-accessibility' ) . '</li>';
 		echo '</ol>';
