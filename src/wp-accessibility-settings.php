@@ -397,7 +397,7 @@ function wpa_admin_settings() {
 										</li>
 										<li>
 											<label for="wpa_focus_color"><?php _e( 'Outline color (hexadecimal, optional)', 'wp-accessibility' ); ?></label><br />
-											<input type="text" id="wpa_focus_color" name="wpa_focus_color" value="#<?php echo esc_attr( get_option( 'wpa_focus_color' ) ); ?>"/>
+											<input type="text" id="wpa_focus_color" name="wpa_focus_color" value="#<?php echo esc_attr( str_replace( '#', '', get_option( 'wpa_focus_color' ) ) ); ?>"/>
 										</li>
 									</ul>
 									<p>
