@@ -86,6 +86,7 @@ WP Accessibility includes a statistics collection feature to help you identify h
 
 * Bug fix: Let Google Translate plugin keep title attributes that are used for CSS hooks.
 * Bug fix: Don't double-add '#' in focus color input.
+* Change: Use CSS variables for font resizing.
 * Feature: Add label fix when `label` element present but has no text.
 * Feature: Live Preview support via Playground.
 
