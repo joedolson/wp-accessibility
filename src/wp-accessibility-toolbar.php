@@ -87,6 +87,12 @@ function wpa_toolbar_enqueue_scripts() {
 	 */
 	$fontsize = apply_filters( 'wpa_fontsize_css', plugins_url( 'toolbar/css/' . $fontsize_stylesheet . '.css', __FILE__ ) );
 	wp_register_style( 'ui-fontsize.css', $fontsize, array(), $wpa_version );
+	if ( 'on' === get_option( 'wpa_alternate_fontsize' ) ) {
+		$vars = 'html { --wpa-font-size: "200%"; }';
+	} else {
+		$vars = 'html { --wpa-font-size: "250%"; --wpa-heading-size : "150%"; --wpa-sub-list-size: "110%"; --wpa-sub-sub-list-size: "100%"; } ';
+	}
+	wp_add_inline_style( 'ui-fontsize.css', $vars );
 
 	// Control toolbar font size.
 	$toolbar_size = get_option( 'wpa_toolbar_size' );

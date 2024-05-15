@@ -1,18 +1,18 @@
 /* enqueue these as a separate stylesheet so they can be filtered */
 .fontsize, .fontsize h1, .fontsize h2, .fontsize h3, .fontsize h4, .fontsize h5, .fontsize h6, .fontsize p, .fontsize li:not(.a11y-toolbar-list-item), .fontsize label, .fontsize input, .fontsize select, .fontsize textarea, .fontsize legend, .fontsize code, .fontsize pre, .fontsize dd, .fontsize dt, .fontsize blockquote {
-	font-size: 150% !important;
+	font-size: var(--wpa-font-size) !important;
 	line-height: 1.6;
 }
 
 .fontsize h1, .fontsize h2, .fontsize h3, .fontsize h4, .fontsize h5, .fontsize h6 {
-	font-size: 250% !important;
+	font-size: var(--wpa-heading-size) !important;
 }
 
 /* Otherwise, these get larger with each level of nesting. */
 .fontsize li li {
-	font-size: 110% !important;
+	font-size: var(--wpa-sub-list-size) !important;
 }
 
 .fontsize li li li {
-	font-size: 100% !important;
+	font-size: var(--wpa-sub-sub-list-size) !important;
 }
