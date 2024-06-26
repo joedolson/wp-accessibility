@@ -360,45 +360,56 @@ function wpa_stats_data_point( $post, $type, $limit = 5 ) {
 	$line  = '';
 	$total = 0;
 	if ( 'event' === $type ) {
-		// translators: date changed, time changed.
-		$hc_text_enabled = __( 'High contrast enabled on %1$s at %2$s', 'wp-accessibility' );
-		// translators: date changed, time changed.
-		$lf_text_enabled = __( 'Large font size enabled on %1$s at %2$s', 'wp-accessibility' );
-		// translators: date changed, time changed.
-		$hc_text_disabled = __( 'High contrast disabled on %1$s at %2$s', 'wp-accessibility' );
-		// translators: date changed, time changed.
-		$lf_text_disabled = __( 'Large font size disabled on %1$s at %2$s', 'wp-accessibility' );
-		$param            = ( property_exists( $data, 'contrast' ) ) ? 'contrast' : 'fontsize';
-		if ( 'contrast' === $param ) {
-			switch ( $data->contrast ) {
-				case 'enabled':
-					$text = $hc_text_enabled;
-					break;
-				case 'disabled':
-					$text = $hc_text_disabled;
-			}
-		} else {
-			switch ( $data->fontsize ) {
-				case 'enabled':
-					$text = $lf_text_enabled;
-					break;
-				case 'disabled':
-					$text = $lf_text_disabled;
-			}
-		}
 		$date = gmdate( 'Y-m-d', $data->timestamp );
 		$time = gmdate( 'H:i', $data->timestamp );
+		// translators: date changed, time changed.
+		$hc_text_enabled = sprintf( __( 'High contrast enabled on %1$s at %2$s', 'wp-accessibility' ), $date, $time );
+		// translators: date changed, time changed.
+		$lf_text_enabled = sprintf( __( 'Large font size enabled on %1$s at %2$s', 'wp-accessibility' ), $date, $time );
+		// translators: date changed, time changed.
+		$hc_text_disabled = sprintf( __( 'High contrast disabled on %1$s at %2$s', 'wp-accessibility' ), $date, $time );
+		// translators: date changed, time changed.
+		$lf_text_disabled = sprintf( __( 'Large font size disabled on %1$s at %2$s', 'wp-accessibility' ), $date, $time );
+
+		$param            = ( property_exists( $data, 'contrast' ) ) ? 'contrast' : 'fontsize';
+		switch ( $param ) {
+			case 'contrast':
+				if ( property_exists( $data, 'contrast' ) ) {
+					switch ( $data->contrast ) {
+						case 'enabled':
+							$text = $hc_text_enabled;
+							break;
+						case 'disabled':
+							$text = $hc_text_disabled;
+					}
+				}
+				break;
+			case 'fontsize':
+				if ( property_exists( $data, 'fontsize' ) ) {
+					switch ( $data->fontsize ) {
+						case 'enabled':
+							$text = $lf_text_enabled;
+							break;
+						case 'disabled':
+							$text = $lf_text_disabled;
+					}
+				}
+				break;
+		}
+
 		if ( property_exists( $data, 'alttext' ) ) {
-			$image_link = '&lt;a href="' . esc_url( add_query_arg( 'item', $data->alttext, admin_url( 'upload.php' ) ) ) . '">' . esc_html( $data->alttext ) . '&lt;/a>';
+			$alt_img    = preg_replace("/[^0-9]/", '', $data->alttext );
+			$image_link = '&lt;a href="' . esc_url( get_edit_post_link( $alt_img ) ) . '">' . esc_html( $data->alttext ) . '&lt;/a>';
 			// translators: 1) image link. 2) date 3) time.
 			$text = sprintf( __( 'Alt text expanded on image %1$s on %2$s at %3$s', 'wp-accessibility' ), $image_link, $date, $time );
 		}
 		if ( property_exists( $data, 'longdesc' ) ) {
-			$image_link = '&lt;a href="' . esc_url( add_query_arg( 'item', $data->longdesc, admin_url( 'upload.php' ) ) ) . '">' . esc_html( $data->longdesc ) . '&lt;/a>';
+			$ld_img     = preg_replace("/[^0-9]/", '', $data->longdesc );
+			$image_link = '&lt;a href="' . esc_url( get_edit_post_link( $ld_img ) ) . '">' . esc_html( $data->longdesc ) . '&lt;/a>';
 			// translators: 1) image link. 2) date 3) time.
 			$text = sprintf( __( 'Long description expanded on image %1$s on %2$s at %3$s', 'wp-accessibility' ), $image_link, $date, $time );
 		}
-		$line = '&lt;li>' . sprintf( $text, $date, $time ) . '&lt;/li>';
+		$line = '&lt;li>' . $text . '&lt;/li>';
 		if ( 'all' === $limit ) {
 			$limit = count( $history ) + 1;
 		}
