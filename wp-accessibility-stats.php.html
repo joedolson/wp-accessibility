@@ -370,7 +370,6 @@ function wpa_stats_data_point( $post, $type, $limit = 5 ) {
 		$hc_text_disabled = sprintf( __( 'High contrast disabled on %1$s at %2$s', 'wp-accessibility' ), $date, $time );
 		// translators: date changed, time changed.
 		$lf_text_disabled = sprintf( __( 'Large font size disabled on %1$s at %2$s', 'wp-accessibility' ), $date, $time );
-
 		$param            = ( property_exists( $data, 'contrast' ) ) ? 'contrast' : 'fontsize';
 		switch ( $param ) {
 			case 'contrast':
@@ -398,13 +397,13 @@ function wpa_stats_data_point( $post, $type, $limit = 5 ) {
 		}
 
 		if ( property_exists( $data, 'alttext' ) ) {
-			$alt_img    = preg_replace("/[^0-9]/", '', $data->alttext );
+			$alt_img    = preg_replace( '/[^0-9]/', '', $data->alttext );
 			$image_link = '&lt;a href="' . esc_url( get_edit_post_link( $alt_img ) ) . '">' . esc_html( $data->alttext ) . '&lt;/a>';
 			// translators: 1) image link. 2) date 3) time.
 			$text = sprintf( __( 'Alt text expanded on image %1$s on %2$s at %3$s', 'wp-accessibility' ), $image_link, $date, $time );
 		}
 		if ( property_exists( $data, 'longdesc' ) ) {
-			$ld_img     = preg_replace("/[^0-9]/", '', $data->longdesc );
+			$ld_img     = preg_replace( '/[^0-9]/', '', $data->longdesc );
 			$image_link = '&lt;a href="' . esc_url( get_edit_post_link( $ld_img ) ) . '">' . esc_html( $data->longdesc ) . '&lt;/a>';
 			// translators: 1) image link. 2) date 3) time.
 			$text = sprintf( __( 'Long description expanded on image %1$s on %2$s at %3$s', 'wp-accessibility' ), $image_link, $date, $time );
