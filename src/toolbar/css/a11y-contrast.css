@@ -441,7 +441,7 @@
     :not(:empty) u:before, :not(:empty) ul:after, :not(:empty) ul:before,
     :not(:empty) var:after, :not(:empty) var:before, :not(:empty)
     xmp:after, :not(:empty) xmp:before, :root:not(HTML), :root:not(HTML)
-    :not(:empty) {
+    :not(:empty), .wp-block-group, .has-text-color {
         background: black !important;
         background-color: black !important;
         background-image: none !important;
