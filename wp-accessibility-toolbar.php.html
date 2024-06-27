@@ -80,7 +80,7 @@ function wpa_toolbar_enqueue_scripts() {
 		$plugin_path = get_stylesheet_directory_uri() . '/a11y-contrast.css';
 	}
 	$plugin_path = array(
-		'path' => $plugin_path,
+		'path' => add_query_arg( 'version', $wpa_version, $plugin_path ),
 	);
 	wp_localize_script( 'ui-a11y', 'wpa11y', $plugin_path );
 
