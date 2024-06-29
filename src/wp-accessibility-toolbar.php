@@ -88,9 +88,9 @@ function wpa_toolbar_enqueue_scripts() {
 	$fontsize = apply_filters( 'wpa_fontsize_css', plugins_url( 'toolbar/css/' . $fontsize_stylesheet . '.css', __FILE__ ) );
 	wp_register_style( 'ui-fontsize.css', $fontsize, array(), $wpa_version );
 	if ( 'on' === get_option( 'wpa_alternate_fontsize' ) ) {
-		$vars = 'html { --wpa-font-size: "200%"; }';
+		$vars = 'html { --wpa-font-size: 150%; }';
 	} else {
-		$vars = 'html { --wpa-font-size: "250%"; --wpa-heading-size : "150%"; --wpa-sub-list-size: "110%"; --wpa-sub-sub-list-size: "100%"; } ';
+		$vars = 'html { --wpa-font-size: clamp( 24px, 1.5rem, 36px ); --wpa-h1-size : clamp( 48px, 3rem, 72px ); --wpa-h2-size : clamp( 40px, 2.5rem, 60px ); --wpa-h3-size : clamp( 32px, 2rem, 48px ); --wpa-h4-size : clamp( 28px, 1.75rem, 42px ); --wpa-sub-list-size: 1.1em; --wpa-sub-sub-list-size: 1em; } ';
 	}
 	wp_add_inline_style( 'ui-fontsize.css', $vars );
 

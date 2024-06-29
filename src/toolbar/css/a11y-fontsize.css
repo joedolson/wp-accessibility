@@ -1,11 +1,36 @@
 /* enqueue these as a separate stylesheet so they can be filtered */
-.fontsize, .fontsize h1, .fontsize h2, .fontsize h3, .fontsize h4, .fontsize h5, .fontsize h6, .fontsize p, .fontsize li:not(.a11y-toolbar-list-item), .fontsize label, .fontsize input, .fontsize select, .fontsize textarea, .fontsize legend, .fontsize code, .fontsize pre, .fontsize dd, .fontsize dt, .fontsize blockquote {
+.fontsize p,
+.fontsize div:not(div:has( p, h1, h2, h3, h4, h5, h6)),
+.fontsize footer:not(footer:has( p, h1, h2, h3, h4, h5, h6)),
+.fontsize li:not(.a11y-toolbar-list-item),
+.fontsize label,
+.fontsize input,
+.fontsize select,
+.fontsize textarea,
+.fontsize legend,
+.fontsize code,
+.fontsize pre,
+.fontsize dd,
+.fontsize dt,
+.fontsize blockquote {
 	font-size: var(--wpa-font-size) !important;
 	line-height: 1.6;
 }
 
-.fontsize h1, .fontsize h2, .fontsize h3, .fontsize h4, .fontsize h5, .fontsize h6 {
-	font-size: var(--wpa-heading-size) !important;
+.fontsize h1 {
+	font-size: var(--wpa-h1-size) !important;
+}
+
+.fontsize h2 {
+	font-size: var(--wpa-h2-size) !important;
+}
+.fontsize h3 {
+	font-size: var(--wpa-h3-size) !important;
+}
+.fontsize h6,
+.fontsize h5,
+.fontsize h4 {
+	font-size: var(--wpa-h4-size) !important;
 }
 
 /* Otherwise, these get larger with each level of nesting. */
