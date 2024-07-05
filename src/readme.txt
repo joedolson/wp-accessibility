@@ -3,9 +3,9 @@ Contributors: joedolson
 Donate link: http://www.joedolson.com/donate/
 Tags: accessibility, wcag, a11y, section508, alt text
 Requires at least: 4.9
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 7.0
-Stable tag: 2.1.9
+Stable tag: 2.1.10
 Text Domain: wp-accessibility
 License: GPLv2 or later
 
@@ -81,6 +81,13 @@ WP Accessibility includes a statistics collection feature to help you identify h
 = Future =
 
 [Suggest a change!](https://github.com/joedolson/wp-accessibility/issues/)
+
+= 2.1.10 =
+
+* Bug fix: Fix errors thrown in stats reporting.
+* Bug fix: Version the high contrast CSS.
+* Bug fix: Add override specificity for block theme colors.
+* Change: Update font-resizing values to make changes more consistent.
 
 = 2.1.9 =
 
