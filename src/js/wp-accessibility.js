@@ -204,10 +204,16 @@
 		var targeted      = $('a:not(.wpa-allow-target)');
 		var targetRemoved = 0;
 		targeted.each( function() {
-			var target = $( this ).attr( 'target' );
+			var target   = $( this ).attr( 'target' );
+			var href     = $( this ).attr( 'href' );
+
 			if ( target ) {
-				$( this ).removeAttr( 'target' );
-				targetRemoved++;
+				var url      = new URL( href );
+				var hostname = url.hostname;
+				if ( ! hostname.includes( 'facebook' ) ) {
+					$( this ).removeAttr( 'target' );
+					targetRemoved++;
+				}
 			}
 		});
 		if ( targetRemoved > 0 && ( wpa.errors || wpa.tracking ) ) {
