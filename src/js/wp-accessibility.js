@@ -208,11 +208,15 @@
 			var href     = $( this ).attr( 'href' );
 
 			if ( target ) {
-				var url      = new URL( href );
-				var hostname = url.hostname;
-				if ( ! hostname.includes( 'facebook' ) ) {
-					$( this ).removeAttr( 'target' );
-					targetRemoved++;
+				try {
+					var url      = new URL( href );
+					var hostname = url.hostname;
+					if ( ! hostname.includes( 'facebook' ) ) {
+						$( this ).removeAttr( 'target' );
+						targetRemoved++;
+					}
+				} catch (exception) {
+					// No action; the `href` attribute didn't resolve as a URL.
 				}
 			}
 		});
