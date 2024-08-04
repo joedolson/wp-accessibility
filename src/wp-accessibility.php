@@ -9,10 +9,10 @@
  *
  * @wordpress-plugin
  * Plugin Name: WP Accessibility
- * Plugin URI: http://www.joedolson.com/wp-accessibility/
+ * Plugin URI: https://www.joedolson.com/wp-accessibility/
  * Description: Helps improve accessibility in your WordPress site, like removing title attributes.
  * Author: Joe Dolson
- * Author URI: http://www.joedolson.com/
+ * Author URI: https://www.joedolson.com/
  * Text Domain: wp-accessibility
  * Domain Path: /lang
  * License:     GPL-2.0+
