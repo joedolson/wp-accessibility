@@ -85,6 +85,8 @@ WP Accessibility includes a statistics collection feature to help you identify h
 = 2.1.11 =
 
 * Bug fix: Don't strip target=_blank on Facebook links.
+* Change: Minor text change in accessibility stats settings.
+* Accessibility: auto-scroll if focus lands on element obsucred by toolbar.
 
 = 2.1.10 =
 
