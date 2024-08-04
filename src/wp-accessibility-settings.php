@@ -487,11 +487,11 @@ function wpa_admin_settings() {
 										</li>
 										<li>
 											<fieldset>
-												<legend><?php _e( 'Page Statistics Tracking', 'wp-accessibility' ); ?></legend>
+												<legend><?php _e( 'Statistics Tracking', 'wp-accessibility' ); ?></legend>
 												<ul>
 													<li>
 														<input type="radio" id="wpa_track_stats_none" value="off" name="wpa_track_stats" <?php checked( get_option( 'wpa_track_stats' ), 'off' ); ?>/>
-														<label for="wpa_track_stats_none"><?php _e( 'None', 'wp-accessibility' ); ?></label>
+														<label for="wpa_track_stats_none"><?php _e( 'Disabled', 'wp-accessibility' ); ?></label>
 													</li>
 													<li>
 														<input type="radio" id="wpa_track_stats_all" value="all" name="wpa_track_stats" <?php checked( get_option( 'wpa_track_stats' ), 'all' ); ?>/>
