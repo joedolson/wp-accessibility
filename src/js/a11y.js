@@ -110,7 +110,6 @@ function eraseCookie(name) {
 		el.addEventListener( 'focus', function() {
 			var bounds  = el.getBoundingClientRect();
 			var toolbar = document.querySelector( '.a11y-toolbar' ).getBoundingClientRect();
-			console.log( { bounds, toolbar } );
 
 			var overlap = !(
 				bounds.top > toolbar.bottom ||
