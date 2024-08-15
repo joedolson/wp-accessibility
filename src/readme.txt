@@ -5,7 +5,7 @@ Tags: accessibility, wcag, a11y, section508, alt text
 Requires at least: 4.9
 Tested up to: 6.6
 Requires PHP: 7.0
-Stable tag: 2.1.11
+Stable tag: 2.1.12
 Text Domain: wp-accessibility
 License: GPLv2 or later
 
@@ -81,6 +81,12 @@ WP Accessibility includes a statistics collection feature to help you identify h
 = Future =
 
 [Suggest a change!](https://github.com/joedolson/wp-accessibility/issues/)
+
+= 2.1.12 =
+
+* Bug fix: Update editor styles to have less impact on block editor styles.
+* Add: Support for classic editor galleries with alt text warnings.
+* Change: Update URLs in various locations to https references.
 
 = 2.1.11 =
 
