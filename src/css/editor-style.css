@@ -1,18 +1,11 @@
+.gallery-item .gallery-icon,
 .wp-block-image {
 	position: relative;
-	max-width: fit-content;
-	display: inline-block;
 }
 
 .wp-video-shortcode:not(.wp-video-shortcode:has(track[kind="captions"],track[kind="subtitles"])),
 .wp-block-video:not(.wp-block-video:has(track[kind="captions"],track[kind="subtitles"])) {
 	border: 4px solid #b32d2e;
-}
-
-.wp-caption-dt,
-.wp-block-image {
-	position: relative;
-	display: inline-block;
 }
 
 img[alt*="This image has an empty alt"],
@@ -22,6 +15,8 @@ img[alt*="This image has an empty alt"],
 	outline-offset: 2px;
 }
 
+.gallery-item .gallery-icon:has(img[alt*="This image has an empty alt"]):after,
+.gallery-item .gallery-icon:has(img[alt=""]):after,
 .wp-caption-dt:has(img[alt*="This image has an empty alt"]):after,
 .wp-caption-dt:has(img[alt=""]):after,
 .wp-block-image:has(img[alt*="This image has an empty alt"]):after,
