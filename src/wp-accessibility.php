@@ -560,7 +560,7 @@ function wpa_logout_item( $admin_bar ) {
 
 	$args = array(
 		'id'    => 'wpa-logout',
-		'title' => 'Log Out',
+		'title' => __( 'Log Out', 'wp-accessibility' ),
 		'href'  => wp_logout_url(),
 	);
 	$admin_bar->add_node( $args );
