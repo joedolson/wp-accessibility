@@ -554,7 +554,7 @@ add_action( 'admin_bar_menu', 'wpa_logout_item', 11 );
  * @param object $admin_bar Admin bar object.
  */
 function wpa_logout_item( $admin_bar ) {
-	if ( ! is_user_logged_in() ) {
+	if ( ! is_user_logged_in() || 'on' === get_option( 'wpa_disable_logout', 'true' ) ) {
 		return;
 	}
 
