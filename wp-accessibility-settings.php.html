@@ -700,6 +700,7 @@ function wpa_admin_sidebar() {
 					&lt;/div>
 				&lt;/div>
 				&lt;?php wpa_edac_promotion(); ?>
+				&lt;?php wpa_linkedin_promotion(); ?>
 
 				&lt;div class="postbox">
 					&lt;h2 class='hndle'>&lt;?php _e( 'Accessibility References', 'wp-accessibility' ); ?>&lt;/h2>
@@ -711,7 +712,6 @@ function wpa_admin_sidebar() {
 							&lt;li>&lt;a href="https://make.wordpress.org/themes/handbook/review/accessibility/">WordPress Theme Accessibility Guidelines&lt;/a>&lt;/li>
 							&lt;li>&lt;a href="https://www.joedolson.com/tools/color-contrast.php">Color Contrast Testing&lt;/a>&lt;/li>
 							&lt;li>&lt;a href="http://wave.webaim.org/">WAVE: Web accessibility evaluation tool&lt;/a>&lt;/li>
-							&lt;li>&lt;a href="https://www.linkedin.com/learning/wordpress-accessibility-2/">WordPress Accessibility course at LinkedIn Learning&lt;/a>&lt;/li>
 						&lt;/ul>
 					&lt;/div>
 				&lt;/div>
@@ -768,6 +768,31 @@ function wpa_admin_sidebar() {
 					&lt;/div>
 				&lt;/div>
 			&lt;/div>
+		&lt;/div>
+	&lt;/div>
+	&lt;?php
+}
+
+/**
+ * Show LinkedIn WordPress Accessibility promotion.
+ */
+function wpa_linkedin_promotion() {
+	// translators: link to linkedin learning course page.
+	$promo_text = sprintf( __( 'Want to learn more about WordPress and Accessibility? Take my &lt;a href="%s">WordPress Accessibility course at LinkedIn Learning&lt;/a>!', 'wp-accessibility' ), 'https://www.linkedin.com/learning/wordpress-accessibility-22376834/making-accessible-websites-using-wordpress' );
+	?>
+	&lt;div class="postbox linkedin-course-promotion promotion">
+		&lt;h2 class='hndle'>&lt;?php _e( 'Learn more about WordPress Accessibility', 'wp-accessibility' ); ?>&lt;/h2>
+
+		&lt;div class="inside">
+			&lt;div class="wpa-flex">
+				&lt;img src="&lt;?php echo plugins_url( 'imgs/linkedin.png', __FILE__ ); ?>" alt="LinkedIn" />
+				&lt;p class="small">
+					&lt;?php echo wp_kses_post( $promo_text ); ?>
+				&lt;/p>
+			&lt;/div>
+			&lt;p class="wpa-affiliate">
+				&lt;a href="https://www.linkedin.com/learning/wordpress-accessibility-22376834/making-accessible-websites-using-wordpress">&lt;?php _e( 'Try the Course', 'wp-accessibility' ); ?>&lt;/a>
+			&lt;/p>
 		&lt;/div>
 	&lt;/div>
 	&lt;?php
