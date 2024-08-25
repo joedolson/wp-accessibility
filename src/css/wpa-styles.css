@@ -13,15 +13,13 @@
 	margin: 0;
 }
 
-.wpa-checkboxes li {
-	display: flex;
-	flex-wrap: wrap;
-	column-gap: .5rem;
-	align-items: center;
+.wpa-note {
+	display: block;
+	margin-left: 1.5rem;
 }
 
-.wpa-checkboxes li input {
-	margin-top: 0;
+.wpa-settings-wrapper hr {
+	margin: 0 -11px;
 }
 
 .notice .views {
