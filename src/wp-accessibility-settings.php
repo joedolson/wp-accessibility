@@ -193,6 +193,7 @@ function wpa_admin_settings() {
 								</p>
 								<hr>
 								<form method="post" action="<?php echo admin_url( 'admin.php?page=wp-accessibility' ); ?>">
+									<br>	
 									<fieldset>
 										<legend><?php _e( 'Configure Skiplinks', 'wp-accessibility' ); ?></legend>
 										<ul>
@@ -287,7 +288,7 @@ function wpa_admin_settings() {
 						<div class="postbox">
 							<h2 id="toolbar" class='hndle'><?php esc_html_e( 'Accessibility Toolbar', 'wp-accessibility' ); ?></h2>
 							<div class="inside">
-								<p><?php _e( 'Enable a simple display settings toolbar with high contrast mode and text size enlarging.', 'wp-accessibility' ); ?></p>
+								<p><?php printf( __( 'Enable a simple <a href="%s">display settings toolbar</a> with high contrast mode and text size enlarging.', 'wp-accessibility' ), 'https://docs.joedolson.com/wp-accessibility/2022/10/29/toolbar-for-high-contrast-and-large-font-styles/' ); ?></p>
 								<hr>
 								<form method="post" action="<?php echo esc_url( admin_url( 'admin.php?page=wp-accessibility' ) ); ?>">
 									<p>
@@ -364,7 +365,7 @@ function wpa_admin_settings() {
 							<h2 id="accessibility-settings" class='hndle'><?php _e( 'Accessibility Fixes', 'wp-accessibility' ); ?></h2>
 
 							<div class="inside">
-								<p><?php _e( 'Settings that fix potential accessibility issues on your site.', 'wp-accessibility' ); ?></p>
+								<p><?php printf( __( 'Settings that <a href="%s">fix potential accessibility issues</a> on your site.', 'wp-accessibility' ), 'https://docs.joedolson.com/wp-accessibility/category/remediation/' ); ?></p>
 								<hr>
 								<form method="post" action="<?php echo admin_url( 'admin.php?page=wp-accessibility' ); ?>">
 									<ul>
@@ -423,7 +424,7 @@ function wpa_admin_settings() {
 						<div class="postbox">
 							<h2 class="hndle"><?php _e( 'Accessibility Features', 'wp-accessibility' ); ?></h2>
 							<div class="inside">
-								<p><?php _e( 'Enable content features to improve site accessibility.', 'wp-accessibility' ); ?></p>
+								<p><?php printf( __( 'Enable <a href="%s">content features to improve site accessibility</a>.', 'wp-accessibility' ), 'https://docs.joedolson.com/wp-accessibility/category/features/' ); ?></p>
 								<hr>
 								<form method="post" action="<?php echo admin_url( 'admin.php?page=wp-accessibility' ); ?>">
 									<ul>
