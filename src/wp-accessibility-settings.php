@@ -188,6 +188,10 @@ function wpa_admin_settings() {
 									<?php
 								} else {
 									?>
+								<p>
+									<?php printf( __( 'If your theme does not have skip links, <a href="%s">review the skiplink documentation</a> and configure them.', 'wp-accessibility' ), 'https://docs.joedolson.com/wp-accessibility/2022/10/28/skip-links/' ); ?>
+								</p>
+								<hr>
 								<form method="post" action="<?php echo admin_url( 'admin.php?page=wp-accessibility' ); ?>">
 									<fieldset>
 										<legend><?php _e( 'Configure Skiplinks', 'wp-accessibility' ); ?></legend>
