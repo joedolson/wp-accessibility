@@ -674,6 +674,7 @@ function wpa_admin_sidebar() {
 					</div>
 				</div>
 				<?php wpa_edac_promotion(); ?>
+				<?php wpa_linkedin_promotion(); ?>
 
 				<div class="postbox">
 					<h2 class='hndle'><?php _e( 'Accessibility References', 'wp-accessibility' ); ?></h2>
@@ -685,7 +686,6 @@ function wpa_admin_sidebar() {
 							<li><a href="https://make.wordpress.org/themes/handbook/review/accessibility/">WordPress Theme Accessibility Guidelines</a></li>
 							<li><a href="https://www.joedolson.com/tools/color-contrast.php">Color Contrast Testing</a></li>
 							<li><a href="http://wave.webaim.org/">WAVE: Web accessibility evaluation tool</a></li>
-							<li><a href="https://www.linkedin.com/learning/wordpress-accessibility-2/">WordPress Accessibility course at LinkedIn Learning</a></li>
 						</ul>
 					</div>
 				</div>
@@ -742,6 +742,31 @@ function wpa_admin_sidebar() {
 					</div>
 				</div>
 			</div>
+		</div>
+	</div>
+	<?php
+}
+
+/**
+ * Show LinkedIn WordPress Accessibility promotion.
+ */
+function wpa_linkedin_promotion() {
+	// translators: link to linkedin learning course page.
+	$promo_text = sprintf( __( 'Want to learn more about WordPress and Accessibility? Take my <a href="%s">WordPress Accessibility course at LinkedIn Learning</a>!', 'wp-accessibility' ), 'https://www.linkedin.com/learning/wordpress-accessibility-22376834/making-accessible-websites-using-wordpress' );
+	?>
+	<div class="postbox linkedin-course-promotion promotion">
+		<h2 class='hndle'><?php _e( 'Learn more about WordPress Accessibility', 'wp-accessibility' ); ?></h2>
+
+		<div class="inside">
+			<div class="wpa-flex">
+				<img src="<?php echo plugins_url( 'imgs/linkedin.png', __FILE__ ); ?>" alt="LinkedIn" />
+				<p class="small">
+					<?php echo wp_kses_post( $promo_text ); ?>
+				</p>
+			</div>
+			<p class="wpa-affiliate">
+				<a href="https://www.linkedin.com/learning/wordpress-accessibility-22376834/making-accessible-websites-using-wordpress"><?php _e( 'Try the Course', 'wp-accessibility' ); ?></a>
+			</p>
 		</div>
 	</div>
 	<?php

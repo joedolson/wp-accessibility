@@ -112,6 +112,12 @@
 	display: block;
 }
 
+.linkedin-course-promotion.promotion img {
+	max-width: 110px;
+	margin-right: 10px;
+	margin-left: 10px;
+}
+
 .postbox.promotion p.coupon {
 	padding: 1em;
 	border: 2px dashed #ccc;
