@@ -79,7 +79,7 @@ function wpa_update_settings() {
 
 			$message = __( 'Remove Title Attributes Settings Updated', 'wp-accessibility' );
 
-			return "&lt;div class='updated'>&lt;p>" . $message . '&lt;/p>&lt;/div>';
+			return "&lt;div class='notice notice-success'>&lt;p>" . $message . '&lt;/p>&lt;/div>';
 		}
 		if ( isset( $_POST['action'] ) &amp;&amp; 'asl' === $_POST['action'] ) {
 			$asl_enable         = ( isset( $_POST['asl_enable'] ) ) ? 'on' : '';
@@ -104,7 +104,7 @@ function wpa_update_settings() {
 			update_option( 'asl_styles', $asl_styles );
 			$message = __( 'Skiplinks Settings Updated', 'wp-accessibility' );
 
-			return "&lt;div class='updated'>&lt;p>" . $message . "&lt;/p>$notice&lt;/div>";
+			return "&lt;div class='notice notice-success'>&lt;p>" . $message . "&lt;/p>$notice&lt;/div>";
 		}
 
 		if ( isset( $_POST['action'] ) &amp;&amp; 'features' === $_POST['action'] ) {
@@ -118,7 +118,7 @@ function wpa_update_settings() {
 			update_option( 'wpa_post_types', $wpa_post_types );
 			$message = __( 'Accessibility Features Updated', 'wp-accessibility' );
 
-			return "&lt;div class='updated'>&lt;p>" . $message . '&lt;/p>&lt;/div>';
+			return "&lt;div class='notice notice-success'>&lt;p>" . $message . '&lt;/p>&lt;/div>';
 		}
 
 		if ( isset( $_POST['action'] ) &amp;&amp; 'tools' === $_POST['action'] ) {
@@ -134,7 +134,7 @@ function wpa_update_settings() {
 			update_option( 'wpa_disable_logout', $wpa_disable_logout );
 			$message = __( 'Accessibility Tools Updated', 'wp-accessibility' );
 
-			return "&lt;div class='updated'>&lt;p>" . $message . '&lt;/p>&lt;/div>';
+			return "&lt;div class='notice notice-success'>&lt;p>" . $message . '&lt;/p>&lt;/div>';
 		}
 
 		if ( isset( $_POST['action'] ) &amp;&amp; 'misc' === $_POST['action'] ) {
@@ -156,7 +156,7 @@ function wpa_update_settings() {
 			update_option( 'wpa_continue', $wpa_continue );
 			$message = __( 'Miscellaneous Accessibility Settings Updated', 'wp-accessibility' );
 
-			return "&lt;div class='updated'>&lt;p>" . $message . '&lt;/p>&lt;/div>';
+			return "&lt;div class='notice notice-success'>&lt;p>" . $message . '&lt;/p>&lt;/div>';
 		}
 
 		if ( isset( $_POST['action'] ) &amp;&amp; 'toolbar' === $_POST['action'] ) {
@@ -182,7 +182,7 @@ function wpa_update_settings() {
 			update_option( 'wpa_toolbar_mobile', $wpa_toolbar_mobile );
 			$message = __( 'Toolbar Settings Updated', 'wp-accessibility' );
 
-			return "&lt;div class='updated'>&lt;p>" . $message . '&lt;/p>&lt;/div>';
+			return "&lt;div class='notice notice-success'>&lt;p>" . $message . '&lt;/p>&lt;/div>';
 		}
 	} else {
 		return;
@@ -309,65 +309,70 @@ function wpa_admin_settings() {
 						&lt;div class="postbox">
 							&lt;h2 id="toolbar" class='hndle'>&lt;?php esc_html_e( 'Accessibility Toolbar', 'wp-accessibility' ); ?>&lt;/h2>
 							&lt;div class="inside">
+								&lt;p>&lt;?php _e( 'Enable a simple display settings toolbar with high contrast mode and text size enlarging.', 'wp-accessibility' ); ?>&lt;/p>
+								&lt;hr>
 								&lt;form method="post" action="&lt;?php echo esc_url( admin_url( 'admin.php?page=wp-accessibility' ) ); ?>">
-									&lt;ul>
-										&lt;li class="wpa-checkboxes">
-											&lt;input type="checkbox" id="wpa_toolbar" name="wpa_toolbar" &lt;?php checked( get_option( 'wpa_toolbar' ), 'on' ); ?>/>
-											&lt;label for="wpa_toolbar">&lt;?php _e( 'Enable Accessibility toolbar', 'wp-accessibility' ); ?>&lt;/label>
-											&lt;ul>
-												&lt;li>
-													&lt;input type="checkbox" id="wpa_toolbar_fs" name="wpa_toolbar_fs" &lt;?php checked( get_option( 'wpa_toolbar_fs', '' ), 'on' ); ?> value='on' />
-													&lt;label for="wpa_toolbar_fs">&lt;?php _e( 'Font size', 'wp-accessibility' ); ?>&lt;/label>
-												&lt;/li>
-												&lt;li>
-													&lt;input type="checkbox" id="wpa_toolbar_ct" name="wpa_toolbar_ct" &lt;?php checked( get_option( 'wpa_toolbar_ct', '' ), 'on' ); ?> value='on' />
-													&lt;label for="wpa_toolbar_ct">&lt;?php _e( 'Contrast', 'wp-accessibility' ); ?>&lt;/label>
-												&lt;/li>
-												&lt;li>
-													&lt;input type="checkbox" aria-describedby="wpa_toolbar_gs_note" id="wpa_toolbar_gs" name="wpa_toolbar_gs" &lt;?php checked( get_option( 'wpa_toolbar_gs' ), 'on' ); ?> />
-													&lt;label for="wpa_toolbar_gs">&lt;?php _e( 'Grayscale', 'wp-accessibility' ); ?>&lt;/label> &lt;em class="wpa-note" id="wpa_toolbar_gs_note">&lt;?php _e( 'Grayscale is intended for testing, and will appear only for logged-in administrators', 'wp-accessibility' ); ?>&lt;/em>
-												&lt;/li>
-											&lt;/ul>
-										&lt;/li>
-										&lt;li>
-											&lt;label for="wpa_toolbar_default">&lt;?php _e( 'Toolbar location (optional)', 'wp-accessibility' ); ?>&lt;/label>&lt;br />
-											&lt;input type="text" id="wpa_toolbar_default" name="wpa_toolbar_default" aria-describedby="wpa_toolbar_default_description" placeholder="#" value="&lt;?php echo esc_attr( get_option( 'wpa_toolbar_default' ) ); ?>" /> &lt;span id="wpa_toolbar_default_description">&lt;?php _e( 'ID attribute starting with &lt;code>#&lt;/code>', 'wp-accessibility' ); ?>&lt;/span>
-										&lt;/li>
-										&lt;?php
-										$size = absint( get_option( 'wpa_toolbar_size' ) );
-										?>
-										&lt;li>
-											&lt;label for="wpa_toolbar_size">&lt;?php _e( 'Toolbar font size', 'wp-accessibility' ); ?>&lt;/label>&lt;br />
-											&lt;select name='wpa_toolbar_size' id='wpa_toolbar_size'>
-												&lt;option value=''>&lt;?php _e( 'Default size', 'wp-accessibility' ); ?>&lt;/option>
-												&lt;?php
-												for ( $i = 1.6; $i &lt;= 3.8; ) {
-													$val           = ( $i * 10 ) + 2;
-													$current       = absint( $val );
-													$selected_size = ( $current === $size ) ? ' selected="selected"' : '';
-													echo "&lt;option value='$val'$selected_size>$val px&lt;/option>";
-													$i = $i + .1;
-												}
-												?>
-											&lt;/select>
-										&lt;/li>
-										&lt;li>
-											&lt;input type="checkbox" id="wpa_alternate_fontsize" name="wpa_alternate_fontsize" &lt;?php checked( get_option( 'wpa_alternate_fontsize' ), 'on' ); ?>/>
-											&lt;label for="wpa_alternate_fontsize">&lt;?php _e( 'Use alternate font resizing stylesheet', 'wp-accessibility' ); ?>&lt;/label>
-										&lt;/li>
-										&lt;li>
-											&lt;input type="checkbox" id="wpa_widget_toolbar" name="wpa_widget_toolbar" &lt;?php checked( get_option( 'wpa_widget_toolbar' ), 'on' ); ?>/>
-											&lt;label for="wpa_widget_toolbar">&lt;?php _e( 'Support Accessibility toolbar as shortcode or widget', 'wp-accessibility' ); ?>&lt;/label>
-										&lt;/li>
-										&lt;li>
-											&lt;input type="checkbox" id="wpa_toolbar_right" name="wpa_toolbar_right" &lt;?php checked( get_option( 'wpa_toolbar_right' ), 'on' ); ?>/>
-											&lt;label for="wpa_toolbar_right">&lt;?php _e( 'Place toolbar on opposite side of screen.', 'wp-accessibility' ); ?>&lt;/label>
-										&lt;/li>
-										&lt;li>
-											&lt;input type="checkbox" id="wpa_toolbar_mobile" name="wpa_toolbar_mobile" &lt;?php checked( get_option( 'wpa_toolbar_mobile' ), 'on' ); ?>/>
-											&lt;label for="wpa_toolbar_mobile">&lt;?php _e( 'Hide toolbar on small screens.', 'wp-accessibility' ); ?>&lt;/label>
-										&lt;/li>
-									&lt;/ul>
+									&lt;p>
+										&lt;input type="checkbox" id="wpa_toolbar" name="wpa_toolbar" &lt;?php checked( get_option( 'wpa_toolbar' ), 'on' ); ?>/>
+										&lt;label for="wpa_toolbar">&lt;?php _e( 'Enable Accessibility toolbar', 'wp-accessibility' ); ?>&lt;/label>
+									&lt;/p>
+									&lt;?php
+									$class = ( 'on' === get_option( 'wpa_toolbar' ) ) ? 'visible' : 'hidden';
+									?>
+									&lt;div class="wpa-toolbar-settings &lt;?php echo $class; ?>">
+										&lt;ul>
+											&lt;li>
+												&lt;input type="checkbox" id="wpa_toolbar_fs" name="wpa_toolbar_fs" &lt;?php checked( get_option( 'wpa_toolbar_fs', '' ), 'on' ); ?> value='on' />
+												&lt;label for="wpa_toolbar_fs">&lt;?php _e( 'Include Font size button', 'wp-accessibility' ); ?>&lt;/label>
+											&lt;/li>
+											&lt;li>
+												&lt;input type="checkbox" id="wpa_toolbar_ct" name="wpa_toolbar_ct" &lt;?php checked( get_option( 'wpa_toolbar_ct', '' ), 'on' ); ?> value='on' />
+												&lt;label for="wpa_toolbar_ct">&lt;?php _e( 'Include Contrast button', 'wp-accessibility' ); ?>&lt;/label>
+											&lt;/li>
+											&lt;li>
+												&lt;input type="checkbox" aria-describedby="wpa_toolbar_gs_note" id="wpa_toolbar_gs" name="wpa_toolbar_gs" &lt;?php checked( get_option( 'wpa_toolbar_gs' ), 'on' ); ?> />
+												&lt;label for="wpa_toolbar_gs">&lt;?php _e( 'Test with Grayscale', 'wp-accessibility' ); ?>&lt;/label> &lt;em class="wpa-note" id="wpa_toolbar_gs_note">&lt;?php _e( 'Grayscale is intended for testing, and will appear only for logged-in administrators', 'wp-accessibility' ); ?>&lt;/em>
+											&lt;/li>
+											&lt;li>
+												&lt;label for="wpa_toolbar_default">&lt;?php _e( 'Toolbar location (optional)', 'wp-accessibility' ); ?>&lt;/label>&lt;br />
+												&lt;input type="text" id="wpa_toolbar_default" name="wpa_toolbar_default" aria-describedby="wpa_toolbar_default_description" placeholder="#" value="&lt;?php echo esc_attr( get_option( 'wpa_toolbar_default' ) ); ?>" /> &lt;span id="wpa_toolbar_default_description">&lt;?php _e( 'ID attribute starting with &lt;code>#&lt;/code>', 'wp-accessibility' ); ?>&lt;/span>
+											&lt;/li>
+											&lt;?php
+											$size = absint( get_option( 'wpa_toolbar_size' ) );
+											?>
+											&lt;li>
+												&lt;label for="wpa_toolbar_size">&lt;?php _e( 'Toolbar font size', 'wp-accessibility' ); ?>&lt;/label>&lt;br />
+												&lt;select name='wpa_toolbar_size' id='wpa_toolbar_size'>
+													&lt;option value=''>&lt;?php _e( 'Default size', 'wp-accessibility' ); ?>&lt;/option>
+													&lt;?php
+													for ( $i = 1.6; $i &lt;= 3.8; ) {
+														$val           = ( $i * 10 ) + 2;
+														$current       = absint( $val );
+														$selected_size = ( $current === $size ) ? ' selected="selected"' : '';
+														echo "&lt;option value='$val'$selected_size>$val px&lt;/option>";
+														$i = $i + .1;
+													}
+													?>
+												&lt;/select>
+											&lt;/li>
+											&lt;li>
+												&lt;input type="checkbox" id="wpa_alternate_fontsize" name="wpa_alternate_fontsize" &lt;?php checked( get_option( 'wpa_alternate_fontsize' ), 'on' ); ?>/>
+												&lt;label for="wpa_alternate_fontsize">&lt;?php _e( 'Use alternate font resizing stylesheet', 'wp-accessibility' ); ?>&lt;/label>
+											&lt;/li>
+											&lt;li>
+												&lt;input type="checkbox" id="wpa_widget_toolbar" name="wpa_widget_toolbar" &lt;?php checked( get_option( 'wpa_widget_toolbar' ), 'on' ); ?>/>
+												&lt;label for="wpa_widget_toolbar">&lt;?php _e( 'Support Accessibility toolbar as shortcode or widget', 'wp-accessibility' ); ?>&lt;/label>
+											&lt;/li>
+											&lt;li>
+												&lt;input type="checkbox" id="wpa_toolbar_right" name="wpa_toolbar_right" &lt;?php checked( get_option( 'wpa_toolbar_right' ), 'on' ); ?>/>
+												&lt;label for="wpa_toolbar_right">&lt;?php _e( 'Place toolbar on opposite side of screen.', 'wp-accessibility' ); ?>&lt;/label>
+											&lt;/li>
+											&lt;li>
+												&lt;input type="checkbox" id="wpa_toolbar_mobile" name="wpa_toolbar_mobile" &lt;?php checked( get_option( 'wpa_toolbar_mobile' ), 'on' ); ?>/>
+												&lt;label for="wpa_toolbar_mobile">&lt;?php _e( 'Hide toolbar on small screens.', 'wp-accessibility' ); ?>&lt;/label>
+											&lt;/li>
+										&lt;/ul>
+									&lt;/div>
 									&lt;p>
 										&lt;input type="hidden" name="_wpnonce" value="&lt;?php echo wp_create_nonce( 'wpa-nonce' ); ?>"/>
 										&lt;input type="hidden" name="action" value="toolbar" />
@@ -585,7 +590,7 @@ function wpa_admin_settings() {
 									$l_contrast = false;
 								}
 								if ( $l_contrast ) {
-									$results = "&lt;div class='updated notice'>";
+									$results = "&lt;div class='notice notice-info'>";
 									// Translators: Contrast ratio, foreground Hex color, background Hex color.
 									$results .= '&lt;h2 class="stats wcag2">' . sprintf( __( 'Luminosity Contrast Ratio for %2$s and %3$s is %1$s (Threshold: greater than 7:1 for AAA, 4.5:1 for AA)', 'wp-accessibility' ), '&lt;strong>' . $l_contrast . '&lt;/strong>', '&lt;code>#' . $hex1 . '&lt;/code>', '&lt;code>#' . $hex2 . '&lt;/code>' ) . '&lt;/h2>&lt;p>';
 									if ( $luminance_raw >= 7 ) {
