@@ -14,8 +14,8 @@ jQuery(document).ready(function ($) {
 		button.setAttribute( 'aria-expanded', false );
 		default_css.insertAdjacentElement( 'beforebegin', button );
 
-		var wpa_button = document.querySelector( 'button.toggle-css' );
-		wpa_button.addEventListener( 'click', function() {
+		var wpa_button = document.querySelector( 'button.css' );
+		wpa_button.addEventListener( 'click', function() {toggle
 			var target  = this.getAttribute( 'aria-controls' );
 			var css = document.getElementById( target );
 			var visible = ( css.style['display'] == 'none' ) ? false : true;
@@ -32,4 +32,15 @@ jQuery(document).ready(function ($) {
 			}
 		});
 	}
+	var wpa_toolbar = document.getElementById( 'wpa_toolbar' );
+	wpa_toolbar.addEventListener( 'change', function() {
+		var target = document.querySelector( '.wpa-toolbar-settings' );
+		if ( this.checked ) {
+			target.classList.remove( 'hidden' );
+			target.classList.add( 'visible' );
+		} else {
+			target.classList.remove( 'visible' );
+			target.classList.add( 'hidden' );
+		}
+	});
 });
