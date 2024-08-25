@@ -85,8 +85,12 @@ WP Accessibility includes a statistics collection feature to help you identify h
 = 2.1.12 =
 
 * Bug fix: Update editor styles to have less impact on block editor styles.
+* Bug fix: Log out text was not internationalized.
+* Bug fix: Default CSS toggle broken.
 * Add: Support for classic editor galleries with alt text warnings.
 * Change: Update URLs in various locations to https references.
+* Change: New setting to disable admin logout link.
+* Update: Misc. minor admin settings design changes.
 
 = 2.1.11 =
 
