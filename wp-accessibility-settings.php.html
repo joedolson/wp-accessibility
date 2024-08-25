@@ -214,7 +214,12 @@ function wpa_admin_settings() {
 									&lt;?php
 								} else {
 									?>
+								&lt;p>
+									&lt;?php printf( __( 'If your theme does not have skip links, &lt;a href="%s">review the skiplink documentation&lt;/a> and configure them.', 'wp-accessibility' ), 'https://docs.joedolson.com/wp-accessibility/2022/10/28/skip-links/' ); ?>
+								&lt;/p>
+								&lt;hr>
 								&lt;form method="post" action="&lt;?php echo admin_url( 'admin.php?page=wp-accessibility' ); ?>">
+									&lt;br>	
 									&lt;fieldset>
 										&lt;legend>&lt;?php _e( 'Configure Skiplinks', 'wp-accessibility' ); ?>&lt;/legend>
 										&lt;ul>
@@ -309,7 +314,7 @@ function wpa_admin_settings() {
 						&lt;div class="postbox">
 							&lt;h2 id="toolbar" class='hndle'>&lt;?php esc_html_e( 'Accessibility Toolbar', 'wp-accessibility' ); ?>&lt;/h2>
 							&lt;div class="inside">
-								&lt;p>&lt;?php _e( 'Enable a simple display settings toolbar with high contrast mode and text size enlarging.', 'wp-accessibility' ); ?>&lt;/p>
+								&lt;p>&lt;?php printf( __( 'Enable a simple &lt;a href="%s">display settings toolbar&lt;/a> with high contrast mode and text size enlarging.', 'wp-accessibility' ), 'https://docs.joedolson.com/wp-accessibility/2022/10/29/toolbar-for-high-contrast-and-large-font-styles/' ); ?>&lt;/p>
 								&lt;hr>
 								&lt;form method="post" action="&lt;?php echo esc_url( admin_url( 'admin.php?page=wp-accessibility' ) ); ?>">
 									&lt;p>
@@ -386,7 +391,7 @@ function wpa_admin_settings() {
 							&lt;h2 id="accessibility-settings" class='hndle'>&lt;?php _e( 'Accessibility Fixes', 'wp-accessibility' ); ?>&lt;/h2>
 
 							&lt;div class="inside">
-								&lt;p>&lt;?php _e( 'Settings that fix potential accessibility issues on your site.', 'wp-accessibility' ); ?>&lt;/p>
+								&lt;p>&lt;?php printf( __( 'Settings that &lt;a href="%s">fix potential accessibility issues&lt;/a> on your site.', 'wp-accessibility' ), 'https://docs.joedolson.com/wp-accessibility/category/remediation/' ); ?>&lt;/p>
 								&lt;hr>
 								&lt;form method="post" action="&lt;?php echo admin_url( 'admin.php?page=wp-accessibility' ); ?>">
 									&lt;ul>
@@ -445,7 +450,7 @@ function wpa_admin_settings() {
 						&lt;div class="postbox">
 							&lt;h2 class="hndle">&lt;?php _e( 'Accessibility Features', 'wp-accessibility' ); ?>&lt;/h2>
 							&lt;div class="inside">
-								&lt;p>&lt;?php _e( 'Enable content features to improve site accessibility.', 'wp-accessibility' ); ?>&lt;/p>
+								&lt;p>&lt;?php printf( __( 'Enable &lt;a href="%s">content features to improve site accessibility&lt;/a>.', 'wp-accessibility' ), 'https://docs.joedolson.com/wp-accessibility/category/features/' ); ?>&lt;/p>
 								&lt;hr>
 								&lt;form method="post" action="&lt;?php echo admin_url( 'admin.php?page=wp-accessibility' ); ?>">
 									&lt;ul>
