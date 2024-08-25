@@ -14,8 +14,7 @@ jQuery(document).ready(function ($) {
 		button.setAttribute( 'aria-expanded', false );
 		default_css.insertAdjacentElement( 'beforebegin', button );
 
-		var wpa_button = document.querySelector( 'button.css' );
-		wpa_button.addEventListener( 'click', function() {toggle
+		button.addEventListener( 'click', function() {
 			var target  = this.getAttribute( 'aria-controls' );
 			var css = document.getElementById( target );
 			var visible = ( css.style['display'] == 'none' ) ? false : true;
