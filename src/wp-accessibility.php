@@ -52,14 +52,6 @@ if ( 'off' !== get_option( 'wpa_track_stats' ) ) {
 
 register_activation_hook( __FILE__, 'wpa_install' );
 
-add_action( 'plugins_loaded', 'wpa_load_textdomain' );
-/**
- * Load internationalization.
- */
-function wpa_load_textdomain() {
-	load_plugin_textdomain( 'wp-accessibility' );
-}
-
 add_action( 'admin_notices', 'wpa_status_notice', 10 );
 /**
  * Display notice in Playground for demo purposes.
