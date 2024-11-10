@@ -14,7 +14,7 @@
 
 	if ( wpa.dir ) {
 		var dir  = html.getAttribute( 'dir' );
-		if ( ! dir ) {
+		if ( ! dir && wpa.dir !== 'ltr' ) {
 			$('html').attr( 'dir', wpa.dir );
 			if ( wpa.errors || wpa.tracking ) {
 				errors.push( 'html-lang-direction' );
