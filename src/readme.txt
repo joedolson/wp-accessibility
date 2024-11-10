@@ -86,6 +86,9 @@ WP Accessibility includes a statistics collection feature to help you identify h
 
 * Remove textdomain loader and translations. These have been out of date for years.
 * Don't throw an error if 'ltr' not set for 'dir' attribute, as that is the default value.
+* Remove Twitter follow button
+* Add updated socials
+* Add LinkedIn course
 * Update tested to for 6.7.
 
 = 2.1.12 =
