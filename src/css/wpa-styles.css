@@ -144,6 +144,11 @@
 
 .wpa-flex.wpa-social {
 	gap: 16px;
+	margin: 0;
+}
+
+.wpa-flex.wpa-social li {
+	margin: 0;
 }
 
 .wpa-flex.wpa-social a {
