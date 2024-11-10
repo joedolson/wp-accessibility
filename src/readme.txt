@@ -4,7 +4,7 @@ Donate link: https://www.joedolson.com/donate/
 Tags: accessibility, wcag, a11y, section508, alt text
 Requires at least: 4.9
 Tested up to: 6.7
-Requires PHP: 7.0
+Requires PHP: 7.4
 Stable tag: 2.1.12
 Text Domain: wp-accessibility
 License: GPLv2 or later
@@ -81,6 +81,11 @@ WP Accessibility includes a statistics collection feature to help you identify h
 = Future =
 
 [Suggest a change!](https://github.com/joedolson/wp-accessibility/issues/)
+
+= 2.1.13 =
+
+* Remove textdomain loader and translations. These have been out of date for years.
+* Update tested to for 6.7.
 
 = 2.1.12 =
 
