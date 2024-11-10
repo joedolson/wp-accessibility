@@ -730,25 +730,6 @@ function wpa_admin_sidebar() {
 					&lt;/div>
 				&lt;/div>
 
-				&lt;div class="postbox">
-					&lt;h2 class='hndle'>&lt;?php _e( 'Customization', 'wp-accessibility' ); ?>&lt;/h2>
-
-					&lt;div class="inside">
-						&lt;p>
-							&lt;?php _e( 'Custom high-contrast styles go in &lt;code>a11y-contrast.css&lt;/code> in your Theme\'s stylesheet directory.', 'wp-accessibility' ); ?>
-						&lt;/p>
-						&lt;p>
-							&lt;?php _e( 'Set custom styles for large print using the body class &lt;code>.fontsize&lt;/code> in your theme styles or the customizer.', 'wp-accessibility' ); ?>
-						&lt;/p>
-						&lt;p>
-							&lt;?php _e( 'Set a custom long description template by adding &lt;code>longdesc-template.php&lt;/code> to your theme directory.', 'wp-accessibility' ); ?>
-						&lt;/p>
-						&lt;p>
-							&lt;?php _e( 'The &lt;a href="#wpa_widget_toolbar">shortcode for the Accessibility toolbar&lt;/a> is &lt;code>[wpa_toolbar]&lt;/code>', 'wp-accessibility' ); ?>
-						&lt;/p>
-					&lt;/div>
-				&lt;/div>
-
 			&lt;?php if ( wpa_accessible_theme() ) { ?>
 				&lt;div class="postbox">
 					&lt;h2 class='hndle'>&lt;?php _e( 'Your Theme', 'wp-accessibility' ); ?>&lt;/h2>
@@ -767,18 +748,6 @@ function wpa_admin_sidebar() {
 				&lt;/div>
 			&lt;?php } ?>
 
-				&lt;div class="postbox" id="privacy">
-					&lt;h2 class='hndle'>&lt;?php _e( 'Privacy', 'wp-accessibility' ); ?>&lt;/h2>
-
-					&lt;div class="inside">
-						&lt;h3>&lt;?php _e( 'Cookies', 'wp-accessibility' ); ?>&lt;/h3>
-						&lt;p>&lt;?php _e( 'The accessibility toolbar sets cookies to maintain awareness of the user\'s selected accessibility options. If the toolbar is not in use, WP Accessibility does not set any cookies.', 'wp-accessibility' ); ?>&lt;/p>
-						&lt;h3>&lt;?php _e( 'Information collected by WP Accessibility', 'wp-accessibility' ); ?>&lt;/h3>
-						&lt;p>&lt;?php _e( 'WP Accessibility does not collect any personally identifying information about users or visitors.', 'wp-accessibility' ); ?>&lt;/p>
-						&lt;p>&lt;?php _e( 'User statistics (toolbar actions) collected by WP Accessibility are tracked using browser fingerprinting, and no identifiable information is stored at any time.', 'wp-accessibility' ); ?>&lt;/p>
-						&lt;p>&lt;?php _e( 'Page statistics are collected when the page is initially viewed, then again if the accessibility values have changed since the last check.', 'wp-accessibility' ); ?>&lt;/p>
-					&lt;/div>
-				&lt;/div>
 			&lt;/div>
 		&lt;/div>
 	&lt;/div>
