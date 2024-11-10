@@ -3,7 +3,7 @@ Contributors: joedolson
 Donate link: https://www.joedolson.com/donate/
 Tags: accessibility, wcag, a11y, section508, alt text
 Requires at least: 4.9
-Tested up to: 6.6
+Tested up to: 6.7
 Requires PHP: 7.0
 Stable tag: 2.1.12
 Text Domain: wp-accessibility
