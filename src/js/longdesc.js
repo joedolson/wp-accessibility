@@ -20,22 +20,28 @@
 
 		function wpa_draw_longdesc( img, image_id, longdesc ) {
 			var alt = img.attr('alt');
+			if ( '' === alt ) {
+				alt = '<code>' + img.attr('src').replace( wpald.home, '' ) + '</code>';
+			}
 			var post_classes = document.body.className.split(/\s+/);
 			var post_id = '';
-			console.log( post_classes );
+
 			$.each( post_classes, function ( index, value ) {
 				if ( value.match( /postid-/gi ) ) {
 					post_id = value.replace( 'postid-', '', value );
 				}
+				if ( value.match( /page-id-/gi ) ) {
+					post_id = value.replace( 'page-id-', '', value );
+				}
 			});
 			var url = new URL(longdesc);
-			url.searchParams.set('referrer',post_id );
+			url.searchParams.set( 'referrer', post_id );
 			url.toString();
 			var classes = img.attr('class');
 			img.wrap('<div class="wpa-ld" />');
 			img.parent('.wpa-ld').addClass(classes);
 			img.attr('alt', '').attr('class', '');
-			img.parent('.wpa-ld').append('<a href="' + url + '" class="longdesc-link">Description<span> of' + alt + '</span></a>');
+			img.parent('.wpa-ld').append('<a href="' + url + '" class="longdesc-link">Description<span> of ' + alt + '</span></a>');
 		}
 
 		function wpa_load_image_link( img ) {
@@ -50,8 +56,10 @@
 					var rawdesc = response.description.rendered;
 					rawdesc = rawdesc.replace(/(<([^>]+)>)/gi, '').trim();
 					if ( '' !== rawdesc ) {
-						var url = new URL( response.link );
+						var url = new URL( wpald.home );
+						console.log( response.link );
 						url.searchParams.set( 'longdesc', id );
+						url.searchParams.set( 'p', id );
 						url.toString();
 						wpa_draw_longdesc( img, id, url );
 					}
@@ -113,6 +121,7 @@
 			img.parent('.wpa-ld').append('<div class="longdesc"></div>');
 			var container = img.parent('.wpa-ld').children('.longdesc');
 			container.hide();
+			console.log( longdesc );
 			container.load( longdesc + ' #desc_' + image_id, {limit:25}, 
 				function( responseText, textStatus, xhr ) {
 					if ( 'error' === textStatus ) {
