@@ -99,11 +99,13 @@ function wpa_update_settings() {
 			$wpa_search_alt         = ( isset( $_POST['wpa_search_alt'] ) ) ? 'on' : '';
 			$wpa_diagnostics        = ( isset( $_POST['wpa_diagnostics'] ) ) ? 'on' : '';
 			$wpa_disable_fullscreen = ( isset( $_POST['wpa_disable_fullscreen'] ) ) ? 'on' : '';
+			$wpa_allow_h1           = ( isset( $_POST['wpa_allow_h1'] ) ) ? 'on' : '';
 			$wpa_disable_logout     = ( isset( $_POST['wpa_disable_logout'] ) ) ? 'on' : '';
 			$wpa_track_stats        = ( isset( $_POST['wpa_track_stats'] ) ) ? sanitize_text_field( $_POST['wpa_track_stats'] ) : '';
 			update_option( 'wpa_search_alt', $wpa_search_alt );
 			update_option( 'wpa_diagnostics', $wpa_diagnostics );
 			update_option( 'wpa_disable_fullscreen', $wpa_disable_fullscreen );
+			update_option( 'wpa_allow_h1', $wpa_allow_h1 );
 			update_option( 'wpa_track_stats', $wpa_track_stats );
 			update_option( 'wpa_disable_logout', $wpa_disable_logout );
 			$message = __( 'Accessibility Tools Updated', 'wp-accessibility' );
@@ -514,6 +516,10 @@ function wpa_admin_settings() {
 										<li>
 											<input type="checkbox" id="wpa_disable_fullscreen" name="wpa_disable_fullscreen" <?php checked( get_option( 'wpa_disable_fullscreen' ), 'on' ); ?>/>
 											<label for="wpa_disable_fullscreen"><?php _e( 'Disable fullscreen block editor by default', 'wp-accessibility' ); ?></label>
+										</li>
+										<li>
+											<input type="checkbox" id="wpa_allow_h1" name="wpa_allow_h1" <?php checked( get_option( 'wpa_allow_h1' ), 'on' ); ?>/>
+											<label for="wpa_allow_h1"><?php _e( 'Allow <code>h1</code> in the headings block', 'wp-accessibility' ); ?></label>
 										</li>
 										<li>
 											<input type="checkbox" id="wpa_diagnostics" name="wpa_diagnostics" <?php checked( get_option( 'wpa_diagnostics' ), 'on' ); ?>/>
