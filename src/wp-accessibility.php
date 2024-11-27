@@ -864,10 +864,10 @@ add_action( 'enqueue_block_editor_assets', 'wpa_disable_editor_fullscreen_by_def
 /**
  * Remove the H1 heading from the headings block.
  *
- * @param array $args Block type arguments array.
+ * @param array  $args Block type arguments array.
  * @param string $block_type Block type declaration.
  *
- * @return array 
+ * @return array
  */
 function wpa_remove_h1( $args, $block_type ) {
 	// The H1 is not allowed by default.
