@@ -377,6 +377,7 @@ function wpa_jquery_asl() {
 			array(
 				'url'  => get_rest_url( null, 'wp/v2/media' ),
 				'type' => $longdesc_type,
+				'home' => home_url(),
 				'text' => '&lt;span class="dashicons dashicons-media-text" aria-hidden="true">&lt;/span>&lt;span class="screen-reader">' . __( 'Long Description', 'wp-accessibility' ) . '&lt;/span>',
 			)
 		);
@@ -885,6 +886,30 @@ function wpa_disable_editor_fullscreen_by_default() {
 	}
 }
 add_action( 'enqueue_block_editor_assets', 'wpa_disable_editor_fullscreen_by_default' );
+
+/**
+ * Remove the H1 heading from the headings block.
+ *
+ * @param array $args Block type arguments array.
+ * @param string $block_type Block type declaration.
+ *
+ * @return array 
+ */
+function wpa_remove_h1( $args, $block_type ) {
+	// The H1 is not allowed by default.
+	$allowed = get_option( 'wpa_allow_h1', '' );
+	if ( 'on' !== $allowed ) {
+		// Only proceed if the current block is a Heading.
+		if ( 'core/heading' !== $block_type ) {
+			return $args;
+		}
+
+		// Declare valid heading levels.
+		$args['attributes']['levelOptions']['default'] = array( 2, 3, 4, 5, 6 );
+	}
+	return $args;
+}
+add_filter( 'register_block_type_args', 'wpa_remove_h1', 10, 2 );
 
 /**
  * Insert content summary at top of article content.
