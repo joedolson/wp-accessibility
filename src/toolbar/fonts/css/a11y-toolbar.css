@@ -8,6 +8,7 @@
 		url('a11y.svg#a11y') format('svg');
 	font-weight: normal;
 	font-style: normal;
+	font-display: swap;
 }
 
 [class^="aticon-"]:before, [class*=" aticon-"]:before {
