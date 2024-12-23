@@ -569,7 +569,11 @@ function wpa_get_browser_stat( $post_ID ) {
 	$browser = get_post_meta( $post_ID, '_wpa_browser', true );
 	if ( $browser ) {
 		$browser = json_decode( $browser );
-		$browser = '&lt;span class="wpa-browser">&lt;img src="' . esc_url( $browser->img_src_ssl ) . '" alt="" width="20" height="20"> ' . esc_html( $browser->name . ' ' . $browser->version . '/' . $browser->platform ) . '&lt;/span>';
+		if ( is_object( $browser ) &amp;&amp; property_exists( $browser, 'img_src_ssl' ) ) {
+			$browser = '&lt;span class="wpa-browser">&lt;img src="' . esc_url( $browser->img_src_ssl ) . '" alt="" width="20" height="20"> ' . esc_html( $browser->name . ' ' . $browser->version . '/' . $browser->platform ) . '&lt;/span>';
+		} else {
+			$browser = '';
+		}
 	} else {
 		$browser = __( 'Unknown browser', 'wp-accessibility' );
 	}
