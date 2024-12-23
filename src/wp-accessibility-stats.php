@@ -543,7 +543,11 @@ function wpa_get_browser_stat( $post_ID ) {
 	$browser = get_post_meta( $post_ID, '_wpa_browser', true );
 	if ( $browser ) {
 		$browser = json_decode( $browser );
-		$browser = '<span class="wpa-browser"><img src="' . esc_url( $browser->img_src_ssl ) . '" alt="" width="20" height="20"> ' . esc_html( $browser->name . ' ' . $browser->version . '/' . $browser->platform ) . '</span>';
+		if ( is_object( $browser ) && property_exists( $browser, 'img_src_ssl' ) ) {
+			$browser = '<span class="wpa-browser"><img src="' . esc_url( $browser->img_src_ssl ) . '" alt="" width="20" height="20"> ' . esc_html( $browser->name . ' ' . $browser->version . '/' . $browser->platform ) . '</span>';
+		} else {
+			$browser = '';
+		}
 	} else {
 		$browser = __( 'Unknown browser', 'wp-accessibility' );
 	}
