@@ -185,6 +185,9 @@ function wpa_longdesc_add_attr( $html, $id, $caption, $title, $align, $url, $siz
 	return $html;
 }
 
+/**
+ * Register WPA long description block style.
+ */
 function wpa_register_block_style() {
 	if ( function_exists( 'register_block_style' ) ) {
 		/**
