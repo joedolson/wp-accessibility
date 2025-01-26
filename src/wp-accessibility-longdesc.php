@@ -13,6 +13,23 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/**
+ * Dynamically enable attachment pages.
+ */
+function wpa_enable_attachment_pages() {
+	$option = get_option( 'wp_attachment_pages_enabled' );
+	if ( 1 !== (int) $option ) {
+		set_transient( 'wpa_attachment_pages_previous', $option, 600 );
+		if ( isset( $_GET['longdesc'] ) ) {
+			update_option( 'wp_attachment_pages_enabled', 1 );
+		} else {
+			$option = get_transient( 'wpa_attachment_pages_previous' );
+			update_option( 'wp_attachment_pages_enabled', $option );
+		}
+	}
+}
+add_action( 'init', 'wpa_enable_attachment_pages' );
+
 add_filter( 'wp_get_attachment_image_attributes', 'wpa_featured_longdesc', 10, 3 );
 /**
  * Get long descriptions for featured images.
@@ -44,7 +61,6 @@ function wpa_featured_longdesc( $attr, $attachment, $size ) {
 
 	return $attr;
 }
-
 
 // longdesc support, based on work by Michael Fields (http://wordpress.org/plugins/long-description-for-image-attachments/).
 define( 'WPA_TEMPLATES', trailingslashit( __DIR__ ) . 'templates/' );
@@ -169,16 +185,19 @@ function wpa_longdesc_add_attr( $html, $id, $caption, $title, $align, $url, $siz
 	return $html;
 }
 
-if ( function_exists( 'register_block_style' ) ) {
-	/**
-	 * Core function. Add reference style for long description.
-	 */
-	register_block_style(
-		'core/image',
-		array(
-			'name'         => 'longdesc',
-			'label'        => __( 'Has Long Description', 'wp-accessibility' ),
-			'style_handle' => 'longdesc-style',
-		)
-	);
+function wpa_register_block_style() {
+	if ( function_exists( 'register_block_style' ) ) {
+		/**
+		 * Core function. Add reference style for long description.
+		 */
+		register_block_style(
+			'core/image',
+			array(
+				'name'         => 'longdesc',
+				'label'        => __( 'Has Long Description', 'wp-accessibility' ),
+				'style_handle' => 'longdesc-style',
+			)
+		);
+	}
 }
+add_action( 'init', 'wpa_register_block_style' );
