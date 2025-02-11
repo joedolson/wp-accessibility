@@ -975,7 +975,7 @@ function wpa_add_outer_box() {
 	$allowed = get_option( 'wpa_post_types', array() );
 	if ( is_array( $allowed ) ) {
 		foreach ( $allowed as $post_type ) {
-			add_meta_box( 'wpa_content_summary', __( 'Content Summary', 'wp-accessibility' ), 'wpa_add_inner_box', $post_type, 'normal', 'high' );
+			add_meta_box( 'wpa_content_summary_container', __( 'Content Summary', 'wp-accessibility' ), 'wpa_add_inner_box', $post_type, 'normal', 'high' );
 		}
 	}
 }
