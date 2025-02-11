@@ -5,7 +5,7 @@ Tags: accessibility, wcag, a11y, section508, alt text
 Requires at least: 4.9
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 2.1.13
+Stable tag: 2.1.14
 Text Domain: wp-accessibility
 License: GPLv2 or later
 
@@ -81,6 +81,19 @@ WP Accessibility includes a statistics collection feature to help you identify h
 = Future =
 
 [Suggest a change!](https://github.com/joedolson/wp-accessibility/issues/)
+
+= 2.1.14 =
+
+* Add Bluesky & set `aria-hidden` on social SVGs.
+* Fix unclosed `span`.
+* Bug fix fetching ID for alt attribute toggles on pages.
+* Disable `h1` in block editor by default; add setting to enable.
+* Add `font-display: swap` for Accessibility icons.
+* Change `enqueue_editor_block_assets` action to `enqueue_block_assets`
+* Verify that `$browser` is an object when rendering browser stats.
+* Replace `json_encode` with `wp_json_encode`.
+* Fix bug with translation used before `init`.
+* Fix duplicate ID in content summary container. Props @ryokuhi.
 
 = 2.1.13 =
 

@@ -10,8 +10,8 @@ Improving the Accessibility of your WordPress site.
 * Tags: accessibility, WordPress
 * Requires at least: 4.9
 * Tested up to: 6.7
-* Requires PHP: 7.0
-* Stable tag: `2.1.13`
+* Requires PHP: 7.4
+* Stable tag: `2.1.14`
 * License: GPLv2 or later
 * License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
