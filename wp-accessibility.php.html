@@ -807,7 +807,7 @@ $plugins_string
 		if ( ! wp_verify_nonce( $nonce, 'wpa-nonce' ) ) {
 			wp_die( 'WP Accessibility: Security check failed' );
 		}
-		$request     = ( ! empty( $_POST['support_request'] ) ) ? sanitize_textarea_field( stripslashes( $_POST['support_request'] ) ) : false;
+		$request     = ( ! empty( $_POST['support_request'] ) ) ? sanitize_textarea_field( wp_unslash( $_POST['support_request'] ) ) : false;
 		$has_donated = ( 'on' === $_POST['has_donated'] ) ? 'Donor' : 'No donation';
 		$subject     = "WP Accessibility support request. $has_donated";
 		$message     = $request . "\n\n" . $data;
@@ -820,13 +820,13 @@ $plugins_string
 		$from       = "From: $current_user->display_name &lt;$from_email>\r\nReply-to: $current_user->display_name &lt;$current_user->user_email>\r\n";
 
 		if ( ! $request ) {
-			echo "&lt;div class='message error'>&lt;p>" . __( 'Please describe your problem.', 'wp-accessibility' ) . '&lt;/p>&lt;/div>';
+			echo "&lt;div class='message error'>&lt;p>" . esc_html__( 'Please describe your problem.', 'wp-accessibility' ) . '&lt;/p>&lt;/div>';
 		} else {
 			wp_mail( 'plugins@joedolson.com', $subject, $message, $from );
 			if ( 'Donor' === $has_donated ) {
-				echo "&lt;div class='message updated'>&lt;p>" . __( 'Thank you for supporting the continuing development of this plug-in! I\'ll get back to you as soon as I can.', 'wp-accessibility' ) . '&lt;/p>&lt;/div>';
+				echo "&lt;div class='message updated'>&lt;p>" . esc_html__( 'Thank you for supporting the continuing development of this plug-in! I\'ll get back to you as soon as I can.', 'wp-accessibility' ) . '&lt;/p>&lt;/div>';
 			} else {
-				echo "&lt;div class='message updated'>&lt;p>" . __( 'I cannot provide support, but will treat your request as a bug report, and will incorporate any permanent solutions I discover into the plug-in.', 'wp-accessibility' ) . '&lt;/p>&lt;/div>';
+				echo "&lt;div class='message updated'>&lt;p>" . esc_html__( 'I cannot provide support, but will treat your request as a bug report, and will incorporate any permanent solutions I discover into the plug-in.', 'wp-accessibility' ) . '&lt;/p>&lt;/div>';
 			}
 		}
 	}
