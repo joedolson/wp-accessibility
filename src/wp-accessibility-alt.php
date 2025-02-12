@@ -261,6 +261,7 @@ add_action( 'enqueue_block_assets', 'wpa_block_editor_assets' );
  * Enqueue custom block editor styles for WP Accessibility. Used in display of img replacements.
  */
 function wpa_block_editor_assets() {
+	// Using enqueue_block_assets will enqueue on the front-end if not wrapped in conditional.
 	if ( is_admin() ) {
 		$wpa_version = ( SCRIPT_DEBUG ) ? wp_rand( 10000, 100000 ) : wpa_check_version();
 		wp_enqueue_style( 'wpa-block-styles', plugins_url( 'css/editor-style.css', __FILE__ ), false, $wpa_version );
