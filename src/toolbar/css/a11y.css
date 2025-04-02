@@ -150,12 +150,13 @@
 	font-family: Arial;
 }
 
-.a11y-toolbar.right button:hover .offscreen,
-.a11y-toolbar.right button:focus .offscreen {
+.a11y-toolbar.reversed button:hover .offscreen,
+.a11y-toolbar.reversed button:focus .offscreen {
 	right: 100%;
 	left: auto;
 }
 
-.a11y-toolbar button:hover .offscreen, .a11y-toolbar	button:focus .offscreen {
+.a11y-toolbar button:hover .offscreen,
+.a11y-toolbar button:focus .offscreen {
 	left: 100%;
 }
