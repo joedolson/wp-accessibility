@@ -5,7 +5,7 @@ Tags: accessibility, wcag, a11y, section508, alt text
 Requires at least: 4.9
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 2.1.15
+Stable tag: 2.1.16
 Text Domain: wp-accessibility
 License: GPLv2 or later
 
@@ -81,6 +81,13 @@ WP Accessibility includes a statistics collection feature to help you identify h
 = Future =
 
 [Suggest a change!](https://github.com/joedolson/wp-accessibility/issues/)
+
+= 2.1.16 =
+
+* Bug fix: Missed class change caused tooltips to not be shown when display side changed.
+* Bug fix: Override fixed positioning if a custom attachment location is set.
+* Bug fix: Update longdesc.js minified version, missed in 2.1.14.
+* Build tools: Update esbuild targets from edge16 to edge18.
 
 = 2.1.15 =
 
