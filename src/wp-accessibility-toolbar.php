@@ -189,7 +189,7 @@ function wpa_toolbar_js() {
 	$is_rtl           = ( is_rtl() ) ? 'rtl' : 'ltr';
 	$is_reversed      = ( 'on' === get_option( 'wpa_toolbar_right' ) ) ? 'reversed' : 'default';
 	$responsive       = ( 'on' === get_option( 'wpa_toolbar_mobile' ) ) ? 'a11y-responsive' : 'a11y-non-responsive';
-	$custom_location  = ( '' !== get_option( 'wpa_toolbar_default' ) ) ? 'custom-location' : '';
+	$custom_location  = ( '' !== get_option( 'wpa_toolbar_default' ) ) ? 'custom-location' : 'standard-location';
 	$contrast         = esc_html__( 'Toggle High Contrast', 'wp-accessibility' );
 	$grayscale        = esc_html__( 'Toggle Grayscale', 'wp-accessibility' );
 	$fontsize         = esc_html__( 'Toggle Font size', 'wp-accessibility' );
