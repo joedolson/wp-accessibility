@@ -109,7 +109,7 @@ function eraseCookie(name) {
 	focusable.forEach((el) => {
 		el.addEventListener( 'focus', function() {
 			var bounds  = el.getBoundingClientRect();
-			var toolbar = document.querySelector( '.a11y-toolbar' ).getBoundingClientRect();
+			var toolbar = document.querySelector( '.a11y-toolbar.standard-location' ).getBoundingClientRect();
 
 			var overlap = !(
 				bounds.top > toolbar.bottom ||
