@@ -23,6 +23,31 @@
 		}
 	}
 
+	if ( wpa.continue ) {
+		let readMore = document.querySelectorAll( '.wp-block-post-excerpt__more-link' );
+		if ( readMore ) {
+			readMore.forEach( (el) => {
+				if ( ! el.hasAttribute( 'aria-describedby' ) ) {
+					let post = el.closest( '.wp-block-post' );
+					let readMoreId = post.getAttribute( 'class' );
+					readMoreId = readMoreId.replaceAll( ' ', '-' );
+					let heading = post.querySelector( '.wp-block-post-title' );
+					if ( heading ) {
+						if ( ! heading.hasAttribute( 'id' ) ) {
+							heading.setAttribute( 'id', readMoreId );
+						} else {
+							readMoreId = heading.getAttribute( 'id' );
+						}
+						el.setAttribute( 'aria-describedby', readMoreId );
+						if ( wpa.errors || wpa.tracking ) {
+							console.log( 'Continue Reading link description set by WP Accessibility' );
+						}
+					}
+				}
+			});
+		}
+	}
+
 	var viewport = document.querySelector( 'meta[name="viewport"]' );
 	if ( viewport ) {
 		var conditionsBefore = viewport.getAttribute( 'content' );

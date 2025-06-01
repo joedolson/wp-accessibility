@@ -534,6 +534,7 @@ function wpa_jquery_asl() {
 			'action'    => 'wpa_stats_action',
 			'url'       => ( function_exists( 'wpa_get_current_url' ) ) ? wpa_get_current_url() : 'disabled',
 			'post_id'   => ( is_singular() ) ? get_the_ID() : '',
+			'continue'  => ( wp_is_block_theme() ) ? true : false,
 		)
 	);
 }
