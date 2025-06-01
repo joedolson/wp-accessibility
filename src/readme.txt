@@ -3,9 +3,9 @@ Contributors: joedolson
 Donate link: https://www.joedolson.com/donate/
 Tags: accessibility, wcag, a11y, section508, alt text
 Requires at least: 4.9
-Tested up to: 6.7
+Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 2.1.17
+Stable tag: 2.1.18
 Text Domain: wp-accessibility
 License: GPLv2 or later
 
@@ -81,6 +81,12 @@ WP Accessibility includes a statistics collection feature to help you identify h
 = Future =
 
 [Suggest a change!](https://github.com/joedolson/wp-accessibility/issues/)
+
+= 2.1.18 =
+
+* Feature: On block themes, add `aria-describedby` to continue reading links to provide expanded context.
+* Bug fix: Only fetch toolbar bounds when the toolbar is present.
+* Bug fix: Use `autorefresh` parameter on codemirror field to fix rendering.
 
 = 2.1.17 =
 
