@@ -7,7 +7,7 @@ Tested up to: 6.8
 Requires PHP: 7.4
 Stable tag: 2.1.18
 Text Domain: wp-accessibility
-License: GPLv2 or later
+License: GPLv3
 
 WP Accessibility fixes common accessibility issues in your WordPress site.
 
