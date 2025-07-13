@@ -31,7 +31,9 @@ function wpa_admin_styles() {
 		wp_enqueue_style( 'wpa-styles', plugins_url( 'css/wpa-styles.css', __FILE__ ), array( 'farbtastic' ), $version );
 		wp_enqueue_style( 'wp-color-picker' );
 		// Enqueue WP Accessibility admin scripts.
-		wp_enqueue_script( 'wpa-admin', plugins_url( 'js/wpa-admin.js', __FILE__ ), array( 'wp-color-picker' ), $version, true );
+		if ( 'wp-accessibility' === $_GET['page'] ) {
+			wp_enqueue_script( 'wpa-admin', plugins_url( 'js/wpa-admin.js', __FILE__ ), array( 'wp-color-picker' ), $version, true );
+		}
 	}
 }
 
