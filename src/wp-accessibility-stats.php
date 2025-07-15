@@ -470,7 +470,7 @@ function wpa_compare_views( $post_id ) {
 		// translators: Number of accessibility issues fixed.
 		$info = sprintf( _n( '%d issue fixed', '%d issues fixed', $data, 'wp-accessibility' ), $data );
 
-		return '<span class="dashicons dashicons-download" aria-hidden="true"></span> ' . $info;
+		return '<span class="dashicons dashicons-universal-access" aria-hidden="true"></span> ' . $info;
 	}
 	if ( count( $history ) > 1 ) {
 		$current  = array_pop( $history );
@@ -698,7 +698,7 @@ function wpa_custom_column( $column_name, $post_id ) {
 				}
 			} else {
 				if ( ! $events ) {
-					$icon        = 'download';
+					$icon        = 'universal-access';
 					$last_action = __( 'Page loaded', 'wp-accessibility' );
 				} else {
 					$icon = 'update';
