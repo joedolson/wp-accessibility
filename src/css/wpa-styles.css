@@ -208,6 +208,7 @@
 
 #wpa_settings_page .hndle, .settings_page_wp-accessibility-wp-accessibility .hndle {
 	cursor: auto !important;
+	user-select: auto;
 }
 #wpa_stats .wpa-header,
 #wpa_dashboard_widget_stats div.wpa-header {
