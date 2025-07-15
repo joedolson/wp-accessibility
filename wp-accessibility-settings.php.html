@@ -587,14 +587,11 @@ function wpa_admin_settings() {
 							&lt;div class="inside">
 								&lt;?php wpa_accessible_theme(); ?>
 								&lt;form method="post" action="&lt;?php echo admin_url( 'admin.php?page=wp-accessibility' ); ?>">
-									&lt;fieldset>
-										&lt;legend>&lt;?php _e( 'Remove title attributes from:', 'wp-accessibility' ); ?>&lt;/legend>
-										&lt;ul>
-											&lt;li>&lt;input type="checkbox" id="rta_from_tag_clouds" name="rta_from_tag_clouds" &lt;?php checked( get_option( 'rta_from_tag_clouds' ), 'on' ); ?>/>
-											&lt;label for="rta_from_tag_clouds">&lt;?php _e( 'Tag clouds', 'wp-accessibility' ); ?>&lt;/label>
-											&lt;/li>
-										&lt;/ul>
-									&lt;/fieldset>
+									&lt;ul>
+										&lt;li>&lt;input type="checkbox" id="rta_from_tag_clouds" name="rta_from_tag_clouds" &lt;?php checked( get_option( 'rta_from_tag_clouds' ), 'on' ); ?>/>
+										&lt;label for="rta_from_tag_clouds">&lt;?php _e( 'Remove title attributes from:', 'wp-accessibility' ); ?> &lt;?php _e( 'Tag clouds', 'wp-accessibility' ); ?>&lt;/label>
+										&lt;/li>
+									&lt;/ul>
 									&lt;p>
 										&lt;input type="hidden" name="_wpnonce" value="&lt;?php echo wp_create_nonce( 'wpa-nonce' ); ?>" />
 										&lt;input type="hidden" name="action" value="rta" />
