@@ -370,7 +370,16 @@ function wpa_jquery_asl() {
 	}
 	if ( $longdesc_type ) {
 		$wpald = ( SCRIPT_DEBUG ) ? plugins_url( 'js/longdesc.js', __FILE__ ) : plugins_url( 'js/longdesc.min.js', __FILE__ );
-		wp_enqueue_script( 'wpa.longdesc', $wpald, array( 'jquery' ), $version, true );
+		wp_enqueue_script(
+			'wpa.longdesc',
+			$wpald,
+			array( 'jquery' ),
+			$version,
+			array(
+				'in_footer' => true,
+				'strategy'  => 'defer',
+			)
+		);
 		wp_localize_script(
 			'wpa.longdesc',
 			'wpald',
@@ -396,7 +405,16 @@ function wpa_jquery_asl() {
 		 */
 		$selector = apply_filters( 'wpa_show_alt_selector', '.hentry img[alt!=""], .comment-content img[alt!=""]' );
 		$wpaab    = ( SCRIPT_DEBUG ) ? plugins_url( 'js/alt.button.js', __FILE__ ) : plugins_url( 'js/alt.button.min.js', __FILE__ );
-		wp_enqueue_script( 'wpa.alt', $wpaab, array( 'jquery' ), $version, true );
+		wp_enqueue_script(
+			'wpa.alt',
+			$wpaab,
+			array( 'jquery' ),
+			$version,
+			array(
+				'in_footer' => true,
+				'strategy'  => 'defer',
+			)
+		);
 		wp_localize_script(
 			'wpa.alt',
 			'wpalt',
@@ -480,7 +498,16 @@ function wpa_jquery_asl() {
 	if ( $alttext ) {
 		$deps[] = 'wpa.alt';
 	}
-	wp_enqueue_script( 'wp-accessibility', $wpajs, $deps, $version, true );
+	wp_enqueue_script(
+		'wp-accessibility',
+		$wpajs,
+		$deps,
+		$version,
+		array(
+			'in_footer' => true,
+			'strategy'  => 'defer',
+		)
+	);
 	/**
 	 * Filter target element selector for underlines. Default `a`.
 	 *
