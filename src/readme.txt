@@ -89,6 +89,7 @@ WP Accessibility includes a statistics collection feature to help you identify h
 * Bug fix: If toolbar custom location is invalid, change attachment to body.
 * Change: Remove an extraneous fieldset in settings.
 * Change: Change download icon to universal access in stats.
+* Change: Set all WP A11y scripts to use the `defer` loading strategy.
 
 = 2.1.18 =
 
