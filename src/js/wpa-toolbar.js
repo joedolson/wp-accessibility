@@ -20,6 +20,10 @@
 	if ( null !== insertionPoint ) {
 		insertionPoint.insertAdjacentElement( 'afterbegin', a11y_toolbar );
 	} else {
-		console.log( 'WP Accessibility Toolbar insertion point not valid.' );
+		insertionPoint = document.querySelector( 'body' );
+		a11y_toolbar.classList.remove( 'custom-location' );
+		a11y_toolbar.classList.add( 'standard-location' );
+		insertionPoint.insertAdjacentElement( 'afterbegin', a11y_toolbar );
+		console.log( 'WP Accessibility Toolbar insertion point not valid. Moved to body.' );
 	}
 })();
