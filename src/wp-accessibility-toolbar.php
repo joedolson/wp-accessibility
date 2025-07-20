@@ -29,9 +29,27 @@ add_action( 'wp_enqueue_scripts', 'wpa_register_scripts' );
 function wpa_register_scripts() {
 	$wpa_version = ( SCRIPT_DEBUG ) ? wp_rand( 10000, 100000 ) : wpa_check_version();
 	$wpatb       = ( SCRIPT_DEBUG ) ? plugins_url( 'js/wpa-toolbar.js', __FILE__ ) : plugins_url( 'js/wpa-toolbar.min.js', __FILE__ );
-	wp_register_script( 'wpa-toolbar', $wpatb, array(), $wpa_version, true );
+	wp_register_script(
+		'wpa-toolbar',
+		$wpatb,
+		array(),
+		$wpa_version,
+		array(
+			'in_footer' => true,
+			'strategy'  => 'defer',
+		)
+	);
 	$wpaui = ( SCRIPT_DEBUG ) ? plugins_url( 'js/a11y.js', __FILE__ ) : plugins_url( 'js/a11y.min.js', __FILE__ );
-	wp_register_script( 'ui-a11y', $wpaui, array( 'jquery' ), $wpa_version, true );
+	wp_register_script(
+		'ui-a11y',
+		$wpaui,
+		array( 'jquery' ),
+		$wpa_version,
+		array(
+			'in_footer' => true,
+			'strategy' => 'defer',
+		)
+	);
 }
 
 add_action( 'wp_enqueue_scripts', 'wpa_toolbar_enqueue_scripts' );
