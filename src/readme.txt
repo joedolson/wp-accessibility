@@ -5,7 +5,7 @@ Tags: accessibility, wcag, a11y, section508, alt text
 Requires at least: 5.9
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 2.1.18
+Stable tag: 2.1.19
 Text Domain: wp-accessibility
 License: GPLv3
 
@@ -81,6 +81,14 @@ WP Accessibility includes a statistics collection feature to help you identify h
 = Future =
 
 [Suggest a change!](https://github.com/joedolson/wp-accessibility/issues/)
+
+= 2.1.19 =
+
+* Bug fix: Don't load admin JS outside of WP Accessibility settings.
+* Bug fix: Allow text selection on headings.
+* Bug fix: If toolbar custom location is invalid, change attachment to body.
+* Change: Remove an extraneous fieldset in settings.
+* Change: Change download icon to universal access in stats.
 
 = 2.1.18 =
 
