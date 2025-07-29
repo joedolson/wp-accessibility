@@ -574,6 +574,7 @@ function wpa_jquery_asl() {
 				'enabled' => ( 'on' === get_option( 'wpa_underline' ) ) ? true : false,
 				'target'  => $target,
 			),
+			'videos'    => ( 'on' === get_option( 'wpa_videos' ) ) ? true : false,
 			'dir'       => $dir,
 			'lang'      => $lang,
 			'titles'    => $remove_titles,
@@ -588,6 +589,8 @@ function wpa_jquery_asl() {
 			'url'       => ( function_exists( 'wpa_get_current_url' ) ) ? wpa_get_current_url() : 'disabled',
 			'post_id'   => ( is_singular() ) ? get_the_ID() : '',
 			'continue'  => ( wp_is_block_theme() ) ? true : false,
+			'pause'     => __( 'Pause video', 'wp-accessibility' ),
+			'play'      => __( 'Play video', 'wp-accessibility' ),
 		)
 	);
 }

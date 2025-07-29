@@ -146,6 +146,7 @@ function wpa_update_settings() {
 			$wpa_search      = ( isset( $_POST['wpa_search'] ) ) ? 'on' : '';
 			$wpa_tabindex    = ( isset( $_POST['wpa_tabindex'] ) ) ? 'on' : '';
 			$wpa_underline   = ( isset( $_POST['wpa_underline'] ) ) ? 'on' : '';
+			$wpa_videos      = ( isset( $_POST['wpa_videos'] ) ) ? 'on' : '';
 			$wpa_more        = ( isset( $_POST['wpa_more'] ) ) ? 'on' : '';
 			$wpa_focus       = ( isset( $_POST['wpa_focus'] ) ) ? 'on' : '';
 			$wpa_focus_color = ( isset( $_POST['wpa_focus_color'] ) ) ? str_replace( '#', '', $_POST['wpa_focus_color'] ) : '';
@@ -154,6 +155,7 @@ function wpa_update_settings() {
 			update_option( 'wpa_search', $wpa_search );
 			update_option( 'wpa_tabindex', $wpa_tabindex );
 			update_option( 'wpa_underline', $wpa_underline );
+			update_option( 'wpa_videos', $wpa_videos );
 			update_option( 'wpa_more', $wpa_more );
 			update_option( 'wpa_focus', $wpa_focus );
 			update_option( 'wpa_focus_color', $wpa_focus_color );
@@ -445,6 +447,10 @@ function wpa_admin_settings() {
 										&lt;li>
 											&lt;input type="checkbox" id="wpa_underline" aria-describedby="wpa-underline-note" name="wpa_underline" &lt;?php checked( get_option( 'wpa_underline' ), 'on' ); ?>/>
 											&lt;label for="wpa_underline">&lt;?php _e( 'Force underline on links', 'wp-accessibility' ); ?>&lt;/label> &lt;em id="wpa-underline-note" class="wpa-note">&lt;?php _e( 'Excludes links inside &lt;code>nav&lt;/code> elements.', 'wp-accessibility' ); ?>&lt;/em>
+										&lt;/li>
+										&lt;li>
+											&lt;input type="checkbox" id="wpa_videos" aria-describedby="wpa-videos-note" name="wpa_videos" &lt;?php checked( get_option( 'wpa_videos' ), 'on' ); ?>/>
+											&lt;label for="wpa_videos">&lt;?php _e( 'Insert play/pause button on autoplay videos', 'wp-accessibility' ); ?>&lt;/label> &lt;em id="wpa-underline-note" class="wpa-note">&lt;?php _e( 'Only effects videos with &lt;code>autoplay&lt;/code> enabled and &lt;code>controls&lt;/code> disabled.', 'wp-accessibility' ); ?>&lt;/em>
 										&lt;/li>
 										&lt;li>
 											&lt;input type="checkbox" id="wpa_focus" name="wpa_focus" &lt;?php checked( get_option( 'wpa_focus' ), 'on' ); ?>/>
