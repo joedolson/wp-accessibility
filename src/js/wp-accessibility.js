@@ -415,6 +415,39 @@
 			$(this).css( 'outline-offset', originalOffset );
 		});
 	}
+
+	if ( wpa.videos ) {
+		// Add a pause/play button to autoplaying videos without controls.
+		let autoplayVideos = document.querySelectorAll( 'video[autoplay]:not([controls])' );
+		if ( autoplayVideos.length > 0 ) {
+			autoplayVideos.forEach( (el) => {
+				let parentEl    = el.parentElement;
+				let pauseButton = document.createElement( 'button' );
+				let buttonIcon  = document.createElement( 'span' );
+				let buttonText  = document.createElement( 'span' );
+				pauseButton.setAttribute( 'type', 'button' );
+				pauseButton.classList.add( 'wpa-video' );
+				pauseButton.setAttribute( 'aria-pressed', 'false' );
+				buttonIcon.classList.add( 'dashicons-controls-pause', 'dashicons' );
+				buttonIcon.setAttribute( 'aria-hidden', 'true' );
+				buttonText.classList.add( 'screen-reader-text' );
+				buttonText.innerText = wpa.pause;
+				pauseButton.append( buttonIcon, buttonText );
+				parentEl.append( pauseButton );
+				pauseButton.addEventListener( 'click', function() {
+					let pressed = this.getAttribute( 'aria-pressed' );
+					console.log( pressed );
+					if ( 'true' === pressed ) {
+						el.play();
+						this.setAttribute( 'aria-pressed', 'false' );
+					} else {
+						el.pause();
+						this.setAttribute( 'aria-pressed', 'true' );
+					}
+				});
+			});
+		}
+	}
 }(jQuery));
 
 /**
