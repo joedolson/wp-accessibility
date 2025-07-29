@@ -418,16 +418,22 @@
 
 	if ( wpa.videos ) {
 		// Add a pause/play button to autoplaying videos without controls.
+		let motionQuery = matchMedia( '(prefers-reduced-motion)' );
+		let initialState = 'false';
 		let autoplayVideos = document.querySelectorAll( 'video[autoplay]:not([controls])' );
 		if ( autoplayVideos.length > 0 ) {
 			autoplayVideos.forEach( (el) => {
+				if ( motionQuery.matches ) {
+					el.pause();
+					initialState = 'true';
+				}
 				let parentEl    = el.parentElement;
 				let pauseButton = document.createElement( 'button' );
 				let buttonIcon  = document.createElement( 'span' );
 				let buttonText  = document.createElement( 'span' );
 				pauseButton.setAttribute( 'type', 'button' );
 				pauseButton.classList.add( 'wpa-video' );
-				pauseButton.setAttribute( 'aria-pressed', 'false' );
+				pauseButton.setAttribute( 'aria-pressed', initialState );
 				buttonIcon.classList.add( 'dashicons-controls-pause', 'dashicons' );
 				buttonIcon.setAttribute( 'aria-hidden', 'true' );
 				buttonText.classList.add( 'screen-reader-text' );
