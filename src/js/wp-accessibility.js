@@ -459,7 +459,6 @@
 /**
  * Check whether an element contains text, including inspecting contained content for image alt attributes or aria-label attributes.
  *
- *
  * @arg el DOM element to check.
  *
  * Based on work by Roger Johansson https://www.456bereastreet.com/archive/201105/get_element_text_including_alt_text_for_images_with_javascript/
