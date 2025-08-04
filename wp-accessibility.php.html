@@ -403,7 +403,7 @@ function wpa_jquery_asl() {
 		 *
 		 * @return {string}
 		 */
-		$selector = apply_filters( 'wpa_show_alt_selector', '.hentry img[alt!=""], .comment-content img[alt!=""]' );
+		$selector = apply_filters( 'wpa_show_alt_selector', '.hentry img[alt!=""], .comment-content img[alt!=""], #content img[alt!=""],.entry-content img[alt!=""]' );
 		$wpaab    = ( SCRIPT_DEBUG ) ? plugins_url( 'js/alt.button.js', __FILE__ ) : plugins_url( 'js/alt.button.min.js', __FILE__ );
 		wp_enqueue_script(
 			'wpa.alt',
