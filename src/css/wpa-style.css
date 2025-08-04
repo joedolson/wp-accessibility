@@ -179,7 +179,7 @@ button.wpa-video {
 .wpa-alt button.wpa-toggle,
 button.wpa-video {
 	top: 4px;
-	right: 4px;
+	left: 4px;
 }
 
 .wpa-ld button.wpa-toggle:focus, .wpa-ld button.wpa-toggle:hover,
@@ -226,11 +226,11 @@ button.wpa-video[aria-pressed=true] .dashicons::before {
 }
 
 .wpa-alt .wpa-ld button {
-	left: 2.5em;
+	left: 46px;
 }
 
 .top-right .wpa-alt .wpa-ld button,
 .bottom-right .wpa-alt .wpa-ld button {
 	left: auto;
-	right: 2.5em;
+	right: 46px;
 }
