@@ -1,6 +1,6 @@
 (function ($) {
 	'use strict';
-	var selector = ( wpalt.selector ) ? wpalt.selector : '.hentry img[alt!=""], .comment-content img[alt!=""]';
+	var selector = ( wpalt.selector ) ? wpalt.selector : '.hentry img[alt!=""], .comment-content img[alt!=""], #content img[alt!=""],.entry-content img[alt!=""]';
 	var collection = $( selector );
 	collection.each( function () {
 		var img      = $( this );
