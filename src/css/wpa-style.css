@@ -155,17 +155,18 @@ label.wpa-screen-reader-text {
 button.wpa-video {
 	all: unset;
 	background: #111;
+	display: block;
 	color: #fff;
-	z-index: 2;
-	border-radius: 32px;
-	height: 28px;
-	width: 28px;
-	display: flex;
+	border-radius: 32px !important;
+	height: 28px !important;
+	width: 28px !important;
+	display: flex !important;
 	align-items: center;
 	justify-content: center;
-	position: absolute;
+	position: absolute !important;
 	z-index: 10;
-	border: 1px solid currentColor;
+	padding: 4px !important;
+	border: 1px solid currentColor !important;
 }
 
 .wpa-alt button.wpa-toggle:active,
@@ -176,7 +177,7 @@ button.wpa-video {
 
 .wpa-ld button.wpa-toggle,
 .wpa-alt button.wpa-toggle,
-button..wpa-video {
+button.wpa-video {
 	top: 4px;
 	right: 4px;
 }
