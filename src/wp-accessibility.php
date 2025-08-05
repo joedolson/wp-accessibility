@@ -377,12 +377,12 @@ function wpa_jquery_asl() {
 		 *
 		 * @return {string}
 		 */
-		$selector = apply_filters( 'wpa_show_alt_selector', '.hentry img[alt!=""], .comment-content img[alt!=""], #content img[alt!=""],.entry-content img[alt!=""]' );
+		$selector = apply_filters( 'wpa_show_alt_selector', '.hentry img[alt]:not([alt=""]), .comment-content img[alt]:not([alt=""]), #content img[alt]:not([alt=""]),.entry-content img[alt]:not([alt=""])' );
 		$wpaab    = ( SCRIPT_DEBUG ) ? plugins_url( 'js/alt.button.js', __FILE__ ) : plugins_url( 'js/alt.button.min.js', __FILE__ );
 		wp_enqueue_script(
 			'wpa.alt',
 			$wpaab,
-			array( 'jquery' ),
+			array(),
 			$version,
 			array(
 				'in_footer' => true,

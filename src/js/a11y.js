@@ -32,7 +32,7 @@ function eraseCookie(name) {
 	createCookie(name, "");
 }
 
-( function() {
+(() => {
 	let a11yToggle = document.querySelectorAll( '.a11y-toggle' );
 	const body = document.querySelector( 'body' );
 	const head = document.querySelector( 'head' );
@@ -176,4 +176,4 @@ function eraseCookie(name) {
 		});
 	});
 
-} )( jQuery );
+})();
