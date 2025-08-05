@@ -152,7 +152,7 @@ function eraseCookie(name) {
 		});
 	}
 
-	var focusable = document.querySelectorAll('input,a,select,textarea,button');
+	var focusable = document.querySelectorAll('input,a[href],select,textarea,button:not(.a11y-toggle),[tabindex]:not([tabindex="-1"])');
 	focusable.forEach((el) => {
 		el.addEventListener( 'focus', function() {
 			var bounds  = el.getBoundingClientRect();
