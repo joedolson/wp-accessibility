@@ -43,7 +43,7 @@ function wpa_register_scripts() {
 	wp_register_script(
 		'ui-a11y',
 		$wpaui,
-		array( 'jquery' ),
+		array(),
 		$wpa_version,
 		array(
 			'in_footer' => true,
