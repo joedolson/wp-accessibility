@@ -9,12 +9,6 @@
 	}
 }
 
-@media print {
-	.a11y-toolbar {
-		/*display: none;*/
-	}
-}
-
 .focusable:focus {
 	outline: none !important;
 }
@@ -102,7 +96,7 @@
 .a11y_stylesheet_path {
 	position: absolute !important;
 	clip: rect(1px, 1px, 1px, 1px);
-	clip-path: polygon(0px 0px, 0px 0px,0px 0px, 0px 0px);	
+	clip-path: polygon(0px 0px, 0px 0px,0px 0px, 0px 0px);
 	white-space: nowrap;
 	padding: 0 !important;
 	border: 0 !important;
@@ -146,7 +140,7 @@
 	clip: unset !important;
 	clip-path: unset !important;
 	color: #333;
-	background: #f0f0f0; 
+	background: #f0f0f0;
 	padding: 8px 6px !important;
 	box-shadow: 0 0 1px #000;
 	border-radius: 5px;
