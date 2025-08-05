@@ -66,12 +66,15 @@ div.aligncenter.wpa-ld {
 	height: 100%;
 	top: 0;
 	overflow-y: scroll;
-	-moz-box-sizing: border-box;
-	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 	background: rgba(255, 255, 255, .95);
-	padding: 2em 1em;
-	text-align: left;
+	padding: 46px 1rem 1rem;
+	text-align: start;
+}
+
+.wpa-ld .longdesc,
+.wpa-ld .longdesc p {
+	font-size: clamp( 16px, 1rem, 24px );
 }
 
 .wpa-alt .wpa-alt-text {
@@ -85,9 +88,9 @@ div.aligncenter.wpa-ld {
 	margin: 1rem;
 	border-radius: 15px;
 	box-shadow: 0 0 6px #333;
-	text-align: left;
+	text-align: start;
 	z-index: 10;
-	font-size: 1rem;
+	font-size: clamp( 16px, 1rem, 24px );
 }
 
 .top-right .wpa-alt .wpa-alt-text,
@@ -170,7 +173,7 @@ button.wpa-video {
 
 .wpa-alt button {
 	font-family: monospace !important;
-	font-size: .875rem !important;
+	font-size: clamp( 14px,.875rem,20px ) !important;
 }
 
 .wpa-alt button.wpa-toggle:active,
