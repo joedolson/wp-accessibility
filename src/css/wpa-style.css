@@ -67,7 +67,8 @@ div.aligncenter.wpa-ld {
 	top: 0;
 	overflow-y: scroll;
 	box-sizing: border-box;
-	background: rgba(255, 255, 255, .95);
+	background: rgba(255, 255, 255, .92);
+	color: #111;
 	padding: 46px 1rem 1rem;
 	text-align: start;
 }
@@ -91,6 +92,8 @@ div.aligncenter.wpa-ld {
 	text-align: start;
 	z-index: 10;
 	font-size: clamp( 16px, 1rem, 24px );
+	line-height: 1.5;
+	color: #111;
 }
 
 .top-right .wpa-alt .wpa-alt-text,
