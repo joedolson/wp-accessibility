@@ -32,78 +32,125 @@ function eraseCookie(name) {
 	createCookie(name, "");
 }
 
-( function( $ ) {
-	$( '.a11y-toggle' ).on( 'focus', function(e) {
-		$( this ).removeClass( 'tooltip-dismissed' );
-	});
+( function() {
+	let a11yToggle = document.querySelectorAll( '.a11y-toggle' );
+	const body = document.querySelector( 'body' );
+	const head = document.querySelector( 'head' );
+	const html = document.querySelector( 'html' );
+	const toolbar = document.querySelector( '.a11y-toolbar' );
 
-	$( '.a11y-toggle' ).on( 'keyup', function(e) {
-		if ( e.keyCode == 27 ) {
-			$( this ).addClass( 'tooltip-dismissed' );
-		}
+	a11yToggle.forEach( (el) => {
+		el.addEventListener( 'focus', function() {
+			el.classList.remove( 'tooltip-dismissed' );
+		});
+		el.addEventListener( 'keyup', function(e) {
+			if ( e.keyCode == 27 ) {
+				el.classList.addClass( 'tooltip-dismissed' );
+			}
+		});
 	});
 
 	// Saturation handler.
-	if (readCookie('a11y-desaturated')) {
-		$('body').addClass('desaturated');
-		$('#is_normal_color').attr('id', 'is_grayscale').attr('aria-pressed', true).addClass('active');
+	if ( readCookie( 'a11y-desaturated' ) ) {
+		desaturate();
 	}
 	// high contrast handler.
-	if (readCookie('a11y-high-contrast')) {
-		$('body').addClass('contrast');
-		$('head').append($("<link href='" + wpa11y.path + "' id='highContrastStylesheet' rel='stylesheet' type='text/css' />"));
-		$('#is_normal_contrast').attr('id', 'is_high_contrast').attr('aria-pressed', true).addClass('active');
-		$('.a11y-toolbar ul li a i').addClass('icon-white');
+	if ( readCookie( 'a11y-high-contrast' ) ) {
+		addHighContrast();
 	}
+
 	// font size switcher.
 	if (readCookie('a11y-larger-fontsize')) {
-		$('html').addClass('fontsize');
-		$('#is_normal_fontsize').attr('id', 'is_large_fontsize').attr('aria-pressed', true).addClass('active');
+		largeFontSize();
 	}
 
-	$('.toggle-grayscale').on('click', function (e) {
-		if ($(this).attr('id') == "is_normal_color") {
-			$('body').addClass('desaturated');
-			$(this).attr('id', 'is_grayscale').attr('aria-pressed', true).addClass('active');
-			createCookie('a11y-desaturated', '1');
-		} else {
-			$('body').removeClass('desaturated');
-			$(this).attr('id', 'is_normal_color').attr('aria-pressed', false).removeClass('active');
-			eraseCookie('a11y-desaturated');
-		}
+	function desaturate() {
+		body.classList.add( 'desaturated' );
+		let button = toolbar.querySelector( '#is_normal_color' );
+		button.setAttribute( 'id', 'is_grayscale' );
+		button.setAttribute( 'aria-pressed', true );
+		button.classList.add( 'active' );
+	}
 
-		return false;
-	});
+	function resaturate() {
+		body.classList.remove( 'desaturated' );
+		let button = toolbar.querySelector( '#is_grayscale' );
+		button.setAttribute( 'id', 'is_normal_color' );
+		button.setAttribute( 'aria-pressed', false );
+		button.classList.remove( 'active' );
+	}
 
-	$('.toggle-contrast').on('click', function (e) {
-		if ($(this).attr('id') == "is_normal_contrast") {
-			$('head').append($("<link href='" + wpa11y.path + "' id='highContrastStylesheet' rel='stylesheet' type='text/css' />"));
-			$('body').addClass('contrast');
-			$(this).attr('id', 'is_high_contrast').attr('aria-pressed', true).addClass('active');
-			createCookie('a11y-high-contrast', '1');
-		} else {
-			$('#highContrastStylesheet').remove();
-			$('body').removeClass('contrast');
-			$(this).attr('id', 'is_normal_contrast').attr('aria-pressed', false).removeClass('active');
-			eraseCookie('a11y-high-contrast');
-		}
+	function addHighContrast() {
+		body.classList.add( 'contrast' );
+		let button = toolbar.querySelector( '#is_normal_contrast' );
+		button.setAttribute( 'id', 'is_high_contrast' );
+		button.setAttribute( 'aria-pressed', true );
+		button.classList.add( 'active' );
 
-		return false;
-	});
+		let styles = document.createElement( 'link' );
+		styles.setAttribute( 'href', wpa11y.path );
+		styles.setAttribute( 'id', 'highContrastStylesheet' );
+		styles.setAttribute( 'rel', 'stylesheet' );
+		head.insertAdjacentElement( 'beforeend', styles );
+	}
 
-	$('.toggle-fontsize').on('click', function (e) {
-		if ($(this).attr('id') == "is_normal_fontsize") {
-			$('html').addClass('fontsize');
-			$(this).attr('id', 'is_large_fontsize').attr('aria-pressed', true).addClass('active');
-			createCookie('a11y-larger-fontsize', '1');
-		} else {
-			$('html').removeClass('fontsize');
-			$(this).attr('id', 'is_normal_fontsize').attr('aria-pressed', false).removeClass('active');
-			eraseCookie('a11y-larger-fontsize');
-		}
+	function resetContrast() {
+		body.classList.remove( 'contrast' );
+		let button = toolbar.querySelector( '#is_high_contrast' );
+		button.setAttribute( 'id', 'is_normal_contrast' );
+		button.setAttribute( 'aria-pressed', false );
+		button.classList.remove( 'active' );
+		let styles = document.getElementById( 'highContrastStylesheet' );
+		styles.remove();
+	}
 
-		return false;
-	});
+	function largeFontSize() {
+		html.classList.add( 'fontsize' );
+		let button = toolbar.querySelector( '#is_normal_fontsize' );
+		button.setAttribute( 'id', 'is_large_fontsize' );
+		button.setAttribute( 'aria-pressed', true );
+		button.classList.add( 'active' );
+	}
+
+	function resetFontSize() {
+		html.classList.remove( 'fontsize' );
+		let button = toolbar.querySelector( '#is_large_fontsize' );
+		button.setAttribute( 'id', 'is_normal_fontsize' );
+		button.setAttribute( 'aria-pressed', false );
+		button.classList.remove( 'active' );
+	}
+
+	const grayscaleButton = document.querySelector( '.toggle-grayscale' );
+	const contrastButton = document.querySelector( '.toggle-contrast' );
+	const fontsizeButton = document.querySelector( '.toggle-fontsize' );
+
+	if ( null !== grayscaleButton ) {
+		grayscaleButton.addEventListener( 'click', function() {
+			if ( this.getAttribute( 'id' ) === 'is_normal_color' ) {
+				desaturate();
+			} else {
+				resaturate();
+			}
+		});
+	}
+	if ( null !== contrastButton ) {
+		contrastButton.addEventListener( 'click', function() {
+			if ( this.getAttribute( 'id' ) === 'is_normal_contrast' ) {
+				addHighContrast();
+			} else {
+				resetContrast();
+			}
+		});
+	}
+	if ( null !== fontsizeButton ) {
+		fontsizeButton.addEventListener( 'click', function() {
+			if ( this.getAttribute( 'id' ) === 'is_normal_fontsize' ) {
+				largeFontSize();
+			} else {
+				resetFontSize();
+			}
+		});
+	}
 
 	var focusable = document.querySelectorAll('input,a,select,textarea,button');
 	focusable.forEach((el) => {
