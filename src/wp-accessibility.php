@@ -463,9 +463,10 @@ function wpa_jquery_asl() {
 	} else {
 		$wpajs = plugins_url( 'js/wp-accessibility.min.js', __FILE__ );
 	}
-	$deps     = array( 'jquery', 'wpa-fingerprintjs' );
+	$deps     = array( 'wpa-fingerprintjs' );
 	$longdesc = ( 'jquery' === get_option( 'wpa_longdesc' ) ) ? true : false;
 	if ( 'jquery' === $longdesc ) {
+		$deps[] = 'jquery';
 		$deps[] = 'wpa.longdesc';
 	}
 	$alttext = ( 'on' === get_option( 'wpa_show_alt' ) ) ? true : false;

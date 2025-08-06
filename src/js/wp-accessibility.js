@@ -1,10 +1,12 @@
-(function( $ ) { 'use strict';
-	var html   = document.querySelector( 'html' );
-	var errors = [];
+(() => {
+	'use strict';
+	const html = document.querySelector( 'html' );
+	const body = document.querySelector( 'body' );
+	let errors = [];
 	if ( wpa.lang ) {
-		var lang   = html.getAttribute( 'lang' );
+		let lang   = html.getAttribute( 'lang' );
 		if ( ! lang ) {
-			$('html').attr( 'lang', wpa.lang );
+			html.setAttribute( 'lang', wpa.lang );
 			if ( wpa.errors || wpa.tracking ) {
 				errors.push( 'html-lang' );
 				console.log( 'HTML language set by WP Accessibility' );
@@ -13,9 +15,9 @@
 	}
 
 	if ( wpa.dir ) {
-		var dir  = html.getAttribute( 'dir' );
+		let dir  = html.getAttribute( 'dir' );
 		if ( ! dir && wpa.dir !== 'ltr' ) {
-			$('html').attr( 'dir', wpa.dir );
+			html.setAttributeattr( 'dir', wpa.dir );
 			if ( wpa.errors || wpa.tracking ) {
 				errors.push( 'html-lang-direction' );
 				console.log( 'HTML language direction set by WP Accessibility' );
@@ -25,7 +27,7 @@
 
 	if ( wpa.continue ) {
 		let readMore = document.querySelectorAll( '.wp-block-post-excerpt__more-link' );
-		if ( readMore ) {
+		if ( readMore.length !== 0 ) {
 			readMore.forEach( (el) => {
 				if ( ! el.hasAttribute( 'aria-describedby' ) ) {
 					let post = el.closest( '.wp-block-post' );
@@ -72,7 +74,7 @@
 	}
 
 	if ( wpa.skiplinks.enabled ) {
-		$('body').prepend( wpa.skiplinks.output );
+		body.prepend( wpa.skiplinks.output );
 		if ( wpa.errors || wpa.tracking  ) {
 			errors.push( 'skiplinks' );
 			console.log( 'Skip links added by WP Accessibility' );
@@ -80,63 +82,72 @@
 	}
 
 	if ( wpa.current ) {
-		$(function() {
-			$( '.current-menu-item a, .current_page_item a' ).attr( 'aria-current', 'page' );
-		});
-		if ( wpa.errors || wpa.tracking  ) {
-			errors.push( 'aria-current' );
-			console.log( 'ARIA current added by WP Accessibility' );
+		let current = document.querySelectorAll( '.current-menu-item a, .current_page_item a' );
+		if ( current.length !== 0 ) {
+			current.forEach((el) => {
+				el.setAttribute( 'aria-current', 'page' );
+			});
+			if ( wpa.errors || wpa.tracking  ) {
+				errors.push( 'aria-current' );
+				console.log( 'ARIA current added by WP Accessibility' );
+			}
 		}
 	}
 
 	if ( wpa.labels ) {
-		var wpa_names = [ 's', 'author', 'email', 'url', 'comment' ];
-		$.each( wpa_names, function( index, value ) {
+		let wpa_names = [ 's', 'author', 'email', 'url', 'comment' ];
+		wpa_names.forEach((value) => {
+			let fields, field_id, implicit, aria, ariaId, ariaTarget, hasAria, hasAriaId, label, labelText;
 			if ( value == 'comment' ) {
-				var field = $( 'textarea[name=' + value + ']' );
+				fields = document.querySelectorAll( 'textarea[name=' + value + ']' );
 			} else {
-				var field = $( 'input[name=' + value + ']' ).not( '#adminbar-search' );
+				fields = document.querySelectorAll( 'input[name=' + value + ']:not(#adminbar-search)' );
 			}
-			if ( 0 !== field.length ) {
-				var field_id = field.attr( 'id' );
-				var implicit = $( field ).parent( 'label' );
-				var aria = $( field ).attr( 'aria-label' );
-				var ariaId = $( field ).attr( 'aria-labelledby' );
-				var ariaTarget = {};
-				if ( ariaId ) {
-					ariaTarget = $( '#' + ariaId );
-				}
-				var hasAria   = ( '' == aria || 'undefined' == typeof( aria ) ) ? false : true;
-				var hasAriaId = ( '' == ariaId || 'undefined' == typeof( ariaId ) ) ? false : true;
-				// Add label if aria label empty, aria labelledby empty, or aria reference ID does not exist.
-				if ( ( ! hasAria && ! hasAriaId ) || ( ! hasAria && ( hasAriaId && 0 === ariaTarget.length ) ) ) {
-					if ( field_id ) {
-						var label = $( 'label[for=' + field_id + ']' );
-						var labelText = label.text();
-						if ( label.length && ! labelText ) {
-							label.text( wpa.wpalabels[value] );
-							if ( wpa.errors || wpa.tracking ) {
-								errors.push( ['empty-label', wpa.wpalabels[value]] );
-								console.log( 'Empty label on ' + wpa.wpalabels[value] + ' added by WP Accessibility' );
-							}
+			if ( fields.length !== 0 ) {
+				fields.forEach( (field) => {
+					if ( 0 !== field.length ) {
+						field_id = field.getAttribute( 'id' );
+						implicit = field.closest( 'label' );
+						aria = field.getAttribute( 'aria-label' );
+						ariaId = field.getAttribute( 'aria-labelledby' );
+						ariaTarget = {};
+						if ( ariaId ) {
+							ariaTarget = document.getElementById( ariaId );
 						}
-						if ( !label.length && !implicit.length ) {
-							field.before( "<label for='" + field_id + "' class='wpa-screen-reader-text'>" + wpa.wpalabels[value] + "</label>" );
-							if ( wpa.errors || wpa.tracking ) {
-								errors.push( ['explicit-label', wpa.wpalabels[value]] );
-								console.log( 'Explicit label on ' + wpa.wpalabels[value] + ' added by WP Accessibility' );
-							}
-						}
-					} else {
-						if ( !implicit.length ) {
-							field.attr( 'id', 'wpa_label_' + value ).before( "<label for='wpa_label_" + value + "' class='wpa-screen-reader-text'>" + wpa.wpalabels[value] + "</label>" );
-							if ( wpa.errors || wpa.tracking ) {
-								errors.push( ['implicit-label', wpa.wpalabels[value]] );
-								console.log( 'Implicit label on ' + wpa.wpalabels[value] + ' added by WP Accessibility' );
+						hasAria   = ( '' == aria || 'undefined' == typeof( aria ) ) ? false : true;
+						hasAriaId = ( '' == ariaId || 'undefined' == typeof( ariaId ) ) ? false : true;
+						// Add label if aria label empty, aria labelledby empty, or aria reference ID does not exist.
+						if ( ( ! hasAria && ! hasAriaId ) || ( ! hasAria && ( hasAriaId && 0 === ariaTarget.length ) ) ) {
+							if ( field_id ) {
+								label = document.querySelector( 'label[for=' + field_id + ']' );
+								labelText = label.innerText;
+								if ( label.length && ! labelText ) {
+									label.innerText = wpa.wpalabels[value];
+									if ( wpa.errors || wpa.tracking ) {
+										errors.push( ['empty-label', wpa.wpalabels[value]] );
+										console.log( 'Empty label on ' + wpa.wpalabels[value] + ' added by WP Accessibility' );
+									}
+								}
+								if ( !label.length && !implicit.length ) {
+									field.insertAdjacentHTML( 'beforebegin', "<label for='" + field_id + "' class='wpa-screen-reader-text'>" + wpa.wpalabels[value] + "</label>" );
+									if ( wpa.errors || wpa.tracking ) {
+										errors.push( ['explicit-label', wpa.wpalabels[value]] );
+										console.log( 'Explicit label on ' + wpa.wpalabels[value] + ' added by WP Accessibility' );
+									}
+								}
+							} else {
+								if ( !implicit.length ) {
+									field.setAttribute( 'id', 'wpa_label_' + value );
+									field.insertAdjacentHTML( 'beforebegin', "<label for='wpa_label_" + value + "' class='wpa-screen-reader-text'>" + wpa.wpalabels[value] + "</label>" );
+									if ( wpa.errors || wpa.tracking ) {
+										errors.push( ['implicit-label', wpa.wpalabels[value]] );
+										console.log( 'Implicit label on ' + wpa.wpalabels[value] + ' added by WP Accessibility' );
+									}
+								}
 							}
 						}
 					}
-				}
+				});
 			}
 		});
 	}
@@ -147,273 +158,272 @@
 		var fields   = 0;
 		let noremove = false;
 		const els    = document.querySelectorAll( 'img, a, input, textarea, select, button' );
-		els.forEach((el) => {
-			var title = el.getAttribute( 'title' );
-			if ( el.classList.contains( 'nturl' ) ) {
-				// Exempt title attributes from Translate WordPress - Google Language Translator, which uses them as a CSS hook.
-				noremove = true;
-			}
-			if ( title && '' !== title ) {
-				switch ( el.tagName ) {
-					case 'IMG':
-						// If image has alt, remove title. If not, set title as alt.
-						var alt = el.getAttribute( 'alt' );
-						if ( ! alt || '' === alt ) {
-							el.setAttribute( 'alt', title );
-							el.removeAttribute( 'title' );
-						} else {
-							el.removeAttribute( 'title' );
-						}
-						images++;
-						break;
-					case 'A':
-					case 'BUTTON':
-						// If link or button has contained text or an img with alt, remove title. Otherwise, set title as aria-label unless element already has aria-label.
-						var linkText = wpaElementText(el);
-						if ( ! linkText || '' === linkText ) {
-							var ariaLabel = el.getAttribute( 'aria-label' );
-							if ( ! ariaLabel || '' === ariaLabel ) {
-								el.setAttribute( 'aria-label', title );
-								if ( ! noremove ) {
-									el.removeAttribute( 'title' );
-								}
-							}
-						} else {
-							el.removeAttribute( 'title' );
-						}
-						controls++;
-						break;
-					case 'INPUT':
-					case 'SELECT':
-					case 'TEXTAREA':
-						// If input field has an aria-label, aria-labelledby, associated label, or wrapping label, remove title. Else, add title as aria-label.
-						var ariaLabel        = el.getAttribute( 'aria-label' );
-						var ariaLabelled     = el.getAttribute( 'aria-labelledby' );
-						var ariaLabeller     = ( ariaLabelled ) ? document.getElementById( ariaLabelled ) : false;
-						var labelId          = el.getAttribute( 'id' );
-						var label            = ( labelId ) ? document.querySelector( 'label[for="' + labelId + '"]' ) : false;
-						var parentLabel      = el.closest( 'label' );
-						var hasAriaLabel     = ( ariaLabel && '' !== ariaLabel ) ? true : false;
-						var hasRealLabel     = ( label && '' !== wpaElementText( label ) ) ? true : false;
-						var hasImplicitLabel = ( parentLabel && '' !== wpaElementText( parentLabel ) ) ? true : false;
-						var hasAriaLabelled  = ( ariaLabeller && '' !== wpaElementText( arialabeller ) ) ? true : false;
-						if ( hasAriaLabel || hasRealLabel || hasImplicitLabel || hasAriaLabelled ) {
-							// This has a label.
-							el.removeAttribute( 'title' );
-						} else {
-							el.setAttribute( 'aria-label', title );
-							el.removeAttribute( 'title' );
-						}
-						fields++;
-						break;
+		if ( els.length !== 0 ) {
+			els.forEach((el) => {
+				var title = el.getAttribute( 'title' );
+				if ( el.classList.contains( 'nturl' ) ) {
+					// Exempt title attributes from Translate WordPress - Google Language Translator, which uses them as a CSS hook.
+					noremove = true;
 				}
-			}
-		});
-		if ( wpa.errors || wpa.tracking ) {
-			if ( images > 0 ) {
-				errors.push( ['images-titles', images] );
-				console.log( images + ' title attributes removed from images by WP Accessibility' );
-			}
-			if ( controls > 0 ) {
-				errors.push( ['control-titles', controls] );
-				console.log( controls + ' title attributes removed from links and buttons by WP Accessibility' );
-			}
-			if ( fields > 0 ) {
-				errors.push( ['input-titles', fields] );
-				console.log( fields + ' title attributes removed from input fields by WP Accessibility' );
+				if ( title && '' !== title ) {
+					switch ( el.tagName ) {
+						case 'IMG':
+							// If image has alt, remove title. If not, set title as alt.
+							var alt = el.getAttribute( 'alt' );
+							if ( ! alt || '' === alt ) {
+								el.setAttribute( 'alt', title );
+								el.removeAttribute( 'title' );
+							} else {
+								el.removeAttribute( 'title' );
+							}
+							images++;
+							break;
+						case 'A':
+						case 'BUTTON':
+							// If link or button has contained text or an img with alt, remove title. Otherwise, set title as aria-label unless element already has aria-label.
+							var linkText = wpaElementText(el);
+							if ( ! linkText || '' === linkText ) {
+								var ariaLabel = el.getAttribute( 'aria-label' );
+								if ( ! ariaLabel || '' === ariaLabel ) {
+									el.setAttribute( 'aria-label', title );
+									if ( ! noremove ) {
+										el.removeAttribute( 'title' );
+									}
+								}
+							} else {
+								el.removeAttribute( 'title' );
+							}
+							controls++;
+							break;
+						case 'INPUT':
+						case 'SELECT':
+						case 'TEXTAREA':
+							// If input field has an aria-label, aria-labelledby, associated label, or wrapping label, remove title. Else, add title as aria-label.
+							var ariaLabel        = el.getAttribute( 'aria-label' );
+							var ariaLabelled     = el.getAttribute( 'aria-labelledby' );
+							var ariaLabeller     = ( ariaLabelled ) ? document.getElementById( ariaLabelled ) : false;
+							var labelId          = el.getAttribute( 'id' );
+							var label            = ( labelId ) ? document.querySelector( 'label[for="' + labelId + '"]' ) : false;
+							var parentLabel      = el.closest( 'label' );
+							var hasAriaLabel     = ( ariaLabel && '' !== ariaLabel ) ? true : false;
+							var hasRealLabel     = ( label && '' !== wpaElementText( label ) ) ? true : false;
+							var hasImplicitLabel = ( parentLabel && '' !== wpaElementText( parentLabel ) ) ? true : false;
+							var hasAriaLabelled  = ( ariaLabeller && '' !== wpaElementText( arialabeller ) ) ? true : false;
+							if ( hasAriaLabel || hasRealLabel || hasImplicitLabel || hasAriaLabelled ) {
+								// This has a label.
+								el.removeAttribute( 'title' );
+							} else {
+								el.setAttribute( 'aria-label', title );
+								el.removeAttribute( 'title' );
+							}
+							fields++;
+							break;
+					}
+				}
+			});
+			if ( wpa.errors || wpa.tracking ) {
+				if ( images > 0 ) {
+					errors.push( ['images-titles', images] );
+					console.log( images + ' title attributes removed from images by WP Accessibility' );
+				}
+				if ( controls > 0 ) {
+					errors.push( ['control-titles', controls] );
+					console.log( controls + ' title attributes removed from links and buttons by WP Accessibility' );
+				}
+				if ( fields > 0 ) {
+					errors.push( ['input-titles', fields] );
+					console.log( fields + ' title attributes removed from input fields by WP Accessibility' );
+				}
 			}
 		}
 	}
 
 	if ( wpa.target ) {
-		var targeted      = $('a:not(.wpa-allow-target)');
+		var targeted      = document.querySelectorAll('a:not(.wpa-allow-target)');
 		var targetRemoved = 0;
-		targeted.each( function() {
-			var target   = $( this ).attr( 'target' );
-			var href     = $( this ).attr( 'href' );
+		if ( targeted.length !== 0 ) {
+			targeted.forEach( (el) => {
+				var target   = el.getAttribute( 'target' );
+				var href     = el.getAttribute( 'href' );
 
-			if ( target ) {
-				try {
-					var url      = new URL( href );
-					var hostname = url.hostname;
-					if ( ! hostname.includes( 'facebook' ) ) {
-						$( this ).removeAttr( 'target' );
-						targetRemoved++;
+				if ( target ) {
+					try {
+						var url      = new URL( href );
+						var hostname = url.hostname;
+						if ( ! hostname.includes( 'facebook' ) ) {
+							el.removeAttr( 'target' );
+							targetRemoved++;
+						}
+					} catch (exception) {
+						// No action; the `href` attribute didn't resolve as a URL.
 					}
-				} catch (exception) {
-					// No action; the `href` attribute didn't resolve as a URL.
 				}
+			});
+			if ( targetRemoved > 0 && ( wpa.errors || wpa.tracking ) ) {
+				errors.push( ['link-targets', targetRemoved] );
+				console.log( targetRemoved + ' target attributes removed from links by WP Accessibility' );
 			}
-		});
-		if ( targetRemoved > 0 && ( wpa.errors || wpa.tracking ) ) {
-			errors.push( ['link-targets', targetRemoved] );
-			console.log( targetRemoved + ' target attributes removed from links by WP Accessibility' );
 		}
 	}
 
 	if ( wpa.tabindex ) {
 		// Remove tabindex from elements that should be natively focusable.
-		var focusable  = $('input,a,select,textarea,button').not('a:not([href])');
+		var focusable  = document.querySelectorAll('input,a[href],select,textarea,button');
 		var tabRemoved = 0;
-		focusable.each( function() {
-			var tabindex = $( this ).attr( 'tabindex' );
-			if ( tabindex ) {
-				$( this ).removeAttr('tabindex');
-				tabRemoved++;
-			}
-		});
+		if ( focusable.length !== 0 ) {
+			focusable.forEach( (el) => {
+				var tabindex = el.getAttribute('tabindex');
+				if ( tabindex ) {
+					el.removeAttribute('tabindex');
+					tabRemoved++;
+				}
+			});
 
-		if ( tabRemoved > 0 && ( wpa.errors || wpa.tracking ) ) {
-			errors.push( ['control-tabindex', tabRemoved] );
-			console.log( tabRemoved + ' tabindex attributes removed from links, buttons and inputs by WP Accessibility' );
+			if ( tabRemoved > 0 && ( wpa.errors || wpa.tracking ) ) {
+				errors.push( ['control-tabindex', tabRemoved] );
+				console.log( tabRemoved + ' tabindex attributes removed from links, buttons and inputs by WP Accessibility' );
+			}
 		}
 
 		// Add tabindex to elements that appear active but are not natively focusable.
-		var fakeButtons = $('div[role="button"]').not('div[tabindex]' );
-		var buttonLinks = $('a[role="button"]').not('a[tabindex],a[href]');
-		fakeButtons.attr( 'tabindex', '0' ).addClass('wpa-focusable');
-		if ( fakeButtons.length > 0 && ( wpa.errors || wpa.tracking ) ) {
-			errors.push( ['button-add-tabindex', fakeButtons.length] );
-			console.log( fakeButtons.length + ' tabindex attributes added to divs with the button role by WP Accessibility' );
+		var fakeButtons = document.querySelectorAll( '[role="button"]:not([tabindex]):not(a)' ); // $('div[role="button"]').not('div[tabindex]' );
+		var buttonLinks = document.querySelectorAll( 'a[role="button"]:not([tabindex]):not([href])'); // $('a[role="button"]').not('a[tabindex],a[href]');
+		if ( fakeButtons.length !== 0 ) {
+			fakeButtons.forEach( (el) => {
+				el.setAttribute( 'tabindex', '0' );
+				el.classList.add('wpa-focusable');
+			});
+			if ( fakeButtons.length > 0 && ( wpa.errors || wpa.tracking ) ) {
+				errors.push( ['button-add-tabindex', fakeButtons.length] );
+				console.log( fakeButtons.length + ' tabindex attributes added to divs with the button role by WP Accessibility' );
+			}
 		}
-		buttonLinks.attr( 'tabindex', '0' ).addClass('wpa-focusable');
-		if ( buttonLinks.length > 0 && ( wpa.errors || wpa.tracking ) ) {
-			errors.push( ['link-add-tabindex', buttonLinks.length] );
-			console.log( buttonLinks.length + ' tabindex attributes added to anchor elements with the button role and no href value by WP Accessibility' );
+		if ( buttonLinks !== 0 ) {
+			buttonLinks.forEach( (el) => {
+				el.setAttribute( 'tabindex', '0' );
+				el.classList.add('wpa-focusable');
+			});
+			if ( buttonLinks.length > 0 && ( wpa.errors || wpa.tracking ) ) {
+				errors.push( ['link-add-tabindex', buttonLinks.length] );
+				console.log( buttonLinks.length + ' tabindex attributes added to anchor elements with the button role and no href value by WP Accessibility' );
+			}
 		}
 	}
-	var fingerprint = new Fingerprint().get();
-	
+
 	// If stats are disabled, skip this.
 	if ( 'disabled' !== wpa.url ) {
-		$('.toggle-contrast').on('click', function (e) {
-			// This fires after the contrast change happens, and the ID is already changed.
-			if ($(this).attr('id') == "is_normal_contrast") {
-				// high contrast turned on.
-				var event = {'contrast' : 'disabled'};
-			} else {
-				// high contrast turned off.
-				var event = {'contrast' : 'enabled'};
-			}
-			var data = {
-				'action' : wpa.action,
-				'security' : wpa.security,
-				'stats' : event,
-				'post_id' : wpa.post_id,
-				'title' : fingerprint,
-				'type' : 'event'
-			};
-			$.post( wpa.ajaxurl, data, function () {}, "json" );
-		});
+		let fingerprint = new Fingerprint().get();
 
-		$('.toggle-fontsize').on('click', function (e) {
-			// This fires after the fontsize change happens, and the ID is already changed.
-			if ($(this).attr('id') == "is_normal_fontsize") {
-				// fontsizes turned on.
-				var event = {'fontsize' : 'disabled'};
-			} else {
-				// fontsizes turned off.
-				var event = {'fontsize' : 'enabled'};
-			}
-			var data = {
-				'action' : wpa.action,
-				'security' : wpa.security,
-				'stats' : event,
-				'post_id' : wpa.post_id,
-				'title' : fingerprint,
-				'type' : 'event'
-			};
-			$.post( wpa.ajaxurl, data, function () {}, "json" );
-		});
+		function logStats(event,fingerprint,type='event') {
+			const data = new FormData();
+			data.append( 'action', wpa.action );
+			data.append( 'security', wpa.security );
+			data.append( 'stats', event );
+			data.append( 'post_id', wpa.post_id );
+			data.append( 'title', fingerprint );
+			data.append( 'type', type );
+			fetch( wpa.ajaxurl, {
+				method: 'POST',
+				body: data
+			});
+		}
+		let contrastButton = document.querySelector( '.toggle-contrast' );
+		if ( contrastButton ) {
+			contrastButton.addEventListener('click', function () {
+				// This fires after the contrast change happens, and the ID is already changed.
+				if ( this.getAttribute( 'id' ) == "is_normal_contrast") {
+					// high contrast turned on.
+					var event = {'contrast' : 'disabled'};
+				} else {
+					// high contrast turned off.
+					var event = {'contrast' : 'enabled'};
+				}
+				logStats(event,fingerprint);
+			});
+		}
 
-		waitForElement('.wpa-ld button').then((elm) => {
-			$('.wpa-ld button').on( 'click', function(e) {
+		let fontsizeButton = document.querySelector( '.toggle-contrast' );
+		if ( fontsizeButton ) {
+			fontsizeButton.addEventListener('click', function () {
+				// This fires after the fontsize change happens, and the ID is already changed.
+				if ( this.getAttribute( 'id' ) == "is_normal_fontsize") {
+					// fontsizes turned on.
+					var event = {'fontsize' : 'disabled'};
+				} else {
+					// fontsizes turned off.
+					var event = {'fontsize' : 'enabled'};
+				}
+				logStats(event,fingerprint);
+			});
+		}
+
+		waitForElement('.wpa-ld button').then((el) => {
+			el.addEventListener( 'click', function(e) {
 				// For descriptions, we aren't concerned about state changes; just usage.
-				var visible = ( 'true' === $( this ).attr( 'aria-expanded' ) ) ? true : false;
+				var visible = ( 'true' === el.getAttribute( 'aria-expanded' ) ) ? true : false;
 				if ( visible ) {
-					var img      = $( this ).parent( 'div' );
-					var image_id = img.attr( 'class' ).replace( 'wpa-ld wp-image-', '' );
+					var img      = el.closest( 'div' );
+					var image_id = img.getAttribute( 'class' ).replace( 'wpa-ld wp-image-', '' );
 					var event    = { 'longdesc' : image_id };
-					var data     = {
-						'action' : wpa.action,
-						'security' : wpa.security,
-						'stats' : event,
-						'post_id' : wpa.post_id,
-						'title' : fingerprint,
-						'type' : 'event'
-					};
-					$.post( wpa.ajaxurl, data, function (response) { console.log( response ); }, "json" );
+					logStats(event,fingerprint);
 				}
 			});
 		});
 
-		$('.wpa-alt button').on( 'click', function(e) {
-			// For alt text, we aren't concerned about state changes; just usage.
-			var visible = ( 'true' === $( this ).attr( 'aria-expanded' ) ) ? true : false;
-			if ( visible ) {
-				var img      = $( this ).parent( 'div' );
-				console.log( img );
-				var image_id = img.attr( 'class' ).replace( 'wpa-alt wp-image-', '' );
-				var event    = { 'alttext' : image_id };
-				var data     = {
-					'action' : wpa.action,
-					'security' : wpa.security,
-					'stats' : event,
-					'post_id' : wpa.post_id,
-					'title' : fingerprint,
-					'type' : 'event'
-				};
-				$.post( wpa.ajaxurl, data, function (response) { console.log( response ); }, "json" );
-			}
-		});
-
+		let altButtons = document.querySelectorAll( '.wpa-alt button' );
+		if ( altButtons.length > 0 ) {
+			altButtons.forEach( (el) => {
+				el.addEventListener( 'click', function(e) {
+					// For alt text, we aren't concerned about state changes; just usage.
+					var visible = ( 'true' === el.getAttribute( 'aria-expanded' ) ) ? true : false;
+					if ( visible ) {
+						var img      = el.closest( 'div' );
+						var image_id = img.getAttribute( 'class' ).replace( 'wpa-alt wp-image-', '' );
+						var event    = { 'alttext' : image_id };
+						logStats(event,fingerprint);
+					}
+				});
+			});
+		}
 		if ( wpa.tracking && errors.length >= 1 ) {
-			var data = {
-				'action' : wpa.action,
-				'security' : wpa.security,
-				'stats' : errors,
-				'post_id' : wpa.post_id,
-				'title' : wpa.url,
-				'type' : 'view'
-			};
-			$.post( wpa.ajaxurl, data, function (response) {
-				console.log( response );
-			}, "json" );
+			logStats(errors,wpa.url,'view');
 		}
 
 	}
 	if ( wpa.underline.enabled ) {
 		// Underline any link not inside a `nav` region. Using JS for this avoids problems with cascade precedence.
-		var originalOutline = $( wpa.underline.target ).css( 'outline-width' );
-		var originalOffset  = $( wpa.underline.target ).css( 'outline-offset' );
-		var textColor       = $( wpa.underline.target ).css( 'color' );
-		var originalColor   = $( wpa.underline.target ).css( 'outline-color' );
-		$( wpa.underline.target ).not( 'nav ' + wpa.underline.target ).css( 'text-decoration', 'underline' );
-
-		$( wpa.underline.target ).on( 'mouseenter', function() {
-			$( this ).css( 'text-decoration', 'none' );
-		});
-		$(  wpa.underline.target ).on( 'mouseleave', function() {
-			// Reset visible appearance on exit.
-			$( this ).css( 'text-decoration', 'underline' );
-		});
-
-		$( wpa.underline.target ).on( 'focusin', function() {
-			var newOutline = '2px';
-			if ( originalOutline == '2px' ) {
-				newOutline = '4px';
-			}
-			// Ensure there's a visible change of appearance on hover or focus.
-			$(this).css( 'outline-width', newOutline );
-			$(this).css( 'outline-color', textColor );
-			$(this).css( 'outline-offset', '2px' );
-		});
-		$(  wpa.underline.target ).on( 'focusout', function() {
-			// Reset visible appearance on exit.
-			$(this).css( 'outline-width', originalOutline );
-			$(this).css( 'outline-color', originalColor );
-			$(this).css( 'outline-offset', originalOffset );
-		});
+		let targetEls = document.querySelectorAll( wpa.underline.target + ':not(nav ' + wpa.underline.target + ')' );
+		if ( targetEls.length > 0 ) {
+			targetEls.forEach( (el) => {
+				var originalOutline = el.style.outlineWidth;
+				var originalOffset  = el.style.outlineOffset;
+				var textColor       = el.style.color;
+				var originalColor   = el.style.outlineColor;
+				el.style.textDecoration = 'underline';
+				el.addEventListener( 'mouseenter', function() {
+					this.style.textDecoration = 'none';
+				});
+				el.addEventListener( 'mouseleve', function() {
+					this.style.textDecoration = 'none';
+				});
+				el.addEventListener( 'focusin', function() {
+					var newOutline = '2px';
+					if ( originalOutline == '2px' ) {
+						newOutline = '4px';
+					}
+					// Ensure there's a visible change of appearance on hover or focus.
+					this.style.outlineWidth = newOutline;
+					this.style.outlineColor = textColor;
+					this.style.outlineOffset = '2px';
+				});
+				el.addEventListener( 'focusout', function() {
+					// Reset visible appearance on exit.
+					this.style.outlineWidth = originalOutline;
+					this.style.outlineColor = originalColor;
+					this.style.outlineOffset = originalOffset;
+				});
+			});
+		}
 	}
 
 	if ( wpa.videos ) {
@@ -454,7 +464,7 @@
 			});
 		}
 	}
-}(jQuery));
+})();
 
 /**
  * Check whether an element contains text, including inspecting contained content for image alt attributes or aria-label attributes.
@@ -489,10 +499,10 @@ function wpaElementText(el) {
 };
 
 /**
- * Wait to see whether an element becomes available. 
+ * Wait to see whether an element becomes available.
  *
- * @param {string} selector 
- * @returns 
+ * @param {string} selector
+ * @returns
  */
 function waitForElement(selector) {
     return new Promise(resolve => {
