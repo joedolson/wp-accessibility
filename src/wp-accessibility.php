@@ -99,7 +99,7 @@ function wpa_install() {
 		add_option( 'wpa_focus', '' );
 		add_option( 'wpa_installed', 'true' );
 		add_option( 'wpa_version', $wpa_version );
-		add_option( 'wpa_longdesc', 'jquery' );
+		add_option( 'wpa_longdesc', 'button' );
 		add_option( 'wpa_post_types', array( 'post' ) );
 	} else {
 		wpa_check_version();
@@ -116,7 +116,7 @@ function wpa_check_version() {
 	// upgrade for version 1.3.0.
 	$version = get_option( 'wpa_version' );
 	if ( version_compare( $version, '1.3.0', '<' ) ) {
-		add_option( 'wpa_longdesc', 'jquery' );
+		add_option( 'wpa_longdesc', 'button' );
 	}
 	// upgrade for version 1.9.0.
 	if ( version_compare( $version, '1.9.0', '<' ) ) {
@@ -128,6 +128,12 @@ function wpa_check_version() {
 		}
 		if ( '' === $wpa_toolbar_ct ) {
 			update_option( 'wpa_toolbar_ct', 'on' );
+		}
+	}
+	if ( version_compare( $version, '2.2.0', '<' ) ) {
+		$ld_option = get_option( 'wpa_longdesc' );
+		if ( 'jquery' === $ld_option ) {
+			update_option( 'wpa_longdesc', 'button' );
 		}
 	}
 
@@ -157,7 +163,8 @@ add_action( 'wp_enqueue_scripts', 'wpa_stylesheet' );
 function wpa_stylesheet() {
 	$version = ( SCRIPT_DEBUG ) ? wp_rand( 10000, 100000 ) : wpa_check_version();
 	wp_register_style( 'wpa-style', plugins_url( 'css/wpa-style.css', __FILE__ ), array(), $version );
-	if ( 'link' === get_option( 'wpa_longdesc' ) || 'jquery' === get_option( 'wpa_longdesc' ) || 'on' === get_option( 'asl_enable' ) || ! empty( get_option( 'wpa_post_types', array() ) ) ) {
+	$ld = get_option( 'wpa_longdesc' );
+	if ( 'link' === $ld || 'jquery' === $ld || 'button' === $ld || 'on' === get_option( 'asl_enable' ) || ! empty( get_option( 'wpa_post_types', array() ) ) ) {
 		wp_enqueue_style( 'wpa-style' );
 		// these styles are derived from the WordPress skip link defaults.
 		$top = '7px';
@@ -330,24 +337,24 @@ function wpa_is_url( $url ) {
 	return preg_match( '|^http(s)?://[a-z0-9-]+(.[a-z0-9-]+)*(:[0-9]+)?(/.*)?$|i', $url );
 }
 
-add_action( 'wp_enqueue_scripts', 'wpa_jquery_asl', 100 );
+add_action( 'wp_enqueue_scripts', 'wpa_enqueue_js', 100 );
 /**
  * Enqueue JS needed for WP Accessibility options.
  */
-function wpa_jquery_asl() {
+function wpa_enqueue_js() {
 	$version       = ( SCRIPT_DEBUG ) ? wp_rand( 10000, 100000 ) : wpa_check_version();
 	$longdesc_type = false;
 	if ( 'link' === get_option( 'wpa_longdesc' ) ) {
 		$longdesc_type = 'link';
-	} elseif ( 'jquery' === get_option( 'wpa_longdesc' ) ) {
-		$longdesc_type = 'jquery';
+	} elseif ( 'jquery' === get_option( 'wpa_longdesc' ) || 'button' === get_option( 'wpa_longdesc' ) ) {
+		$longdesc_type = 'button';
 	}
 	if ( $longdesc_type ) {
 		$wpald = ( SCRIPT_DEBUG ) ? plugins_url( 'js/longdesc.js', __FILE__ ) : plugins_url( 'js/longdesc.min.js', __FILE__ );
 		wp_enqueue_script(
 			'wpa.longdesc',
 			$wpald,
-			array( 'jquery' ),
+			array(),
 			$version,
 			array(
 				'in_footer' => true,
@@ -373,7 +380,7 @@ function wpa_jquery_asl() {
 		 *
 		 * @since 2.0.0
 		 *
-		 * @param {string} $selector Valid jQuery selector string.
+		 * @param {string} $selector Valid CSS selector string.
 		 *
 		 * @return {string}
 		 */
@@ -464,9 +471,8 @@ function wpa_jquery_asl() {
 		$wpajs = plugins_url( 'js/wp-accessibility.min.js', __FILE__ );
 	}
 	$deps     = array( 'wpa-fingerprintjs' );
-	$longdesc = ( 'jquery' === get_option( 'wpa_longdesc' ) ) ? true : false;
-	if ( 'jquery' === $longdesc ) {
-		$deps[] = 'jquery';
+	$longdesc = ( 'false' !== get_option( 'wpa_longdesc' ) ) ? true : false;
+	if ( $longdesc ) {
 		$deps[] = 'wpa.longdesc';
 	}
 	$alttext = ( 'on' === get_option( 'wpa_show_alt' ) ) ? true : false;

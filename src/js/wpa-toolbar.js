@@ -1,6 +1,6 @@
 (function () {
-	var a11y_toolbar = document.createElement( 'div' );
-	var insert_a11y_toolbar = '';
+	const a11y_toolbar = document.createElement( 'div' );
+	let insert_a11y_toolbar = '';
 
 	insert_a11y_toolbar += '<ul class="a11y-toolbar-list">';
 	if ( wpatb.enable_contrast == 'true' ) {
@@ -16,7 +16,7 @@
 	a11y_toolbar.classList.add( wpatb.responsive, 'a11y-toolbar', wpatb.is_rtl, wpatb.is_right, wpatb.custom_location );
 	a11y_toolbar.innerHTML = insert_a11y_toolbar;
 
-	var insertionPoint = document.querySelector( wpatb.location );
+	let insertionPoint = document.querySelector( wpatb.location );
 	if ( null !== insertionPoint ) {
 		insertionPoint.insertAdjacentElement( 'afterbegin', a11y_toolbar );
 	} else {

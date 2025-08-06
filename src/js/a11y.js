@@ -5,24 +5,29 @@
 
 // Cookie handler, non-$ style
 function createCookie(name, value, days) {
+	let expires;
 	if (days) {
-		var date = new Date();
+		let date = new Date();
 		date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-		var expires = "; expires=" + date.toGMTString();
+		expires = "; expires=" + date.toGMTString();
 	} else {
-		var expires = '';
+		expires = '';
 	}
 
 	document.cookie = name + "=" + value + expires + "; path=/; SameSite=Strict;";
 }
 
 function readCookie(name) {
-	var nameEQ = name + "=";
-	var ca = document.cookie.split(';');
-	for (var i = 0; i < ca.length; i++) {
-		var c = ca[i];
-		while (c.charAt(0) == ' ') c = c.substring(1, c.length);
-		if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+	let nameEQ = name + "=";
+	let ca = document.cookie.split(';');
+	for (let i = 0; i < ca.length; i++) {
+		let c = ca[i];
+		while (c.charAt(0) == ' ') {
+			c = c.substring(1, c.length);
+		}
+		if (c.indexOf(nameEQ) == 0) {
+			return c.substring(nameEQ.length, c.length);
+		}
 	}
 
 	return null;
@@ -152,25 +157,25 @@ function eraseCookie(name) {
 		});
 	}
 
-	var focusable = document.querySelectorAll('input,a[href],select,textarea,button:not(.a11y-toggle),[tabindex]:not([tabindex="-1"])');
+	const focusable = document.querySelectorAll('input,a[href],select,textarea,button:not(.a11y-toggle),[tabindex]:not([tabindex="-1"])');
 	focusable.forEach((el) => {
 		el.addEventListener( 'focus', function() {
-			var bounds  = el.getBoundingClientRect();
-			var toolbar = document.querySelector( '.a11y-toolbar.standard-location' );
+			let bounds  = el.getBoundingClientRect();
+			let toolbar = document.querySelector( '.a11y-toolbar.standard-location' );
 			if ( ! toolbar ) {
 				toolbar = { 'bottom' : 0, 'left' : 0, 'top' : 0, 'right' : 0 };
 			} else {
 				toolbar = toolbar.getBoundingClientRect();
 			}
 
-			var overlap = ! (
+			let overlap = ! (
 				bounds.top > toolbar.bottom ||
 				bounds.right < toolbar.left ||
 				bounds.bottom < toolbar.top ||
 				bounds.left > toolbar.right
 			);
 			if ( overlap ) {
-				var diff = bounds.bottom - toolbar.top;
+				let diff = bounds.bottom - toolbar.top;
 				window.scrollBy( 0, diff );
 			}
 		});

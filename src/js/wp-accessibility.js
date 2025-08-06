@@ -50,10 +50,10 @@
 		}
 	}
 
-	var viewport = document.querySelector( 'meta[name="viewport"]' );
+	const viewport = document.querySelector( 'meta[name="viewport"]' );
 	if ( viewport ) {
-		var conditionsBefore = viewport.getAttribute( 'content' );
-		var conditionsAfter  = viewport.getAttribute( 'content' );
+		let conditionsBefore = viewport.getAttribute( 'content' );
+		let conditionsAfter  = viewport.getAttribute( 'content' );
 		if ( conditionsBefore.search(/user-scalable=no/g) ) {
 			conditionsAfter = conditionsBefore.replace( 'user-scalable=no', 'user-scalable=yes' );
 			viewport.setAttribute( 'content', conditionsAfter );
@@ -153,14 +153,14 @@
 	}
 
 	if ( wpa.titles ) {
-		var images   = 0;
-		var controls = 0;
-		var fields   = 0;
-		let noremove = false;
+		let images   = 0,
+			controls = 0,
+			fields   = 0,
+			noremove = false;
 		const els    = document.querySelectorAll( 'img, a, input, textarea, select, button' );
 		if ( els.length !== 0 ) {
 			els.forEach((el) => {
-				var title = el.getAttribute( 'title' );
+				let title = el.getAttribute( 'title' );
 				if ( el.classList.contains( 'nturl' ) ) {
 					// Exempt title attributes from Translate WordPress - Google Language Translator, which uses them as a CSS hook.
 					noremove = true;
@@ -169,7 +169,7 @@
 					switch ( el.tagName ) {
 						case 'IMG':
 							// If image has alt, remove title. If not, set title as alt.
-							var alt = el.getAttribute( 'alt' );
+							let alt = el.getAttribute( 'alt' );
 							if ( ! alt || '' === alt ) {
 								el.setAttribute( 'alt', title );
 								el.removeAttribute( 'title' );
@@ -181,9 +181,9 @@
 						case 'A':
 						case 'BUTTON':
 							// If link or button has contained text or an img with alt, remove title. Otherwise, set title as aria-label unless element already has aria-label.
-							var linkText = wpaElementText(el);
+							let linkText = wpaElementText(el);
 							if ( ! linkText || '' === linkText ) {
-								var ariaLabel = el.getAttribute( 'aria-label' );
+								let ariaLabel = el.getAttribute( 'aria-label' );
 								if ( ! ariaLabel || '' === ariaLabel ) {
 									el.setAttribute( 'aria-label', title );
 									if ( ! noremove ) {
@@ -199,16 +199,16 @@
 						case 'SELECT':
 						case 'TEXTAREA':
 							// If input field has an aria-label, aria-labelledby, associated label, or wrapping label, remove title. Else, add title as aria-label.
-							var ariaLabel        = el.getAttribute( 'aria-label' );
-							var ariaLabelled     = el.getAttribute( 'aria-labelledby' );
-							var ariaLabeller     = ( ariaLabelled ) ? document.getElementById( ariaLabelled ) : false;
-							var labelId          = el.getAttribute( 'id' );
-							var label            = ( labelId ) ? document.querySelector( 'label[for="' + labelId + '"]' ) : false;
-							var parentLabel      = el.closest( 'label' );
-							var hasAriaLabel     = ( ariaLabel && '' !== ariaLabel ) ? true : false;
-							var hasRealLabel     = ( label && '' !== wpaElementText( label ) ) ? true : false;
-							var hasImplicitLabel = ( parentLabel && '' !== wpaElementText( parentLabel ) ) ? true : false;
-							var hasAriaLabelled  = ( ariaLabeller && '' !== wpaElementText( arialabeller ) ) ? true : false;
+							let ariaLabel        = el.getAttribute( 'aria-label' );
+							let ariaLabelled     = el.getAttribute( 'aria-labelledby' );
+							let ariaLabeller     = ( ariaLabelled ) ? document.getElementById( ariaLabelled ) : false;
+							let labelId          = el.getAttribute( 'id' );
+							let label            = ( labelId ) ? document.querySelector( 'label[for="' + labelId + '"]' ) : false;
+							let parentLabel      = el.closest( 'label' );
+							let hasAriaLabel     = ( ariaLabel && '' !== ariaLabel ) ? true : false;
+							let hasRealLabel     = ( label && '' !== wpaElementText( label ) ) ? true : false;
+							let hasImplicitLabel = ( parentLabel && '' !== wpaElementText( parentLabel ) ) ? true : false;
+							let hasAriaLabelled  = ( ariaLabeller && '' !== wpaElementText( arialabeller ) ) ? true : false;
 							if ( hasAriaLabel || hasRealLabel || hasImplicitLabel || hasAriaLabelled ) {
 								// This has a label.
 								el.removeAttribute( 'title' );
@@ -239,17 +239,17 @@
 	}
 
 	if ( wpa.target ) {
-		var targeted      = document.querySelectorAll('a:not(.wpa-allow-target)');
-		var targetRemoved = 0;
+		let targeted      = document.querySelectorAll('a:not(.wpa-allow-target)');
+		let targetRemoved = 0;
 		if ( targeted.length !== 0 ) {
 			targeted.forEach( (el) => {
-				var target   = el.getAttribute( 'target' );
-				var href     = el.getAttribute( 'href' );
+				let target   = el.getAttribute( 'target' );
+				let href     = el.getAttribute( 'href' );
 
 				if ( target ) {
 					try {
-						var url      = new URL( href );
-						var hostname = url.hostname;
+						let url      = new URL( href );
+						let hostname = url.hostname;
 						if ( ! hostname.includes( 'facebook' ) ) {
 							el.removeAttr( 'target' );
 							targetRemoved++;
@@ -268,11 +268,11 @@
 
 	if ( wpa.tabindex ) {
 		// Remove tabindex from elements that should be natively focusable.
-		var focusable  = document.querySelectorAll('input,a[href],select,textarea,button');
-		var tabRemoved = 0;
+		let focusable  = document.querySelectorAll('input,a[href],select,textarea,button');
+		let tabRemoved = 0;
 		if ( focusable.length !== 0 ) {
 			focusable.forEach( (el) => {
-				var tabindex = el.getAttribute('tabindex');
+				let tabindex = el.getAttribute('tabindex');
 				if ( tabindex ) {
 					el.removeAttribute('tabindex');
 					tabRemoved++;
@@ -286,8 +286,8 @@
 		}
 
 		// Add tabindex to elements that appear active but are not natively focusable.
-		var fakeButtons = document.querySelectorAll( '[role="button"]:not([tabindex]):not(a)' ); // $('div[role="button"]').not('div[tabindex]' );
-		var buttonLinks = document.querySelectorAll( 'a[role="button"]:not([tabindex]):not([href])'); // $('a[role="button"]').not('a[tabindex],a[href]');
+		let fakeButtons = document.querySelectorAll( '[role="button"]:not([tabindex]):not(a)' ); // $('div[role="button"]').not('div[tabindex]' );
+		let buttonLinks = document.querySelectorAll( 'a[role="button"]:not([tabindex]):not([href])'); // $('a[role="button"]').not('a[tabindex],a[href]');
 		if ( fakeButtons.length !== 0 ) {
 			fakeButtons.forEach( (el) => {
 				el.setAttribute( 'tabindex', '0' );
@@ -330,13 +330,14 @@
 		let contrastButton = document.querySelector( '.toggle-contrast' );
 		if ( contrastButton ) {
 			contrastButton.addEventListener('click', function () {
+				let event;
 				// This fires after the contrast change happens, and the ID is already changed.
 				if ( this.getAttribute( 'id' ) == "is_normal_contrast") {
 					// high contrast turned on.
-					var event = {'contrast' : 'disabled'};
+					event = {'contrast' : 'disabled'};
 				} else {
 					// high contrast turned off.
-					var event = {'contrast' : 'enabled'};
+					event = {'contrast' : 'enabled'};
 				}
 				logStats(event,fingerprint);
 			});
@@ -345,13 +346,14 @@
 		let fontsizeButton = document.querySelector( '.toggle-contrast' );
 		if ( fontsizeButton ) {
 			fontsizeButton.addEventListener('click', function () {
+				let event;
 				// This fires after the fontsize change happens, and the ID is already changed.
 				if ( this.getAttribute( 'id' ) == "is_normal_fontsize") {
 					// fontsizes turned on.
-					var event = {'fontsize' : 'disabled'};
+					event = {'fontsize' : 'disabled'};
 				} else {
 					// fontsizes turned off.
-					var event = {'fontsize' : 'enabled'};
+					event = {'fontsize' : 'enabled'};
 				}
 				logStats(event,fingerprint);
 			});
@@ -360,11 +362,11 @@
 		waitForElement('.wpa-ld button').then((el) => {
 			el.addEventListener( 'click', function(e) {
 				// For descriptions, we aren't concerned about state changes; just usage.
-				var visible = ( 'true' === el.getAttribute( 'aria-expanded' ) ) ? true : false;
+				let visible = ( 'true' === el.getAttribute( 'aria-expanded' ) ) ? true : false;
 				if ( visible ) {
-					var img      = el.closest( 'div' );
-					var image_id = img.getAttribute( 'class' ).replace( 'wpa-ld wp-image-', '' );
-					var event    = { 'longdesc' : image_id };
+					let img      = el.closest( 'div' );
+					let image_id = img.getAttribute( 'class' ).replace( 'wpa-ld wp-image-', '' );
+					let event    = { 'longdesc' : image_id };
 					logStats(event,fingerprint);
 				}
 			});
@@ -375,11 +377,11 @@
 			altButtons.forEach( (el) => {
 				el.addEventListener( 'click', function(e) {
 					// For alt text, we aren't concerned about state changes; just usage.
-					var visible = ( 'true' === el.getAttribute( 'aria-expanded' ) ) ? true : false;
+					let visible = ( 'true' === el.getAttribute( 'aria-expanded' ) ) ? true : false;
 					if ( visible ) {
-						var img      = el.closest( 'div' );
-						var image_id = img.getAttribute( 'class' ).replace( 'wpa-alt wp-image-', '' );
-						var event    = { 'alttext' : image_id };
+						let img      = el.closest( 'div' );
+						let image_id = img.getAttribute( 'class' ).replace( 'wpa-alt wp-image-', '' );
+						let event    = { 'alttext' : image_id };
 						logStats(event,fingerprint);
 					}
 				});
@@ -395,10 +397,10 @@
 		let targetEls = document.querySelectorAll( wpa.underline.target + ':not(nav ' + wpa.underline.target + ')' );
 		if ( targetEls.length > 0 ) {
 			targetEls.forEach( (el) => {
-				var originalOutline = el.style.outlineWidth;
-				var originalOffset  = el.style.outlineOffset;
-				var textColor       = el.style.color;
-				var originalColor   = el.style.outlineColor;
+				let originalOutline = el.style.outlineWidth;
+				let originalOffset  = el.style.outlineOffset;
+				let textColor       = el.style.color;
+				let originalColor   = el.style.outlineColor;
 				el.style.textDecoration = 'underline';
 				el.addEventListener( 'mouseenter', function() {
 					this.style.textDecoration = 'none';
@@ -407,7 +409,7 @@
 					this.style.textDecoration = 'none';
 				});
 				el.addEventListener( 'focusin', function() {
-					var newOutline = '2px';
+					let newOutline = '2px';
 					if ( originalOutline == '2px' ) {
 						newOutline = '4px';
 					}
@@ -474,7 +476,7 @@
  * Based on work by Roger Johansson https://www.456bereastreet.com/archive/201105/get_element_text_including_alt_text_for_images_with_javascript/
  */
 function wpaElementText(el) {
-	var text = '';
+	let text = '';
 	// Text node (3) or CDATA node (4) - return its text
 	if ( (el.nodeType === 3) || (el.nodeType === 4) ) {
 		text = el.nodeValue;
@@ -487,10 +489,10 @@ function wpaElementText(el) {
 		text = el.getAttribute('alt') || '';
 	// Traverse children unless this is a script or style element
 	} else if ( (el.nodeType === 1) && !el.tagName.match(/^(script|style)$/i) ) {
-		var children = el.childNodes;
-		for (var i = 0, l = children.length; i < l; i++) {
+		let children = el.childNodes;
+		for (let i = 0, l = children.length; i < l; i++) {
 			// If an element has an aria-label, that will override any other contained text.
-			var ariaLabel = el.getAttribute( 'aria-label' );
+			let ariaLabel = el.getAttribute( 'aria-label' );
 			text += ( ariaLabel ) ? ariaLabel : wpaElementText( children[i] ) + ' ';
 		}
 	}
