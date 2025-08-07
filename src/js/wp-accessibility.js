@@ -208,7 +208,7 @@
 							let hasAriaLabel     = ( ariaLabel && '' !== ariaLabel ) ? true : false;
 							let hasRealLabel     = ( label && '' !== wpaElementText( label ) ) ? true : false;
 							let hasImplicitLabel = ( parentLabel && '' !== wpaElementText( parentLabel ) ) ? true : false;
-							let hasAriaLabelled  = ( ariaLabeller && '' !== wpaElementText( arialabeller ) ) ? true : false;
+							let hasAriaLabelled  = ( ariaLabeller && '' !== wpaElementText( ariaLabeller ) ) ? true : false;
 							if ( hasAriaLabel || hasRealLabel || hasImplicitLabel || hasAriaLabelled ) {
 								// This has a label.
 								el.removeAttribute( 'title' );
@@ -286,7 +286,7 @@
 		}
 
 		// Add tabindex to elements that appear active but are not natively focusable.
-		let fakeButtons = document.querySelectorAll( '[role="button"]:not([tabindex]):not(a)' ); // $('div[role="button"]').not('div[tabindex]' );
+		let fakeButtons = document.querySelectorAll( '[role="button"]:not([tabindex]):not(a):not(button)' ); // $('div[role="button"]').not('div[tabindex]' );
 		let buttonLinks = document.querySelectorAll( 'a[role="button"]:not([tabindex]):not([href])'); // $('a[role="button"]').not('a[tabindex],a[href]');
 		if ( fakeButtons.length !== 0 ) {
 			fakeButtons.forEach( (el) => {
