@@ -172,7 +172,7 @@
 						case 'IMG':
 							// If image has alt, remove title. If not, set title as alt.
 							let alt = el.getAttribute( 'alt' );
-							let title = el.getAttribute( 'title' );
+							title = el.getAttribute( 'title' );
 							if ( ! alt || '' === alt ) {
 								el.setAttribute( 'alt', title );
 								el.removeAttribute( 'title' );
@@ -252,15 +252,21 @@
 				let href     = el.getAttribute( 'href' );
 
 				if ( target ) {
-					try {
-						let url      = new URL( href );
-						let hostname = url.hostname;
-						if ( ! hostname.includes( 'facebook' ) ) {
-							el.removeAttr( 'target' );
-							targetRemoved++;
+					// For on-page fragments.
+					if ( href.startsWith( '#') ) {
+						el.removeAttribute( 'target' );
+					} else {
+						try {
+							let url      = new URL( href );
+							let hostname = url.hostname;
+							if ( ! hostname.includes( 'facebook' ) ) {
+								el.removeAttr( 'target' );
+								targetRemoved++;
+							}
+						} catch (exception) {
+
+							// No action; the `href` attribute didn't resolve as a URL.
 						}
-					} catch (exception) {
-						// No action; the `href` attribute didn't resolve as a URL.
 					}
 				}
 			});
