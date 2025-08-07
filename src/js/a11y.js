@@ -69,7 +69,7 @@ function eraseCookie(name) {
 	}
 
 	function desaturate() {
-		body.classList.add( 'desaturated' );
+		html.classList.add( 'desaturated' );
 		let button = toolbar.querySelector( '#is_normal_color' );
 		button.setAttribute( 'id', 'is_grayscale' );
 		button.setAttribute( 'aria-pressed', true );
@@ -77,7 +77,7 @@ function eraseCookie(name) {
 	}
 
 	function resaturate() {
-		body.classList.remove( 'desaturated' );
+		html.classList.remove( 'desaturated' );
 		let button = toolbar.querySelector( '#is_grayscale' );
 		button.setAttribute( 'id', 'is_normal_color' );
 		button.setAttribute( 'aria-pressed', false );

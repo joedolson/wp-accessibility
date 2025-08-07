@@ -129,6 +129,10 @@
 	border-radius: 0 0 0 4px;
 }
 
+html {
+	will-change: filter;
+}
+
 .desaturated {
 	filter: grayscale(1) !important;
 }
