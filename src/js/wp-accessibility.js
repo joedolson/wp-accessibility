@@ -564,8 +564,8 @@
 				el.addEventListener( 'mouseenter', function() {
 					this.style.textDecoration = 'none';
 				});
-				el.addEventListener( 'mouseleve', function() {
-					this.style.textDecoration = 'none';
+				el.addEventListener( 'mouseleave', function() {
+					this.style.textDecoration = 'underline';
 				});
 				el.addEventListener( 'focusin', function() {
 					let newOutline = '2px';
