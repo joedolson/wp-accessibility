@@ -489,14 +489,12 @@ function wpa_enqueue_js() {
 	$dir    = ( is_rtl() ) ? 'rtl' : 'ltr';
 	$lang   = get_bloginfo( 'language' );
 
-	$wpafp = plugins_url( 'js/fingerprint.min.js', __FILE__ );
-	wp_register_script( 'wpa-fingerprintjs', $wpafp, array(), $version );
 	if ( SCRIPT_DEBUG ) {
 		$wpajs = plugins_url( 'js/wp-accessibility.js', __FILE__ );
 	} else {
 		$wpajs = plugins_url( 'js/wp-accessibility.min.js', __FILE__ );
 	}
-	$deps     = array( 'wpa-fingerprintjs' );
+	$deps     = array();
 	$longdesc = ( 'false' !== get_option( 'wpa_longdesc' ) ) ? true : false;
 	if ( $longdesc ) {
 		$deps[] = 'wpa.longdesc';
