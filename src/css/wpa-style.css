@@ -2,7 +2,6 @@
 .wpa-hide-ltr#skiplinks a, .wpa-hide-ltr#skiplinks a:hover, .wpa-hide-ltr#skiplinks a:visited,
 .wpa-hide-rtl#skiplinks a, .wpa-hide-rtl#skiplinks a:hover, .wpa-hide-rtl#skiplinks a:visited {
 	border: 0;
-	clip: rect(1px, 1px, 1px, 1px);
 	clip-path: inset(50%);
 	height: 1px;
 	margin: -1px;
@@ -16,7 +15,6 @@
 .wpa-hide-ltr#skiplinks a:focus,
 .wpa-hide-rtl#skiplinks a:focus {
 	background-color: #eee;
-	clip: auto !important;
 	clip-path: none;
 	color: #444;
 	display: block;
@@ -135,7 +133,6 @@ div.aligncenter.wpa-ld {
 
 label.wpa-screen-reader-text {
 	border: 0;
-	clip: rect(1px, 1px, 1px, 1px);
 	clip-path: inset(50%);
 	height: 1px;
 	margin: -1px;
