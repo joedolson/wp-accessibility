@@ -300,6 +300,7 @@
 		let fakeButtons = document.querySelectorAll( '[role="button"]:not([tabindex]):not(a):not(button)' );
 		let buttonLinks = document.querySelectorAll( 'a[role="button"]:not([tabindex]):not([href])');
 		let fakeLinks = document.querySelectorAll( '[role="link"]:not([tabindex]):not(a)');
+		let linkLinks = document.querySelectorAll( 'a:not([href]):not([tabindex])' );
 		if ( fakeButtons.length !== 0 ) {
 			fakeButtons.forEach( (el) => {
 				el.setAttribute( 'tabindex', '0' );
@@ -328,6 +329,16 @@
 			if ( fakeLinks.length > 0 && ( wpa.errors || wpa.tracking ) ) {
 				errors.push( ['fakelink-add-tabindex', fakeLinks.length] );
 				console.log( buttonLinks.length + ' tabindex attributes added to elements with the link role not using the a element by WP Accessibility' );
+			}
+		}
+		if ( linkLinks !== 0 ) {
+			linkLinks.forEach( (el) => {
+				el.setAttribute( 'tabindex', '0' );
+				el.classList.add('wpa-focusable');
+			});
+			if ( linkLinks.length > 0 && ( wpa.errors || wpa.tracking ) ) {
+				errors.push( ['links-add-tabindex', linkLinks.length] );
+				console.log( buttonLinks.length + ' tabindex attributes added to a with no href attribute by WP Accessibility' );
 			}
 		}
 	}
