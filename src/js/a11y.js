@@ -1,6 +1,5 @@
 /*
- * Chris Rodriguez
- * chris@inathought.com
+ * Originally by Chris Rodriguez. Original: https://github.com/downzer0/a11y-toolbar
  */
 
 // Cookie handler, non-$ style
