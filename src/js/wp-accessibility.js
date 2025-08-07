@@ -74,7 +74,7 @@
 	}
 
 	if ( wpa.skiplinks.enabled ) {
-		body.prepend( wpa.skiplinks.output );
+		body.insertAdjacentHTML( 'afterbegin', wpa.skiplinks.output );
 		if ( wpa.errors || wpa.tracking  ) {
 			errors.push( 'skiplinks' );
 			console.log( 'Skip links added by WP Accessibility' );
