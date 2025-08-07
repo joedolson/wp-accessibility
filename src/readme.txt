@@ -5,7 +5,7 @@ Tags: accessibility, wcag, a11y, section508, alt text
 Requires at least: 5.9
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 2.1.19
+Stable tag: 2.2.0
 Text Domain: wp-accessibility
 License: GPLv3
 
@@ -21,11 +21,11 @@ All features can be disabled according to your theme's needs. For advanced users
 
 = Theme Accessibility Features added by WP Accessibility =
 
-These are features that address issues caused by inaccessible themes. 
+These are features that address issues caused by inaccessible themes.
 
 * Add skip links with user-defined targets. (Customizable targets and appearance.)
 * Add language and text direction attributes to your HTML attribute if missing.
-* Add an outline to the keyboard focus state for focusable elements. 
+* Add an outline to the keyboard focus state for focusable elements.
 * Add a long description to images. Use the image's "Description" field to add long descriptions.
 * Enforcement for alt attributes on images in the Classic editor.
 * Identify images without alt attributes in the Media Library
@@ -36,7 +36,7 @@ These are features that address issues caused by inaccessible themes.
 
 = WordPress Core Accessibility Issues fixed by WP Accessibility =
 
-These are features that address issues caused by current or past WordPress core accessibility issues. (Issues added in content, such as target or title attributes, are persistent even when WordPress is updated.) 
+These are features that address issues caused by current or past WordPress core accessibility issues. (Issues added in content, such as target or title attributes, are persistent even when WordPress is updated.)
 
 * Force a search page error when a search is made with an empty text string. (If your theme has a search.php template.)
 * Remove redundant title attributes from tag clouds.
@@ -44,7 +44,7 @@ These are features that address issues caused by current or past WordPress core 
 
 Content specific fixes:
 
-* Strip title attributes from images inserted into content. 
+* Strip title attributes from images inserted into content.
 * Remove the target attribute from links.
 
 = Accessibility Tools in WP Accessibility: =
@@ -81,6 +81,22 @@ WP Accessibility includes a statistics collection feature to help you identify h
 = Future =
 
 [Suggest a change!](https://github.com/joedolson/wp-accessibility/issues/)
+
+= 2.2.0 =
+
+* Feature: Option for automatic insertion of play/pause button on autoplay videos without controls.
+* Change: Design changes to alt text and long description buttons for consistency.
+* Change: Refactor all front-end JS to remove jQuery dependency.
+* Change: Expand focusable element selector list: more thorough, now does not select the a11y toolbar itself.
+* Change: Add design CSS for longdesc link.
+* Change: Omit buttons with `role="button"` from fake button selector.
+* Change: Keep title attributes on images if they are different from the alt text.
+* Change: Also remove target attributes on URL fragments.
+* Change: Find non-link elements with `role="link"` and make focusable.
+* Change: Make links using `a` with `role="link"` and no href focusable.
+* Change: Add link styles on `role="link"`.
+* Fix: Apply grayscale on `html` element to prevent shifts in position.
+* Fix: Modernize screen reader text classes.
 
 = 2.1.19 =
 
