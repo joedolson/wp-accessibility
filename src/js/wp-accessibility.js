@@ -297,8 +297,9 @@
 		}
 
 		// Add tabindex to elements that appear active but are not natively focusable.
-		let fakeButtons = document.querySelectorAll( '[role="button"]:not([tabindex]):not(a):not(button)' ); // $('div[role="button"]').not('div[tabindex]' );
-		let buttonLinks = document.querySelectorAll( 'a[role="button"]:not([tabindex]):not([href])'); // $('a[role="button"]').not('a[tabindex],a[href]');
+		let fakeButtons = document.querySelectorAll( '[role="button"]:not([tabindex]):not(a):not(button)' );
+		let buttonLinks = document.querySelectorAll( 'a[role="button"]:not([tabindex]):not([href])');
+		let fakeLinks = document.querySelectorAll( '[role="link"]:not([tabindex]):not(a)');
 		if ( fakeButtons.length !== 0 ) {
 			fakeButtons.forEach( (el) => {
 				el.setAttribute( 'tabindex', '0' );
@@ -317,6 +318,16 @@
 			if ( buttonLinks.length > 0 && ( wpa.errors || wpa.tracking ) ) {
 				errors.push( ['link-add-tabindex', buttonLinks.length] );
 				console.log( buttonLinks.length + ' tabindex attributes added to anchor elements with the button role and no href value by WP Accessibility' );
+			}
+		}
+		if ( fakeLinks !== 0 ) {
+			fakeLinks.forEach( (el) => {
+				el.setAttribute( 'tabindex', '0' );
+				el.classList.add('wpa-focusable');
+			});
+			if ( fakeLinks.length > 0 && ( wpa.errors || wpa.tracking ) ) {
+				errors.push( ['fakelink-add-tabindex', fakeLinks.length] );
+				console.log( buttonLinks.length + ' tabindex attributes added to elements with the link role not using the a element by WP Accessibility' );
 			}
 		}
 	}
