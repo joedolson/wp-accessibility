@@ -172,11 +172,14 @@
 						case 'IMG':
 							// If image has alt, remove title. If not, set title as alt.
 							let alt = el.getAttribute( 'alt' );
+							let title = el.getAttribute( 'title' );
 							if ( ! alt || '' === alt ) {
 								el.setAttribute( 'alt', title );
 								el.removeAttribute( 'title' );
 							} else {
-								el.removeAttribute( 'title' );
+								if ( title === alt ) {
+									el.removeAttribute( 'title' );
+								}
 							}
 							images++;
 							break;
