@@ -553,7 +553,7 @@
 	}
 	if ( wpa.underline.enabled ) {
 		// Underline any link not inside a `nav` region. Using JS for this avoids problems with cascade precedence.
-		let targetEls = document.querySelectorAll( wpa.underline.target + ':not(nav ' + wpa.underline.target + ')' );
+		let targetEls = document.querySelectorAll( wpa.underline.target + ':not(nav ' + wpa.underline.target + '), .wpa-focusable[role=link]' );
 		if ( targetEls.length > 0 ) {
 			targetEls.forEach( (el) => {
 				let originalOutline = el.style.outlineWidth;
