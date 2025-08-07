@@ -114,21 +114,23 @@
 						if ( ariaId ) {
 							ariaTarget = document.getElementById( ariaId );
 						}
-						hasAria   = ( '' == aria || 'undefined' == typeof( aria ) ) ? false : true;
-						hasAriaId = ( '' == ariaId || 'undefined' == typeof( ariaId ) ) ? false : true;
+						hasAria   = ( null == aria || '' == aria || 'undefined' == typeof( aria ) ) ? false : true;
+						hasAriaId = ( null == ariaId || '' == ariaId || 'undefined' == typeof( ariaId ) ) ? false : true;
 						// Add label if aria label empty, aria labelledby empty, or aria reference ID does not exist.
-						if ( ( ! hasAria && ! hasAriaId ) || ( ! hasAria && ( hasAriaId && 0 === ariaTarget.length ) ) ) {
+						if ( ( ! hasAria && ! hasAriaId ) || ( ! hasAria && ( hasAriaId && ! ariaTarget ) ) ) {
 							if ( field_id ) {
 								label = document.querySelector( 'label[for=' + field_id + ']' );
-								labelText = label.innerText;
-								if ( label.length && ! labelText ) {
-									label.innerText = wpa.wpalabels[value];
-									if ( wpa.errors || wpa.tracking ) {
-										errors.push( ['empty-label', wpa.wpalabels[value]] );
-										console.log( 'Empty label on ' + wpa.wpalabels[value] + ' added by WP Accessibility' );
+								if ( label ) {
+									labelText = label.innerText;
+									if ( label && ! labelText ) {
+										label.innerText = wpa.wpalabels[value];
+										if ( wpa.errors || wpa.tracking ) {
+											errors.push( ['empty-label', wpa.wpalabels[value]] );
+											console.log( 'Empty label on ' + wpa.wpalabels[value] + ' added by WP Accessibility' );
+										}
 									}
 								}
-								if ( !label.length && !implicit.length ) {
+								if ( !label && !implicit ) {
 									field.insertAdjacentHTML( 'beforebegin', "<label for='" + field_id + "' class='wpa-screen-reader-text'>" + wpa.wpalabels[value] + "</label>" );
 									if ( wpa.errors || wpa.tracking ) {
 										errors.push( ['explicit-label', wpa.wpalabels[value]] );
@@ -136,7 +138,7 @@
 									}
 								}
 							} else {
-								if ( !implicit.length ) {
+								if ( !implicit ) {
 									field.setAttribute( 'id', 'wpa_label_' + value );
 									field.insertAdjacentHTML( 'beforebegin', "<label for='wpa_label_" + value + "' class='wpa-screen-reader-text'>" + wpa.wpalabels[value] + "</label>" );
 									if ( wpa.errors || wpa.tracking ) {
