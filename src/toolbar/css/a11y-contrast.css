@@ -15,7 +15,7 @@
 
 /* in browsers that do not support @media, this will be overridden by the items below */
 
-@media screen, projection, tv {
+@media screen {
 
     /* :not(:empty) stops IE5+6 from misinterpreting things it can't understand */
     /* Repeat ALT tags after images (problematic; see Mozilla bug 292116)
@@ -26,13 +26,13 @@
     body > div {
         outline: 1px solid #fff;
     }
-	
+
 	body div.a11y-toolbar {
 		outline: none;
 	}
-	
+
 	body div.a11y-toolbar .offscreen {
-		outline: 1px solid #fff; 
+		outline: 1px solid #fff;
 	}
 
     a, abbr, acronym, address, article, aside, b, basefont, bdi, big,
