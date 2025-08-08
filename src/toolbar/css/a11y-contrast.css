@@ -101,6 +101,16 @@
         background-color: #808080 !important;
     }
 
+	img.transparent-dark {
+        background: #fff !important;
+        background-color: #fff !important;
+	}
+
+	img.transparent-light {
+        background: #000 !important;
+        background-color: #000 !important;
+	}
+
     button {
         background: #600040 !important;
         background-color: #600040 !important;
