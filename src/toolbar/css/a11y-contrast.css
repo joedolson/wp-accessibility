@@ -15,7 +15,6 @@
 
 @media screen {
 
-    /* :not(:empty) stops IE5+6 from misinterpreting things it can't understand */
     /* Repeat ALT tags after images (problematic; see Mozilla bug 292116)
     (2005: commenting this out for now because more trouble than it's worth;
     only Mozilla 1.0 does it properly; later versions and Firefox don't)
@@ -376,80 +375,80 @@
         -webkit-appearance: textfield !important;
     }
 
-    :not(:empty) a:after, :not(:empty) a:before, :not(:empty) abbr:after,
-    :not(:empty) abbr:before, :not(:empty) acronym:after, :not(:empty)
-    acronym:before, :not(:empty) address:after, :not(:empty)
-    address:before, :not(:empty) article:after, :not(:empty)
-    article:before, :not(:empty) aside:after, :not(:empty) aside:before,
-    :not(:empty) b:after, :not(:empty) b:before, :not(:empty)
-    basefont:after, :not(:empty) basefont:before, :not(:empty) bdi:after,
-    :not(:empty) bdi:before, :not(:empty) big:after, :not(:empty)
-    big:before, :not(:empty) blink:after, :not(:empty) blink:before,
-    :not(:empty) blockquote:after, :not(:empty) blockquote:before,
-    :not(:empty) body:after, :not(:empty) body:before, :not(:empty)
-    button:after, :not(:empty) button:before, :not(:empty) canvas:after,
-    :not(:empty) canvas:before, :not(:empty) caption:after, :not(:empty)
-    caption:before, :not(:empty) center:after, :not(:empty) center:before,
-    :not(:empty) cite:after, :not(:empty) cite:before, :not(:empty)
-    code:after, :not(:empty) code:before, :not(:empty) col:after,
-    :not(:empty) col:before, :not(:empty) colgroup:after, :not(:empty)
-    colgroup:before, :not(:empty) command:after, :not(:empty)
-    command:before, :not(:empty) dd:after, :not(:empty) dd:before,
-    :not(:empty) details:after, :not(:empty) details:before, :not(:empty)
-    dfn:after, :not(:empty) dfn:before, :not(:empty) dir:after,
-    :not(:empty) dir:before, :not(:empty) div:after, :not(:empty)
-    div:before, :not(:empty) dl:after, :not(:empty) dl:before,
-    :not(:empty) dt:after, :not(:empty) dt:before, :not(:empty) em:after,
-    :not(:empty) em:before, :not(:empty) embed:after, :not(:empty)
-    embed:before, :not(:empty) fieldset:after, :not(:empty)
-    fieldset:before, :not(:empty) figcaption:after, :not(:empty)
-    figcaption:before, :not(:empty) figure:after, :not(:empty)
-    figure:before, :not(:empty) font:after, :not(:empty) font:before,
-    :not(:empty) footer:after, :not(:empty) footer:before, :not(:empty)
-    form:after, :not(:empty) form:before, :not(:empty) h1:after,
-    :not(:empty) h1:before, :not(:empty) h2:after, :not(:empty) h2:before,
-    :not(:empty) h3:after, :not(:empty) h3:before, :not(:empty) h4:after,
-    :not(:empty) h4:before, :not(:empty) h5:after, :not(:empty) h5:before,
-    :not(:empty) h6:after, :not(:empty) h6:before, :not(:empty)
-    header:after, :not(:empty) header:before, :not(:empty) hgroup:after,
-    :not(:empty) hgroup:before, :not(:empty) html:after, :not(:empty)
-    html:before, :not(:empty) i:after, :not(:empty) i:before, :not(:empty)
-    iframe:after, :not(:empty) iframe:before, :not(:empty) img:after,
-    :not(:empty) img:before, :not(:empty) input:after, :not(:empty)
-    input:before, :not(:empty) kbd:after, :not(:empty) kbd:before,
-    :not(:empty) label:after, :not(:empty) label:before, :not(:empty)
-    legend:after, :not(:empty) legend:before, :not(:empty) li:after,
-    :not(:empty) li:before, :not(:empty) listing:after, :not(:empty)
-    listing:before, :not(:empty) mark:after, :not(:empty) mark:before,
-    :not(:empty) marquee:after, :not(:empty) marquee:before, :not(:empty)
-    menu:after, :not(:empty) menu:before, :not(:empty) meter:after,
-    :not(:empty) meter:before, :not(:empty) multicol:after, :not(:empty)
-    multicol:before, :not(:empty) nav:after, :not(:empty) nav:before,
-    :not(:empty) nobr:after, :not(:empty) nobr:before, :not(:empty)
-    object:after, :not(:empty) object:before, :not(:empty) ol:after,
-    :not(:empty) ol:before, :not(:empty) option:after, :not(:empty)
-    option:before, :not(:empty) p:after, :not(:empty) p:before,
-    :not(:empty) plaintext:after, :not(:empty) plaintext:before,
-    :not(:empty) pre:after, :not(:empty) pre:before, :not(:empty)
-    progress:after, :not(:empty) progress:before, :not(:empty) q:after,
-    :not(:empty) q:before, :not(:empty) s:after, :not(:empty) s:before,
-    :not(:empty) section:after, :not(:empty) section:before, :not(:empty)
-    select:after, :not(:empty) select:before, :not(:empty) small:after,
-    :not(:empty) small:before, :not(:empty) span:after, :not(:empty)
-    span:before, :not(:empty) strike:after, :not(:empty) strike:before,
-    :not(:empty) strong:after, :not(:empty) strong:before, :not(:empty)
-    sub:after, :not(:empty) sub:before, :not(:empty) summary:after,
-    :not(:empty) summary:before, :not(:empty) sup:after, :not(:empty)
-    sup:before, :not(:empty) table:after, :not(:empty) table:before,
-    :not(:empty) td:after, :not(:empty) td:before, :not(:empty)
-    textarea:after, :not(:empty) textarea:before, :not(:empty) th:after,
-    :not(:empty) th:before, :not(:empty) time:after, :not(:empty)
-    time:before, :not(:empty) tr:after, :not(:empty) tr:before,
-    :not(:empty) tt:after, :not(:empty) tt:before, :not(:empty) u:after,
-    :not(:empty) u:before, :not(:empty) ul:after, :not(:empty) ul:before,
-    :not(:empty) var:after, :not(:empty) var:before, :not(:empty)
-    xmp:after, :not(:empty) xmp:before, :root:not(HTML), :root:not(HTML)
-    :not(:empty), .wp-block-group, .has-text-color {
+    a:after, a:before, abbr:after,
+    abbr:before, acronym:after,
+    acronym:before, address:after,
+    address:before, article:after,
+    article:before, aside:after, aside:before,
+    b:after, b:before,
+    basefont:after, basefont:before, bdi:after,
+    bdi:before, big:after,
+    big:before, blink:after, blink:before,
+    blockquote:after, blockquote:before,
+    body:after, body:before,
+    button:after, button:before, canvas:after,
+    canvas:before, caption:after,
+    caption:before, center:after, center:before,
+    cite:after, cite:before,
+    code:after, code:before, col:after,
+    col:before, colgroup:after,
+    colgroup:before, command:after,
+    command:before, dd:after, dd:before,
+    details:after, details:before,
+    dfn:after, dfn:before, dir:after,
+    dir:before, div:after,
+    div:before, dl:after, dl:before,
+    dt:after, dt:before, em:after,
+    em:before, embed:after,
+    embed:before, fieldset:after,
+    fieldset:before, figcaption:after,
+    figcaption:before, figure:after,
+    figure:before, font:after, font:before,
+    footer:after, footer:before,
+    form:after, form:before, h1:after,
+    h1:before, h2:after, h2:before,
+    h3:after, h3:before, h4:after,
+    h4:before, h5:after, h5:before,
+    h6:after, h6:before,
+    header:after, header:before, hgroup:after,
+    hgroup:before, html:after,
+    html:before, i:after, i:before,
+    iframe:after, iframe:before, img:after,
+    img:before, input:after,
+    input:before, kbd:after, kbd:before,
+    label:after, label:before,
+    legend:after, legend:before, li:after,
+    li:before, listing:after,
+    listing:before, mark:after, mark:before,
+    marquee:after, marquee:before,
+    menu:after, menu:before, meter:after,
+    meter:before, multicol:after,
+    multicol:before, nav:after, nav:before,
+    nobr:after, nobr:before,
+    object:after, object:before, ol:after,
+    ol:before, option:after,
+    option:before, p:after, p:before,
+    plaintext:after, plaintext:before,
+    pre:after, pre:before,
+    progress:after, progress:before, q:after,
+    q:before, s:after, s:before,
+    section:after, section:before,
+    select:after, select:before, small:after,
+    small:before, span:after,
+    span:before, strike:after, strike:before,
+    strong:after, strong:before,
+    sub:after, sub:before, summary:after,
+    summary:before, sup:after,
+    sup:before, table:after, table:before,
+    td:after, td:before,
+    textarea:after, textarea:before, th:after,
+    th:before, time:after,
+    time:before, tr:after, tr:before,
+    tt:after, tt:before, u:after,
+    u:before, ul:after, ul:before,
+    var:after, var:before,
+    xmp:after, xmp:before, :root:not(HTML), :root:not(HTML)
+   , .wp-block-group, .has-text-color {
         background: black !important;
         background-color: black !important;
         background-image: none !important;
@@ -468,7 +467,7 @@
         background-color: #404040 !important;
     }
 
-    :root:not(HTML) slider:not(:empty) {
+    :root:not(HTML) slider{
         background: #301090 !important;
         background-color: #301090 !important;
     }
@@ -510,37 +509,37 @@
         border: thin solid #FFFF80 !important;
     }
 
-    :not(:empty) li#menuNavigation.iconOnly > a > span.icon:after {
+    li#menuNavigation.iconOnly > a > span.icon:after {
         content: "Navigation";
         text-transform: none;
     }
 
-    :not(:empty) li#menuSearchHitNext.iconOnly > a > span.icon:after {
+    li#menuSearchHitNext.iconOnly > a > span.icon:after {
         content: "Next hit";
         text-transform: none !important;
     }
 
-    :not(:empty) li#menuToolsPreferences.iconOnly > a > span.icon:after {
+    li#menuToolsPreferences.iconOnly > a > span.icon:after {
         content: "Preferences";
         text-transform: none;
     }
 
-    :not(:empty) div.resultNavControls > ul > li.resultNavLeft > a > span:after {
+    div.resultNavControls > ul > li.resultNavLeft > a > span:after {
         content: "<- Prev";
         text-transform: none;
     }
 
-    :not(:empty) div.resultNavControls > ul > li.resultNavRight > a > span:after {
+    div.resultNavControls > ul > li.resultNavRight > a > span:after {
         content: "Next ->";
         text-transform: none;
     }
 
-    :not(:empty) div.resultNavControls > ul > li.resultNavDoubleLeft > a > span:after {
+    div.resultNavControls > ul > li.resultNavDoubleLeft > a > span:after {
         content: "<<- Backwd";
         text-transform: none;
     }
 
-    :not(:empty) div.resultNavControls > ul > li.resultNavDoubleRight > a > span:after {
+    div.resultNavControls > ul > li.resultNavDoubleRight > a > span:after {
         content: "Fwd ->>";
         text-transform: none;
     }
