@@ -298,6 +298,7 @@
     a:visited:hover tt, a:visited:hover u, a:visited:hover var {
         background: #400000 !important;
         background-color: #400000 !important;
+		outline: 1px solid #00FFFF !important;
     }
 
     a:link:active, a:link:active abbr, a:link:active acronym,
@@ -569,7 +570,7 @@
     }
 
     :focus {
-        outline: thin dotted;
+        outline: medium dotted !important;
     }
 }
 
