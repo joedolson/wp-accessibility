@@ -1,5 +1,3 @@
-@import url(chrome://flashblock/content/flashblock.css);
-
 /* Some versions of IE ignore the first entry so: */
 .placebo {
     line-height: normal;
@@ -579,7 +577,8 @@
     }
 
     * {
-        -webkit-box-shadow: none !important;
+		box-shadow: none !important;
+		-webkit-box-shadow: none !important;
     }
 
     :focus {
@@ -588,21 +587,6 @@
 }
 
 /* end of @media block */
-
-::-webkit-input-placeholder {
-    color: #fff;
-}
-
-:-moz-placeholder {
-    /* Firefox 18- */
-    color: #fff;
-}
-
-::-moz-placeholder {
-    /* Firefox 19+ */
-    color: #fff;
-}
-
-:-ms-input-placeholder {
-    color: #fff;
+::placeholder {
+	color: #fff;
 }
