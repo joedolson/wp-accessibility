@@ -625,6 +625,242 @@
 			});
 		}
 	}
+
+	if ( wpa.alt ) {
+		let selector = ( wpa.altSelector ) ? wpa.altSelector : '.hentry img[alt]:not([alt=""]), .comment-content img[alt]:not([alt=""]), #content img[alt]:not([alt=""]),.entry-content img[alt]:not([alt=""])';
+		let collection = document.querySelectorAll(  selector );
+		let wrap = (elem, wrapper) => {
+			elem.parentElement.insertBefore(wrapper, elem);
+			wrapper.appendChild(elem);
+		};
+		collection.forEach((el) => {
+			let img       = el;
+			let closestLink   = img.closest( 'a' );
+			let closestButton = img.closest( 'button' );
+			let inLink    = ( closestLink ) ? true : false;
+			let inButton  = ( closestButton ) ? true : false;
+			let width     = img.width;
+			let height    = img.height;
+			if ( width || height ) {
+				width    = ( ! width ) ? 56 : width; // Enough width for button to be visible.
+				height   = ( ! height ) ? 56 : height; // Enough height for button & first line to be visible.
+				let area = height * width;
+				if ( area < ( 150 * 300 ) ) {
+					// Small images won't get displayed alt text containers.
+					return;
+				}
+			}
+			let alt = img.getAttribute('alt');
+
+			let classes = [...img.classList];
+			img.setAttribute('class', '');
+			let elContainer = document.createElement( 'div' );
+			elContainer.classList.add( 'wpa-alt' );
+			if ( inLink || inButton ) {
+				let wrapper = ( inLink ) ? closestLink : closestButton;
+				wrap( wrapper, elContainer );
+			} else {
+				wrap( img, elContainer );
+			}
+			classes.forEach(className => {
+				elContainer.classList.add(className);
+			});
+
+			elContainer.insertAdjacentHTML('afterbegin', '<button aria-expanded="false" type="button" class="wpa-toggle">alt</button>');
+			elContainer.insertAdjacentHTML('beforeend', '<div class="wpa-alt-text"></div>');
+			let container = elContainer.querySelector('.wpa-alt-text');
+			container.style.display = 'none';
+			container.innerText = alt;
+			let button = elContainer.querySelector('button');
+			button.addEventListener( 'click', function(e) {
+				let visible = container.checkVisibility();
+				if ( visible ) {
+					this.setAttribute( 'aria-expanded', 'false' );
+					container.style.display = 'none';
+				} else {
+					this.setAttribute( 'aria-expanded', 'true' );
+					container.style.display = 'block';
+				}
+			});
+		});
+	}
+
+	if ( wpa.ldType ) {
+		let wrap = (elem, wrapper) => {
+			elem.parentElement.insertBefore(wrapper, elem);
+			wrapper.appendChild(elem);
+		};
+
+		let longDescImgs = document.querySelectorAll( 'img[longdesc]' );
+		if ( 'link' === wpa.ldType ) {
+			// Links with an actual longdesc attribute.
+			if ( longDescImgs.length > 0 ) {
+				longDescImgs.forEach( (el) => {
+					let wrapper = document.createElement( 'div' );
+					wrapper.classList.add( 'wpa-ld' );
+					let longdesc = el.getAttribute('longdesc');
+					let alt = el.getAttribute('alt');
+					let classes = [...img.classList];
+					wrap(el,wrapper);
+					classes.forEach(className => {
+						wrapper.classList.add(className);
+					});
+					el.setAttribute('class', '');
+					let newLink = document.createElement( 'a' );
+					newLink.setAttribute( 'href', longdesc );
+					newLink.classList.add( 'longdesc-link' );
+					newLink.innerHTML = 'Description<span class="screen-reader-text"> of' + alt + '</span>';
+					el.insertAdjacentElement( 'afterend', newLink );
+				});
+			}
+			// Links with the block style.
+			let hasStyleLongdesc = document.querySelectorAll( 'figure.is-style-longdesc' );
+			if ( hasStyleLongdesc.length > 0 ) {
+				hasStyleLongdesc.forEach( (el) => {
+					let img = el.querySelector( 'img' );
+					wpa_load_image_control( img );
+				});
+			}
+
+		} else {
+			// Handle longdescriptions with buttons.
+			if ( longDescImgs.length > 0 ) {
+				longDescImgs.forEach( (el) => {
+					wrap( el, wrapper );
+					let longdesc = el.getAttribute('longdesc');
+					let class_array = el.getAttribute('class').match(/\S+/g);
+					let image_id = '';
+					class_array.forEach( (clas) => {
+						if ( clas.match( /wp-image-/gi ) ) {
+							image_id = clas;
+						}
+						wrapper.classList.add( clas );
+					});
+
+					// Secondary check for image ID, if not in classes.
+					if ( '' === image_id ) {
+						let imgId = el.getAttribute( 'id' );
+						image_id = imgId.replace( 'longdesc-return-', '' );
+					}
+					el.setAttribute('class', '');
+					wrapper.insertAdjacentHTML( 'beforeend', '<button aria-expanded="false" type="button" class="wpa-toggle">' + wpa.ldText + '</button>');
+					wrapper.insertAdjacentHTML('<div class="longdesc"></div>');
+					let container = wrapper.querySelector('.longdesc');
+					container.style.display = 'none';
+
+					container.load( longdesc + ' #desc_' + image_id );
+					wrapper.querySelector('button').addEventListener( 'click', function() {
+						let visible = container.checkVisibility();
+						if ( visible ) {
+							this.setAttribute( 'aria-expanded', 'false' );
+							container.style.display = 'none';
+						} else {
+							this.setAttribute( 'aria-expanded', 'true' );
+							container.style.display = 'block';
+						}
+					});
+				});
+			}
+
+			// Links with the block style.
+			let hasStyleLongdesc = document.querySelectorAll( 'figure.is-style-longdesc' );
+			if ( hasStyleLongdesc.length > 0 ) {
+				hasStyleLongdesc.forEach( (el) => {
+					let img = el.querySelector( 'img' );
+					wpa_load_image_control( img );
+				});
+			}
+		}
+
+		function wpa_load_image_control( img ) {
+			let classes = img.getAttribute( 'class' );
+			if ( null === classes || '' === classes ) {
+				parent  = img.closest( '.wpa-alt' );
+				classes = parent.getAttribute( 'class' ).replace( 'wpa-alt ', '' );
+			}
+			let id = classes.replace( 'wp-image-', '' );
+			let api = wpa.restUrl + '/' + id;
+			fetch( api )
+				.then( response => response.json())
+				.then(data => {
+					let rawdesc = data.description.rendered;
+					rawdesc = rawdesc.replace(/(<([^>]+)>)/gi, '').trim();
+					if ( '' !== rawdesc ) {
+						let url = new URL( wpa.ldHome );
+						url.searchParams.set( 'longdesc', id );
+						url.searchParams.set( 'p', id );
+						url.toString();
+						wpa_draw_longdesc( img, id, url, rawdesc );
+					}
+				})
+				.catch( error => {
+					console.log( error );
+				});
+		}
+
+		function wpa_draw_longdesc( img, image_id, longdesc, rawdesc ) {
+			let wrapper = document.createElement( 'div' );
+			wrapper.classList.add( 'wpa-ld' );
+			let alt = img.getAttribute('alt');
+			if ( '' === alt ) {
+				alt = '<code>' + img.getAttribute('src').replace( wpa.ldHome, '' ) + '</code>';
+			}
+			let post_classes = document.body.className.split(/\s+/);
+			let post_id = '';
+
+			post_classes.forEach( (value) => {
+				if ( value.match( /postid-/gi ) ) {
+					post_id = value.replace( 'postid-', '', value );
+				}
+				if ( value.match( /page-id-/gi ) ) {
+					post_id = value.replace( 'page-id-', '', value );
+				}
+			});
+			let url = new URL(longdesc);
+			url.searchParams.set( 'referrer', post_id );
+			url.toString();
+			let classes = [...img.classList];
+			classes.forEach( (c) => {
+				wrapper.classList.add(c);
+			});
+			wrap( img, wrapper );
+
+			img.setAttribute('alt', '');
+			img.setAttribute('class', '');
+			if ( 'link' === wpa.ldType ) {
+				wrapper.insertAdjacentHTML( 'beforeend', '<a href="' + url + '" class="longdesc-link">Description<span class="screen-reader-text"> of ' + alt + '</span></a>');
+			} else {
+				wrapper.insertAdjacentHTML( 'beforeend', '<button aria-expanded="false" class="wpa-toggle">' + wpa.ldText + '</button>');
+				wrapper.insertAdjacentHTML( 'beforeend', '<div class="longdesc"></div>');
+				let container = wrapper.querySelector('.longdesc');
+				container.style.display = 'none';
+
+				fetch( longdesc )
+					.then( response => {
+						if ( response.ok ) {
+							return response.text();
+						} else {
+							container.insertAdjacentHTML( 'beforeend', rawdesc );
+						}
+					}).then (html => {
+						const parser = new DOMParser();
+						const doc = parser.parseFromString( html, "text/html" );
+						container.insertAdjacentElement( 'beforeend', doc.querySelector( '#desc_' + image_id ) );
+					});
+
+				wrapper.querySelector('button').addEventListener( 'click', function(e) {
+					let visible = container.checkVisibility();
+					if ( visible ) {
+						this.setAttribute( 'aria-expanded', 'false' );
+						container.style.display = 'none';
+					} else {
+						this.setAttribute( 'aria-expanded', 'true' );
+						container.style.display = 'block';
+					}
+				});
+			}
+		}
+	}
 })();
 
 /**

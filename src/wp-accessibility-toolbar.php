@@ -39,17 +39,6 @@ function wpa_register_scripts() {
 			'strategy'  => 'defer',
 		)
 	);
-	$wpaui = ( SCRIPT_DEBUG ) ? plugins_url( 'js/a11y.js', __FILE__ ) : plugins_url( 'js/a11y.min.js', __FILE__ );
-	wp_register_script(
-		'ui-a11y',
-		$wpaui,
-		array(),
-		$wpa_version,
-		array(
-			'in_footer' => true,
-			'strategy'  => 'defer',
-		)
-	);
 }
 
 add_action( 'wp_enqueue_scripts', 'wpa_toolbar_enqueue_scripts' );
@@ -58,13 +47,13 @@ add_action( 'wp_enqueue_scripts', 'wpa_toolbar_enqueue_scripts' );
  */
 function wpa_toolbar_enqueue_scripts() {
 	$wpa_version = ( SCRIPT_DEBUG ) ? wp_rand( 10000, 100000 ) : wpa_check_version();
-	wp_enqueue_script( 'jquery' );
 	if ( 'on' === get_option( 'wpa_toolbar' ) ) {
 		// Enqueue Toolbar JS if enabled.
 		wp_enqueue_script( 'wpa-toolbar' );
 		wp_localize_script( 'wpa-toolbar', 'wpatb', wpa_toolbar_js() );
+	} else {
+		return;
 	}
-	wp_enqueue_script( 'ui-a11y' );
 
 	// High Contrast CSS.
 	$plugin_path = plugins_url( 'toolbar/css/a11y-contrast.css', __FILE__ );
@@ -74,7 +63,7 @@ function wpa_toolbar_enqueue_scripts() {
 	$plugin_path = array(
 		'path' => add_query_arg( 'version', $wpa_version, $plugin_path ),
 	);
-	wp_localize_script( 'ui-a11y', 'wpa11y', $plugin_path );
+	wp_localize_script( 'wpa-toolbar', 'wpa11y', $plugin_path );
 
 	// Font files for toolbar.
 	wp_register_style( 'ui-font', plugins_url( 'toolbar/fonts/css/a11y-toolbar.css', __FILE__ ), array(), $wpa_version );
@@ -90,7 +79,7 @@ function wpa_toolbar_enqueue_scripts() {
 	 * @return string
 	 */
 	$toolbar_styles = apply_filters( 'wpa_toolbar_css', plugins_url( 'toolbar/css/a11y.css', __FILE__ ) );
-	wp_register_style( 'ui-a11y', $toolbar_styles, array( 'ui-font' ), $wpa_version );
+	wp_register_style( 'wpa-toolbar', $toolbar_styles, array( 'ui-font' ), $wpa_version );
 
 	// Font resizing stylesheet.
 	$fontsize_stylesheet = ( 'on' === get_option( 'wpa_alternate_fontsize' ) ) ? 'a11y-fontsize-alt' : 'a11y-fontsize';
@@ -117,10 +106,10 @@ function wpa_toolbar_enqueue_scripts() {
 	$toolbar_size = ( false === stripos( $toolbar_size, 'em' ) ) ? $toolbar_size . 'px' : $toolbar_size;
 	// Only enable styles when required by options.
 	if ( get_option( 'wpa_toolbar_size' ) && 'on' === get_option( 'wpa_toolbar' ) ) {
-		wp_add_inline_style( 'ui-a11y', '.a11y-toolbar ul li button { font-size: ' . $toolbar_size . ' !important; }' );
+		wp_add_inline_style( 'wpa-toolbar', '.a11y-toolbar ul li button { font-size: ' . $toolbar_size . ' !important; }' );
 	}
 	if ( $toolbar_styles && $fontsize ) {
-		wp_enqueue_style( 'ui-a11y' );
+		wp_enqueue_style( 'wpa-toolbar' );
 		wp_enqueue_style( 'ui-fontsize.css' );
 	}
 }
