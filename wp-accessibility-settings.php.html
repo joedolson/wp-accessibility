@@ -228,7 +228,7 @@ function wpa_admin_settings() {
 								&lt;/p>
 								&lt;hr>
 								&lt;form method="post" action="&lt;?php echo admin_url( 'admin.php?page=wp-accessibility' ); ?>">
-									&lt;br>	
+									&lt;br>
 									&lt;fieldset>
 										&lt;legend>&lt;?php _e( 'Configure Skiplinks', 'wp-accessibility' ); ?>&lt;/legend>
 										&lt;ul>
@@ -364,7 +364,7 @@ function wpa_admin_settings() {
 												&lt;select name='wpa_toolbar_size' id='wpa_toolbar_size'>
 													&lt;option value=''>&lt;?php _e( 'Default size', 'wp-accessibility' ); ?>&lt;/option>
 													&lt;?php
-													for ( $i = 1.6; $i &lt;= 3.8; ) {
+													for ( $i = 1.4; $i &lt;= 3.8; ) {
 														$val           = ( $i * 10 ) + 2;
 														$current       = absint( $val );
 														$selected_size = ( $current === $size ) ? ' selected="selected"' : '';
