@@ -382,11 +382,11 @@ function wpa_enqueue_js() {
 	}
 
 	$labels = array(
-		's'       => __( 'Search', 'wp-accessibility' ),
-		'author'  => __( 'Name', 'wp-accessibility' ),
-		'email'   => __( 'Email', 'wp-accessibility' ),
-		'url'     => __( 'Website', 'wp-accessibility' ),
-		'comment' => __( 'Comment', 'wp-accessibility' ),
+		's'       => _x( 'Search', 'Search field label', 'wp-accessibility' ),
+		'author'  => _x( 'Name', 'Commenter name label', 'wp-accessibility' ),
+		'email'   => _x( 'Email', 'Commenter email label', 'wp-accessibility' ),
+		'url'     => _x( 'Website', 'Commenter website label', 'wp-accessibility' ),
+		'comment' => _x( 'Comment', 'Commenter message label', 'wp-accessibility' ),
 	);
 	/**
 	 * Customize labels passed to automatically label core WordPress fields.
@@ -405,7 +405,6 @@ function wpa_enqueue_js() {
 	} else {
 		$wpajs = plugins_url( 'js/wp-accessibility.min.js', __FILE__ );
 	}
-	$alttext = ( 'on' === get_option( 'wpa_show_alt' ) ) ? true : false;
 	wp_enqueue_script(
 		'wp-accessibility',
 		$wpajs,
@@ -435,6 +434,8 @@ function wpa_enqueue_js() {
 	 * @return {string}
 	 */
 	$selector = apply_filters( 'wpa_show_alt_selector', '.hentry img[alt]:not([alt=""]), .comment-content img[alt]:not([alt=""]), #content img[alt]:not([alt=""]),.entry-content img[alt]:not([alt=""])' );
+	$alttext  = ( 'on' === get_option( 'wpa_show_alt' ) ) ? true : false;
+
 	/**
 	 * Filter target element selector for underlines. Default `a`.
 	 *
