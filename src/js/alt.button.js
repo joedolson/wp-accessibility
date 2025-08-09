@@ -12,8 +12,8 @@
 		let closestButton = img.closest( 'button' );
 		let inLink    = ( closestLink ) ? true : false;
 		let inButton  = ( closestButton ) ? true : false;
-		let width     = img.innerWidth;
-		let height    = img.innerHeight;
+		let width     = img.width;
+		let height    = img.height;
 		if ( width || height ) {
 			width    = ( ! width ) ? 56 : width; // Enough width for button to be visible.
 			height   = ( ! height ) ? 56 : height; // Enough height for button & first line to be visible.
