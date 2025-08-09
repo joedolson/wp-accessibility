@@ -431,12 +431,11 @@ function wpa_enqueue_js() {
 	} else {
 		$wpajs = plugins_url( 'js/wp-accessibility.min.js', __FILE__ );
 	}
-	$deps   = array();
 	$alttext = ( 'on' === get_option( 'wpa_show_alt' ) ) ? true : false;
 	wp_enqueue_script(
 		'wp-accessibility',
 		$wpajs,
-		$deps,
+		array(),
 		$version,
 		array(
 			'in_footer' => true,
