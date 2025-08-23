@@ -85,8 +85,9 @@ WP Accessibility includes a statistics collection feature to help you identify h
 = 2.2.0 =
 
 * Feature: Option for automatic insertion of play/pause button on autoplay videos without controls.
-* Change: Design changes to alt text and long description buttons for consistency.
+* Feature: Automatically pause autoplay videos if prefers-reduced-motion enabled.
 * Change: Refactor all front-end JS to remove jQuery dependency.
+* Change: Design changes to alt text and long description buttons for consistency.
 * Change: Expand focusable element selector list: more thorough, now does not select the a11y toolbar itself.
 * Change: Add design CSS for longdesc link.
 * Change: Omit buttons with `role="button"` from fake button selector.
@@ -95,8 +96,8 @@ WP Accessibility includes a statistics collection feature to help you identify h
 * Change: Find non-link elements with `role="link"` and make focusable.
 * Change: Make links using `a` with `role="link"` and no href focusable.
 * Change: Add link styles on `role="link"`.
-* Fix: Apply grayscale on `html` element to prevent shifts in position.
-* Fix: Modernize screen reader text classes.
+* Bug Fix: Apply grayscale on `html` element to prevent shifts in position.
+* Bug Fix: Modernize screen reader text classes.
 
 = 2.1.19 =
 
