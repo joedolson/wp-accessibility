@@ -776,8 +776,8 @@ function wpa_linkedin_promotion() {
 function wpa_edac_promotion( $type = 'large' ) {
 	$pro  = false;
 	$edac = false;
-	if ( function_exists( 'edac_check_plugin_active' ) ) {
-		$pro  = edac_check_plugin_active( 'accessibility-checker-pro/accessibility-checker-pro.php' );
+	if ( defined( 'EDAC_VERSION' ) ) {
+		$pro  = is_plugin_active( 'accessibility-checker-pro/accessibility-checker-pro.php' );
 		$edac = true;
 	}
 	if ( ! $pro ) {
