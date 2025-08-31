@@ -50,7 +50,7 @@ if ( 'off' !== get_option( 'wpa_track_stats' ) ) {
 	require_once __DIR__ . '/wp-accessibility-stats.php';
 }
 
-define( 'WPA_VERSION', '2.2.0' );
+define( 'WP_ACCESSIBILITY_VERSION', '2.2.0' );
 
 register_activation_hook( __FILE__, 'wpa_install' );
 
@@ -113,7 +113,7 @@ function wpa_install() {
  */
 function wpa_check_version() {
 	// upgrade for version 1.3.0.
-	$version = WPA_VERSION;
+	$version = WP_ACCESSIBILITY_VERSION;
 	if ( version_compare( $version, '1.3.0', '<' ) ) {
 		add_option( 'wpa_longdesc', 'button' );
 	}
