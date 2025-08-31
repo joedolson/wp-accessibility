@@ -341,11 +341,11 @@ function wpa_admin_settings() {
 									&lt;div class="wpa-toolbar-settings &lt;?php echo $class; ?>">
 										&lt;ul>
 											&lt;li>
-												&lt;input type="checkbox" id="wpa_toolbar_fs" name="wpa_toolbar_fs" &lt;?php checked( get_option( 'wpa_toolbar_fs', '' ), 'on' ); ?> value='on' />
+												&lt;input type="checkbox" id="wpa_toolbar_fs" name="wpa_toolbar_fs" &lt;?php checked( get_option( 'wpa_toolbar_fs', 'on' ), 'on' ); ?> value='on' />
 												&lt;label for="wpa_toolbar_fs">&lt;?php _e( 'Include Font size button', 'wp-accessibility' ); ?>&lt;/label>
 											&lt;/li>
 											&lt;li>
-												&lt;input type="checkbox" id="wpa_toolbar_ct" name="wpa_toolbar_ct" &lt;?php checked( get_option( 'wpa_toolbar_ct', '' ), 'on' ); ?> value='on' />
+												&lt;input type="checkbox" id="wpa_toolbar_ct" name="wpa_toolbar_ct" &lt;?php checked( get_option( 'wpa_toolbar_ct', 'on' ), 'on' ); ?> value='on' />
 												&lt;label for="wpa_toolbar_ct">&lt;?php _e( 'Include Contrast button', 'wp-accessibility' ); ?>&lt;/label>
 											&lt;/li>
 											&lt;li>
