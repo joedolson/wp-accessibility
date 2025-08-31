@@ -98,6 +98,7 @@ WP Accessibility includes a statistics collection feature to help you identify h
 * Change: Add link styles on `role="link"`.
 * Bug Fix: Apply grayscale on `html` element to prevent shifts in position.
 * Bug Fix: Modernize screen reader text classes.
+* Bug Fix: Change how version number is handled. Automatic updates don't execute activation, so version wasn't getting incremented.
 
 = 2.1.19 =
 
