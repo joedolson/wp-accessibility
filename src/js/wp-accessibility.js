@@ -518,7 +518,7 @@
 			});
 		}
 
-		waitForElement('.wpa-ld button').then((el) => {
+		wpaWaitForElement('.wpa-ld button').then((el) => {
 			el.addEventListener( 'click', function(e) {
 				// For descriptions, we aren't concerned about state changes; just usage.
 				let visible = ( 'true' === el.getAttribute( 'aria-expanded' ) ) ? true : false;
@@ -901,7 +901,7 @@ function wpaElementText(el) {
  * @param {string} selector
  * @returns
  */
-function waitForElement(selector) {
+function wpaWaitForElement(selector) {
     return new Promise(resolve => {
         if (document.querySelector(selector)) {
             return resolve(document.querySelector(selector));
