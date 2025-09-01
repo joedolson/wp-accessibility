@@ -328,7 +328,7 @@
 			});
 			if ( fakeLinks.length > 0 && ( wpa.errors || wpa.tracking ) ) {
 				errors.push( ['fakelink-add-tabindex', fakeLinks.length] );
-				console.log( buttonLinks.length + ' tabindex attributes added to elements with the link role not using the a element by WP Accessibility' );
+				console.log( fakeLinks.length + ' tabindex attributes added to elements with the link role not using the a element by WP Accessibility' );
 			}
 		}
 		if ( linkLinks !== 0 ) {
@@ -338,7 +338,7 @@
 			});
 			if ( linkLinks.length > 0 && ( wpa.errors || wpa.tracking ) ) {
 				errors.push( ['links-add-tabindex', linkLinks.length] );
-				console.log( buttonLinks.length + ' tabindex attributes added to a with no href attribute by WP Accessibility' );
+				console.log( linkLinks.length + ' tabindex attributes added to a with no href attribute by WP Accessibility' );
 			}
 		}
 	}
