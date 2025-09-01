@@ -173,17 +173,19 @@ function wpa_longdesc_add_attr( $html, $id, $caption, $title, $align, $url, $siz
  */
 function wpa_register_block_style() {
 	if ( function_exists( 'register_block_style' ) ) {
-		/**
-		 * Core function. Add reference style for long description.
-		 */
-		register_block_style(
-			'core/image',
-			array(
-				'name'         => 'longdesc',
-				'label'        => __( 'Has Long Description', 'wp-accessibility' ),
-				'style_handle' => 'longdesc-style',
-			)
-		);
+		if ( 'false' !== get_option( 'wpa_longdesc' ) ) {
+			/**
+			 * Core function. Add reference style for long description.
+			 */
+			register_block_style(
+				'core/image',
+				array(
+					'name'         => 'longdesc',
+					'label'        => __( 'Has Long Description', 'wp-accessibility' ),
+					'style_handle' => 'longdesc-style',
+				)
+			);
+		}
 	}
 }
 add_action( 'init', 'wpa_register_block_style' );
