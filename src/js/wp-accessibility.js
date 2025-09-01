@@ -387,7 +387,7 @@
 				}
 			}
 			get() {
-				keys = [];
+				let keys = [];
 				keys.push(navigator.userAgent);
 				keys.push([screen.height, screen.width, screen.colorDepth].join('x'));
 				keys.push(new Date().getTimezoneOffset());
