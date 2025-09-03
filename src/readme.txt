@@ -5,7 +5,7 @@ Tags: accessibility, wcag, a11y, section508, alt text
 Requires at least: 5.9
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 2.2.0
+Stable tag: 2.2.1
 Text Domain: wp-accessibility
 License: GPLv3
 
@@ -81,6 +81,12 @@ WP Accessibility includes a statistics collection feature to help you identify h
 = Future =
 
 [Suggest a change!](https://github.com/joedolson/wp-accessibility/issues/)
+
+= 2.2.1 =
+
+* Bug fix: Undeclared variable in JS.
+* Bug fix: Incorrect variable used to report errors in console.
+* Change: Only add longdesc image block variation if a UI is enabled.
 
 = 2.2.0 =
 
