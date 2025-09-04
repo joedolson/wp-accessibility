@@ -247,8 +247,8 @@ function wpa_stats_action() {
 		if ( ! wp_verify_nonce( $security, 'wpa-stats-action' ) ) {
 			wp_die();
 		}
-		$stats   = json_decode( wp_unslash( $_REQUEST['stats'] ) );
-		$stats   = map_deep( $stats, 'sanitize_text_field' );
+		$stats = json_decode( wp_unslash( $_REQUEST['stats'] ) );
+		$stats = map_deep( $stats, 'sanitize_text_field' );
 		if ( is_object( $stats ) ) {
 			$stats = (array) $stats;
 		}
@@ -716,7 +716,7 @@ function wpa_custom_column( $column_name, $post_id ) {
 				$data  = ( property_exists( $event, 'contrast' ) ) ? 'contrast' : 'fontsize';
 				$icon  = ( 'contrast' === $data ) ? ' aticon aticon-adjust' : ' aticon aticon-font';
 				$label = ( property_exists( $event, 'contrast' ) ) ? __( 'High Contrast', 'wp-accessibility' ) : __( 'Large Font Size', 'wp-accessibility' );
-				// translators: Action taken. High Contrast or Large Font Size.
+
 				$is_contrast = 'contrast' === $data &amp;&amp; property_exists( $event, 'contrast' ) ? true : false;
 				$is_fontsize = 'fontsize' === $data &amp;&amp; property_exists( $event, 'fontsize' ) ? true : false;
 				if ( $is_contrast || $is_fontsize ) {
