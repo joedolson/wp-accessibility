@@ -474,6 +474,7 @@
 		let fingerprint = new Fingerprint().get();
 
 		function logStats(event,fingerprint,type='event') {
+			event = JSON.stringify( event );
 			const data = new FormData();
 			data.append( 'action', wpa.action );
 			data.append( 'security', wpa.security );
@@ -502,7 +503,7 @@
 			});
 		}
 
-		let fontsizeButton = document.querySelector( '.toggle-contrast' );
+		let fontsizeButton = document.querySelector( '.toggle-fontsize' );
 		if ( fontsizeButton ) {
 			fontsizeButton.addEventListener('click', function () {
 				let event;
