@@ -188,13 +188,13 @@ function wpa_toolbar_html( $type = 'widget', $control = 'button' ) {
 &lt;div class="' . $responsive . ' ' . $is_rtl . ' ' . $is_reversed . ' ' . $toolbar_type . '">
 	&lt;ul>';
 	if ( $enable_contrast ) {
-		$toolbar .= '&lt;li>&lt;' . $control_type . ' class="a11y-toggle a11y-toggle-contrast toggle-contrast" id="is_normal_contrast" aria-pressed="false">&lt;span class="offscreen">' . $contrast . '&lt;/span> &lt;span class="aticon aticon-adjust" aria-hidden="true">&lt;/span>&lt;/' . $closure . '>&lt;/li>';
+		$toolbar .= '&lt;li>&lt;' . $control_type . ' class="a11y-toggle a11y-toggle-contrast toggle-contrast" data-id="is_normal_contrast" aria-pressed="false">&lt;span class="offscreen">' . $contrast . '&lt;/span> &lt;span class="aticon aticon-adjust" aria-hidden="true">&lt;/span>&lt;/' . $closure . '>&lt;/li>';
 	}
 	if ( $enable_grayscale ) {
-		$toolbar .= '&lt;li>&lt;' . $control_type . ' class="a11y-toggle a11y-toggle-grayscale toggle-grayscale" id="is_normal_color" aria-pressed="false">&lt;span class="offscreen">' . $grayscale . '&lt;/span> &lt;span class="aticon aticon-tint" aria-hidden="true">&lt;/span>&lt;/' . $closure . '>&lt;/li>';
+		$toolbar .= '&lt;li>&lt;' . $control_type . ' class="a11y-toggle a11y-toggle-grayscale toggle-grayscale" data-id="is_normal_color" aria-pressed="false">&lt;span class="offscreen">' . $grayscale . '&lt;/span> &lt;span class="aticon aticon-tint" aria-hidden="true">&lt;/span>&lt;/' . $closure . '>&lt;/li>';
 	}
 	if ( $enable_fontsize ) {
-		$toolbar .= '&lt;li>&lt;' . $control_type . ' class="a11y-toggle a11y-toggle-fontsize toggle-fontsize" id="is_normal_fontsize" aria-pressed="false">&lt;span class="offscreen">' . $fontsize . '&lt;/span> &lt;span class="aticon aticon-font" aria-hidden="true">&lt;/span>&lt;/' . $closure . '>&lt;/li>';
+		$toolbar .= '&lt;li>&lt;' . $control_type . ' class="a11y-toggle a11y-toggle-fontsize toggle-fontsize" data-id="is_normal_fontsize" aria-pressed="false">&lt;span class="offscreen">' . $fontsize . '&lt;/span> &lt;span class="aticon aticon-font" aria-hidden="true">&lt;/span>&lt;/' . $closure . '>&lt;/li>';
 	}
 	$toolbar .= '
 	&lt;/ul>
