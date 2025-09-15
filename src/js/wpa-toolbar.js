@@ -42,13 +42,13 @@ function eraseCookie(name) {
 
 	insert_a11y_toolbar += '<ul class="a11y-toolbar-list">';
 	if ( wpatb.enable_contrast == 'true' ) {
-		insert_a11y_toolbar += '<li class="a11y-toolbar-list-item"><button type="button" class="a11y-toggle a11y-toggle-contrast toggle-contrast" id="is_normal_contrast" aria-pressed="false"><span class=\"offscreen\">' + wpatb.contrast + '</span><span class="aticon aticon-adjust" aria-hidden="true"></span></button></li>';
+		insert_a11y_toolbar += '<li class="a11y-toolbar-list-item"><button type="button" class="a11y-toggle a11y-toggle-contrast toggle-contrast" data-id="is_normal_contrast" aria-pressed="false"><span class=\"offscreen\">' + wpatb.contrast + '</span><span class="aticon aticon-adjust" aria-hidden="true"></span></button></li>';
 	}
 	if ( wpatb.enable_grayscale == 'true' ) {
-		insert_a11y_toolbar += '<li class="a11y-toolbar-list-item"><button type="button" class="a11y-toggle a11y-toggle-grayscale toggle-grayscale" id="is_normal_color" aria-pressed="false"><span class="offscreen">' + wpatb.grayscale + '</span><span class="aticon aticon-tint" aria-hidden="true"></span></button></li>';
+		insert_a11y_toolbar += '<li class="a11y-toolbar-list-item"><button type="button" class="a11y-toggle a11y-toggle-grayscale toggle-grayscale" data-id="is_normal_color" aria-pressed="false"><span class="offscreen">' + wpatb.grayscale + '</span><span class="aticon aticon-tint" aria-hidden="true"></span></button></li>';
 	}
 	if ( wpatb.enable_fontsize == 'true' ) {
-		insert_a11y_toolbar += '<li class="a11y-toolbar-list-item"><button type="button" class="a11y-toggle a11y-toggle-fontsize toggle-fontsize" id="is_normal_fontsize" aria-pressed="false"><span class="offscreen">' + wpatb.fontsize + '</span><span class="aticon aticon-font" aria-hidden="true"></span></button></li>';
+		insert_a11y_toolbar += '<li class="a11y-toolbar-list-item"><button type="button" class="a11y-toggle a11y-toggle-fontsize toggle-fontsize" data-id="is_normal_fontsize" aria-pressed="false"><span class="offscreen">' + wpatb.fontsize + '</span><span class="aticon aticon-font" aria-hidden="true"></span></button></li>';
 	}
 	insert_a11y_toolbar += '</ul>';
 	a11y_toolbar.classList.add( wpatb.responsive, 'a11y-toolbar', wpatb.is_rtl, wpatb.is_right, wpatb.custom_location );
@@ -98,26 +98,32 @@ let a11yToggle = document.querySelectorAll( '.a11y-toggle' );
 
 	function desaturate() {
 		html.classList.add( 'desaturated' );
-		let button = toolbar.querySelector( '#is_normal_color' );
-		button.setAttribute( 'id', 'is_grayscale' );
-		button.setAttribute( 'aria-pressed', true );
-		button.classList.add( 'active' );
+		let buttons = document.querySelectorAll( '[data-id="is_normal_color"]' );
+		buttons.forEach( (button) => {
+			button.setAttribute( 'data-id', 'is_grayscale' );
+			button.setAttribute( 'aria-pressed', true );
+			button.classList.add( 'active' );
+		});
 	}
 
 	function resaturate() {
 		html.classList.remove( 'desaturated' );
-		let button = toolbar.querySelector( '#is_grayscale' );
-		button.setAttribute( 'id', 'is_normal_color' );
-		button.setAttribute( 'aria-pressed', false );
-		button.classList.remove( 'active' );
+		let buttons = document.querySelectorAll( '[data-id="is_grayscale"]' );
+		buttons.forEach( (button) => {
+			button.setAttribute( 'data-id', 'is_normal_color' );
+			button.setAttribute( 'aria-pressed', false );
+			button.classList.remove( 'active' );
+		});
 	}
 
 	function addHighContrast() {
 		body.classList.add( 'contrast' );
-		let button = toolbar.querySelector( '#is_normal_contrast' );
-		button.setAttribute( 'id', 'is_high_contrast' );
-		button.setAttribute( 'aria-pressed', true );
-		button.classList.add( 'active' );
+		let buttons = document.querySelectorAll( '[data-id="is_normal_contrast"]' );
+		buttons.forEach( (button) => {
+			button.setAttribute( 'data-id', 'is_high_contrast' );
+			button.setAttribute( 'aria-pressed', true );
+			button.classList.add( 'active' );
+		});
 
 		let styles = document.createElement( 'link' );
 		styles.setAttribute( 'href', wpa11y.path );
@@ -128,59 +134,71 @@ let a11yToggle = document.querySelectorAll( '.a11y-toggle' );
 
 	function resetContrast() {
 		body.classList.remove( 'contrast' );
-		let button = toolbar.querySelector( '#is_high_contrast' );
-		button.setAttribute( 'id', 'is_normal_contrast' );
-		button.setAttribute( 'aria-pressed', false );
-		button.classList.remove( 'active' );
+		let buttons = document.querySelectorAll( '[data-id="is_high_contrast"]' );
+		buttons.forEach( (button) => {
+			button.setAttribute( 'data-id', 'is_normal_contrast' );
+			button.setAttribute( 'aria-pressed', false );
+			button.classList.remove( 'active' );
+		});
 		let styles = document.getElementById( 'highContrastStylesheet' );
 		styles.remove();
 	}
 
 	function largeFontSize() {
 		html.classList.add( 'fontsize' );
-		let button = toolbar.querySelector( '#is_normal_fontsize' );
-		button.setAttribute( 'id', 'is_large_fontsize' );
-		button.setAttribute( 'aria-pressed', true );
-		button.classList.add( 'active' );
+		let buttons = document.querySelectorAll( '[data-id="is_normal_fontsize"]' );
+		buttons.forEach( (button) => {
+			button.setAttribute( 'data-id', 'is_large_fontsize' );
+			button.setAttribute( 'aria-pressed', true );
+			button.classList.add( 'active' );
+		});
 	}
 
 	function resetFontSize() {
 		html.classList.remove( 'fontsize' );
-		let button = toolbar.querySelector( '#is_large_fontsize' );
-		button.setAttribute( 'id', 'is_normal_fontsize' );
-		button.setAttribute( 'aria-pressed', false );
-		button.classList.remove( 'active' );
-	}
-
-	const grayscaleButton = document.querySelector( '.toggle-grayscale' );
-	const contrastButton = document.querySelector( '.toggle-contrast' );
-	const fontsizeButton = document.querySelector( '.toggle-fontsize' );
-
-	if ( null !== grayscaleButton ) {
-		grayscaleButton.addEventListener( 'click', function() {
-			if ( this.getAttribute( 'id' ) === 'is_normal_color' ) {
-				desaturate();
-			} else {
-				resaturate();
-			}
+		let buttons = document.querySelectorAll( '[data-id="is_large_fontsize"]' );
+		buttons.forEach( (button) => {
+			button.setAttribute( 'data-id', 'is_normal_fontsize' );
+			button.setAttribute( 'aria-pressed', false );
+			button.classList.remove( 'active' );
 		});
 	}
+
+	const grayscaleButton = document.querySelectorAll( '.toggle-grayscale' );
+	const contrastButton = document.querySelectorAll( '.toggle-contrast' );
+	const fontsizeButton = document.querySelectorAll( '.toggle-fontsize' );
+
+	if ( null !== grayscaleButton ) {
+		grayscaleButton.forEach( (el) => {
+			el.addEventListener( 'click', function() {
+				if ( this.getAttribute( 'data-id' ) === 'is_normal_color' ) {
+					desaturate();
+				} else {
+					resaturate();
+				}
+			});
+		})
+	}
 	if ( null !== contrastButton ) {
-		contrastButton.addEventListener( 'click', function() {
-			if ( this.getAttribute( 'id' ) === 'is_normal_contrast' ) {
-				addHighContrast();
-			} else {
-				resetContrast();
-			}
+		contrastButton.forEach( (el) => {
+			el.addEventListener( 'click', function() {
+				if ( this.getAttribute( 'data-id' ) === 'is_normal_contrast' ) {
+					addHighContrast();
+				} else {
+					resetContrast();
+				}
+			});
 		});
 	}
 	if ( null !== fontsizeButton ) {
-		fontsizeButton.addEventListener( 'click', function() {
-			if ( this.getAttribute( 'id' ) === 'is_normal_fontsize' ) {
-				largeFontSize();
-			} else {
-				resetFontSize();
-			}
+		fontsizeButton.forEach( (el) => {
+			el.addEventListener( 'click', function() {
+				if ( this.getAttribute( 'data-id' ) === 'is_normal_fontsize' ) {
+					largeFontSize();
+				} else {
+					resetFontSize();
+				}
+			});
 		});
 	}
 

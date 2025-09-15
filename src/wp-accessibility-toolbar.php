@@ -162,13 +162,13 @@ function wpa_toolbar_html( $type = 'widget', $control = 'button' ) {
 <div class="' . $responsive . ' ' . $is_rtl . ' ' . $is_reversed . ' ' . $toolbar_type . '">
 	<ul>';
 	if ( $enable_contrast ) {
-		$toolbar .= '<li><' . $control_type . ' class="a11y-toggle a11y-toggle-contrast toggle-contrast" id="is_normal_contrast" aria-pressed="false"><span class="offscreen">' . $contrast . '</span> <span class="aticon aticon-adjust" aria-hidden="true"></span></' . $closure . '></li>';
+		$toolbar .= '<li><' . $control_type . ' class="a11y-toggle a11y-toggle-contrast toggle-contrast" data-id="is_normal_contrast" aria-pressed="false"><span class="offscreen">' . $contrast . '</span> <span class="aticon aticon-adjust" aria-hidden="true"></span></' . $closure . '></li>';
 	}
 	if ( $enable_grayscale ) {
-		$toolbar .= '<li><' . $control_type . ' class="a11y-toggle a11y-toggle-grayscale toggle-grayscale" id="is_normal_color" aria-pressed="false"><span class="offscreen">' . $grayscale . '</span> <span class="aticon aticon-tint" aria-hidden="true"></span></' . $closure . '></li>';
+		$toolbar .= '<li><' . $control_type . ' class="a11y-toggle a11y-toggle-grayscale toggle-grayscale" data-id="is_normal_color" aria-pressed="false"><span class="offscreen">' . $grayscale . '</span> <span class="aticon aticon-tint" aria-hidden="true"></span></' . $closure . '></li>';
 	}
 	if ( $enable_fontsize ) {
-		$toolbar .= '<li><' . $control_type . ' class="a11y-toggle a11y-toggle-fontsize toggle-fontsize" id="is_normal_fontsize" aria-pressed="false"><span class="offscreen">' . $fontsize . '</span> <span class="aticon aticon-font" aria-hidden="true"></span></' . $closure . '></li>';
+		$toolbar .= '<li><' . $control_type . ' class="a11y-toggle a11y-toggle-fontsize toggle-fontsize" data-id="is_normal_fontsize" aria-pressed="false"><span class="offscreen">' . $fontsize . '</span> <span class="aticon aticon-font" aria-hidden="true"></span></' . $closure . '></li>';
 	}
 	$toolbar .= '
 	</ul>

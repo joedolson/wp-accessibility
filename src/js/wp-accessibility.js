@@ -492,7 +492,7 @@
 			contrastButton.addEventListener('click', function () {
 				let event;
 				// This fires after the contrast change happens, and the ID is already changed.
-				if ( this.getAttribute( 'id' ) == "is_normal_contrast") {
+				if ( this.getAttribute( 'data-id' ) == "is_normal_contrast") {
 					// high contrast turned on.
 					event = {'contrast' : 'disabled'};
 				} else {
@@ -508,7 +508,7 @@
 			fontsizeButton.addEventListener('click', function () {
 				let event;
 				// This fires after the fontsize change happens, and the ID is already changed.
-				if ( this.getAttribute( 'id' ) == "is_normal_fontsize") {
+				if ( this.getAttribute( 'data-id' ) == "is_normal_fontsize") {
 					// fontsizes turned on.
 					event = {'fontsize' : 'disabled'};
 				} else {
