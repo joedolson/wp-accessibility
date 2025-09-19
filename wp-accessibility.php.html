@@ -43,7 +43,7 @@
  * Domain Path: /lang
  * License:     GPL-2.0+
  * License URI: http://www.gnu.org/license/gpl-2.0.txt
- * Version: 2.2.2
+ * Version: 2.2.3
  */
 
 /*
@@ -76,7 +76,7 @@ if ( 'off' !== get_option( 'wpa_track_stats' ) ) {
 	require_once __DIR__ . '/wp-accessibility-stats.php';
 }
 
-define( 'WP_ACCESSIBILITY_VERSION', '2.2.2' );
+define( 'WP_ACCESSIBILITY_VERSION', '2.2.3' );
 
 register_activation_hook( __FILE__, 'wpa_install' );
 
@@ -878,6 +878,24 @@ function wpa_disable_editor_fullscreen_by_default() {
 	}
 }
 add_action( 'enqueue_block_editor_assets', 'wpa_disable_editor_fullscreen_by_default' );
+
+/**
+ * Disable file embeds by default.
+ *
+ * @param array $blockdata Array of block configuration meta data.
+ *
+ * @return array
+ */
+function wpa_disable_file_embed_by_default( $blockdata ) {
+    if ( 'core/file' === $blockdata['name'] &amp;&amp; 'on' === get_option( 'wpa_disable_file_embed' ) ) {
+        if ( isset( $blockdata['attributes']['displayPreview'] ) ) {
+            $blockdata['attributes']['displayPreview']['default'] = false;
+        }
+    }
+
+    return $blockdata;
+}
+add_filter( 'block_type_metadata', 'wpa_disable_file_embed_by_default' );
 
 /**
  * Remove the H1 heading from the headings block.
