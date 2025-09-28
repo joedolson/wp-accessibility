@@ -264,7 +264,7 @@
 								targetRemoved++;
 							}
 						} catch (exception) {
-
+							console.log( "href value is not a URL or a fragment:", href );
 							// No action; the `href` attribute didn't resolve as a URL.
 						}
 					}
