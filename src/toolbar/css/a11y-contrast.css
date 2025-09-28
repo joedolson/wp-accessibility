@@ -355,7 +355,7 @@
         color: red !important;
     }
 
-    div[role="button"], input[type=button], input[type=submit] {
+    div[role="slider"],div[role="button"], input[type=button], input[type=submit] {
         background: #600040 !important;
         background-color: #600040 !important;
     }
