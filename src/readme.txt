@@ -5,7 +5,7 @@ Tags: accessibility, wcag, a11y, section508, alt text
 Requires at least: 5.9
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 2.2.3
+Stable tag: 2.2.4
 Text Domain: wp-accessibility
 License: GPLv3
 
@@ -81,6 +81,12 @@ WP Accessibility includes a statistics collection feature to help you identify h
 = Future =
 
 [Suggest a change!](https://github.com/joedolson/wp-accessibility/issues/)
+
+= 2.2.4 =
+
+* Bug fix: Remove `html { will-change: filter }` due to Safari/iOS conflicts.
+* Change: Treat `role="slider"` the same as `role="button"` for high contrast.
+* Change: log cases where `href` is a non-link-like value.
 
 = 2.2.3 =
 
