@@ -104,6 +104,7 @@ let a11yToggle = document.querySelectorAll( '.a11y-toggle' );
 			button.setAttribute( 'aria-pressed', true );
 			button.classList.add( 'active' );
 		});
+		createCookie('a11y-desaturated', '1' );
 	}
 
 	function resaturate() {
@@ -114,6 +115,7 @@ let a11yToggle = document.querySelectorAll( '.a11y-toggle' );
 			button.setAttribute( 'aria-pressed', false );
 			button.classList.remove( 'active' );
 		});
+		eraseCookie('a11y-desaturated');
 	}
 
 	function addHighContrast() {
@@ -124,7 +126,7 @@ let a11yToggle = document.querySelectorAll( '.a11y-toggle' );
 			button.setAttribute( 'aria-pressed', true );
 			button.classList.add( 'active' );
 		});
-
+		createCookie('a11y-high-contrast', '1');
 		let styles = document.createElement( 'link' );
 		styles.setAttribute( 'href', wpa11y.path );
 		styles.setAttribute( 'id', 'highContrastStylesheet' );
@@ -140,6 +142,7 @@ let a11yToggle = document.querySelectorAll( '.a11y-toggle' );
 			button.setAttribute( 'aria-pressed', false );
 			button.classList.remove( 'active' );
 		});
+		eraseCookie('a11y-high-contrast');
 		let styles = document.getElementById( 'highContrastStylesheet' );
 		styles.remove();
 	}
@@ -152,6 +155,7 @@ let a11yToggle = document.querySelectorAll( '.a11y-toggle' );
 			button.setAttribute( 'aria-pressed', true );
 			button.classList.add( 'active' );
 		});
+		createCookie('a11y-larger-fontsize','1');
 	}
 
 	function resetFontSize() {
@@ -162,6 +166,7 @@ let a11yToggle = document.querySelectorAll( '.a11y-toggle' );
 			button.setAttribute( 'aria-pressed', false );
 			button.classList.remove( 'active' );
 		});
+		eraseCookie('a11y-larger-fontsize');
 	}
 
 	const grayscaleButton = document.querySelectorAll( '.toggle-grayscale' );
