@@ -260,7 +260,7 @@
 							let url      = new URL( href );
 							let hostname = url.hostname;
 							if ( ! hostname.includes( 'facebook' ) ) {
-								el.removeAttr( 'target' );
+								el.removeAttribute( 'target' );
 								targetRemoved++;
 							}
 						} catch (exception) {
