@@ -84,7 +84,7 @@ WP Accessibility includes a statistics collection feature to help you identify h
 
 = 2.2.6 =
 
-* Bug fix: Incorrect call to `.removeAttr` triggered catch condition on all URLs.
+* Bug fix: Incorrect call to `.removeAttr` triggered catch condition on all URLs, throwing unnecessary console messages.
 
 = 2.2.5 =
 
