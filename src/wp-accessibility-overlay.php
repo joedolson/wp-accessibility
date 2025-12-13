@@ -115,7 +115,6 @@ function wpa_update_overlay_settings() {
 
 			return "<div class='notice notice-success'><p>" . $message . '</p></div>';
 		}
-
 	} else {
 		return;
 	}
@@ -176,7 +175,7 @@ function wpa_admin_overlay_settings() {
 											<label for="wpa_search"><?php _e( 'Force search error on empty search submission', 'wp-accessibility' ); ?></label> <em id="wpa-search-note" class="wpa-note"><?php _e( 'Your theme must have a search.php template', 'wp-accessibility' ); ?></em>
 										</li>
 										<li>
-											<input type="checkbox" id="wpa_tabindex" name="wpa_tabindex" <?php checked( get_option( 'wpa_tabindex', ), 'on' ); ?>/>
+											<input type="checkbox" id="wpa_tabindex" name="wpa_tabindex" <?php checked( get_option( 'wpa_tabindex' ), 'on' ); ?>/>
 											<label for="wpa_tabindex"><?php _e( 'Remove tabindex from focusable elements', 'wp-accessibility' ); ?></label>
 										</li>
 										<li>
