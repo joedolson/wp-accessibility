@@ -25,14 +25,7 @@ function wpa_update_overlay_settings() {
 		if ( ! wp_verify_nonce( $nonce, 'wpa-nonce' ) ) {
 			wp_die( 'WP Accessibility: Security check failed' );
 		}
-		if ( isset( $_POST['action'] ) && 'rta' === $_POST['action'] ) {
-			$rta_from_tag_clouds = ( isset( $_POST['rta_from_tag_clouds'] ) ) ? 'on' : '';
-			update_option( 'rta_from_tag_clouds', $rta_from_tag_clouds );
 
-			$message = __( 'Remove Title Attributes Settings Updated', 'wp-accessibility' );
-
-			return "<div class='notice notice-success'><p>" . $message . '</p></div>';
-		}
 		if ( isset( $_POST['action'] ) && 'asl' === $_POST['action'] ) {
 			$asl_enable         = ( isset( $_POST['asl_enable'] ) ) ? 'on' : '';
 			$asl_content        = ( isset( $_POST['asl_content'] ) ) ? sanitize_text_field( $_POST['asl_content'] ) : '';
@@ -99,6 +92,7 @@ function wpa_update_overlay_settings() {
 			$wpa_tabindex      = ( isset( $_POST['wpa_tabindex'] ) ) ? 'on' : '';
 			$wpa_labels        = ( isset( $_POST['wpa_labels'] ) ) ? 'on' : 'off';
 			$wpa_remove_titles = ( isset( $_POST['wpa_remove_titles'] ) ) ? 'on' : 'off';
+			$wpa_viewport      = ( isset( $_POST['wpa_viewport'] ) ) ? 'on' : 'off';
 			$wpa_underline     = ( isset( $_POST['wpa_underline'] ) ) ? 'on' : '';
 			$wpa_videos        = ( isset( $_POST['wpa_videos'] ) ) ? 'on' : '';
 			$wpa_more          = ( isset( $_POST['wpa_more'] ) ) ? 'on' : '';
@@ -108,6 +102,7 @@ function wpa_update_overlay_settings() {
 			update_option( 'wpa_target', $wpa_target );
 			update_option( 'wpa_search', $wpa_search );
 			update_option( 'wpa_tabindex', $wpa_tabindex );
+			update_option( 'wpa_viewport', $wpa_viewport );
 			update_option( 'wpa_labels', $wpa_labels );
 			update_option( 'wpa_remove_titles', $wpa_remove_titles );
 			update_option( 'wpa_underline', $wpa_underline );
@@ -121,31 +116,6 @@ function wpa_update_overlay_settings() {
 			return "<div class='notice notice-success'><p>" . $message . '</p></div>';
 		}
 
-		if ( isset( $_POST['action'] ) && 'toolbar' === $_POST['action'] ) {
-			$wpa_toolbar            = ( isset( $_POST['wpa_toolbar'] ) ) ? 'on' : '';
-			$wpa_toolbar_size       = ( isset( $_POST['wpa_toolbar_size'] ) ) ? sanitize_text_field( $_POST['wpa_toolbar_size'] ) : '';
-			$wpa_alternate_fontsize = ( isset( $_POST['wpa_alternate_fontsize'] ) ) ? 'on' : '';
-			$wpa_widget_toolbar     = ( isset( $_POST['wpa_widget_toolbar'] ) ) ? 'on' : '';
-			$wpa_toolbar_gs         = ( isset( $_POST['wpa_toolbar_gs'] ) ) ? 'on' : 'off';
-			$wpa_toolbar_fs         = ( isset( $_POST['wpa_toolbar_fs'] ) ) ? 'on' : 'off';
-			$wpa_toolbar_ct         = ( isset( $_POST['wpa_toolbar_ct'] ) ) ? 'on' : 'off';
-			$wpa_toolbar_default    = ( isset( $_POST['wpa_toolbar_default'] ) ) ? sanitize_text_field( $_POST['wpa_toolbar_default'] ) : '';
-			$wpa_toolbar_right      = ( isset( $_POST['wpa_toolbar_right'] ) ) ? 'on' : '';
-			$wpa_toolbar_mobile     = ( isset( $_POST['wpa_toolbar_mobile'] ) ) ? 'on' : '';
-			update_option( 'wpa_toolbar', $wpa_toolbar );
-			update_option( 'wpa_toolbar_size', $wpa_toolbar_size );
-			update_option( 'wpa_alternate_fontsize', $wpa_alternate_fontsize );
-			update_option( 'wpa_widget_toolbar', $wpa_widget_toolbar );
-			update_option( 'wpa_toolbar_gs', $wpa_toolbar_gs );
-			update_option( 'wpa_toolbar_fs', $wpa_toolbar_fs );
-			update_option( 'wpa_toolbar_ct', $wpa_toolbar_ct );
-			update_option( 'wpa_toolbar_default', $wpa_toolbar_default );
-			update_option( 'wpa_toolbar_right', $wpa_toolbar_right );
-			update_option( 'wpa_toolbar_mobile', $wpa_toolbar_mobile );
-			$message = __( 'Toolbar Settings Updated', 'wp-accessibility' );
-
-			return "<div class='notice notice-success'><p>" . $message . '</p></div>';
-		}
 	} else {
 		return;
 	}
@@ -206,8 +176,12 @@ function wpa_admin_overlay_settings() {
 											<label for="wpa_search"><?php _e( 'Force search error on empty search submission', 'wp-accessibility' ); ?></label> <em id="wpa-search-note" class="wpa-note"><?php _e( 'Your theme must have a search.php template', 'wp-accessibility' ); ?></em>
 										</li>
 										<li>
-											<input type="checkbox" id="wpa_tabindex" name="wpa_tabindex" <?php checked( get_option( 'wpa_tabindex' ), 'on' ); ?>/>
+											<input type="checkbox" id="wpa_tabindex" name="wpa_tabindex" <?php checked( get_option( 'wpa_tabindex', ), 'on' ); ?>/>
 											<label for="wpa_tabindex"><?php _e( 'Remove tabindex from focusable elements', 'wp-accessibility' ); ?></label>
+										</li>
+										<li>
+											<input type="checkbox" id="wpa_viewport" name="wpa_viewport" <?php checked( get_option( 'wpa_viewport', 'on' ), 'on' ); ?>/>
+											<label for="wpa_viewport"><?php _e( 'Ensure that viewport does not restrict zoom', 'wp-accessibility' ); ?></label>
 										</li>
 										<li>
 											<input type="checkbox" id="wpa_labels" name="wpa_labels" <?php checked( get_option( 'wpa_labels', 'on' ), 'on' ); ?>/>
@@ -240,26 +214,6 @@ function wpa_admin_overlay_settings() {
 									</p>
 
 									<p><input type="submit" name="wpa-settings" class="button-primary" value="<?php _e( 'Update Miscellaneous Settings', 'wp-accessibility' ); ?>"/></p>
-								</form>
-							</div>
-						</div>
-						<div class="postbox">
-							<h2 class='hndle'><?php _e( 'Remove Title Attributes', 'wp-accessibility' ); ?></h2>
-
-							<div class="inside">
-								<?php wpa_accessible_theme(); ?>
-								<form method="post" action="<?php echo admin_url( 'admin.php?page=wp-accessibility-overlay' ); ?>">
-									<ul>
-										<li><input type="checkbox" id="rta_from_tag_clouds" name="rta_from_tag_clouds" <?php checked( get_option( 'rta_from_tag_clouds' ), 'on' ); ?>/>
-										<label for="rta_from_tag_clouds"><?php _e( 'Remove title attributes from:', 'wp-accessibility' ); ?> <?php _e( 'Tag clouds', 'wp-accessibility' ); ?></label>
-										</li>
-									</ul>
-									<p>
-										<input type="hidden" name="_wpnonce" value="<?php echo wp_create_nonce( 'wpa-nonce' ); ?>" />
-										<input type="hidden" name="action" value="rta" />
-									</p>
-
-									<p><input type="submit" name="wpa-settings" class="button-primary" value="<?php _e( 'Update Title Attribute Settings', 'wp-accessibility' ); ?>"/></p>
 								</form>
 							</div>
 						</div>

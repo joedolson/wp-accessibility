@@ -51,7 +51,7 @@
 	}
 
 	const viewport = document.querySelector( 'meta[name="viewport"]' );
-	if ( viewport ) {
+	if ( viewport && wpa.viewport ) {
 		let conditionsBefore = viewport.getAttribute( 'content' );
 		let conditionsAfter  = viewport.getAttribute( 'content' );
 		if ( conditionsBefore.search(/user-scalable=no/g) ) {
