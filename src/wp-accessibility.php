@@ -45,6 +45,8 @@ require_once __DIR__ . '/wp-accessibility-longdesc.php';
 require_once __DIR__ . '/wp-accessibility-alt.php';
 require_once __DIR__ . '/wp-accessibility-contrast.php';
 require_once __DIR__ . '/wp-accessibility-settings.php';
+require_once __DIR__ . '/wp-accessibility-overlay.php';
+require_once __DIR__ . '/wp-accessibility-admin.php';
 require_once __DIR__ . '/wp-accessibility-help.php';
 if ( 'off' !== get_option( 'wpa_track_stats' ) ) {
 	require_once __DIR__ . '/wp-accessibility-stats.php';
@@ -80,7 +82,9 @@ add_action( 'admin_menu', 'wpa_admin_menu' );
  * Set up admin menu.
  */
 function wpa_admin_menu() {
-	add_menu_page( 'WP Accessibility', 'WP Accessibility', 'manage_options', 'wp-accessibility', 'wpa_admin_settings', 'dashicons-universal-access' );
+	add_menu_page( 'WP Accessibility - Features', 'WP Accessibility', 'manage_options', 'wp-accessibility', 'wpa_admin_settings', 'dashicons-universal-access' );
+	add_submenu_page( 'wp-accessibility', 'WP Accessibility - Fixes', 'Accessibility Fixes', 'manage_options', 'wp-accessibility-overlay', 'wpa_admin_overlay_settings' );
+	add_submenu_page( 'wp-accessibility', 'WP Accessibility - Admin & Testing', 'Admin & Testing Experience', 'manage_options', 'wp-accessibility-admin', 'wpa_admin_admin_settings' );
 	add_submenu_page( 'wp-accessibility', 'WP Accessibility - Help', 'Get Help', 'manage_options', 'wp-accessibility-help', 'wpa_help_screen' );
 }
 
