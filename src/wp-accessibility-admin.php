@@ -70,7 +70,7 @@ function wpa_admin_admin_settings() {
 							<div class="inside">
 								<p><?php _e( 'These change the admin experience or help with testing.', 'wp-accessibility' ); ?></p>
 								<hr>
-								<form method="post" action="<?php echo admin_url( 'admin.php?page=wp-accessibility' ); ?>">
+								<form method="post" action="<?php echo admin_url( 'admin.php?page=wp-accessibility-admin' ); ?>">
 									<ul>
 										<li>
 											<input type="checkbox" id="wpa_search_alt" name="wpa_search_alt" <?php checked( get_option( 'wpa_search_alt' ), 'on' ); ?> aria-describedby="wpa_search_alt_note" />
@@ -169,7 +169,7 @@ function wpa_admin_admin_settings() {
 									echo $results;
 								}
 								?>
-								<form method="get" id="contrast" action="<?php echo admin_url( 'admin.php?page=wp-accessibility' ); ?>">
+								<form method="get" id="contrast" action="<?php echo admin_url( 'admin.php?page=wp-accessibility-admin' ); ?>">
 									<fieldset>
 										<legend><?php _e( 'Test of relative luminosity', 'wp-accessibility' ); ?></legend>
 										<ul id="contrast-tester">

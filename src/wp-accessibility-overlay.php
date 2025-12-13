@@ -94,18 +94,22 @@ function wpa_update_overlay_settings() {
 		}
 
 		if ( isset( $_POST['action'] ) && 'misc' === $_POST['action'] ) {
-			$wpa_target      = ( isset( $_POST['wpa_target'] ) ) ? 'on' : '';
-			$wpa_search      = ( isset( $_POST['wpa_search'] ) ) ? 'on' : '';
-			$wpa_tabindex    = ( isset( $_POST['wpa_tabindex'] ) ) ? 'on' : '';
-			$wpa_underline   = ( isset( $_POST['wpa_underline'] ) ) ? 'on' : '';
-			$wpa_videos      = ( isset( $_POST['wpa_videos'] ) ) ? 'on' : '';
-			$wpa_more        = ( isset( $_POST['wpa_more'] ) ) ? 'on' : '';
-			$wpa_focus       = ( isset( $_POST['wpa_focus'] ) ) ? 'on' : '';
-			$wpa_focus_color = ( isset( $_POST['wpa_focus_color'] ) ) ? str_replace( '#', '', $_POST['wpa_focus_color'] ) : '';
-			$wpa_continue    = ( isset( $_POST['wpa_continue'] ) ) ? sanitize_text_field( $_POST['wpa_continue'] ) : __( 'Continue Reading', 'wp-accessibility' );
+			$wpa_target        = ( isset( $_POST['wpa_target'] ) ) ? 'on' : '';
+			$wpa_search        = ( isset( $_POST['wpa_search'] ) ) ? 'on' : '';
+			$wpa_tabindex      = ( isset( $_POST['wpa_tabindex'] ) ) ? 'on' : '';
+			$wpa_labels        = ( isset( $_POST['wpa_labels'] ) ) ? 'on' : 'off';
+			$wpa_remove_titles = ( isset( $_POST['wpa_remove_titles'] ) ) ? 'on' : 'off';
+			$wpa_underline     = ( isset( $_POST['wpa_underline'] ) ) ? 'on' : '';
+			$wpa_videos        = ( isset( $_POST['wpa_videos'] ) ) ? 'on' : '';
+			$wpa_more          = ( isset( $_POST['wpa_more'] ) ) ? 'on' : '';
+			$wpa_focus         = ( isset( $_POST['wpa_focus'] ) ) ? 'on' : '';
+			$wpa_focus_color   = ( isset( $_POST['wpa_focus_color'] ) ) ? str_replace( '#', '', $_POST['wpa_focus_color'] ) : '';
+			$wpa_continue      = ( isset( $_POST['wpa_continue'] ) ) ? sanitize_text_field( $_POST['wpa_continue'] ) : __( 'Continue Reading', 'wp-accessibility' );
 			update_option( 'wpa_target', $wpa_target );
 			update_option( 'wpa_search', $wpa_search );
 			update_option( 'wpa_tabindex', $wpa_tabindex );
+			update_option( 'wpa_labels', $wpa_labels );
+			update_option( 'wpa_remove_titles', $wpa_remove_titles );
 			update_option( 'wpa_underline', $wpa_underline );
 			update_option( 'wpa_videos', $wpa_videos );
 			update_option( 'wpa_more', $wpa_more );
@@ -173,7 +177,7 @@ function wpa_admin_overlay_settings() {
 									?>
 								</p>
 								<hr>
-								<form method="post" action="<?php echo admin_url( 'admin.php?page=wp-accessibility' ); ?>">
+								<form method="post" action="<?php echo admin_url( 'admin.php?page=wp-accessibility-overlay' ); ?>">
 									<ul>
 										<?php
 										if ( ! wpa_accessible_theme() ) {
@@ -206,6 +210,14 @@ function wpa_admin_overlay_settings() {
 											<label for="wpa_tabindex"><?php _e( 'Remove tabindex from focusable elements', 'wp-accessibility' ); ?></label>
 										</li>
 										<li>
+											<input type="checkbox" id="wpa_labels" name="wpa_labels" <?php checked( get_option( 'wpa_labels', 'on' ), 'on' ); ?>/>
+											<label for="wpa_labels"><?php _e( 'Add missing labels to search and comment forms', 'wp-accessibility' ); ?></label>
+										</li>
+										<li>
+											<input type="checkbox" id="wpa_remove_titles" name="wpa_remove_titles" <?php checked( get_option( 'wpa_remove_titles', 'on' ), 'on' ); ?>/>
+											<label for="wpa_remove_titles"><?php _e( 'Remove title attributes', 'wp-accessibility' ); ?></label>
+										</li>
+										<li>
 											<input type="checkbox" id="wpa_underline" aria-describedby="wpa-underline-note" name="wpa_underline" <?php checked( get_option( 'wpa_underline' ), 'on' ); ?>/>
 											<label for="wpa_underline"><?php _e( 'Force underline on links', 'wp-accessibility' ); ?></label> <em id="wpa-underline-note" class="wpa-note"><?php _e( 'Excludes links inside <code>nav</code> elements.', 'wp-accessibility' ); ?></em>
 										</li>
@@ -236,7 +248,7 @@ function wpa_admin_overlay_settings() {
 
 							<div class="inside">
 								<?php wpa_accessible_theme(); ?>
-								<form method="post" action="<?php echo admin_url( 'admin.php?page=wp-accessibility' ); ?>">
+								<form method="post" action="<?php echo admin_url( 'admin.php?page=wp-accessibility-overlay' ); ?>">
 									<ul>
 										<li><input type="checkbox" id="rta_from_tag_clouds" name="rta_from_tag_clouds" <?php checked( get_option( 'rta_from_tag_clouds' ), 'on' ); ?>/>
 										<label for="rta_from_tag_clouds"><?php _e( 'Remove title attributes from:', 'wp-accessibility' ); ?> <?php _e( 'Tag clouds', 'wp-accessibility' ); ?></label>

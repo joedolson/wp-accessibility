@@ -471,6 +471,7 @@ function wpa_enqueue_js() {
 	 * @return {bool}
 	 */
 	$tracking_enabled = apply_filters( 'wpa_track_view_statistics', $track );
+	$apply_labels     = ( 'off' === get_option( 'wpa_labels' ) ) ? false : true;
 	/**
 	 * Filter whether automatic labeling is enabled.
 	 *
@@ -480,7 +481,8 @@ function wpa_enqueue_js() {
 	 *
 	 * @return {bool}
 	 */
-	$apply_labels = apply_filters( 'wpa_disable_labels', true );
+	$apply_labels  = apply_filters( 'wpa_disable_labels', $apply_labels );
+	$remove_titles = ( 'off' === get_option( 'wpa_remove_titles' ) ) ? false : true;
 	/**
 	 * Filter whether title attributes are removed. Used to be image titles only, now applies buttons and links, as well.
 	 *
@@ -490,7 +492,7 @@ function wpa_enqueue_js() {
 	 *
 	 * @return {bool}
 	 */
-	$remove_titles = apply_filters( 'wpa_remove_titles', true );
+	$remove_titles = apply_filters( 'wpa_remove_titles', $remove_titles );
 	wp_localize_script(
 		'wp-accessibility',
 		'wpa',
