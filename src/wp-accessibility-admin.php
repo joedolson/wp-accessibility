@@ -71,51 +71,47 @@ function wpa_admin_admin_settings() {
 								<p><?php _e( 'These change the admin experience or help with testing.', 'wp-accessibility' ); ?></p>
 								<hr>
 								<form method="post" action="<?php echo admin_url( 'admin.php?page=wp-accessibility-admin' ); ?>">
-									<ul>
-										<li>
-											<input type="checkbox" id="wpa_search_alt" name="wpa_search_alt" <?php checked( get_option( 'wpa_search_alt' ), 'on' ); ?> aria-describedby="wpa_search_alt_note" />
-											<label for="wpa_search_alt"><?php _e( 'Include alt attribute in media library searches', 'wp-accessibility' ); ?></label> <em class="wpa-note" id="wpa_search_alt_note"><?php _e( '* May cause slow searches on large media libraries.', 'wp-accessibility' ); ?></em>
-										</li>
-										<li>
-											<input type="checkbox" id="wpa_disable_logout" name="wpa_disable_logout" <?php checked( get_option( 'wpa_disable_logout' ), 'on' ); ?> aria-describedby="wpa_logout_note" />
-											<label for="wpa_disable_logout"><?php _e( 'Disable top-level adminbar logout link', 'wp-accessibility' ); ?></label>  <em class="wpa-note" id="wpa_logout_note"><?php _e( '* Accessibility problems accessing adminbar dropdowns were fixed in WordPress 6.5.', 'wp-accessibility' ); ?></em>
-										</li>
-										<li>
-											<input type="checkbox" id="wpa_disable_fullscreen" name="wpa_disable_fullscreen" <?php checked( get_option( 'wpa_disable_fullscreen' ), 'on' ); ?>/>
-											<label for="wpa_disable_fullscreen"><?php _e( 'Disable fullscreen block editor by default', 'wp-accessibility' ); ?></label>
-										</li>
-										<li>
-											<input type="checkbox" id="wpa_disable_file_embed" name="wpa_disable_file_embed" <?php checked( get_option( 'wpa_disable_file_embed' ), 'on' ); ?>/>
-											<label for="wpa_disable_file_embed"><?php _e( 'Disable embed behavior as default on file block', 'wp-accessibility' ); ?></label>
-										</li>
-										<li>
-											<input type="checkbox" id="wpa_allow_h1" name="wpa_allow_h1" <?php checked( get_option( 'wpa_allow_h1' ), 'on' ); ?>/>
-											<label for="wpa_allow_h1"><?php _e( 'Allow <code>h1</code> in the headings block', 'wp-accessibility' ); ?></label>
-										</li>
-										<li>
-											<input type="checkbox" id="wpa_diagnostics" name="wpa_diagnostics" <?php checked( get_option( 'wpa_diagnostics' ), 'on' ); ?>/>
-											<label for="wpa_diagnostics"><?php _e( 'Enable diagnostic CSS', 'wp-accessibility' ); ?></label>
-										</li>
-										<li>
-											<fieldset>
-												<legend><?php _e( 'Statistics Tracking', 'wp-accessibility' ); ?></legend>
-												<ul>
-													<li>
-														<input type="radio" id="wpa_track_stats_none" value="off" name="wpa_track_stats" <?php checked( get_option( 'wpa_track_stats' ), 'off' ); ?>/>
-														<label for="wpa_track_stats_none"><?php _e( 'Disabled', 'wp-accessibility' ); ?></label>
-													</li>
-													<li>
-														<input type="radio" id="wpa_track_stats_all" value="all" name="wpa_track_stats" <?php checked( get_option( 'wpa_track_stats' ), 'all' ); ?>/>
-														<label for="wpa_track_stats_all"><?php _e( 'All Visitors', 'wp-accessibility' ); ?></label>
-													</li>
-													<li>
-														<input type="radio" id="wpa_track_stats_admin" value="" name="wpa_track_stats" <?php checked( get_option( 'wpa_track_stats' ), '' ); ?>/>
-														<label for="wpa_track_stats_admin"><?php _e( 'Site Administrators', 'wp-accessibility' ); ?></label>
-													</li>
-												</ul>
-											</fieldset>
-										</li>
-									</ul>
+									<p>
+										<input type="checkbox" id="wpa_search_alt" name="wpa_search_alt" <?php checked( get_option( 'wpa_search_alt' ), 'on' ); ?> aria-describedby="wpa_search_alt_note" />
+										<label for="wpa_search_alt"><?php _e( 'Include alt attribute in media library searches', 'wp-accessibility' ); ?></label> <em class="wpa-note" id="wpa_search_alt_note"><?php _e( '* May cause slow searches on large media libraries.', 'wp-accessibility' ); ?></em>
+									</p>
+									<p>
+										<input type="checkbox" id="wpa_disable_logout" name="wpa_disable_logout" <?php checked( get_option( 'wpa_disable_logout' ), 'on' ); ?> aria-describedby="wpa_logout_note" />
+										<label for="wpa_disable_logout"><?php _e( 'Disable top-level adminbar logout link', 'wp-accessibility' ); ?></label>  <em class="wpa-note" id="wpa_logout_note"><?php _e( '* Accessibility problems accessing adminbar dropdowns were fixed in WordPress 6.5.', 'wp-accessibility' ); ?></em>
+									</p>
+									<p>
+										<input type="checkbox" id="wpa_disable_fullscreen" name="wpa_disable_fullscreen" <?php checked( get_option( 'wpa_disable_fullscreen' ), 'on' ); ?>/>
+										<label for="wpa_disable_fullscreen"><?php _e( 'Disable fullscreen block editor by default', 'wp-accessibility' ); ?></label>
+									</p>
+									<p>
+										<input type="checkbox" id="wpa_disable_file_embed" name="wpa_disable_file_embed" <?php checked( get_option( 'wpa_disable_file_embed' ), 'on' ); ?>/>
+										<label for="wpa_disable_file_embed"><?php _e( 'Disable embed behavior as default on file block', 'wp-accessibility' ); ?></label>
+									</p>
+									<p>
+										<input type="checkbox" id="wpa_allow_h1" name="wpa_allow_h1" <?php checked( get_option( 'wpa_allow_h1' ), 'on' ); ?>/>
+										<label for="wpa_allow_h1"><?php _e( 'Allow <code>h1</code> in the headings block', 'wp-accessibility' ); ?></label>
+									</p>
+									<p>
+										<input type="checkbox" id="wpa_diagnostics" name="wpa_diagnostics" <?php checked( get_option( 'wpa_diagnostics' ), 'on' ); ?>/>
+										<label for="wpa_diagnostics"><?php _e( 'Enable diagnostic CSS', 'wp-accessibility' ); ?></label>
+									</p>
+									<fieldset>
+										<legend><?php _e( 'Statistics Tracking', 'wp-accessibility' ); ?></legend>
+										<ul>
+											<li>
+												<input type="radio" id="wpa_track_stats_none" value="off" name="wpa_track_stats" <?php checked( get_option( 'wpa_track_stats' ), 'off' ); ?>/>
+												<label for="wpa_track_stats_none"><?php _e( 'Disabled', 'wp-accessibility' ); ?></label>
+											</li>
+											<li>
+												<input type="radio" id="wpa_track_stats_all" value="all" name="wpa_track_stats" <?php checked( get_option( 'wpa_track_stats' ), 'all' ); ?>/>
+												<label for="wpa_track_stats_all"><?php _e( 'All Visitors', 'wp-accessibility' ); ?></label>
+											</li>
+											<li>
+												<input type="radio" id="wpa_track_stats_admin" value="" name="wpa_track_stats" <?php checked( get_option( 'wpa_track_stats' ), '' ); ?>/>
+												<label for="wpa_track_stats_admin"><?php _e( 'Site Administrators', 'wp-accessibility' ); ?></label>
+											</li>
+										</ul>
+									</fieldset>
 									<p>
 										<input type="hidden" name="_wpnonce" value="<?php echo wp_create_nonce( 'wpa-nonce' ); ?>" />
 										<input type="hidden" name="action" value="tools" />
