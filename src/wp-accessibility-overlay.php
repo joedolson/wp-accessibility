@@ -147,66 +147,60 @@ function wpa_admin_overlay_settings() {
 								</p>
 								<hr>
 								<form method="post" action="<?php echo admin_url( 'admin.php?page=wp-accessibility-overlay' ); ?>">
-									<ul>
-										<?php
-										if ( ! wpa_accessible_theme() ) {
-											?>
-										<li>
-											<input type="checkbox" id="wpa_more" name="wpa_more" <?php checked( get_option( 'wpa_more' ), 'on' ); ?>/>
-											<label for="wpa_more"><?php _e( 'Add post title to "more" links.', 'wp-accessibility' ); ?></label>
-										</li>
-										<li>
-											<label for="wpa_continue"><?php _e( 'Continue reading prefix text', 'wp-accessibility' ); ?></label><br />
-											<input type="text" id="wpa_continue" name="wpa_continue" value="<?php echo esc_attr( get_option( 'wpa_continue', __( 'Continue Reading', 'wp-accessibility' ) ) ); ?>"/>
-										</li>
-											<?php
-										} else {
-											?>
-											<li><div class="notice notice-info"><p><?php _e( '<strong>Three disabled features:</strong> Site language, continue reading text and standard form labels are provided in your <code>accessibility-ready</code> theme.', 'wp-accessibility' ); ?></p></div></li>
-											<?php
-										}
+									<?php
+									if ( ! wpa_accessible_theme() ) {
 										?>
-										<li>
-											<input type="checkbox" id="wpa_target" name="wpa_target" <?php checked( get_option( 'wpa_target' ), 'on' ); ?>/>
-											<label for="wpa_target"><?php _e( 'Prevent links from opening in new windows', 'wp-accessibility' ); ?></label>
-										</li>
-										<li>
-											<input type="checkbox" id="wpa_search" name="wpa_search" <?php checked( get_option( 'wpa_search' ), 'on' ); ?> aria-describedby="wpa-search-note" />
-											<label for="wpa_search"><?php _e( 'Force search error on empty search submission', 'wp-accessibility' ); ?></label> <em id="wpa-search-note" class="wpa-note"><?php _e( 'Your theme must have a search.php template', 'wp-accessibility' ); ?></em>
-										</li>
-										<li>
-											<input type="checkbox" id="wpa_tabindex" name="wpa_tabindex" <?php checked( get_option( 'wpa_tabindex' ), 'on' ); ?>/>
-											<label for="wpa_tabindex"><?php _e( 'Remove tabindex from focusable elements', 'wp-accessibility' ); ?></label>
-										</li>
-										<li>
-											<input type="checkbox" id="wpa_viewport" name="wpa_viewport" <?php checked( get_option( 'wpa_viewport', 'on' ), 'on' ); ?>/>
-											<label for="wpa_viewport"><?php _e( 'Ensure that viewport does not restrict zoom', 'wp-accessibility' ); ?></label>
-										</li>
-										<li>
-											<input type="checkbox" id="wpa_labels" name="wpa_labels" <?php checked( get_option( 'wpa_labels', 'on' ), 'on' ); ?>/>
-											<label for="wpa_labels"><?php _e( 'Add missing labels to search and comment forms', 'wp-accessibility' ); ?></label>
-										</li>
-										<li>
-											<input type="checkbox" id="wpa_remove_titles" name="wpa_remove_titles" <?php checked( get_option( 'wpa_remove_titles', 'on' ), 'on' ); ?>/>
-											<label for="wpa_remove_titles"><?php _e( 'Remove title attributes', 'wp-accessibility' ); ?></label>
-										</li>
-										<li>
-											<input type="checkbox" id="wpa_underline" aria-describedby="wpa-underline-note" name="wpa_underline" <?php checked( get_option( 'wpa_underline' ), 'on' ); ?>/>
-											<label for="wpa_underline"><?php _e( 'Force underline on links', 'wp-accessibility' ); ?></label> <em id="wpa-underline-note" class="wpa-note"><?php _e( 'Excludes links inside <code>nav</code> elements.', 'wp-accessibility' ); ?></em>
-										</li>
-										<li>
-											<input type="checkbox" id="wpa_videos" aria-describedby="wpa-videos-note" name="wpa_videos" <?php checked( get_option( 'wpa_videos' ), 'on' ); ?>/>
-											<label for="wpa_videos"><?php _e( 'Insert play/pause button on autoplay videos', 'wp-accessibility' ); ?></label> <em id="wpa-underline-note" class="wpa-note"><?php _e( 'Only effects videos with <code>autoplay</code> enabled and <code>controls</code> disabled.', 'wp-accessibility' ); ?></em>
-										</li>
-										<li>
-											<input type="checkbox" id="wpa_focus" name="wpa_focus" <?php checked( get_option( 'wpa_focus' ), 'on' ); ?>/>
-											<label for="wpa_focus"><?php _e( 'Add outline to elements on keyboard focus', 'wp-accessibility' ); ?></label>
-										</li>
-										<li>
-											<label for="wpa_focus_color"><?php _e( 'Outline color (hexadecimal, optional)', 'wp-accessibility' ); ?></label><br />
-											<input type="text" id="wpa_focus_color" name="wpa_focus_color" value="#<?php echo esc_attr( str_replace( '#', '', get_option( 'wpa_focus_color' ) ) ); ?>"/>
-										</li>
-									</ul>
+									<p>
+										<input type="checkbox" id="wpa_more" name="wpa_more" <?php checked( get_option( 'wpa_more' ), 'on' ); ?>/>
+										<label for="wpa_more"><?php _e( 'Add post title to "more" links.', 'wp-accessibility' ); ?></label>
+									</p>
+									<p>
+										<label for="wpa_continue"><?php _e( 'Continue reading prefix text', 'wp-accessibility' ); ?></label><br />
+										<input type="text" id="wpa_continue" name="wpa_continue" value="<?php echo esc_attr( get_option( 'wpa_continue', __( 'Continue Reading', 'wp-accessibility' ) ) ); ?>"/>
+									</p>
+										<?php
+									} else {
+										?>
+										<div class="notice notice-info"><p><?php _e( '<strong>Three disabled features:</strong> Site language, continue reading text and standard form labels are provided in your <code>accessibility-ready</code> theme.', 'wp-accessibility' ); ?></p></div>
+										<?php
+									}
+									?>
+									<p>
+										<input type="checkbox" id="wpa_target" name="wpa_target" <?php checked( get_option( 'wpa_target' ), 'on' ); ?>/>
+										<label for="wpa_target"><?php _e( 'Prevent links from opening in new windows', 'wp-accessibility' ); ?></label>
+									</p>
+									<p>
+										<input type="checkbox" id="wpa_search" name="wpa_search" <?php checked( get_option( 'wpa_search' ), 'on' ); ?> aria-describedby="wpa-search-note" />
+										<label for="wpa_search"><?php _e( 'Force search error on empty search submission', 'wp-accessibility' ); ?></label> <em id="wpa-search-note" class="wpa-note"><?php _e( 'Your theme must have a search.php template', 'wp-accessibility' ); ?></em>
+									</p>
+									<p>
+										<input type="checkbox" id="wpa_tabindex" name="wpa_tabindex" <?php checked( get_option( 'wpa_tabindex' ), 'on' ); ?>/>
+										<label for="wpa_tabindex"><?php _e( 'Remove tabindex from focusable elements', 'wp-accessibility' ); ?></label>
+									</p>
+									<p>
+										<input type="checkbox" id="wpa_viewport" name="wpa_viewport" <?php checked( get_option( 'wpa_viewport', 'on' ), 'on' ); ?>/>
+										<label for="wpa_viewport"><?php _e( 'Ensure that viewport does not restrict zoom', 'wp-accessibility' ); ?></label>
+									</p>
+									<p>
+										<input type="checkbox" id="wpa_labels" name="wpa_labels" <?php checked( get_option( 'wpa_labels', 'on' ), 'on' ); ?>/>
+										<label for="wpa_labels"><?php _e( 'Add missing labels to search and comment forms', 'wp-accessibility' ); ?></label>
+									</p>
+									<p>
+										<input type="checkbox" id="wpa_remove_titles" name="wpa_remove_titles" <?php checked( get_option( 'wpa_remove_titles', 'on' ), 'on' ); ?>/>
+										<label for="wpa_remove_titles"><?php _e( 'Remove title attributes', 'wp-accessibility' ); ?></label>
+									</p>
+									<p>
+										<input type="checkbox" id="wpa_videos" aria-describedby="wpa-videos-note" name="wpa_videos" <?php checked( get_option( 'wpa_videos' ), 'on' ); ?>/>
+										<label for="wpa_videos"><?php _e( 'Insert play/pause button on autoplay videos', 'wp-accessibility' ); ?></label> <em id="wpa-underline-note" class="wpa-note"><?php _e( 'Only effects videos with <code>autoplay</code> enabled and <code>controls</code> disabled.', 'wp-accessibility' ); ?></em>
+									</p>
+									<p>
+										<input type="checkbox" id="wpa_underline" aria-describedby="wpa-underline-note" name="wpa_underline" <?php checked( get_option( 'wpa_underline' ), 'on' ); ?>/>
+										<label for="wpa_underline"><?php _e( 'Force underline on links', 'wp-accessibility' ); ?></label> <em id="wpa-underline-note" class="wpa-note"><?php _e( 'Excludes links inside <code>nav</code> elements.', 'wp-accessibility' ); ?></em>
+									</p>
+									<p>
+										<input type="checkbox" id="wpa_focus" name="wpa_focus" <?php checked( get_option( 'wpa_focus' ), 'on' ); ?>/>
+										<label for="wpa_focus"><?php _e( 'Add outline to elements on keyboard focus', 'wp-accessibility' ); ?></label>
+									</p>
 									<p>
 										<input type="hidden" name="_wpnonce" value="<?php echo wp_create_nonce( 'wpa-nonce' ); ?>" />
 										<input type="hidden" name="action" value="misc" />
