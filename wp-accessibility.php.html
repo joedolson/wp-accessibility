@@ -108,10 +108,10 @@ add_action( 'admin_menu', 'wpa_admin_menu' );
  * Set up admin menu.
  */
 function wpa_admin_menu() {
-	add_menu_page( 'WP Accessibility - Features', 'WP Accessibility', 'manage_options', 'wp-accessibility', 'wpa_admin_settings', 'dashicons-universal-access' );
-	add_submenu_page( 'wp-accessibility', 'WP Accessibility - Fixes', 'Accessibility Fixes', 'manage_options', 'wp-accessibility-overlay', 'wpa_admin_overlay_settings' );
-	add_submenu_page( 'wp-accessibility', 'WP Accessibility - Admin &amp; Testing', 'Admin &amp; Testing Experience', 'manage_options', 'wp-accessibility-admin', 'wpa_admin_admin_settings' );
-	add_submenu_page( 'wp-accessibility', 'WP Accessibility - Help', 'Get Help', 'manage_options', 'wp-accessibility-help', 'wpa_help_screen' );
+	add_menu_page( __( 'WP Accessibility - Features', 'wp-accessibility' ), __( 'WP Accessibility', 'wp-accessibility' ), 'manage_options', 'wp-accessibility', 'wpa_admin_settings', 'dashicons-universal-access' );
+	add_submenu_page( 'wp-accessibility', __( 'WP Accessibility - Fixes', 'wp-accessibility' ), __( 'Accessibility Fixes', 'wp-accessibility' ), 'manage_options', 'wp-accessibility-overlay', 'wpa_admin_overlay_settings' );
+	add_submenu_page( 'wp-accessibility', __( 'WP Accessibility - Admin &amp; Testing', 'wp-accessibility' ), __( 'Testing &amp; Admin', 'wp-accessibility' ), 'manage_options', 'wp-accessibility-admin', 'wpa_admin_admin_settings' );
+	add_submenu_page( 'wp-accessibility', __( 'WP Accessibility - Help', 'wp-accessibility' ), __( 'Get Help', 'wp-accessibility' ), 'manage_options', 'wp-accessibility-help', 'wpa_help_screen' );
 }
 
 /**
