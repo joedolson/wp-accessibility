@@ -17,7 +17,7 @@
  * Domain Path: /lang
  * License:     GPL-2.0+
  * License URI: http://www.gnu.org/license/gpl-2.0.txt
- * Version: 2.2.6
+ * Version: 2.3.0
  */
 
 /*
@@ -52,7 +52,7 @@ if ( 'off' !== get_option( 'wpa_track_stats' ) ) {
 	require_once __DIR__ . '/wp-accessibility-stats.php';
 }
 
-define( 'WP_ACCESSIBILITY_VERSION', '2.2.6' );
+define( 'WP_ACCESSIBILITY_VERSION', '2.3.0' );
 
 register_activation_hook( __FILE__, 'wpa_install' );
 

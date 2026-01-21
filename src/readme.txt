@@ -5,7 +5,7 @@ Tags: accessibility, wcag, a11y, section508, alt text
 Requires at least: 5.9
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 2.2.6
+Stable tag: 2.3.0
 Text Domain: wp-accessibility
 License: GPLv3
 
@@ -85,7 +85,7 @@ WP Accessibility includes a statistics collection feature to help you identify h
 = 2.3.0 =
 
 * Change: Split settings into three pages: features, admin, and remediation.
-* Change: Add settings to disable automatic labelling, viewport settings, and removal of title attributes.
+* Change: Add settings to disable automatic labelling, viewport settings, lang attributes, and removal of title attributes.
 * Change: Remove PHP-based title attribute removals.
 * Change: Switch settings markup from lists to paragraphs.
 * Change: Add bulk disable to turn off all overlay features.
