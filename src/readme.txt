@@ -82,6 +82,14 @@ WP Accessibility includes a statistics collection feature to help you identify h
 
 [Suggest a change!](https://github.com/joedolson/wp-accessibility/issues/)
 
+= 2.3.0 =
+
+* Change: Split settings into three pages: features, admin, and remediation.
+* Change: Add settings to disable automatic labelling, viewport settings, and removal of title attributes.
+* Change: Remove PHP-based title attribute removals.
+* Change: Switch settings markup from lists to paragraphs.
+* Change: Add bulk disable to turn off all overlay features.
+
 = 2.2.6 =
 
 * Bug fix: Incorrect call to `.removeAttr` triggered catch condition on all URLs, throwing unnecessary console messages.
