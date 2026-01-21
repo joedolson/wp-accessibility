@@ -26,66 +26,6 @@ function wpa_update_overlay_settings() {
 			wp_die( 'WP Accessibility: Security check failed' );
 		}
 
-		if ( isset( $_POST['action'] ) && 'asl' === $_POST['action'] ) {
-			$asl_enable         = ( isset( $_POST['asl_enable'] ) ) ? 'on' : '';
-			$asl_content        = ( isset( $_POST['asl_content'] ) ) ? sanitize_text_field( $_POST['asl_content'] ) : '';
-			$asl_navigation     = ( isset( $_POST['asl_navigation'] ) ) ? sanitize_text_field( $_POST['asl_navigation'] ) : '';
-			$asl_sitemap        = ( isset( $_POST['asl_sitemap'] ) ) ? sanitize_text_field( $_POST['asl_sitemap'] ) : '';
-			$asl_extra_target   = ( isset( $_POST['asl_extra_target'] ) ) ? sanitize_text_field( $_POST['asl_extra_target'] ) : '';
-			$asl_extra_text     = ( isset( $_POST['asl_extra_text'] ) ) ? sanitize_text_field( $_POST['asl_extra_text'] ) : '';
-			$asl_visible        = ( isset( $_POST['asl_visible'] ) ) ? 'on' : '';
-			$asl_default_styles = ( isset( $_POST['asl_default_styles'] ) ) ? 'true' : '';
-			$asl_styles         = ( isset( $_POST['asl_styles'] ) ) ? wp_filter_nohtml_kses( $_POST['asl_styles'] ) : '';
-			update_option( 'asl_enable', $asl_enable );
-			update_option( 'asl_content', $asl_content );
-			update_option( 'asl_navigation', $asl_navigation );
-			update_option( 'asl_sitemap', $asl_sitemap );
-			update_option( 'asl_extra_target', $asl_extra_target );
-			update_option( 'asl_extra_text', $asl_extra_text );
-			update_option( 'asl_visible', $asl_visible );
-			update_option( 'asl_default_styles', $asl_default_styles );
-			$notice = ( 'asl' === $asl_visible ) ? '<p>' . __( 'WP Accessibility does not provide any styles for visible skiplinks. You can still set the look of the links using the textareas provided, but all other layout must be assigned in your theme.', 'wp-accessibility' ) . '</p>' : '';
-
-			update_option( 'asl_styles', $asl_styles );
-			$message = __( 'Skiplinks Settings Updated', 'wp-accessibility' );
-
-			return "<div class='notice notice-success'><p>" . $message . "</p>$notice</div>";
-		}
-
-		if ( isset( $_POST['action'] ) && 'features' === $_POST['action'] ) {
-			$wpa_show_alt          = ( isset( $_POST['wpa_show_alt'] ) ) ? 'on' : 'off';
-			$wpa_longdesc          = ( isset( $_POST['wpa_longdesc'] ) ) ? sanitize_text_field( $_POST['wpa_longdesc'] ) : 'false';
-			$wpa_longdesc_featured = ( isset( $_POST['wpa_longdesc_featured'] ) ) ? sanitize_text_field( $_POST['wpa_longdesc_featured'] ) : 'false';
-			$wpa_post_types        = ( isset( $_POST['wpa_post_types'] ) ) ? map_deep( $_POST['wpa_post_types'], 'sanitize_text_field' ) : array();
-			update_option( 'wpa_show_alt', $wpa_show_alt );
-			update_option( 'wpa_longdesc', $wpa_longdesc );
-			update_option( 'wpa_longdesc_featured', $wpa_longdesc_featured );
-			update_option( 'wpa_post_types', $wpa_post_types );
-			$message = __( 'Accessibility Features Updated', 'wp-accessibility' );
-
-			return "<div class='notice notice-success'><p>" . $message . '</p></div>';
-		}
-
-		if ( isset( $_POST['action'] ) && 'tools' === $_POST['action'] ) {
-			$wpa_search_alt         = ( isset( $_POST['wpa_search_alt'] ) ) ? 'on' : '';
-			$wpa_diagnostics        = ( isset( $_POST['wpa_diagnostics'] ) ) ? 'on' : '';
-			$wpa_disable_fullscreen = ( isset( $_POST['wpa_disable_fullscreen'] ) ) ? 'on' : '';
-			$wpa_disable_file_embed = ( isset( $_POST['wpa_disable_file_embed'] ) ) ? 'on' : '';
-			$wpa_allow_h1           = ( isset( $_POST['wpa_allow_h1'] ) ) ? 'on' : '';
-			$wpa_disable_logout     = ( isset( $_POST['wpa_disable_logout'] ) ) ? 'on' : '';
-			$wpa_track_stats        = ( isset( $_POST['wpa_track_stats'] ) ) ? sanitize_text_field( $_POST['wpa_track_stats'] ) : '';
-			update_option( 'wpa_search_alt', $wpa_search_alt );
-			update_option( 'wpa_diagnostics', $wpa_diagnostics );
-			update_option( 'wpa_disable_fullscreen', $wpa_disable_fullscreen );
-			update_option( 'wpa_disable_file_embed', $wpa_disable_file_embed );
-			update_option( 'wpa_allow_h1', $wpa_allow_h1 );
-			update_option( 'wpa_track_stats', $wpa_track_stats );
-			update_option( 'wpa_disable_logout', $wpa_disable_logout );
-			$message = __( 'Accessibility Tools Updated', 'wp-accessibility' );
-
-			return "<div class='notice notice-success'><p>" . $message . '</p></div>';
-		}
-
 		if ( isset( $_POST['action'] ) && 'misc' === $_POST['action'] ) {
 			$wpa_target        = ( isset( $_POST['wpa_target'] ) ) ? 'on' : '';
 			$wpa_search        = ( isset( $_POST['wpa_search'] ) ) ? 'on' : '';
