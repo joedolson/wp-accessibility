@@ -27,37 +27,40 @@ function wpa_update_overlay_settings() {
 		}
 
 		if ( isset( $_POST['action'] ) && 'misc' === $_POST['action'] ) {
-			$wpa_target        = ( isset( $_POST['wpa_target'] ) ) ? 'on' : '';
-			$wpa_search        = ( isset( $_POST['wpa_search'] ) ) ? 'on' : '';
-			$wpa_tabindex      = ( isset( $_POST['wpa_tabindex'] ) ) ? 'on' : '';
-			$wpa_labels        = ( isset( $_POST['wpa_labels'] ) ) ? 'on' : 'off';
-			$wpa_remove_titles = ( isset( $_POST['wpa_remove_titles'] ) ) ? 'on' : 'off';
-			$wpa_viewport      = ( isset( $_POST['wpa_viewport'] ) ) ? 'on' : 'off';
-			$wpa_underline     = ( isset( $_POST['wpa_underline'] ) ) ? 'on' : '';
-			$wpa_videos        = ( isset( $_POST['wpa_videos'] ) ) ? 'on' : '';
-			$wpa_more          = ( isset( $_POST['wpa_more'] ) ) ? 'on' : '';
-			$wpa_focus         = ( isset( $_POST['wpa_focus'] ) ) ? 'on' : '';
-			$wpa_focus_color   = ( isset( $_POST['wpa_focus_color'] ) ) ? str_replace( '#', '', $_POST['wpa_focus_color'] ) : '';
-			$wpa_continue      = ( isset( $_POST['wpa_continue'] ) ) ? sanitize_text_field( $_POST['wpa_continue'] ) : __( 'Continue Reading', 'wp-accessibility' );
+			$wpa_target          = ( isset( $_POST['wpa_target'] ) ) ? 'on' : '';
+			$wpa_search          = ( isset( $_POST['wpa_search'] ) ) ? 'on' : '';
+			$wpa_tabindex        = ( isset( $_POST['wpa_tabindex'] ) ) ? 'on' : '';
+			$wpa_labels          = ( isset( $_POST['wpa_labels'] ) ) ? 'on' : 'off';
+			$wpa_remove_titles   = ( isset( $_POST['wpa_remove_titles'] ) ) ? 'on' : 'off';
+			$wpa_lang_attributes = ( isset( $_POST['wpa_lang_attributes'] ) ) ? 'on' : 'off';
+			$wpa_viewport        = ( isset( $_POST['wpa_viewport'] ) ) ? 'on' : 'off';
+			$wpa_underline       = ( isset( $_POST['wpa_underline'] ) ) ? 'on' : '';
+			$wpa_videos          = ( isset( $_POST['wpa_videos'] ) ) ? 'on' : '';
+			$wpa_more            = ( isset( $_POST['wpa_more'] ) ) ? 'on' : '';
+			$wpa_focus           = ( isset( $_POST['wpa_focus'] ) ) ? 'on' : '';
+			$wpa_focus_color     = ( isset( $_POST['wpa_focus_color'] ) ) ? str_replace( '#', '', $_POST['wpa_focus_color'] ) : '';
+			$wpa_continue        = ( isset( $_POST['wpa_continue'] ) ) ? sanitize_text_field( $_POST['wpa_continue'] ) : __( 'Continue Reading', 'wp-accessibility' );
 			if ( isset( $_POST['wpa_toggle_all'] ) && 'true' === $_POST['wpa_toggle_all'] ) {
-				$wpa_target        = '';
-				$wpa_search        = '';
-				$wpa_tabindex      = '';
-				$wpa_labels        = 'off';
-				$wpa_remove_titles = 'off';
-				$wpa_viewport      = 'off';
-				$wpa_underline     = '';
-				$wpa_videos        = '';
-				$wpa_more          = '';
-				$wpa_focus         = '';
-				$wpa_focus_color   = '';
-				$wpa_continue      = '';
+				$wpa_target          = '';
+				$wpa_search          = '';
+				$wpa_tabindex        = '';
+				$wpa_labels          = 'off';
+				$wpa_remove_titles   = 'off';
+				$wpa_viewport        = 'off';
+				$wpa_underline       = '';
+				$wpa_videos          = '';
+				$wpa_more            = '';
+				$wpa_focus           = '';
+				$wpa_focus_color     = '';
+				$wpa_continue        = '';
+				$wpa_lang_attributes = 'off';
 			}
 			update_option( 'wpa_target', $wpa_target );
 			update_option( 'wpa_search', $wpa_search );
 			update_option( 'wpa_tabindex', $wpa_tabindex );
 			update_option( 'wpa_viewport', $wpa_viewport );
 			update_option( 'wpa_labels', $wpa_labels );
+			update_option( 'wpa_lang_attributes', $wpa_lang_attributes );
 			update_option( 'wpa_remove_titles', $wpa_remove_titles );
 			update_option( 'wpa_underline', $wpa_underline );
 			update_option( 'wpa_videos', $wpa_videos );
@@ -122,6 +125,10 @@ function wpa_admin_overlay_settings() {
 										<?php
 									}
 									?>
+									<p>
+										<input type="checkbox" id="wpa_lang_attributes" name="wpa_lang_attributes" value="on" <?php checked( get_option( 'wpa_lang_attributes' ), 'on' ); ?>/>
+										<label for="wpa_lang_attributes"><?php _e( 'Set site language attributes', 'wp-accessibility' ); ?></label>
+									</p>
 									<p>
 										<input type="checkbox" id="wpa_target" name="wpa_target" <?php checked( get_option( 'wpa_target' ), 'on' ); ?>/>
 										<label for="wpa_target"><?php _e( 'Prevent links from opening in new windows', 'wp-accessibility' ); ?></label>

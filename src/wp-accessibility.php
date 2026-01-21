@@ -117,6 +117,9 @@ function wpa_install() {
 function wpa_check_version() {
 	// upgrade for version 1.3.0.
 	$version = WP_ACCESSIBILITY_VERSION;
+	if ( version_compare( $version, '2.3.0', '<' ) ) {
+		add_option( 'wpa_lang_attributes', 'on' );
+	}
 	if ( version_compare( $version, '1.3.0', '<' ) ) {
 		add_option( 'wpa_longdesc', 'button' );
 	}
@@ -399,8 +402,12 @@ function wpa_enqueue_js() {
 	 * @return {array}
 	 */
 	$labels = apply_filters( 'wpa_labels', $labels );
-	$dir    = ( is_rtl() ) ? 'rtl' : 'ltr';
-	$lang   = get_bloginfo( 'language' );
+	$dir    = '';
+	$lang   = '';
+	if ( 'off' !== get_option( 'wpa_lang_attributes' ) ) {
+		$dir  = ( is_rtl() ) ? 'rtl' : 'ltr';
+		$lang = get_bloginfo( 'language' );
+	}
 
 	if ( SCRIPT_DEBUG ) {
 		$wpajs = plugins_url( 'js/wp-accessibility.js', __FILE__ );
