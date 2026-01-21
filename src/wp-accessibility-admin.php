@@ -53,7 +53,7 @@ function wpa_update_admin_settings() {
  * Display settings admin page.
  */
 function wpa_admin_admin_settings() {
-	echo wpa_update_settings();
+	echo wpa_update_admin_settings();
 	?>
 	<div class="wrap">
 		<h1><?php _e( 'WP Accessibility Features', 'wp-accessibility' ); ?></h1>
