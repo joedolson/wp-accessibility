@@ -99,11 +99,11 @@ function wpa_admin_overlay_settings() {
 									printf( __( 'Settings that <a href="%s">fix potential accessibility issues</a> on your site.', 'wp-accessibility' ), 'https://docs.joedolson.com/wp-accessibility/category/remediation/' );
 									?>
 								</p>
-								<hr>
 								<form method="post" action="<?php echo admin_url( 'admin.php?page=wp-accessibility-overlay' ); ?>">
 									<p class="wpa-toggle-all">
 										<input type="checkbox" name="wpa_toggle_all" id="wpa_toggle_all" value="true"> <label for="wpa_toggle_all"><?php esc_html_e( 'Disable all automated accessibility fixes', 'wp-accessibility' ); ?></label>
 									</p>
+									<hr>
 									<?php
 									if ( ! wpa_accessible_theme() ) {
 										?>
