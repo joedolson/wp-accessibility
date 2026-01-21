@@ -39,6 +39,20 @@ function wpa_update_overlay_settings() {
 			$wpa_focus         = ( isset( $_POST['wpa_focus'] ) ) ? 'on' : '';
 			$wpa_focus_color   = ( isset( $_POST['wpa_focus_color'] ) ) ? str_replace( '#', '', $_POST['wpa_focus_color'] ) : '';
 			$wpa_continue      = ( isset( $_POST['wpa_continue'] ) ) ? sanitize_text_field( $_POST['wpa_continue'] ) : __( 'Continue Reading', 'wp-accessibility' );
+			if ( isset( $_POST['wpa_toggle_all'] ) && 'true' === $_POST['wpa_toggle_all'] ) {
+				$wpa_target        = '';
+				$wpa_search        = '';
+				$wpa_tabindex      = '';
+				$wpa_labels        = 'off';
+				$wpa_remove_titles = 'off';
+				$wpa_viewport      = 'off';
+				$wpa_underline     = '';
+				$wpa_videos        = '';
+				$wpa_more          = '';
+				$wpa_focus         = '';
+				$wpa_focus_color   = '';
+				$wpa_continue      = '';
+			}
 			update_option( 'wpa_target', $wpa_target );
 			update_option( 'wpa_search', $wpa_search );
 			update_option( 'wpa_tabindex', $wpa_tabindex );
@@ -87,6 +101,9 @@ function wpa_admin_overlay_settings() {
 								</p>
 								<hr>
 								<form method="post" action="<?php echo admin_url( 'admin.php?page=wp-accessibility-overlay' ); ?>">
+									<p class="wpa-toggle-all">
+										<input type="checkbox" name="wpa_toggle_all" id="wpa_toggle_all" value="true"> <label for="wpa_toggle_all"><?php esc_html_e( 'Disable all automated accessibility fixes', 'wp-accessibility' ); ?></label>
+									</p>
 									<?php
 									if ( ! wpa_accessible_theme() ) {
 										?>
