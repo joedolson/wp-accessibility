@@ -118,6 +118,10 @@ function wpa_admin_overlay_settings() {
 										<label for="wpa_continue"><?php _e( 'Continue reading prefix text', 'wp-accessibility' ); ?></label><br />
 										<input type="text" id="wpa_continue" name="wpa_continue" value="<?php echo esc_attr( get_option( 'wpa_continue', __( 'Continue Reading', 'wp-accessibility' ) ) ); ?>"/>
 									</p>
+									<p>
+										<input type="checkbox" id="wpa_lang_attributes" name="wpa_lang_attributes" value="on" <?php checked( get_option( 'wpa_lang_attributes' ), 'on' ); ?>/>
+										<label for="wpa_lang_attributes"><?php _e( 'Set site language attributes', 'wp-accessibility' ); ?></label>
+									</p>
 										<?php
 									} else {
 										?>
@@ -125,10 +129,6 @@ function wpa_admin_overlay_settings() {
 										<?php
 									}
 									?>
-									<p>
-										<input type="checkbox" id="wpa_lang_attributes" name="wpa_lang_attributes" value="on" <?php checked( get_option( 'wpa_lang_attributes' ), 'on' ); ?>/>
-										<label for="wpa_lang_attributes"><?php _e( 'Set site language attributes', 'wp-accessibility' ); ?></label>
-									</p>
 									<p>
 										<input type="checkbox" id="wpa_target" name="wpa_target" <?php checked( get_option( 'wpa_target' ), 'on' ); ?>/>
 										<label for="wpa_target"><?php _e( 'Prevent links from opening in new windows', 'wp-accessibility' ); ?></label>

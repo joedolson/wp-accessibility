@@ -404,7 +404,7 @@ function wpa_enqueue_js() {
 	$labels = apply_filters( 'wpa_labels', $labels );
 	$dir    = '';
 	$lang   = '';
-	if ( 'off' !== get_option( 'wpa_lang_attributes' ) ) {
+	if ( 'off' !== get_option( 'wpa_lang_attributes' ) && ! wpa_accessible_theme() ) {
 		$dir  = ( is_rtl() ) ? 'rtl' : 'ltr';
 		$lang = get_bloginfo( 'language' );
 	}
