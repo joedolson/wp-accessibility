@@ -701,7 +701,7 @@
 					wrapper.classList.add( 'wpa-ld' );
 					let longdesc = el.getAttribute('longdesc');
 					let alt = el.getAttribute('alt');
-					let classes = [...img.classList];
+					let classes = [...el.classList];
 					wrap(el,wrapper);
 					classes.forEach(className => {
 						wrapper.classList.add(className);
