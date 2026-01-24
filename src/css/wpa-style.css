@@ -35,6 +35,11 @@
 	position: relative;
 }
 
+.post-thumbnail .wpa-alt,
+.post-thumbnail .wpa-ld {
+	display: block;
+}
+
 /* basic support for themes that don't define alignleft and alignright for non-image elements. */
 div.alignleft.wpa-alt,
 div.alignleft.wpa-ld {
