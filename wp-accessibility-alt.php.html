@@ -64,7 +64,6 @@ function wpa_media_columns( $columns ) {
  */
 function wpa_media_value( $column, $id ) {
 	if ( 'wpa_data' === $column ) {
-		$mime           = get_post_mime_type( $id );
 		$invalid_values = array(
 			'""',
 			"''",
@@ -73,31 +72,26 @@ function wpa_media_value( $column, $id ) {
 			'-',
 			'--',
 		);
-		switch ( $mime ) {
-			case 'image/jpeg':
-			case 'image/png':
-			case 'image/gif':
-				$alt    = get_post_meta( $id, '_wp_attachment_image_alt', true );
-				$no_alt = (bool) get_post_meta( $id, '_no_alt', true );
-				if ( ! $alt &amp;&amp; ! $no_alt ) {
-					echo '&lt;span class="missing">&lt;span class="dashicons dashicons-no" aria-hidden="true">&lt;/span> &lt;a href="' . get_edit_post_link( $id ) . '#attachment_alt">' . __( 'Add &lt;code>alt&lt;/code> text', 'wp-accessibility' ) . '&lt;/a>&lt;/span>';
+		if ( wp_attachment_is( 'image', $id ) ) {
+			$alt    = get_post_meta( $id, '_wp_attachment_image_alt', true );
+			$no_alt = (bool) get_post_meta( $id, '_no_alt', true );
+			if ( ! $alt &amp;&amp; ! $no_alt ) {
+				echo '&lt;span class="missing">&lt;span class="dashicons dashicons-no" aria-hidden="true">&lt;/span> &lt;a href="' . get_edit_post_link( $id ) . '#attachment_alt">' . __( 'Add &lt;code>alt&lt;/code> text', 'wp-accessibility' ) . '&lt;/a>&lt;/span>';
+			} else {
+				if ( true === $no_alt ) {
+					echo '&lt;span class="ok">&lt;span class="dashicons dashicons-yes" aria-hidden="true">&lt;/span> ' . __( 'Decorative', 'wp-accessibility' ) . '&lt;/span>';
+				} elseif ( in_array( $alt, $invalid_values, true ) || ctype_punct( $alt ) || ctype_space( $alt ) ) {
+					echo '&lt;span class="missing">&lt;span class="dashicons dashicons-no" aria-hidden="true">&lt;/span> &lt;a href="' . get_edit_post_link( $id ) . '#attachment_alt">' . __( 'Invalid &lt;code>alt&lt;/code>', 'wp-accessibility' ) . '&lt;/a>&lt;/span>';
+				} elseif ( wpa_suspicious_alt( $alt ) ) {
+					echo '&lt;span class="missing">&lt;span class="dashicons dashicons-no" aria-hidden="true">&lt;/span> &lt;a href="' . get_edit_post_link( $id ) . '#attachment_alt">' . __( 'Suspicious &lt;code>alt&lt;/code>', 'wp-accessibility' ) . '&lt;/a>&lt;/span>';
+				} elseif ( wpa_long_alt( $alt ) ) {
+					echo '&lt;span class="long">&lt;span class="dashicons dashicons-warning" aria-hidden="true">&lt;/span> &lt;a href="' . get_edit_post_link( $id ) . '#attachment_alt">' . __( 'Long &lt;code>alt&lt;/code> text', 'wp-accessibility' ) . '&lt;/a>&lt;/span>';
 				} else {
-					if ( true === $no_alt ) {
-						echo '&lt;span class="ok">&lt;span class="dashicons dashicons-yes" aria-hidden="true">&lt;/span> ' . __( 'Decorative', 'wp-accessibility' ) . '&lt;/span>';
-					} elseif ( in_array( $alt, $invalid_values, true ) || ctype_punct( $alt ) || ctype_space( $alt ) ) {
-						echo '&lt;span class="missing">&lt;span class="dashicons dashicons-no" aria-hidden="true">&lt;/span> &lt;a href="' . get_edit_post_link( $id ) . '#attachment_alt">' . __( 'Invalid &lt;code>alt&lt;/code>', 'wp-accessibility' ) . '&lt;/a>&lt;/span>';
-					} elseif ( wpa_suspicious_alt( $alt ) ) {
-						echo '&lt;span class="missing">&lt;span class="dashicons dashicons-no" aria-hidden="true">&lt;/span> &lt;a href="' . get_edit_post_link( $id ) . '#attachment_alt">' . __( 'Suspicious &lt;code>alt&lt;/code>', 'wp-accessibility' ) . '&lt;/a>&lt;/span>';
-					} elseif ( wpa_long_alt( $alt ) ) {
-						echo '&lt;span class="long">&lt;span class="dashicons dashicons-warning" aria-hidden="true">&lt;/span> &lt;a href="' . get_edit_post_link( $id ) . '#attachment_alt">' . __( 'Long &lt;code>alt&lt;/code> text', 'wp-accessibility' ) . '&lt;/a>&lt;/span>';
-					} else {
-						echo '&lt;span class="ok">&lt;span class="dashicons dashicons-yes" aria-hidden="true">&lt;/span> ' . __( 'Has &lt;code>alt&lt;/code>', 'wp-accessibility' ) . '&lt;/span>';
-					}
+					echo '&lt;span class="ok">&lt;span class="dashicons dashicons-yes" aria-hidden="true">&lt;/span> ' . __( 'Has &lt;code>alt&lt;/code>', 'wp-accessibility' ) . '&lt;/span>';
 				}
-				break;
-			default:
-				echo '&lt;span class="non-image">' . __( 'N/A', 'wp-accessibility' ) . '&lt;/span>';
-				break;
+			}
+		} else {
+			echo '&lt;span class="non-image">' . __( 'N/A', 'wp-accessibility' ) . '&lt;/span>';
 		}
 	}
 	return $column;
