@@ -71,6 +71,8 @@ function wpa_media_value( $column, $id ) {
 			' ',
 			'-',
 			'--',
+			'.',
+			'...',
 		);
 		if ( wp_attachment_is( 'image', $id ) ) {
 			$alt    = get_post_meta( $id, '_wp_attachment_image_alt', true );
