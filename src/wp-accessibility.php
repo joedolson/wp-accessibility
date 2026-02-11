@@ -178,7 +178,7 @@ function wpa_stylesheet() {
 		}
 		$add_css    = ( ! wpa_accessible_theme() ) ? wpa_css() : '';
 		$custom_css = ':root { --admin-bar-top : ' . $top . '; }';
-		wp_add_inline_style( 'wpa-style', wp_filter_nohtml_kses( stripcslashes( $add_css . $custom_css ) ) );
+		wp_add_inline_style( 'wpa-style', wp_filter_nohtml_kses( wp_unslash( $add_css . $custom_css ) ) );
 	}
 	if ( current_user_can( 'edit_files' ) && 'on' === get_option( 'wpa_diagnostics' ) ) {
 		wp_register_style( 'diagnostic', plugins_url( 'css/diagnostic.css', __FILE__ ) );
