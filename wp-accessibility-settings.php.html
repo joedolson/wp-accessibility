@@ -252,12 +252,12 @@ function wpa_admin_settings() {
 											?>
 										&lt;p>
 											&lt;label for="asl_styles">&lt;?php _e( 'Styles for Skiplinks', 'wp-accessibility' ); ?>&lt;/label>&lt;br/>
-											&lt;textarea name='asl_styles' id='asl_styles' cols='60' rows='4'>&lt;?php echo esc_textarea( stripcslashes( $styles ) ); ?>&lt;/textarea>
+											&lt;textarea name='asl_styles' id='asl_styles' cols='60' rows='4'>&lt;?php echo esc_textarea( wp_unslash( $styles ) ); ?>&lt;/textarea>
 										&lt;/p>
 											&lt;?php
 										} else {
 											$styles = wpa_skiplink_css( true );
-											echo '&lt;pre id="wpa_default_css">' . esc_html( stripcslashes( $styles ) ) . '&lt;/pre>';
+											echo '&lt;pre id="wpa_default_css">' . esc_html( wp_unslash( $styles ) ) . '&lt;/pre>';
 										}
 										?>
 									&lt;/fieldset>
