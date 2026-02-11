@@ -710,7 +710,11 @@
 					let newLink = document.createElement( 'a' );
 					newLink.setAttribute( 'href', longdesc );
 					newLink.classList.add( 'longdesc-link' );
-					newLink.innerHTML = 'Description<span class="screen-reader-text"> of' + alt + '</span>';
+					let span = document.createElement( 'span' );
+					span.classList.add( 'screen-reader-text' );
+					span.textContent = ' of ' + alt;
+					newLink.textContent = 'Description';
+					newLink.appendChild( span );
 					el.insertAdjacentElement( 'afterend', newLink );
 				});
 			}
@@ -803,8 +807,16 @@
 
 			img.setAttribute('alt', '');
 			img.setAttribute('class', '');
+			let newLink = document.createElement( 'a' );
+			newLink.setAttribute( 'href', url );
+			newLink.classList.add( 'longdesc-link' );
+			let span = document.createElement( 'span' );
+			span.classList.add( 'screen-reader-text' );
+			span.textContent = ' of ' + alt;
+			newLink.textContent = 'Description';
+			newLink.appendChild( span );
 			if ( 'link' === wpa.ldType ) {
-				wrapper.insertAdjacentHTML( 'beforeend', '<a href="' + url + '" class="longdesc-link">Description<span class="screen-reader-text"> of ' + alt + '</span></a>');
+				wrapper.insertAdjacentElement( 'beforeend', newLink );
 			} else {
 				wrapper.insertAdjacentHTML( 'beforeend', '<button aria-expanded="false" class="wpa-toggle">' + wpa.ldText + '</button>');
 				wrapper.insertAdjacentHTML( 'beforeend', '<div class="longdesc"></div>');
