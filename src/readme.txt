@@ -85,7 +85,7 @@ WP Accessibility includes a statistics collection feature to help you identify h
 = 2.3.2 =
 
 * Security: Sanitize alt & longdesc text before injecting into toggle name. Props Wordfence & @jtwings.
-* Bug fix: Apply alt text checks to all supported image types.
+* Bug fix: Apply alt text checks to all supported image types. Props @knutsp.
 * Change: Add additional invalid alt text patterns.
 
 = 2.3.1 =
