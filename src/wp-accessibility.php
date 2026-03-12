@@ -626,6 +626,15 @@ function wpa_filter( $query ) {
 			$query->query_vars['s'] = '&#32;';
 			$query->set( 'is_search', 1 );
 			add_action( 'template_include', 'wpa_search_error' );
+			add_filter(
+				'get_search_query',
+				function ( $search_query ) {
+					if ( '&#32;' === $search_query ) {
+						return '';
+					}
+					return $search_query;
+				}
+			);
 		}
 	}
 
