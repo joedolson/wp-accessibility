@@ -465,7 +465,7 @@ function wpa_enqueue_js() {
 	 * @return {bool}
 	 */
 	$errors_enabled = apply_filters( 'wpa_view_remediation_logs', current_user_can( 'manage_options' ) );
-	$track          = ( '' === get_option( 'wpa_track_stats' ) ) ? current_user_can( 'manage_options' ) : true;
+	$track          = ( '' === get_option( 'wpa_track_stats', '' ) ) ? current_user_can( 'manage_options' ) : true;
 	$track          = ( 'off' === get_option( 'wpa_track_stats' ) ) ? false : $track;
 	/**
 	 * Filter whether data from views will be tracked.

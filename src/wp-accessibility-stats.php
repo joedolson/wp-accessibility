@@ -74,7 +74,7 @@ add_action( 'init', 'wpa_taxonomies', 0 );
  * @param int|string $post_ID ID of the post if singular.
  */
 function wpa_add_stats( $stats, $title, $type = 'view', $post_ID = 0 ) {
-	$admin_only = ( '' === get_option( 'wpa_track_stats' ) ) ? true : false;
+	$admin_only = ( '' === get_option( 'wpa_track_stats', '' ) ) ? true : false;
 	if ( $admin_only && ! current_user_can( 'manage_options' ) ) {
 		return;
 	}
