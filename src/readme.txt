@@ -5,7 +5,7 @@ Tags: accessibility, wcag, a11y, section508, alt text
 Requires at least: 5.9
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 2.3.2
+Stable tag: 2.3.3
 Text Domain: wp-accessibility
 License: GPLv3
 
@@ -81,6 +81,11 @@ WP Accessibility includes a statistics collection feature to help you identify h
 = Future =
 
 [Suggest a change!](https://github.com/joedolson/wp-accessibility/issues/)
+
+= 2.3.3 =
+
+* Bug fix: Set a default option value for `wpa_track_stats` in option call, to fix issue caused by strict type checking.
+* Bug fix: Prevent escaped strings in search output from bypassing empty search checks. Props @stevejonesdev.
 
 = 2.3.2 =
 
