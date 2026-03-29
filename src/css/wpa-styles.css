@@ -132,7 +132,7 @@
 }
 
 .wpa-support-me {
-	background: #007eb3;
+	background: var(--wp-admin-theme-color, #007eb3 );
 	text-shadow: 1px 1px rgb( 35, 60, 127 );
 }
 
@@ -193,7 +193,7 @@
 .wpa-support-me a:hover, .wpa-support-me a:focus {
 	text-decoration: none;
 	background: #fff;
-	color: #007eb3;
+	color: var(--wp-admin-theme-color, #007eb3 );
 	text-shadow: none;
 }
 
