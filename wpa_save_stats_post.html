@@ -36,7 +36,7 @@
 
     
 
-    <h4 class="name" id="wpa_save_stats_post">do_action( 'wpa_save_stats_post', <span class="signature">$stat, $stats, $post_ID )</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="wpa_save_stats_post">do_action( 'wpa_save_stats_post', <span class="signature">int, array, int )</span><span class="type-signature"></span></h4>
 
     
 
@@ -77,15 +77,10 @@
 
         <tr>
             
-                <td class="name"><code>$stat</code></td>
+                <td class="name"><code>int</code></td>
             
 
             <td class="type">
-            
-                
-<span class="param-type">int</span>
-
-
             
             </td>
 
@@ -93,22 +88,17 @@
 
             
 
-            <td class="description last"><p>New post ID.</p></td>
+            <td class="description last"><p>$stat New post ID.</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>$stats</code></td>
+                <td class="name"><code>array</code></td>
             
 
             <td class="type">
-            
-                
-<span class="param-type">array</span>
-
-
             
             </td>
 
@@ -116,22 +106,17 @@
 
             
 
-            <td class="description last"><p>Stats data sent via AJAX.</p></td>
+            <td class="description last"><p>$stats Stats data sent via AJAX.</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>$post_ID</code></td>
+                <td class="name"><code>int</code></td>
             
 
             <td class="type">
-            
-                
-<span class="param-type">int</span>
-
-
             
             </td>
 
@@ -139,7 +124,7 @@
 
             
 
-            <td class="description last"><p>Related post ID or false if a non-singular screen.</p></td>
+            <td class="description last"><p>$post_ID Related post ID or false if a non-singular screen.</p></td>
         </tr>
 
     

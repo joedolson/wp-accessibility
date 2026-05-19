@@ -328,9 +328,9 @@ $class#skiplinks a:active, $vis $class#skiplinks a:focus {
 	 *
 	 * @hook wpa_skiplink_styles
 	 *
-	 * @param {string} $styles Styles configured by settings.
+	 * @param string $styles Styles configured by settings.
 	 *
-	 * @return {string}
+	 * @return string
 	 */
 	$styles = apply_filters( 'wpa_skiplink_styles', $styles );
 
@@ -380,9 +380,9 @@ function wpa_enqueue_js() {
 		 * Customize the default value for extra skiplink. Turns on extra skiplink options in WP Accessibility versions > 1.9.0.
 		 *
 		 * @hook asl_extra_target
-		 * @param {string} Value to use as a default for the extra skiplink.
+		 * @param string Value to use as a default for the extra skiplink.
 		 *
-		 * @return {string}
+		 * @return string
 		 */
 		$default_extra = apply_filters( 'asl_extra_target', '' );
 		$extra         = get_option( 'asl_extra_target', $default_extra );
@@ -397,9 +397,9 @@ function wpa_enqueue_js() {
 		 * Customize the default value for sitemap skiplink. Turns on sitemap skiplink options in WP Accessibility versions > 1.9.0.
 		 *
 		 * @hook asl_sitemap
-		 * @param {string} Value to use as a default for the sitemap.
+		 * @param string Value to use as a default for the sitemap.
 		 *
-		 * @return {string}
+		 * @return string
 		 */
 		$default_sitemap = apply_filters( 'asl_sitemap', '' );
 		$sitemap         = esc_url( get_option( 'asl_sitemap', $default_sitemap ) );
@@ -423,9 +423,9 @@ function wpa_enqueue_js() {
 	 * Customize labels passed to automatically label core WordPress fields.
 	 *
 	 * @hook wpa_labels
-	 * @param {array} $labels Array of labels for search and comment fields.
+	 * @param array $labels Array of labels for search and comment fields.
 	 *
-	 * @return {array}
+	 * @return array
 	 */
 	$labels = apply_filters( 'wpa_labels', $labels );
 	$dir    = '';
@@ -464,9 +464,9 @@ function wpa_enqueue_js() {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param {string} $selector Valid CSS selector string.
+	 * @param string $selector Valid CSS selector string.
 	 *
-	 * @return {string}
+	 * @return string
 	 */
 	$selector = apply_filters( 'wpa_show_alt_selector', '.hentry img[alt]:not([alt=""]), .comment-content img[alt]:not([alt=""]), #content img[alt]:not([alt=""]),.entry-content img[alt]:not([alt=""])' );
 	$alttext  = ( 'on' === get_option( 'wpa_show_alt' ) ) ? true : false;
@@ -476,7 +476,7 @@ function wpa_enqueue_js() {
 	 *
 	 * @hook wpa_underline_target
 	 *
-	 * @param {string} $el Target element selector.
+	 * @param string $el Target element selector.
 	 *
 	 * @return string
 	 */
@@ -486,9 +486,9 @@ function wpa_enqueue_js() {
 	 *
 	 * @hook wpa_view_remediation_logs
 	 *
-	 * @param {bool} $visible Default `true` if user is logged in and has capabilities to manage options.
+	 * @param bool $visible Default `true` if user is logged in and has capabilities to manage options.
 	 *
-	 * @return {bool}
+	 * @return bool
 	 */
 	$errors_enabled = apply_filters( 'wpa_view_remediation_logs', current_user_can( 'manage_options' ) );
 	$track          = ( '' === get_option( 'wpa_track_stats', '' ) ) ? current_user_can( 'manage_options' ) : true;
@@ -498,9 +498,9 @@ function wpa_enqueue_js() {
 	 *
 	 * @hook wpa_track_view_statistics
 	 *
-	 * @param {bool} $visible Default `true` if user is logged in and has capabilities to manage options or if enabled in settings.
+	 * @param bool $visible Default `true` if user is logged in and has capabilities to manage options or if enabled in settings.
 	 *
-	 * @return {bool}
+	 * @return bool
 	 */
 	$tracking_enabled = apply_filters( 'wpa_track_view_statistics', $track );
 	$apply_labels     = ( 'off' === get_option( 'wpa_labels' ) ) ? false : true;
@@ -509,9 +509,9 @@ function wpa_enqueue_js() {
 	 *
 	 * @hook wpa_disable_labels
 	 *
-	 * @param {bool} $enabled True if labels are automatically added.
+	 * @param bool $enabled True if labels are automatically added.
 	 *
-	 * @return {bool}
+	 * @return bool
 	 */
 	$apply_labels  = apply_filters( 'wpa_disable_labels', $apply_labels );
 	$remove_titles = ( 'off' === get_option( 'wpa_remove_titles' ) ) ? false : true;
@@ -520,9 +520,9 @@ function wpa_enqueue_js() {
 	 *
 	 * @hook wpa_remove_titles
 	 *
-	 * @param {bool} $enabled True if title attributes are removed.
+	 * @param bool $enabled True if title attributes are removed.
 	 *
-	 * @return {bool}
+	 * @return bool
 	 */
 	$remove_titles = apply_filters( 'wpa_remove_titles', $remove_titles );
 	$set_viewport  = ( 'off' === get_option( 'wpa_viewport' ) ) ? false : true;
@@ -531,9 +531,9 @@ function wpa_enqueue_js() {
 	 *
 	 * @hook wpa_viewport
 	 *
-	 * @param {bool} $enabled True viewport can be modified.
+	 * @param bool $enabled True viewport can be modified.
 	 *
-	 * @return {bool}
+	 * @return bool
 	 */
 	$viewport = apply_filters( 'wpa_viewport', $set_viewport );
 	wp_localize_script(
@@ -974,10 +974,10 @@ function wpa_get_content_summary( $post_id ) {
 	 *
 	 * @hook wpa_summary_heading
 	 *
-	 * @param {string} $heading Heading text.
-	 * @param {int}    $post_id Post ID.
+	 * @param string $heading Heading text.
+	 * @param int    $post_id Post ID.
 	 *
-	 * @return {string}
+	 * @return string
 	 */
 	$heading = apply_filters( 'wpa_summary_heading', __( 'Summary', 'wp-accessibility' ), $post_id );
 	/**
@@ -985,10 +985,10 @@ function wpa_get_content_summary( $post_id ) {
 	 *
 	 * @hook wpa_summary_heading_level
 	 *
-	 * @param {string} $heading Element selector.
-	 * @param {int}    $post_id Post ID.
+	 * @param string $heading Element selector.
+	 * @param int    $post_id Post ID.
 	 *
-	 * @return {string}
+	 * @return string
 	 */
 	$level = apply_filters( 'wpa_summary_heading_level', 'h2', $post_id );
 

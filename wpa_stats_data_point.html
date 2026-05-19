@@ -36,7 +36,7 @@
 
     
 
-    <h4 class="name" id="wpa_stats_data_point">apply_filters( 'wpa_stats_data_point', <span class="signature">$return, $post, $type )</span><span class="type-signature"> &rarr; {array}</span></h4>
+    <h4 class="name" id="wpa_stats_data_point">apply_filters( 'wpa_stats_data_point', <span class="signature">array, WP_Post, string )</span><span class="type-signature"></span></h4>
 
     
 
@@ -77,15 +77,10 @@
 
         <tr>
             
-                <td class="name"><code>$return</code></td>
+                <td class="name"><code>array</code></td>
             
 
             <td class="type">
-            
-                
-<span class="param-type">array</span>
-
-
             
             </td>
 
@@ -93,22 +88,17 @@
 
             
 
-            <td class="description last"><p>Array with an <code>html</code> key containing HTML and a <code>count</code> string with the number of issues to display.</p></td>
+            <td class="description last"><p>$return Array with an <code>html</code> key containing HTML and a <code>count</code> string with the number of issues to display.</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>$post</code></td>
+                <td class="name"><code>WP_Post</code></td>
             
 
             <td class="type">
-            
-                
-<span class="param-type">WP_Post</span>
-
-
             
             </td>
 
@@ -116,22 +106,17 @@
 
             
 
-            <td class="description last"><p>WordPress post object.</p></td>
+            <td class="description last"><p>$post WordPress post object.</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>$type</code></td>
+                <td class="name"><code>string</code></td>
             
 
             <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
             
             </td>
 
@@ -139,7 +124,7 @@
 
             
 
-            <td class="description last"><p>Type of stat; 'event' or 'view'.</p></td>
+            <td class="description last"><p>$type Type of stat; 'event' or 'view'.</p></td>
         </tr>
 
     
@@ -180,7 +165,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="wp-accessibility-stats.php.html">wp-accessibility-stats.php</a>, <a href="wp-accessibility-stats.php.html#line446">line 446</a>
+        <a href="wp-accessibility-stats.php.html">wp-accessibility-stats.php</a>, <a href="wp-accessibility-stats.php.html#line447">line 447</a>
     </li></ul></dd>
     
 
@@ -206,19 +191,11 @@
 <h5>Returns:</h5>
 
         
+<div class="param-desc">
+    <p>array</p>
+</div>
 
 
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">array</span>
-
-
-    </dd>
-</dl>
 
     
 
