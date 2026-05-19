@@ -180,9 +180,9 @@ function wpa_admin_settings() {
 										 * Customize the default value for sitemap skiplink. Turns on sitemap skiplink options in WP Accessibility versions > 1.9.0.
 										 *
 										 * @hook asl_sitemap
-										 * @param {string} Value to use as a default for the sitemap.
+										 * @param string Value to use as a default for the sitemap.
 										 *
-										 * @return {string}
+										 * @return string
 										 */
 										$default_sitemap = apply_filters( 'asl_sitemap', '' );
 										if ( '' !== get_option( 'asl_sitemap', $default_sitemap ) ) {
@@ -197,9 +197,9 @@ function wpa_admin_settings() {
 										 * Customize the default value for extra skiplink. Turns on extra skiplink options in WP Accessibility versions > 1.9.0.
 										 *
 										 * @hook asl_extra_target
-										 * @param {string} Value to use as a default for the extra skiplink target.
+										 * @param string Value to use as a default for the extra skiplink target.
 										 *
-										 * @return {string}
+										 * @return string
 										 */
 										$default_extra = apply_filters( 'asl_extra_target', '' );
 										if ( '' !== get_option( 'asl_extra_target', $default_extra ) ) {

@@ -87,7 +87,7 @@ function wpa_long_alt( $alt ) {
 	 *
 	 * @hook wpa_long_alt
 	 *
-	 * @param {int} $limit Default length to call alt text long.
+	 * @param int $limit Default length to call alt text long.
 	 *
 	 * @return int
 	 */
@@ -127,7 +127,7 @@ function wpa_suspicious_alt( $alt ) {
 	 *
 	 * @hook wpa_case_insensitive
 	 *
-	 * @param {array} $case_insensitive Array of strings.
+	 * @param array $case_insensitive Array of strings.
 	 *
 	 * @return array
 	 */
@@ -141,7 +141,7 @@ function wpa_suspicious_alt( $alt ) {
 	 *
 	 * @hook wpa_case_sensitive
 	 *
-	 * @param {array} $case_sensitive Array of strings.
+	 * @param array $case_sensitive Array of strings.
 	 *
 	 * @return array
 	 */

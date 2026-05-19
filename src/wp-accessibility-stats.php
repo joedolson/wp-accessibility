@@ -115,8 +115,8 @@ function wpa_add_stats( $stats, $title, $type = 'view', $post_ID = 0 ) {
 		 *
 		 * @hook wpa_save_stats_update
 		 *
-		 * @param {int}   $exists Existing post ID.
-		 * @param {array} $stats Stats data sent via AJAX.
+		 * @param int   $exists Existing post ID.
+		 * @param array $stats Stats data sent via AJAX.
 		 */
 		do_action( 'wpa_save_stats_update', $exists, $stats );
 		return array( $stats );
@@ -147,9 +147,9 @@ function wpa_add_stats( $stats, $title, $type = 'view', $post_ID = 0 ) {
 		 *
 		 * @hook wpa_save_stats_post
 		 *
-		 * @param {int}   $stat New post ID.
-		 * @param {array} $stats Stats data sent via AJAX.
-		 * @param {int}   $post_ID Related post ID or false if a non-singular screen.
+		 * @param int   $stat New post ID.
+		 * @param array $stats Stats data sent via AJAX.
+		 * @param int   $post_ID Related post ID or false if a non-singular screen.
 		 */
 		do_action( 'wpa_save_stats_post', $stat, $stats, $post_ID );
 		return array();
@@ -201,9 +201,9 @@ function wpa_get_current_url() {
 	 *
 	 * @hook wpa_get_current_url
 	 *
-	 * @param {string} $current_url Current URL according to wp_rewrite.
+	 * @param string $current_url Current URL according to wp_rewrite.
 	 *
-	 * @return {string}
+	 * @return string
 	 */
 	$current_url = apply_filters( 'wpa_get_current_url', $current_url );
 
@@ -308,7 +308,7 @@ function wpa_get_stats( $type = 'view', $count = 1 ) {
  * @param string $type Stats type.
  * @param int    $limit Number of stat points to show.
  *
- * @return string
+ * @return array
  */
 function wpa_stats_data_point( $post, $type, $limit = 5 ) {
 	$output   = '';
@@ -337,6 +337,7 @@ function wpa_stats_data_point( $post, $type, $limit = 5 ) {
 
 	$line  = '';
 	$total = 0;
+	$text  = '';
 	if ( 'event' === $type ) {
 		$date = gmdate( 'Y-m-d', $data->timestamp );
 		$time = gmdate( 'H:i', $data->timestamp );
@@ -448,11 +449,11 @@ function wpa_stats_data_point( $post, $type, $limit = 5 ) {
 	 *
 	 * @hook wpa_stats_data_point
 	 *
-	 * @param {array}   $return Array with an `html` key containing HTML and a `count` string with the number of issues to display.
-	 * @param {WP_Post} $post WordPress post object.
-	 * @param {string}  $type Type of stat; 'event' or 'view'.
+	 * @param array   $return Array with an `html` key containing HTML and a `count` string with the number of issues to display.
+	 * @param WP_Post $post WordPress post object.
+	 * @param string  $type Type of stat; 'event' or 'view'.
 	 *
-	 * @return {array}
+	 * @return array
 	 */
 	$return = apply_filters( 'wpa_stats_data_point', $return, $post, $type );
 	return $return;

@@ -74,7 +74,7 @@ function wpa_toolbar_enqueue_scripts() {
 	 *
 	 * @hook wpa_toolbar_css
 	 *
-	 * @param {string} $url URL to stylesheet for accessibility toolbar.
+	 * @param string $url URL to stylesheet for accessibility toolbar.
 	 *
 	 * @return string
 	 */
@@ -88,7 +88,7 @@ function wpa_toolbar_enqueue_scripts() {
 	 *
 	 * @hook wpa_fontsize_css
 	 *
-	 * @param {string} $stylesheet URL for increased font size stylesheet.
+	 * @param string $stylesheet URL for increased font size stylesheet.
 	 *
 	 * @return string
 	 */
@@ -188,7 +188,7 @@ function wpa_toolbar_js() {
 	 *
 	 * @hook wpa_move_toolbar
 	 *
-	 * @param {string} $el Target element selector.
+	 * @param string $el Target element selector.
 	 *
 	 * @return string
 	 */
