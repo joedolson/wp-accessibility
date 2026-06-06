@@ -279,7 +279,7 @@
 
 	if ( wpa.tabindex ) {
 		// Remove tabindex from elements that should be natively focusable.
-		let focusable  = document.querySelectorAll('input,a[href],select,textarea,button');
+		let focusable  = document.querySelectorAll('input:not(.wpa-ignore-tabindex),a[href]:not(.wpa-ignore-tabindex),select:not(.wpa-ignore-tabindex),textarea:not(.wpa-ignore-tabindex),button:not(.wpa-ignore-tabindex)');
 		let tabRemoved = 0;
 		if ( focusable.length !== 0 ) {
 			focusable.forEach( (el) => {
