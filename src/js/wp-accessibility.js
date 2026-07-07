@@ -284,7 +284,16 @@
 		if ( focusable.length !== 0 ) {
 			focusable.forEach( (el) => {
 				let tabindex = el.getAttribute('tabindex');
-				if ( tabindex ) {
+				let skip = false;
+				// Check for intentionally hidden elements with tabindex of -1.
+				if ( el.hasAttribute('tabindex') && tabindex === '-1' ) {
+					let hasAriaHidden = el.getAttribute('aria-hidden');
+					let hasHidden = el.hasAttribute('hidden');
+					if ( hasAriaHidden === 'true' || hasHidden ) {
+						skip = true;
+					}
+				}
+				if ( tabindex && !skip ) {
 					el.removeAttribute('tabindex');
 					tabRemoved++;
 				}
@@ -311,7 +320,7 @@
 				console.log( fakeButtons.length + ' tabindex attributes added to divs with the button role by WP Accessibility' );
 			}
 		}
-		if ( buttonLinks !== 0 ) {
+		if ( buttonLinks.length !== 0 ) {
 			buttonLinks.forEach( (el) => {
 				el.setAttribute( 'tabindex', '0' );
 				el.classList.add('wpa-focusable');
@@ -321,7 +330,7 @@
 				console.log( buttonLinks.length + ' tabindex attributes added to anchor elements with the button role and no href value by WP Accessibility' );
 			}
 		}
-		if ( fakeLinks !== 0 ) {
+		if ( fakeLinks.length !== 0 ) {
 			fakeLinks.forEach( (el) => {
 				el.setAttribute( 'tabindex', '0' );
 				el.classList.add('wpa-focusable');
@@ -331,7 +340,7 @@
 				console.log( fakeLinks.length + ' tabindex attributes added to elements with the link role not using the a element by WP Accessibility' );
 			}
 		}
-		if ( linkLinks !== 0 ) {
+		if ( linkLinks.length !== 0 ) {
 			linkLinks.forEach( (el) => {
 				el.setAttribute( 'tabindex', '0' );
 				el.classList.add('wpa-focusable');
