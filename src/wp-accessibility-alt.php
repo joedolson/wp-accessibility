@@ -277,5 +277,9 @@ function wpa_block_editor_assets() {
 		$version     = wpa_check_version();
 		$wpa_version = ( SCRIPT_DEBUG ) ? $version . '-' . wp_rand( 10000, 100000 ) : $version;
 		wp_enqueue_style( 'wpa-block-styles', plugins_url( 'css/editor-style.css', __FILE__ ), false, $wpa_version );
+
+		if ( 'on' === get_option( 'wpa_enable_visibility' ) ) {
+			wp_enqueue_style( 'wpa-visibility-styles', plugins_url( 'css/editor-visibility.css', __FILE__ ), false, $wpa_version );
+		}
 	}
 }

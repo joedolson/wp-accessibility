@@ -94,28 +94,3 @@ img[alt*="This image has an empty alt"],
 	font-size: .875rem;
 	font-weight: 700;
 }
-
-.wp-block:not(.is-selected):hover {
-	outline: 1px dashed color-mix(in srgb, var(--wp-admin-theme-color) 80%, transparent);
-	outline-offset: 2px;
-}
-
-.wp-block:not(.is-selected):hover::before {
-	content: attr(aria-label) / '';
-	position: absolute;
-	left: 0;
-	top: -1.5rem;
-	background: rgba( 0,0,0,.85 );
-	color: #fff;
-	padding: 3px 5px;
-	border-radius: 5px;
-	font-size: .875rem;
-}
-
-.wp-block:not(.is-selected):hover:has(.wp-block:hover) {
-	outline-offset: 6px;
-}
-
-.wp-block:not(.is-selected):hover:has(.wp-block:hover)::before {
-	top: -3.25rem;
-}

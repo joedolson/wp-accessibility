@@ -29,6 +29,7 @@ function wpa_update_admin_settings() {
 			$wpa_search_alt         = ( isset( $_POST['wpa_search_alt'] ) ) ? 'on' : '';
 			$wpa_diagnostics        = ( isset( $_POST['wpa_diagnostics'] ) ) ? 'on' : '';
 			$wpa_disable_fullscreen = ( isset( $_POST['wpa_disable_fullscreen'] ) ) ? 'on' : '';
+			$wpa_enable_visibility  = ( isset( $_POST['wpa_enable_visibility'] ) ) ? 'on' : '';
 			$wpa_disable_file_embed = ( isset( $_POST['wpa_disable_file_embed'] ) ) ? 'on' : '';
 			$wpa_allow_h1           = ( isset( $_POST['wpa_allow_h1'] ) ) ? 'on' : '';
 			$wpa_disable_logout     = ( isset( $_POST['wpa_disable_logout'] ) ) ? 'on' : '';
@@ -36,6 +37,7 @@ function wpa_update_admin_settings() {
 			update_option( 'wpa_search_alt', $wpa_search_alt );
 			update_option( 'wpa_diagnostics', $wpa_diagnostics );
 			update_option( 'wpa_disable_fullscreen', $wpa_disable_fullscreen );
+			update_option( 'wpa_enable_visibility', $wpa_enable_visibility );
 			update_option( 'wpa_disable_file_embed', $wpa_disable_file_embed );
 			update_option( 'wpa_allow_h1', $wpa_allow_h1 );
 			update_option( 'wpa_track_stats', $wpa_track_stats );
@@ -82,6 +84,10 @@ function wpa_admin_admin_settings() {
 									<p>
 										<input type="checkbox" id="wpa_disable_fullscreen" name="wpa_disable_fullscreen" <?php checked( get_option( 'wpa_disable_fullscreen' ), 'on' ); ?>/>
 										<label for="wpa_disable_fullscreen"><?php _e( 'Disable fullscreen block editor by default', 'wp-accessibility' ); ?></label>
+									</p>
+									<p>
+										<input type="checkbox" id="wpa_enable_visibility" name="wpa_enable_visibility" <?php checked( get_option( 'wpa_enable_visibility' ), 'on' ); ?>/>
+										<label for="wpa_enable_visibility"><?php _e( 'Make block boundaries visible on hover', 'wp-accessibility' ); ?></label>
 									</p>
 									<p>
 										<input type="checkbox" id="wpa_disable_file_embed" name="wpa_disable_file_embed" <?php checked( get_option( 'wpa_disable_file_embed' ), 'on' ); ?>/>
