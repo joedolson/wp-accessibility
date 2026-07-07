@@ -1,25 +1,22 @@
-name: Build Hook Docs
+name: Extract WordPress Hooks
 
 on:
- push:
-   branches:
-    - master
+  push:
+    branches: [ main, master ]
+    paths: [ '**.php' ]
+  workflow_dispatch:
 
 jobs:
-  hookdocs:
+  extract-hooks:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Required to push to wiki repository
     steps:
     - uses: actions/checkout@v4
-    - name: Use Node.js 16
-      uses: actions/setup-node@v4
+    - uses: akirk/extract-wp-hooks@main
       with:
-        node-version: '16.x'
-    - name: npm install, and build docs
-      run: |
-        npm install
-        npm run build:docs
-    - name: Deploy to GH Pages
-      uses: peaceiris/actions-gh-pages@v4
-      with:
-        publish_dir: './docs'
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+        base-dir: "."
+        exclude-dirs: "vendor,tests,node_modules,updates"
+        ignore-filters: "debug_hook,internal_filter"
+        section: "file"
+        wiki-repo: "joedolson/wp-accessibility.wiki.git"
