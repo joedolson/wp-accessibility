@@ -85,6 +85,7 @@ WP Accessibility includes a statistics collection feature to help you identify h
 = 2.3.4 =
 
 * Feature: Add styling for block editor hover states.
+* Feature: Add escape class to ignore alt text toggles: `wpa-skip`.
 * Bug fix: Ignore controls with `aria-hidden` or `hidden` attributes when removing `tabindex` from controls.
 * Design: Update to use new admin colors with fallbacks.
 * Docs: Update filter documentation style.
