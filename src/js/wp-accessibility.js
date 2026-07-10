@@ -659,6 +659,10 @@
 					// Small images won't get displayed alt text containers.
 					return;
 				}
+				if ( el.classList.contains( 'wpa-skip' ) || el.closest( '.wpa-skip' ) ) {
+					// Skip images that have been marked to skip.
+					return;
+				}
 			}
 			let alt = img.getAttribute('alt');
 
