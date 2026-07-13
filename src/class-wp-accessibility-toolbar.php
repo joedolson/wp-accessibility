@@ -5,7 +5,7 @@
  * @category Widgets
  * @package  WP Accessibility
  * @author   Joe Dolson
- * @license  GPLv3
+ * @license  GPLv2
  * @link     https://www.joedolson.com/wp-accessibility/
  */
 
@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @package   WP Accessibility
  * @author    Joe Dolson
  * @copyright 2012
- * @license   GPLv3
+ * @license   GPLv2
  * @version   1.0
  */
 class Wp_Accessibility_Toolbar extends WP_Widget {

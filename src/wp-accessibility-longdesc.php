@@ -5,7 +5,7 @@
  * @category Features
  * @package  WP Accessibility
  * @author   Joe Dolson
- * @license  GPLv3
+ * @license  GPLv2
  * @link     https://www.joedolson.com/wp-access/
  */
 

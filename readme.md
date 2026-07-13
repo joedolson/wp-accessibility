@@ -12,7 +12,7 @@ Improving the Accessibility of your WordPress site.
 * Tested up to: 7.0
 * Requires PHP: 7.4
 * Stable tag: `2.3.4`
-* License: GPLv3
+* License: GPLv2
 * License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 This is the development environment for WP Accessibility.
