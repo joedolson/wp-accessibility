@@ -8,7 +8,7 @@
 	convertDeprecationsToExceptions="true"
 	>
 	<testsuites>
-		<testsuite>
+		<testsuite name="Unit Tests">
 			<directory prefix="test-" suffix=".php">./tests/</directory>
 		</testsuite>
 	</testsuites>
