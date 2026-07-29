@@ -82,6 +82,10 @@ WP Accessibility includes a statistics collection feature to help you identify h
 
 [Suggest a change!](https://github.com/joedolson/wp-accessibility/issues/)
 
+= 2.3.5 =
+
+* Reverse the infinite scroll default setting that regresses in WordPress 7.1.
+
 = 2.3.4 =
 
 * Feature: Add styling for block editor hover states.
