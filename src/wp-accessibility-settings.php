@@ -21,11 +21,11 @@ function wpa_admin_styles() {
 	$screen        = get_current_screen();
 	$is_stats_type = ( 'wpa-stats' === $screen->id || 'edit-wpa-stats' === $screen->id ) ? true : false;
 	$is_wpa_admin  = ( isset( $_GET['page'] ) && ( 'wp-accessibility' === $_GET['page'] || 'wp-accessibility-help' === $_GET['page'] || 'wp-accessibility-overlay' === $_GET['page'] || 'wp-accessibility-admin' === $_GET['page'] ) ) ? true : false;
+	$version       = wpa_check_version();
+	if ( WP_DEBUG ) {
+		$version = $version . '-' . wp_rand( 10000, 50000 );
+	}
 	if ( $is_stats_type || 'dashboard' === $screen->base || $is_wpa_admin ) {
-		$version = wpa_check_version();
-		if ( WP_DEBUG ) {
-			$version = $version . '-' . wp_rand( 10000, 50000 );
-		}
 		wp_register_style( 'ui-font', plugins_url( 'toolbar/fonts/css/a11y-toolbar.css', __FILE__ ), array(), $version );
 		wp_enqueue_style( 'ui-font' );
 
@@ -35,6 +35,9 @@ function wpa_admin_styles() {
 		if ( isset( $_GET['page'] ) && 'wp-accessibility' === $_GET['page'] ) {
 			wp_enqueue_script( 'wpa-admin', plugins_url( 'js/wpa-admin.js', __FILE__ ), array( 'wp-color-picker' ), $version, true );
 		}
+	}
+	if ( 'profile' === $screen->id ) {
+		wp_enqueue_script( 'wpa-options', plugins_url( 'js/wpa-options.js', __FILE__ ), array(), $version, true );
 	}
 }
 

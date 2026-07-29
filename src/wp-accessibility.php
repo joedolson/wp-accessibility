@@ -858,6 +858,19 @@ function wpa_accessible_theme() {
 }
 
 /**
+ * Disable infinite scrolling by default. Enable if turned on by the user.
+ */
+function wpa_disable_infinite_scroll() {
+	$user_id = get_current_user_id();
+	$enabled = ( 'true' === get_user_option( 'infinite_scrolling', $user_id ) ) ? true : false;
+	if ( ! $enabled ) {
+		// Disable infinite scrolling.
+		add_filter( 'media_library_infinite_scrolling', '__return_false' );
+	}
+}
+add_action( 'admin_init', 'wpa_disable_infinite_scroll' );
+
+/**
  * Disable full screen block editor by default.
  */
 function wpa_disable_editor_fullscreen_by_default() {
