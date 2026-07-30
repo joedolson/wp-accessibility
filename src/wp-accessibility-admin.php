@@ -141,6 +141,7 @@ function wpa_admin_admin_settings() {
 									$hex1       = '';
 									$hex2       = '';
 									$l_contrast = false;
+									$luminance_raw = 0;
 								}
 								if ( $l_contrast ) {
 									$results = "<div class='notice notice-info'>";

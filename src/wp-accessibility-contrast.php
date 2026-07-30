@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @param int $b Blue value 1.
  * @param int $b2 Blue value 2.
  *
- * @return luminosity ratio.
+ * @return float luminosity ratio.
  */
 function wpa_luminosity( $r, $r2, $g, $g2, $b, $b2 ) {
 	$r  = (int) $r;
@@ -66,7 +66,7 @@ function wpa_luminosity( $r, $r2, $g, $g2, $b, $b2 ) {
  * @param int $g Green value.
  * @param int $b Blue value.
  *
- * @return Hexadecimal color equivalent.
+ * @return string Hexadecimal color equivalent.
  */
 function wpa_rgb2hex( $r, $g = - 1, $b = - 1 ) {
 	if ( is_array( $r ) && sizeof( $r ) === 3 ) {

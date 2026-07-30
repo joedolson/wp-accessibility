@@ -354,7 +354,7 @@ function wpa_enqueue_js() {
 		 * Customize the default value for extra skiplink. Turns on extra skiplink options in WP Accessibility versions > 1.9.0.
 		 *
 		 * @hook asl_extra_target
-		 * @param string Value to use as a default for the extra skiplink.
+		 * @param string $setting Value to use as a default for the extra skiplink.
 		 *
 		 * @return string
 		 */
@@ -371,7 +371,7 @@ function wpa_enqueue_js() {
 		 * Customize the default value for sitemap skiplink. Turns on sitemap skiplink options in WP Accessibility versions > 1.9.0.
 		 *
 		 * @hook asl_sitemap
-		 * @param string Value to use as a default for the sitemap.
+		 * @param string $settingValue to use as a default for the sitemap.
 		 *
 		 * @return string
 		 */
@@ -599,7 +599,7 @@ add_filter( 'mce_css', 'wpa_diagnostic_css' );
  *
  * @param string $mce_css Existing CSS.
  *
- * @return full string css.
+ * @return string Full string CSS.
  */
 function wpa_diagnostic_css( $mce_css ) {
 	if ( get_option( 'wpa_diagnostics' ) === 'on' ) {
@@ -694,7 +694,7 @@ function wpa_excerpt_more() {
 /**
  * Add custom continue reading text to content.
  *
- * @return continue reading text.
+ * @return string Continue reading text.
  */
 function wpa_content_more() {
 	global $id;
@@ -707,7 +707,7 @@ function wpa_content_more() {
  *
  * @param string $output Existing content.
  *
- * @return continue reading text.
+ * @return string Continue reading text.
  */
 function wpa_custom_excerpt_more( $output ) {
 	if ( has_excerpt() && ! is_attachment() ) {
