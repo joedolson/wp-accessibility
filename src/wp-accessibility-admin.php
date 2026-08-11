@@ -138,9 +138,9 @@ function wpa_admin_admin_settings() {
 									$hex1          = esc_attr( $colors['hex1'] );
 									$hex2          = esc_attr( $colors['hex2'] );
 								} else {
-									$hex1       = '';
-									$hex2       = '';
-									$l_contrast = false;
+									$hex1          = '';
+									$hex2          = '';
+									$l_contrast    = false;
 									$luminance_raw = 0;
 								}
 								if ( $l_contrast ) {
