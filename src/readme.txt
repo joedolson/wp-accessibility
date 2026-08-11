@@ -41,6 +41,7 @@ These are features that address issues caused by current or past WordPress core 
 * Force a search page error when a search is made with an empty text string. (If your theme has a search.php template.)
 * Remove redundant title attributes from tag clouds.
 * Disable default enabling of full screen block editor.
+* Reverse infinite scrolling by default as of WordPress 7.1.
 
 Content specific fixes:
 
