@@ -38,6 +38,10 @@ function wpa_admin_styles() {
 	}
 	if ( 'profile' === $screen->id ) {
 		wp_enqueue_script( 'wpa-options', plugins_url( 'js/wpa-options.js', __FILE__ ), array(), $version, true );
+		$args = array(
+			'infinite_scrolling_label' => __( 'Enable infinite scrolling in the Media Library grid view', 'wp-accessibility' ),
+		);
+		wp_localize_script( 'wpa-options', 'wpa11y', $args );
 	}
 }
 

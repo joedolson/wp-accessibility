@@ -11,7 +11,7 @@
 			scrolling.checked = true;
 		}
 		const label = scrolling.labels[0];
-		label.lastChild.nodeValue = 'Enable infinite scrolling in the Media Library grid view';
+		label.lastChild.nodeValue = wpa11y.infinite_scrolling_label;
 		scrolling.addEventListener('change', function() {
 			// If the checkbox is unchecked, add a hidden input with the same name and value of true.
 			// This is because unchecked checkboxes do not submit a value, and we want to ensure
