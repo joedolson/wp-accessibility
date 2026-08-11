@@ -5,7 +5,7 @@ Tags: accessibility, wcag, a11y, section508, alt text
 Requires at least: 5.9
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 2.3.4
+Stable tag: 2.3.5
 Text Domain: wp-accessibility
 License: GPLv2
 
