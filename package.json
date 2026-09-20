@@ -15,10 +15,13 @@
     "url": "https://github.com/joedolson/wp-accessibility/issues"
   },
   "engines": {
-    "node": ">=10.0.0",
-    "npm": ">=6.9.0"
+    "node": ">=24.0.0",
+    "npm": ">=8.0.0"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "@playwright/test": "^1.63.0",
+    "@wordpress/e2e-test-utils-playwright": "^2.0.0",
     "@wordpress/env": "^10.28",
     "esbuild": "^0.28.1",
     "eslint": "^7.25.0",
@@ -40,7 +43,11 @@
     "pretest-php": "wp-env run composer 'install --no-interaction'",
     "test-php": "wp-env run phpunit 'phpunit -c /var/www/html/wp-content/plugins/wp-accessibility/phpunit.xml.dist --verbose'",
     "lint-js": "eslint --fix './src/js'",
-    "wp-env": "wp-env"
+    "wp-env": "wp-env",
+    "pretest:e2e": "wp-env start",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:install": "playwright install --with-deps chromium"
   },
   "lint-staged": {
     "./src/js/!(*min).js": [

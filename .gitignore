@@ -1,2 +1,6 @@
 /vendor/
 /node_modules/
+/tests/e2e/artifacts/
+/test-results/
+/playwright-report/
+/blob-report/
