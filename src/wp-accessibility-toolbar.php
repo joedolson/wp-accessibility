@@ -102,7 +102,7 @@ function wpa_toolbar_enqueue_scripts() {
 	if ( get_option( 'wpa_toolbar_size' ) && 'on' === get_option( 'wpa_toolbar' ) ) {
 		wp_add_inline_style( 'wpa-toolbar', '.a11y-toolbar ul li button { font-size: ' . $toolbar_size . ' !important; }' );
 	}
-	if ( $toolbar_styles) {
+	if ( $toolbar_styles ) {
 		wp_enqueue_style( 'wpa-toolbar' );
 	}
 	if ( $fontsize ) {
