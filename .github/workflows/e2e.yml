@@ -26,6 +26,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v5
 
+      - name: Checkout custom theme
+        uses: actions/checkout@v5
+        with:
+          repository: 'joedolson/wp-accessibility-test'
+          path: 'wp-content/themes/wp-accessibility-test' # Target directory
+
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
