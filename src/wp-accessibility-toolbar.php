@@ -90,7 +90,7 @@ function wpa_toolbar_enqueue_scripts() {
 	 *
 	 * @return string
 	 */
-	$fontsize = apply_filters( 'wpa_fontsize_css', '', __FILE__ );
+	$fontsize = apply_filters( 'wpa_fontsize_css', '' );
 	if ( $fontsize ) {
 		wp_register_style( 'ui-fontsize.css', $fontsize, array(), $wpa_version );
 	}
