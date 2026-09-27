@@ -2,10 +2,10 @@
 Contributors: joedolson
 Donate link: https://www.joedolson.com/donate/
 Tags: accessibility, wcag, a11y, section508, alt text
-Requires at least: 5.9
+Requires at least: 6.4
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 2.3.5
+Stable tag: 2.4.0
 Text Domain: wp-accessibility
 License: GPLv2
 
