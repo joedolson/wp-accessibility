@@ -56,6 +56,9 @@ define( 'WP_ACCESSIBILITY_VERSION', '2.4.0' );
 
 register_activation_hook( __FILE__, 'wpa_install' );
 
+/**
+ * Execute WP Accessibility admin functions on init.
+ */
 function wpa_admin_init() {
 	// Handle dismiss actions for the WP Accessibility Day promo.
 	if ( isset( $_GET['action'] ) && 'wpa_dismiss_once' === $_GET['action'] ) {
