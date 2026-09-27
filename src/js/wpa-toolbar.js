@@ -149,6 +149,16 @@ let a11yToggle = document.querySelectorAll( '.a11y-toggle' );
 
 	function largeFontSize() {
 		html.classList.add( 'fontsize' );
+		if ( '0' === wpatb.custom_fontsize ) {
+			document.dispatchEvent(
+				new CustomEvent(
+					'wpa_fontsize_changed', {
+						bubbles: true,
+						detail: { change: 'increase', factor: wpatb.factor }
+					}
+				)
+			);
+		}
 		let buttons = document.querySelectorAll( '[data-id="is_normal_fontsize"]' );
 		buttons.forEach( (button) => {
 			button.setAttribute( 'data-id', 'is_large_fontsize' );
@@ -160,6 +170,16 @@ let a11yToggle = document.querySelectorAll( '.a11y-toggle' );
 
 	function resetFontSize() {
 		html.classList.remove( 'fontsize' );
+		if ( '0' === wpatb.custom_fontsize ) {
+			document.dispatchEvent(
+				new CustomEvent(
+					'wpa_fontsize_changed', {
+						bubbles: true,
+						detail: { change: 'reset' }
+					}
+				)
+			);
+		}
 		let buttons = document.querySelectorAll( '[data-id="is_large_fontsize"]' );
 		buttons.forEach( (button) => {
 			button.setAttribute( 'data-id', 'is_normal_fontsize' );

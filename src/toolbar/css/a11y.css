@@ -158,3 +158,13 @@
 .a11y-toolbar button:focus .offscreen {
 	left: 100%;
 }
+
+body * {
+	transition: font-size 0.3s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	body * {
+		transition: none !important;
+	}
+}

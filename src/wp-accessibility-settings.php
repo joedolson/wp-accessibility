@@ -100,7 +100,7 @@ function wpa_update_settings() {
 		if ( isset( $_POST['action'] ) && 'toolbar' === $_POST['action'] ) {
 			$wpa_toolbar            = ( isset( $_POST['wpa_toolbar'] ) ) ? 'on' : '';
 			$wpa_toolbar_size       = ( isset( $_POST['wpa_toolbar_size'] ) ) ? sanitize_text_field( $_POST['wpa_toolbar_size'] ) : '';
-			$wpa_alternate_fontsize = ( isset( $_POST['wpa_alternate_fontsize'] ) ) ? 'on' : '';
+			$wpa_font_factor        = ( isset( $_POST['wpa_font_factor'] ) ) ? sanitize_text_field( $_POST['wpa_font_factor'] ) : '';
 			$wpa_widget_toolbar     = ( isset( $_POST['wpa_widget_toolbar'] ) ) ? 'on' : '';
 			$wpa_toolbar_gs         = ( isset( $_POST['wpa_toolbar_gs'] ) ) ? 'on' : 'off';
 			$wpa_toolbar_fs         = ( isset( $_POST['wpa_toolbar_fs'] ) ) ? 'on' : 'off';
@@ -110,7 +110,7 @@ function wpa_update_settings() {
 			$wpa_toolbar_mobile     = ( isset( $_POST['wpa_toolbar_mobile'] ) ) ? 'on' : '';
 			update_option( 'wpa_toolbar', $wpa_toolbar );
 			update_option( 'wpa_toolbar_size', $wpa_toolbar_size );
-			update_option( 'wpa_alternate_fontsize', $wpa_alternate_fontsize );
+			update_option( 'wpa_font_factor', $wpa_font_factor );
 			update_option( 'wpa_widget_toolbar', $wpa_widget_toolbar );
 			update_option( 'wpa_toolbar_gs', $wpa_toolbar_gs );
 			update_option( 'wpa_toolbar_fs', $wpa_toolbar_fs );
@@ -306,9 +306,22 @@ function wpa_admin_settings() {
 												?>
 											</select>
 										</p>
+										<?php
+										$factor = get_option( 'wpa_font_factor' );
+										?>
 										<p>
-											<input type="checkbox" id="wpa_alternate_fontsize" name="wpa_alternate_fontsize" <?php checked( get_option( 'wpa_alternate_fontsize' ), 'on' ); ?>/>
-											<label for="wpa_alternate_fontsize"><?php _e( 'Use alternate font resizing stylesheet', 'wp-accessibility' ); ?></label>
+											<label for="wpa_font_factor"><?php _e( 'Font enlargement multiplier', 'wp-accessibility' ); ?></label><br />
+											<select name='wpa_font_factor' id='wpa_font_factor'>
+												<option value=''><?php _e( 'Default (1.6×)', 'wp-accessibility' ); ?></option>
+												<?php
+												for ( $i = 1.0; $i <= 4; ) {
+													$val             = $i + .2;
+													$selected_factor = ( (string) $val === (string) $factor ) ? ' selected="selected"' : '';
+													echo "<option value='$val'$selected_factor>$val" . '×</option>';
+													$i = $i + .1;
+												}
+												?>
+											</select>
 										</p>
 										<p>
 											<input type="checkbox" id="wpa_widget_toolbar" name="wpa_widget_toolbar" <?php checked( get_option( 'wpa_widget_toolbar' ), 'on' ); ?>/>

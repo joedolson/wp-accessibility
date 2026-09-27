@@ -1,4 +1,1 @@
-/* enqueue these as a separate stylesheet so they can be filtered */
-html.fontsize {
-	font-size:  var(--wpa-font-size) !important;
-}
+/* Core font size CSS removed in favor of dynamic font size adjustments via JavaScript. */
