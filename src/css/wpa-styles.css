@@ -4,6 +4,33 @@
 	grid-template-columns: 70% 1fr;
 }
 
+.wpa11yday-notice {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: center;
+	gap: 10px;
+}
+
+.wpa11yday-notice img {
+	max-height: 60px;
+}
+
+.wpa11yday-notice p {
+	margin: 0;
+	padding: 0;
+	align-items: center;
+	display: flex;
+	gap: 10px;
+	font-size: 1.25rem;
+}
+
+.wpa11yday-notice .dismiss-buttons {
+	display: flex;
+	gap: 4px;
+	max-width: fit-content;
+}
+
 .wpa-settings-wrapper .button-secondary .dashicons {
 	vertical-align: text-bottom;
 }
