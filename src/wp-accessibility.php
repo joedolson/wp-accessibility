@@ -113,8 +113,8 @@ function wpa_status_notice() {
 		$dismiss_permanently = '<a href="' . esc_url( admin_url( 'admin.php?page=wp-accessibility&action=wpa_dismiss_permanently' ) ) . '" class="button button-secondary">' . __( 'Dismiss forever', 'wp-accessibility' ) . '</a>';
 
 		$notice = sprintf(
-		__(
-			'%1$s <span>The biggest WordPress Accessibility event of the year starts October 7th. <a href="%2$s">Check out the full schedule</a>!</span>', 'wp-accessibility' ),
+			// translators: %1$s is the image, %2$s is the URL to the full schedule.
+			__( '%1$s <span>The biggest WordPress Accessibility event of the year starts October 7th. <a href="%2$s">Check out the full schedule</a>!</span>', 'wp-accessibility' ),
 			'<img src="' . esc_url( plugin_dir_url( __FILE__ ) . 'imgs/wpa11yday-2026.png' ) . '" alt="WP Accessibility Day 2026">',
 			'https://wpaccessibility.day/2026/schedule/?utm_source=wp-accessibility&utm_medium=software',
 		);
