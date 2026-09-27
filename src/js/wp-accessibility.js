@@ -876,6 +876,43 @@
 	function fontSizeModify( change = 'increase', factor = 1.6 ) {
 		const adminBar = document.getElementById( 'wpadminbar' );
 		const toolBar = document.querySelector( '.a11y-toolbar' );
+
+		const ancestorResized = (el) => {
+			while (el) {
+				// Don't resize text inside other already resized elements or in the adminbar.
+				if ( el.hasAttribute( 'data-wpa-resized' ) ) {
+					return true;
+				}
+				el = el.parentElement; // Moves up to the next parent
+			}
+			return false;
+		};
+
+		const resizeElement = (el) => {
+			// Extract the computed, rendered font-size.
+			const computedStyle = window.getComputedStyle( el );
+			const fontSize = computedStyle.getPropertyValue( 'font-size' ).replace( 'px', '' );
+			const cssString = 'font-size: ' + ( parseFloat(fontSize) * factor ) + 'px !important';
+			if ( ! ancestorResized( el ) && 'increase' === change ) {
+				let inlineFontSize = el.style.fontSize;
+				// if element has a font-size set inline, store it in the data-wpa-resized attribute.
+				if ( inlineFontSize ) {
+					el.setAttribute( 'data-wpa-resized', inlineFontSize );
+				} else {
+					el.setAttribute( 'data-wpa-resized', 'true' );
+				}
+				el.style.cssText += cssString;
+			}
+			if ( change === 'reset' ) {
+				el.style.removeProperty( 'font-size' );
+				// Restore the inline font-size if it was stored by the script.
+				if ( el.hasAttribute( 'data-wpa-resized' ) && el.getAttribute( 'data-wpa-resized' ) !== 'true' ) {
+					el.style.fontSize = el.getAttribute( 'data-wpa-resized' );
+				}
+				el.removeAttribute( 'data-wpa-resized' );
+			}
+		};
+
 		const walker = document.createTreeWalker(
 			document.body,
 			NodeFilter.SHOW_TEXT,
@@ -897,45 +934,22 @@
 			const textNode = walker.currentNode;
 			const parentElement = textNode.parentElement;
 
-			const ancestorResized = (el) => {
-				while (el) {
-					// Don't resize text inside other already resized elements or in the adminbar.
-					if ( el.hasAttribute( 'data-wpa-resized' ) ) {
-						return true;
-					}
-					el = el.parentElement; // Moves up to the next parent
-				}
-				return false;
-			};
-
 			// Prevent checking the same element multiple times
 			if ( parentElement && ! seenElements.has( parentElement ) ) {
 				seenElements.add( parentElement );
-
-				// 3. Extract the computed, rendered font-size
-				const computedStyle = window.getComputedStyle( parentElement );
-				const fontSize = computedStyle.getPropertyValue( 'font-size' ).replace( 'px', '' );
-				const cssString = 'font-size: ' + ( parseFloat(fontSize) * factor ) + 'px !important';
-				if ( ! ancestorResized( parentElement ) && 'increase' === change ) {
-					let fontSize = parentElement.style.fontSize;
-					// if element has a font-size set inline, store it in the data-wpa-resized attribute.
-					if ( fontSize ) {
-						parentElement.setAttribute( 'data-wpa-resized', fontSize );
-					} else {
-						parentElement.setAttribute( 'data-wpa-resized', 'true' );
-					}
-					parentElement.style.cssText += cssString;
-				}
-				if ( change === 'reset' ) {
-					parentElement.style.removeProperty( 'font-size' );
-					// Restore the inline font-size if it was stored by the script.
-					if ( parentElement.hasAttribute( 'data-wpa-resized' ) && parentElement.getAttribute( 'data-wpa-resized' ) !== 'true' ) {
-						parentElement.style.fontSize = parentElement.getAttribute( 'data-wpa-resized' );
-					}
-					parentElement.removeAttribute( 'data-wpa-resized' );
-				}
+				resizeElement( parentElement );
 			}
 		}
+
+		// Form controls (e.g. input) may have no text node children, so they need to be handled separately.
+		const formElements = document.body.querySelectorAll( 'input, select, textarea' );
+		formElements.forEach( (el) => {
+			if ( adminBar.contains( el ) || toolBar.contains( el ) || seenElements.has( el ) ) {
+				return;
+			}
+			seenElements.add( el );
+			resizeElement( el );
+		});
 	}
 })();
 
