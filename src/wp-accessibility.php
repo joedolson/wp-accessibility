@@ -77,6 +77,7 @@ add_action( 'admin_init', 'wpa_admin_init' );
  * Display notice in Playground for demo purposes.
  */
 function wpa_status_notice() {
+	global $current_screen;
 	// Only shown when in the Playground preview.
 	if ( 'true' === get_option( 'wpa_show_playground_intro', '' ) ) {
 		echo '<div class="notice notice-info">';
@@ -91,7 +92,10 @@ function wpa_status_notice() {
 		echo '<p>' . sprintf( __( 'To learn more, check out the <a href="%s">plugin documentation</a>.', 'wp-accessibility' ), 'https://docs.joedolson.com/wp-accessibility/' ) . '</p>';
 		echo '</div>';
 	}
-
+	// This could leak to other screens, but they would all be relevant.
+	if ( ! str_contains( $current_screen->id, 'wp-accessibility' ) ) {
+		return;
+	}
 	$dismissed      = get_option( 'wpa11yday_dismissed', false );
 	$dismissed_once = get_transient( 'wpa11yday_dismissed' );
 	if ( $dismissed ) {
