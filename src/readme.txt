@@ -83,6 +83,13 @@ WP Accessibility includes a statistics collection feature to help you identify h
 
 [Suggest a change!](https://github.com/joedolson/wp-accessibility/issues/)
 
+= 2.4.0 =
+
+* Change: Refactor font resizing to be JS based, resizing all text elements equivalently.
+* Remove existing font resizing styles.
+* Retain fallback for custom font resizing stylesheets, if present.
+* Add promotional notice for WordPress Accessibility Day.
+
 = 2.3.5 =
 
 * Reverse the infinite scroll default setting that regresses in WordPress 7.1.
