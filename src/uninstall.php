@@ -47,4 +47,6 @@ if ( ! defined( 'ABSPATH' ) && ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	delete_option( 'wpa_focus' );
 	delete_option( 'wpa_focus_color' );
 	delete_option( 'wpa_complementary_container' );
+	delete_option( 'wpa11yday_dismissed' );
+	delete_option( 'wpa_font_factor' );
 }
