@@ -920,7 +920,7 @@
 				acceptNode: function(node) {
 					// Ignore scripts, styles, nodes with only whitespace, and the adminbar.
 					const parentTag = node.parentElement ? node.parentElement.tagName : '';
-					if (['SCRIPT', 'STYLE', 'NOSCRIPT', 'SVG'].includes( parentTag ) || adminBar.contains(node) || toolBar.contains(node) ) {
+					if (['SCRIPT', 'STYLE', 'NOSCRIPT', 'SVG'].includes( parentTag ) || ( adminBar && adminBar.contains(node) ) || ( toolBar && toolBar.contains(node) ) ) {
 						return NodeFilter.FILTER_REJECT;
 					}
 					return node.textContent.trim().length > 0 || node.nodeType === Node.ELEMENT_NODE ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
@@ -944,7 +944,7 @@
 		// Form controls (e.g. input) may have no text node children, so they need to be handled separately.
 		const formElements = document.body.querySelectorAll( 'input, select, textarea' );
 		formElements.forEach( (el) => {
-			if ( adminBar.contains( el ) || toolBar.contains( el ) || seenElements.has( el ) ) {
+			if ( ( adminBar && adminBar.contains( el ) ) || ( toolBar && toolBar.contains( el ) ) || seenElements.has( el ) ) {
 				return;
 			}
 			seenElements.add( el );
