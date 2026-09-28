@@ -5,7 +5,7 @@ Tags: accessibility, wcag, a11y, section508, alt text
 Requires at least: 6.4
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 2.4.0
+Stable tag: 2.4.1
 Text Domain: wp-accessibility
 License: GPLv2
 
@@ -82,6 +82,10 @@ WP Accessibility includes a statistics collection feature to help you identify h
 = Future =
 
 [Suggest a change!](https://github.com/joedolson/wp-accessibility/issues/)
+
+= 2.4.1 =
+
+* Bug fix: Unverified adminbar variable broke font-resizing for public visitors.
 
 = 2.4.0 =
 
