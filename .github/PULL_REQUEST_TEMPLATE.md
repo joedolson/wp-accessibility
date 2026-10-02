@@ -1,6 +1,6 @@
 <!--
 BEFORE OPENING YOUR PULL REQUEST:
-- Make sure your code is backward-compatible with WordPress 4.9 and PHP 7.0.
+- Make sure your code is backward-compatible with WordPress 6.5 and PHP 7.4.
 - Make sure your code follows the WordPress coding standards.
 - Make sure your code is properly documented.
 -->
@@ -23,6 +23,6 @@ BEFORE OPENING YOUR PULL REQUEST:
 
 ## Checklist:
 - [ ] My code is tested.
-- [ ] My code is backward-compatible with WordPress 4.9 and PHP 7.0.
+- [ ] My code is backward-compatible with WordPress 6.5 and PHP 7.4.
 - [ ] My code follows the WordPress coding standards.
 - [ ] My code has proper inline documentation.
