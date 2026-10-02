@@ -210,7 +210,7 @@ function wpa_toolbar_js() {
 	 * @return string
 	 */
 	$custom_fontsize = apply_filters( 'wpa_fontsize_css', '' ) ? '1' : '0';
-	$factor          = ( '' !== get_option( 'wpa_font_factor' ) ) ? get_option( 'wpa_font_factor' ) : '1.6';
+	$factor          = ( '' !== get_option( 'wpa_font_factor', '' ) ) ? esc_attr( get_option( 'wpa_font_factor' ) ) : '1.6';
 
 	return array(
 		'location'         => $location,
