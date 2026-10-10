@@ -10,7 +10,7 @@
  * @wordpress-plugin
  * Plugin Name: WP Accessibility
  * Plugin URI: https://www.joedolson.com/wp-accessibility/
- * Description: Helps improve accessibility in your WordPress site, like removing title attributes.
+ * Description: Adds practical accessibility fixes and tools, including skip links, focus states, image alt checks, and other useful accessibility fixes.
  * Author: Joe Dolson
  * Author URI: https://www.joedolson.com/
  * Text Domain: wp-accessibility
