@@ -83,6 +83,10 @@ WP Accessibility includes a statistics collection feature to help you identify h
 
 [Suggest a change!](https://github.com/joedolson/wp-accessibility/issues/)
 
+= 2.4.3 =
+
+* Bug fix: If array value passed to search parameter, PHP fatal triggered due to unguarded expectation that GET parameter is a string.
+
 = 2.4.2 =
 
 * Bug fix: Improper checking of default font factor setting when unset. Props @spirosdi
