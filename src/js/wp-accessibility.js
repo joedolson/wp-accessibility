@@ -50,11 +50,25 @@
 		}
 	}
 
+	const wpaClearMaximumScale = (str) => {
+		return str
+			// Remove maximum-scale and its value, along with any surrounding whitespace/commas
+			.replace( /(?:,\s*)?maximum-scale=[^,]+(?:,\s*)?/, ( match, offset, fullString ) => {
+				// If the match is at the very beginning or very end, clean up trailing/leading commas
+				if ( offset === 0 || offset + match.length === fullString.length ) {
+					return '';
+				}
+				// If it's in the middle, replace the whole match with a single comma and space
+				return ', ';
+			})
+			.trim();
+	};
+
 	const viewport = document.querySelector( 'meta[name="viewport"]' );
 	if ( viewport && wpa.viewport ) {
-		let conditionsBefore = viewport.getAttribute( 'content' );
-		let conditionsAfter  = viewport.getAttribute( 'content' );
+		let conditionsBefore = viewport.getAttribute( 'content' ), conditionsAfter;
 		if ( conditionsBefore.search(/user-scalable=no/g) ) {
+			// Replace 'user-scalable=no' with 'user-scalable=yes'.
 			conditionsAfter = conditionsBefore.replace( 'user-scalable=no', 'user-scalable=yes' );
 			viewport.setAttribute( 'content', conditionsAfter );
 			if ( ( wpa.errors || wpa.tracking ) && conditionsAfter != conditionsBefore ) {
@@ -62,14 +76,13 @@
 				console.log( 'Viewport made scalable by WP Accessibility' );
 			}
 		}
-		if ( conditionsBefore.search(/maximum-scale=1/g) ) {
-			conditionsAfter = conditionsBefore.replace( 'maximum-scale=1', 'maximum-scale=5' );
-			conditionsAfter = conditionsAfter.replace( 'maximum-scale=0', 'maximum-scale=5' );
-			viewport.setAttribute( 'content', conditionsAfter );
-			if ( ( wpa.errors || wpa.tracking ) && conditionsAfter != conditionsBefore  ) {
-				errors.push( 'viewport-maxscale' );
-				console.log( 'Viewport maximum scale set by WP Accessibility' );
-			}
+		conditionsBefore = viewport.getAttribute( 'content' );
+		conditionsAfter  = wpaClearMaximumScale( conditionsBefore );
+		console.log( conditionsAfter );
+		viewport.setAttribute( 'content', conditionsAfter );
+		if ( ( wpa.errors || wpa.tracking ) && conditionsAfter != conditionsBefore  ) {
+			errors.push( 'viewport-maxscale' );
+			console.log( 'Viewport maximum scale set by WP Accessibility' );
 		}
 	}
 
