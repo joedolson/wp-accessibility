@@ -17,7 +17,7 @@
 	if ( wpa.dir ) {
 		let dir  = html.getAttribute( 'dir' );
 		if ( ! dir && wpa.dir !== 'ltr' ) {
-			html.setAttributeattr( 'dir', wpa.dir );
+			html.setAttribute( 'dir', wpa.dir );
 			if ( wpa.errors || wpa.tracking ) {
 				errors.push( 'html-lang-direction' );
 				console.log( 'HTML language direction set by WP Accessibility' );
