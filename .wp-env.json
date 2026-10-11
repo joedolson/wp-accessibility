@@ -1,4 +1,5 @@
 {
 	"core": null,
-	"plugins": [ "." ]
+	"plugins": [ "." ],
+	"themes": [ "joedolson/wp-accessibility-test" ]
 }
