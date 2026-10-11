@@ -1,66 +1,80 @@
+const fs = require( 'fs' );
+const path = require( 'path' );
 const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
-const { createMedia, removeMedia, wp } = require( '../fixtures/media' );
 
-/**
- * Options that are off by default but required to exercise every fix.
- * Fixes that are on by default (lang, viewport, labels, titles) are not listed.
- */
-const enabledOptions = {
-	wpa_target: 'on',
-	wpa_tabindex: 'on',
-	wpa_underline: 'on',
-	wpa_videos: 'on',
-	wpa_show_alt: 'on',
-	asl_enable: 'on',
-	asl_content: '#content',
-	wpa_longdesc: 'link',
+const fixturePath = '/wpa-fixture.html';
+const markup = fs.readFileSync( path.resolve( __dirname, '../fixtures/test-markup.html' ), 'utf8' );
+const pluginScript = fs.readFileSync( path.resolve( __dirname, '../../../src/js/wp-accessibility.js' ), 'utf8' );
+const video = fs.readFileSync( path.resolve( __dirname, '../fixtures/assets/wwa.mp4' ) );
+
+// Long descriptions returned by the mocked REST API, keyed by attachment ID.
+const descriptions = {
+	9002: 'A blue rectangle filling the frame, used to test the longdesc attribute.',
+	9003: 'A green rectangle filling the frame, used to test the long description block style.',
 };
 
 /**
- * Fetch the unmodified server-rendered markup, before WP Accessibility's script runs.
+ * Serve the fixture, the plugin script, and mocked WordPress responses.
  *
  * @param {import('@playwright/test').Page} page Page.
- *
- * @return {Promise<string>} HTML source.
  */
-const getSource = async ( page ) => ( await page.request.get( '/' ) ).text();
+const mockSite = async ( page ) => {
+	await page.route( /\/wpa-fixture\.html(\?.*)?$/, ( route ) =>
+		route.fulfill( { contentType: 'text/html', body: markup } )
+	);
+	await page.route( /\/wpa-fixture\.js$/, ( route ) =>
+		route.fulfill( { contentType: 'application/javascript', body: pluginScript } )
+	);
+	await page.route( /\/wpa-fixture\/wwa\.mp4$/, ( route ) =>
+		route.fulfill( { contentType: 'video/mp4', body: video } )
+	);
+	// Media REST endpoint used to look up long descriptions.
+	await page.route( /\/wp-json\/wp\/v2\/media\/\d+/, ( route ) => {
+		const id = route.request().url().match( /media\/(\d+)/ )[ 1 ];
+		route.fulfill( {
+			contentType: 'application/json',
+			body: JSON.stringify( { id: Number( id ), description: { rendered: `<p>${ descriptions[ id ] || '' }</p>` } } ),
+		} );
+	} );
+	// Long description pages requested in button mode.
+	await page.route(
+		( url ) => url.pathname === '/' && url.searchParams.has( 'longdesc' ),
+		( route ) => {
+			const id = new URL( route.request().url() ).searchParams.get( 'longdesc' );
+			route.fulfill( {
+				contentType: 'text/html',
+				body: `<html><body><div id="desc_${ id }">${ descriptions[ id ] || '' }</div></body></html>`,
+			} );
+		}
+	);
+};
+
+/**
+ * The unmodified fixture markup, before WP Accessibility's script runs.
+ *
+ * @return {string} HTML source.
+ */
+const getSource = () => markup;
 
 test.describe( 'WP Accessibility front end', () => {
-	// Some tests change the long description mode, which alters the page for every other test.
-	test.describe.configure( { mode: 'serial' } );
-
-	test.beforeAll( async ( { requestUtils } ) => {
-		await requestUtils.activateTheme( 'wp-accessibility-test' );
-		createMedia();
-		for ( const [ name, value ] of Object.entries( enabledOptions ) ) {
-			wp( 'option', 'update', name, value );
-		}
-	} );
-
-	test.afterAll( () => {
-		removeMedia();
-		for ( const name of Object.keys( enabledOptions ) ) {
-			wp( 'option', 'delete', name );
-		}
-	} );
-
 	test.beforeEach( async ( { page } ) => {
-		await page.goto( '/' );
+		await mockSite( page );
+		await page.goto( fixturePath );
 	} );
 
-	test( 'site front page loads', async ( { page } ) => {
+	test( 'fixture page loads', async ( { page } ) => {
 		await expect( page.locator( 'body' ) ).toBeVisible();
 	} );
 
 	test( 'adds a missing lang attribute to the html element', async ( { page } ) => {
-		const source = await getSource( page );
+		const source = getSource();
 		expect( source ).not.toMatch( /<html[^>]*\slang=/i );
 
 		await expect( page.locator( 'html' ) ).toHaveAttribute( 'lang', /.+/ );
 	} );
 
 	test( 'makes the viewport scalable', async ( { page } ) => {
-		const source = await getSource( page );
+		const source = getSource();
 		expect( source ).toMatch( /<meta[^>]+name=["']viewport["'][^>]+(user-scalable=no|maximum-scale)/i );
 
 		const content = await page.locator( 'meta[name="viewport"]' ).getAttribute( 'content' );
@@ -100,7 +114,7 @@ test.describe( 'WP Accessibility front end', () => {
 	} );
 
 	test( 'removes title attributes from images, links, buttons and fields', async ( { page } ) => {
-		const source = await getSource( page );
+		const source = getSource();
 		expect( source ).toMatch( /<(img|a|button|input|select|textarea)\b[^>]*\stitle=/i );
 
 		const remaining = await page.evaluate( () =>
@@ -114,7 +128,7 @@ test.describe( 'WP Accessibility front end', () => {
 	} );
 
 	test( 'removes target attributes from links', async ( { page } ) => {
-		const source = await getSource( page );
+		const source = getSource();
 		expect( source ).toMatch( /<a\b[^>]*\starget=/i );
 
 		const targeted = await page.evaluate( () =>
@@ -133,7 +147,7 @@ test.describe( 'WP Accessibility front end', () => {
 	} );
 
 	test( 'removes tabindex from natively focusable elements', async ( { page } ) => {
-		const source = await getSource( page );
+		const source = getSource();
 		expect( source ).toMatch( /<(a|button|input|select|textarea)\b[^>]*\stabindex=/i );
 
 		const remaining = await page.evaluate( () =>
@@ -169,7 +183,7 @@ test.describe( 'WP Accessibility front end', () => {
 	} );
 
 	test( 'underlines links outside navigation', async ( { page } ) => {
-		const links = page.locator( 'a[href]:not(nav a):not(#wpadminbar a):not(#skiplinks a)' );
+		const links = page.locator( 'a[href]:not(nav a):not(#wpadminbar a):not(.longdesc-link)' );
 		const count = await links.count();
 		expect( count ).toBeGreaterThan( 0 );
 
@@ -186,11 +200,8 @@ test.describe( 'WP Accessibility front end', () => {
 		const video = videos.first();
 		const button = video.locator( 'xpath=..' ).locator( 'button.wpa-video' );
 		await expect( button ).toHaveCount( 1 );
-		await expect( button ).toHaveAttribute( 'aria-pressed', /true|false/ );
-
-		// Ensure the video is playing before toggling.
-		await video.evaluate( ( el ) => el.play().catch( () => {} ) );
-		await button.evaluate( ( el ) => el.setAttribute( 'aria-pressed', 'false' ) );
+		await expect( button ).toHaveAttribute( 'aria-pressed', 'false' );
+		await expect.poll( () => video.evaluate( ( el ) => el.paused ) ).toBe( false );
 
 		await button.click();
 		await expect( button ).toHaveAttribute( 'aria-pressed', 'true' );
@@ -198,6 +209,7 @@ test.describe( 'WP Accessibility front end', () => {
 
 		await button.click();
 		await expect( button ).toHaveAttribute( 'aria-pressed', 'false' );
+		await expect.poll( () => video.evaluate( ( el ) => el.paused ) ).toBe( false );
 	} );
 
 	test( 'adds a toggle to display image alt text', async ( { page } ) => {
@@ -246,28 +258,23 @@ test.describe( 'WP Accessibility front end', () => {
 	} );
 
 	test( 'shows long descriptions in an expandable region in button mode', async ( { page } ) => {
-		try {
-			wp( 'option', 'update', 'wpa_longdesc', 'button' );
-			await page.goto( '/' );
+		await page.goto( `${ fixturePath }?ldType=button` );
 
-			const wrapper = page.locator( '.wpa-ld' ).first();
-			const toggle = wrapper.locator( 'button.wpa-toggle' );
-			const description = wrapper.locator( '.longdesc' );
+		const wrapper = page.locator( '.wpa-ld' ).first();
+		const toggle = wrapper.locator( 'button.wpa-toggle' );
+		const description = wrapper.locator( '.longdesc' );
 
-			await expect( toggle ).toBeVisible();
-			await expect( toggle ).toHaveAttribute( 'aria-expanded', 'false' );
-			await expect( description ).toBeHidden();
+		await expect( toggle ).toBeVisible();
+		await expect( toggle ).toHaveAttribute( 'aria-expanded', 'false' );
+		await expect( description ).toBeHidden();
 
-			await toggle.click();
-			await expect( toggle ).toHaveAttribute( 'aria-expanded', 'true' );
-			await expect( description ).toBeVisible();
-			await expect( description ).not.toBeEmpty();
+		await toggle.click();
+		await expect( toggle ).toHaveAttribute( 'aria-expanded', 'true' );
+		await expect( description ).toBeVisible();
+		await expect( description ).toContainText( descriptions[ 9002 ] );
 
-			await toggle.click();
-			await expect( toggle ).toHaveAttribute( 'aria-expanded', 'false' );
-			await expect( description ).toBeHidden();
-		} finally {
-			wp( 'option', 'update', 'wpa_longdesc', 'link' );
-		}
+		await toggle.click();
+		await expect( toggle ).toHaveAttribute( 'aria-expanded', 'false' );
+		await expect( description ).toBeHidden();
 	} );
 } );

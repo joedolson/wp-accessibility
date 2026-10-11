@@ -17,16 +17,49 @@
 	- Large images with alt text (inside #content / .entry-content).
 	- Images with long descriptions.
 
-	Images reference attachments created by tests/e2e/fixtures/media.js, which
-	uses fixed IDs: 9001 (alt text), 9002 (longdesc attribute), and
-	9003 (longdesc block style). The long description attachments have a
-	non-empty description (post_content), which the plugin reads via the REST API.
+	The spec serves this file at /wpa-fixture.html and the plugin's
+	src/js/wp-accessibility.js at /wpa-fixture.js. It mocks the REST media
+	responses (IDs 9002 and 9003) and the long description pages the plugin
+	requests. Add ?ldType=button to the URL to use button mode instead of links.
 -->
 <html>
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 	<title>WP Accessibility test page</title>
+	<script>
+		// Mirrors the object WordPress localizes for the plugin script.
+		var wpa = {
+			skiplinks: {
+				enabled: true,
+				output: '<div class="wpa-hide-ltr" id="skiplinks" role="navigation" aria-label="Skip links"><a href="#content">Skip to Content</a></div>'
+			},
+			target: true,
+			tabindex: true,
+			underline: { enabled: true, target: 'a' },
+			videos: true,
+			dir: 'ltr',
+			viewport: true,
+			lang: 'en-US',
+			titles: true,
+			labels: true,
+			wpalabels: { s: 'Search', author: 'Name', email: 'Email', url: 'Website', comment: 'Comment' },
+			alt: true,
+			altSelector: '',
+			current: false,
+			errors: false,
+			tracking: false,
+			url: 'disabled',
+			continue: false,
+			pause: 'Pause video',
+			play: 'Play video',
+			restUrl: location.origin + '/wp-json/wp/v2/media',
+			ldType: new URLSearchParams( location.search ).get( 'ldType' ) || 'link',
+			ldHome: location.origin,
+			ldText: '<span aria-hidden="true">?</span><span class="screen-reader">Long Description</span>'
+		};
+	</script>
+	<script src="/wpa-fixture.js" defer></script>
 </head>
 <body>
 	<header>
@@ -82,7 +115,7 @@
 
 			<h2>Video</h2>
 			<div class="video-wrap">
-				<video autoplay muted loop playsinline width="320" height="180"></video>
+				<video autoplay muted loop playsinline width="320" height="180" src="/wpa-fixture/wwa.mp4"></video>
 			</div>
 
 			<h2>Images with alt text</h2>
