@@ -19,6 +19,10 @@ const setSearchOption = ( value ) => wp( 'option', 'update', 'wpa_search', value
 
 const hasClass = ( name ) => new RegExp( `(^|\\s)${ name }(\\s|$)` );
 
+// Entries in the main results list; excludes the same title appearing in sidebars, footers, or widgets.
+const resultsFor = ( page ) =>
+	page.locator( 'main article, main .wp-block-post, #main article' ).filter( { hasText: postTitle } );
+
 test.describe( 'WP Accessibility empty search', () => {
 	test.describe.configure( { mode: 'serial' } );
 
@@ -41,7 +45,7 @@ test.describe( 'WP Accessibility empty search', () => {
 
 		await expect( page.locator( 'body' ) ).toHaveClass( hasClass( 'search' ) );
 		await expect( page.locator( 'body' ) ).toHaveClass( hasClass( 'search-no-results' ) );
-		await expect( page.getByText( postTitle ) ).toHaveCount( 0 );
+		await expect( resultsFor( page ) ).toHaveCount( 0 );
 	} );
 
 	test( 'with the option enabled, a whitespace-only search returns no results', async ( { page } ) => {
@@ -49,7 +53,7 @@ test.describe( 'WP Accessibility empty search', () => {
 		await page.goto( '/?s=%20%20' );
 
 		await expect( page.locator( 'body' ) ).toHaveClass( hasClass( 'search-no-results' ) );
-		await expect( page.getByText( postTitle ) ).toHaveCount( 0 );
+		await expect( resultsFor( page ) ).toHaveCount( 0 );
 	} );
 
 	test( 'with the option disabled, an empty search returns all posts', async ( { page } ) => {
@@ -58,6 +62,6 @@ test.describe( 'WP Accessibility empty search', () => {
 
 		await expect( page.locator( 'body' ) ).toHaveClass( hasClass( 'search' ) );
 		await expect( page.locator( 'body' ) ).not.toHaveClass( hasClass( 'search-no-results' ) );
-		await expect( page.getByText( postTitle ).first() ).toBeVisible();
+		await expect( resultsFor( page ).first() ).toBeVisible();
 	} );
 } );
