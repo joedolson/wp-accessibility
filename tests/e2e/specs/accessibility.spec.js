@@ -13,10 +13,6 @@ test.describe( 'WP Accessibility accessibility', () => {
 
 		const accessibilityScanResults = await makeAxeBuilder().analyze();
 
-		const seriousOrCritical = accessibilityScanResults.violations.filter( ( violation ) =>
-			[ 'serious', 'critical' ].includes( violation.impact )
-		);
-
-		expect( seriousOrCritical ).toEqual( [] );
+		expect( accessibilityScanResults ).toEqual( [] );
 	} );
 } );
