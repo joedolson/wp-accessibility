@@ -461,11 +461,10 @@ function wpa_admin_sidebar() {
 
 					<div class="inside">
 						<ul>
-							<li><a href="https://docs.joedolson.com/wp-accessibility/">Plugin Documentation</a></li>
-							<li><a href="http://make.wordpress.org/accessibility/">Make WordPress: Accessibility</a></li>
-							<li><a href="https://make.wordpress.org/themes/handbook/review/accessibility/">WordPress Theme Accessibility Guidelines</a></li>
-							<li><a href="https://www.joedolson.com/tools/color-contrast.php">Color Contrast Testing</a></li>
-							<li><a href="http://wave.webaim.org/">WAVE: Web accessibility evaluation tool</a></li>
+							<li><span class="dashicons dashicons-sos" aria-hidden="true"></span> <a href="https://docs.joedolson.com/wp-accessibility/">Documentation</a></li>
+							<li><span class="dashicons dashicons-universal-access-alt" aria-hidden="true"></span> <a href="http://make.wordpress.org/accessibility/">Make WordPress: Accessibility</a></li>
+							<li><span class="dashicons dashicons-admin-appearance" aria-hidden="true"></span> <a href="https://wpaccessibility.org/docs/accessibility-ready/theme-guidelines/">WordPress Theme Accessibility Guidelines</a></li>
+							<li><span class="dashicons dashicons-color-picker" aria-hidden="true"></span> <a href="https://www.joedolson.com/tools/color-contrast.php">Color Contrast Testing</a></li>
 						</ul>
 					</div>
 				</div>
