@@ -26,13 +26,10 @@ These are features that address issues caused by inaccessible themes.
 * Add skip links with user-defined targets. (Customizable targets and appearance.)
 * Add language and text direction attributes to your HTML attribute if missing.
 * Add an outline to the keyboard focus state for focusable elements.
-* Add a long description to images. Use the image's "Description" field to add long descriptions.
-* Enforcement for alt attributes on images in the Classic editor.
-* Identify images without alt attributes in the Media Library
 * Add labels to standard WordPress form fields (search, comments)
 * Add post titles to "read more" links.
-* Remove tabindex from elements that are focusable. (Also fixes plugin-caused problems.)
-* Remove user-scalable=no to allow resizing.
+* Remove tabindex from elements that are focusable.
+* Remove user-scalable=no and maximum-scale=1 to allow resizing.
 
 = WordPress Core Accessibility Issues fixed by WP Accessibility =
 
@@ -52,9 +49,17 @@ Content specific fixes:
 
 These are tools provided to help you identify issues you may need to fix.
 
+* Enforcement & reporting on missing alt attributes on images while editing.
+* Identify images without alt attributes in the Media Library
 * Test the color contrast between two provided hexadecimal color values.
 * Enable diagnostic CSS to show CSS-detectable problems in visual editor or on front-end of site.
 * Search your media library on content in alt text fields.
+
+= Accessible Content Features =
+
+* Add a long description to images. Use the image's "Description" field to add long descriptions.
+* Add a visibility toggle for alternative text on images.
+* Add simplified content summaries for your posts.
 
 Learn more! <a href="https://docs.joedolson.com/wp-accessibility/">Read about the accessibility issues corrected</a> by WP Accessibility!
 
@@ -88,7 +93,7 @@ WP Accessibility includes a statistics collection feature to help you identify h
 * Bug fix: If array value passed to search parameter, PHP fatal triggered due to unguarded expectation that GET parameter is a string.
 * Bug fix: User-scalable should not be restored if maximum-scale check is run after updating user-scalable. Props @YuriDevAT
 * Bug fix: Typo in setAttribute prevented setting text direction to RTL.
-* Change: Instead of setting maximum-scale to 5 (allowing 500% increase), remove the parameter.
+* Change: Instead of setting maximum-scale to 5 (allowing 500% increase), remove the parameter. Props @YuriDevAT
 * Tooling: Add e2e test suite for main features.
 
 = 2.4.2 =
