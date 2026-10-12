@@ -87,6 +87,7 @@ WP Accessibility includes a statistics collection feature to help you identify h
 
 * Bug fix: If array value passed to search parameter, PHP fatal triggered due to unguarded expectation that GET parameter is a string.
 * Bug fix: User-scalable should not be restored if maximum-scale check is run after updating user-scalable. Props @YuriDevAT
+* Bug fix: Typo in setAttribute prevented setting text direction to RTL.
 * Change: Instead of setting maximum-scale to 5 (allowing 500% increase), remove the parameter.
 
 = 2.4.2 =
