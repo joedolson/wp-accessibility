@@ -9,7 +9,7 @@ jQuery(document).ready(function ($) {
 		var button = document.createElement( 'button' );
 		button.type = 'button';
 		button.innerHTML = 'Show Default CSS <span class="dashicons dashicons-arrow-right" aria-hidden="true"></span>';
-		button.className =  'toggle-css button-secondary';
+		button.className =  'toggle-css button button-compact';
 		button.setAttribute( 'aria-controls', 'wpa_default_css' );
 		button.setAttribute( 'aria-expanded', false );
 		default_css.insertAdjacentElement( 'beforebegin', button );
