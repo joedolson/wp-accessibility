@@ -9,6 +9,10 @@
  * @link     https://www.joedolson.com/wp-accessibility/
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Toolbar class.
  */

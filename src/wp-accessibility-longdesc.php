@@ -21,21 +21,20 @@ add_filter( 'wp_get_attachment_image_attributes', 'wpa_featured_longdesc', 10, 3
  * @param object             $attachment Current image attachment object.
  * @param mixed array/string $size Image size shown.
  *
- * @return New attributes array.
+ * @return array New attributes array.
  */
 function wpa_featured_longdesc( $attr, $attachment, $size ) {
 	if ( 'on' === get_option( 'wpa_longdesc_featured' ) ) {
-		$attachment_id = $attachment->ID;
-		if ( false !== (bool) strip_tags( $attachment->post_content ) ) {
-			$args = array( 'longdesc' => $attachment_id );
+		$permissions = wpa_check_image_permissions( $attachment );
+		if ( $permissions && false !== (bool) wp_strip_all_tags( $attachment->post_content ) ) {
+			$args = array( 'longdesc' => $attachment->ID );
 			// The referrer is the post that the image is inserted into.
-			if ( isset( $_REQUEST['post_id'] ) || get_the_ID() ) {
-				$id               = ( isset( $_REQUEST['post_id'] ) ) ? $_REQUEST['post_id'] : get_the_ID();
-				$args['referrer'] = intval( $id );
+			if ( get_the_ID() ) {
+				$args['referrer'] = absint( get_the_ID() );
 			}
 
 			$target = add_query_arg( $args, home_url() );
-			$id     = wpa_longdesc_return_anchor( $attachment_id );
+			$id     = wpa_longdesc_return_anchor( $attachment->ID );
 
 			$attr['longdesc'] = $target;
 			$attr['id']       = $id;
@@ -73,7 +72,7 @@ add_action( 'template_redirect', 'wpa_longdesc_template' );
  * @alter 2011-03-27
  */
 function wpa_longdesc_template() {
-	// Return early if there is no reason to proceed.
+	// Return early if there is no reason to proceed. This is a public page, no nonce.
 	if ( ! isset( $_GET['longdesc'] ) ) {
 		return;
 	}
@@ -84,6 +83,11 @@ function wpa_longdesc_template() {
 	$id   = absint( $_GET['longdesc'] );
 	$post = get_post( $id );
 	if ( is_object( $post ) ) {
+		$post_permissions = wpa_check_image_permissions( $post );
+		if ( ! $post_permissions ) {
+			header( 'HTTP/1.0 404 Not Found' );
+			exit;
+		}
 		setup_postdata( $post );
 	}
 
@@ -106,25 +110,48 @@ function wpa_longdesc_template() {
 		require_once WPA_TEMPLATES . 'longdesc-template.php';
 		exit;
 	}
-
-	// You've gone too far. Error case.
-	header( 'HTTP/1.0 404 Not Found' );
-	exit;
 }
 
+/**
+ * Check whether an image can be accessed by the current user.
+ *
+ * @param WP_Post  $post Image attachment post object.
+ * @return bool True if the image can be accessed, false otherwise.
+ */
+function wpa_check_image_permissions( $post ) {
+	$return = true;
+	// Private is not a default status for attachments, but if a plugin sets it, we should respect it.
+	$post_status = $post->post_status;
+	if ( 'private' === $post_status && ! current_user_can( 'read_post', $post->ID ) ) {
+		$return = false;
+	}
+	// By default, attachments inherit the visibility of their parent post.
+	$post_parent_status = get_post( $post->post_parent )->post_status;
+	if ( 'private' === $post_parent_status && ! current_user_can( 'read_post', $post->post_parent )  ) {
+		$return = false;
+	}
+	// If the post currently requires a password, check if it has been provided.
+	// True means the password is required and has not been provided; permit only if false.
+	$post_password_needed = post_password_required( $post );
+	if ( $post_password_needed ) {
+		$return = false;
+	}
+
+	return $return;
+}
 /**
  * Anchor.
  *
  * Create anchor id for linking from a Long Description to referring post.
  * Also creates an anchor to return from Long Description page.
  *
- * @param int $id ID of the post which contains an image with a longdesc attribute.
+ * @param int $post_id ID of the post which contains an image with a longdesc attribute.
  *
  * @return string
  * @since 2010-09-26
  */
-function wpa_longdesc_return_anchor( $id ) {
-	return 'longdesc-return-' . $id;
+function wpa_longdesc_return_anchor( $post_id ) {
+	return 'longdesc-return-' . $post_id;
 }
 
 add_filter( 'image_send_to_editor', 'wpa_longdesc_add_attr', 10, 8 );
@@ -135,7 +162,7 @@ add_filter( 'image_send_to_editor', 'wpa_longdesc_add_attr', 10, 8 );
  * Also creates an anchor to return from Long Description page.
  *
  * @param string $html Image HTML.
- * @param int    $id Post ID.
+ * @param int    $attachment_id Post ID.
  * @param string $caption Caption text.
  * @param string $title Image title.
  * @param string $align Image alignment.
@@ -148,17 +175,19 @@ add_filter( 'image_send_to_editor', 'wpa_longdesc_add_attr', 10, 8 );
  * @since 2010-09-20
  * @alter 2011-04-06
  */
-function wpa_longdesc_add_attr( $html, $id, $caption, $title, $align, $url, $size, $alt ) {
+function wpa_longdesc_add_attr( $html, $attachment_id, $caption, $title, $align, $url, $size, $alt ) {
 	// Get data for the image attachment.
-	$image = get_post( $id );
-	if ( isset( $image->ID ) && ! empty( $image->ID ) ) {
+	$image       = get_post( $attachment_id );
+	$permissions = wpa_check_image_permissions( $image );
+	if ( isset( $image->ID ) && ! empty( $image->ID ) && $permissions ) {
 		$args = array( 'longdesc' => $image->ID );
 		// The referrer is the post that the image is inserted into.
+		// Post ID is sent via the request on new posts.
 		if ( isset( $_REQUEST['post_id'] ) || get_the_ID() ) {
-			$id               = ( isset( $_REQUEST['post_id'] ) ) ? $_REQUEST['post_id'] : get_the_ID();
-			$args['referrer'] = intval( $id );
+			$post_id          = ( isset( $_REQUEST['post_id'] ) ) ? absint( $_REQUEST['post_id'] ) : get_the_ID();
+			$args['referrer'] = $post_id;
 		}
-		if ( '' !== trim( strip_tags( $image->post_content ) ) ) {
+		if ( '' !== trim( wp_strip_all_tags( $image->post_content ) ) ) {
 			$search  = '<img ';
 			$replace = '<img tabindex="-1" id="' . esc_attr( wpa_longdesc_return_anchor( $image->ID ) ) . '" longdesc="' . esc_url( add_query_arg( $args, home_url() ) ) . '" ';
 			$html    = str_replace( $search, $replace, $html );

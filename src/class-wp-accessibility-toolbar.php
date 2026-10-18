@@ -48,10 +48,10 @@ class Wp_Accessibility_Toolbar extends WP_Widget {
 		$after_title   = $args['after_title'];
 
 		$title = apply_filters( 'widget_title', ( empty( $instance['title'] ) ? false : $instance['title'] ), $instance, $args );
-		echo $before_widget;
+		echo wp_kses_post( $before_widget );
 		echo ( $title ) ? wp_kses_post( $before_title . $title . $after_title ) : '';
-		echo wpa_toolbar_html();
-		echo $after_widget;
+		echo wp_kses_post( wpa_toolbar_html() );
+		echo wp_kses_post( $after_widget );
 	}
 
 	/**
@@ -63,8 +63,8 @@ class Wp_Accessibility_Toolbar extends WP_Widget {
 		$title = ( isset( $instance['title'] ) ) ? esc_attr( $instance['title'] ) : '';
 		?>
 		<p>
-			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'wp-accessibility' ); ?></label>
-			<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>"/>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Title:', 'wp-accessibility' ); ?></label>
+			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' )	); ?>" type="text" value="<?php echo esc_attr( wp_unslash( $title ) ); ?>"/>
 		</p>
 		<?php
 	}
@@ -79,7 +79,7 @@ class Wp_Accessibility_Toolbar extends WP_Widget {
 	 */
 	public function update( $new_instance, $old_instance ) {
 		$instance          = $old_instance;
-		$instance['title'] = strip_tags( $new_instance['title'] );
+		$instance['title'] = wp_strip_all_tags( $new_instance['title'] );
 
 		return $instance;
 	}

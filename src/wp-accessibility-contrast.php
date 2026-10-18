@@ -112,8 +112,9 @@ function wpa_hex2rgb( $color ) {
  */
 function wpa_contrast() {
 	if ( ! empty( $_GET['color'] ) ) {
-		if ( isset( $_GET['color'] ) && '' !== $_GET['color'] ) {
-			$fore_color = sanitize_text_field( $_GET['color'] );
+		$nonce = isset( $_GET['_wpnonce'] ) ? sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ) : '';
+		if ( isset( $_GET['color'] ) && '' !== $_GET['color'] && wp_verify_nonce( $nonce, 'wpa-contrast' ) ) {
+			$fore_color = sanitize_text_field( wp_unslash( $_GET['color'] ) );
 			if ( '#' === substr( $fore_color, 0, 1 ) ) {
 				$fore_color = str_replace( '#', '', $fore_color );
 			}
@@ -129,7 +130,7 @@ function wpa_contrast() {
 				$echo_hex_fore = 'FFFFFF';
 			}
 			if ( isset( $_GET['color2'] ) && '' !== $_GET['color2'] ) {
-				$back_color = sanitize_text_field( $_GET['color2'] );
+				$back_color = sanitize_text_field( wp_unslash( $_GET['color2'] ) );
 				if ( '#' === substr( $back_color, 0, 1 ) ) {
 					$back_color = str_replace( '#', '', $back_color );
 				}

@@ -14,7 +14,6 @@
  * Author: Joe Dolson
  * Author URI: https://www.joedolson.com/
  * Text Domain: wp-accessibility
- * Domain Path: /lang
  * License:     GPL-2.0+
  * License URI: http://www.gnu.org/license/gpl-2.0.txt
  * Version: 2.4.3
@@ -37,6 +36,10 @@
 	along with this program; if not, write to the Free Software
 	Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 if ( 'on' === get_option( 'wpa_toolbar' ) || 'on' === get_option( 'wpa_widget_toolbar' ) ) {
 	require_once __DIR__ . '/wp-accessibility-toolbar.php';
@@ -62,15 +65,21 @@ register_activation_hook( __FILE__, 'wpa_install' );
 function wpa_admin_init() {
 	// Handle dismiss actions for the WP Accessibility Day promo.
 	if ( isset( $_GET['action'] ) && 'wpa_dismiss_once' === $_GET['action'] ) {
+		if ( ! check_admin_referer( 'wpa-notice' ) ) {
+			return;
+		}
 		// The transient will expire after 3 weeks, allowing the promo to be shown again next year.
 		set_transient( 'wpa11yday_dismissed', true, 3 * WEEK_IN_SECONDS );
-		wp_redirect( admin_url( 'admin.php?page=wp-accessibility' ) );
+		wp_safe_redirect( admin_url( 'admin.php?page=wp-accessibility' ) );
 		exit;
 	}
 	if ( isset( $_GET['action'] ) && 'wpa_dismiss_permanently' === $_GET['action'] ) {
+		if ( ! check_admin_referer( 'wpa-notice' ) ) {
+			return;
+		}
 		update_option( 'wpa11yday_dismissed', true );
 		delete_transient( 'wpa11yday_dismissed' );
-		wp_redirect( admin_url( 'admin.php?page=wp-accessibility' ) );
+		wp_safe_redirect( admin_url( 'admin.php?page=wp-accessibility' ) );
 		exit;
 	}
 }
@@ -84,15 +93,15 @@ function wpa_status_notice() {
 	// Only shown when in the Playground preview.
 	if ( 'true' === get_option( 'wpa_show_playground_intro', '' ) ) {
 		echo '<div class="notice notice-info">';
-		echo '<h3>' . __( 'Thanks for trying out WP Accessibility!', 'wp-accessibility' ) . '</h3>';
-		echo '<p>' . __( "Let me give you a few quick things to try out while you're here:", 'wp-accessibility' ) . '</p>';
+		echo '<h3>' . esc_html__( 'Thanks for trying out WP Accessibility!', 'wp-accessibility' ) . '</h3>';
+		echo '<p>' . esc_html__( "Let me give you a few quick things to try out while you're here:", 'wp-accessibility' ) . '</p>';
 		echo '<ol>';
-		echo '<li>' . __( 'Create a new post and add media to observe some WP Accessibility features.', 'wp-accessibility' ) . '</li>';
-		echo '<li>' . __( 'Go to the Themes page and install a theme of your choice, then explore the site. Errors corrected are logged in the console and saved to stats.', 'wp-accessibility' ) . '</li>';
-		echo '<li>' . __( 'Visit the WP Accessibility Stats to view what WP Accessibility did on each page.', 'wp-accessibility' ) . '</li>';
+		echo '<li>' . esc_html__( 'Create a new post and add media to observe some WP Accessibility features.', 'wp-accessibility' ) . '</li>';
+		echo '<li>' . esc_html__( 'Go to the Themes page and install a theme of your choice, then explore the site. Errors corrected are logged in the console and saved to stats.', 'wp-accessibility' ) . '</li>';
+		echo '<li>' . esc_html__( 'Visit the WP Accessibility Stats to view what WP Accessibility did on each page.', 'wp-accessibility' ) . '</li>';
 		echo '</ol>';
 		// translators: link to plugin documentation.
-		echo '<p>' . sprintf( __( 'To learn more, check out the <a href="%s">plugin documentation</a>.', 'wp-accessibility' ), 'https://docs.joedolson.com/wp-accessibility/' ) . '</p>';
+		echo '<p>' . sprintf( wp_kses_post( 'To learn more, check out the <a href="%s">plugin documentation</a>.' ), 'https://docs.joedolson.com/wp-accessibility/' ) . '</p>';
 		echo '</div>';
 	}
 	// This could leak to other screens, but they would all be relevant.
@@ -107,10 +116,10 @@ function wpa_status_notice() {
 	// Date promo stops being shown.
 	$wpa11yday_end_date = strtotime( '2026-10-08 16:00 UTC' );
 	// Date promo starts being shown.
-	$wpa11yday_start_date = strtotime( '2026-09-26 16:00 UTC' );
+	$wpa11yday_start_date = strtotime( '2026-09-16 16:00 UTC' );
 	if ( ! $dismissed_once && time() <= $wpa11yday_end_date && time() >= $wpa11yday_start_date ) {
-		$dismiss_once        = '<a href="' . esc_url( admin_url( 'admin.php?page=wp-accessibility&action=wpa_dismiss_once' ) ) . '" class="button button-primary">' . __( 'Dismiss for 2026', 'wp-accessibility' ) . '</a>';
-		$dismiss_permanently = '<a href="' . esc_url( admin_url( 'admin.php?page=wp-accessibility&action=wpa_dismiss_permanently' ) ) . '" class="button button-secondary">' . __( 'Dismiss forever', 'wp-accessibility' ) . '</a>';
+		$dismiss_once        = '<a href="' . esc_url( wp_nonce_url( admin_url( 'admin.php?page=wp-accessibility&action=wpa_dismiss_once' ), 'wpa-notice' ) ) . '" class="button button-primary">' . __( 'Dismiss for 2026', 'wp-accessibility' ) . '</a>';
+		$dismiss_permanently = '<a href="' . esc_url( wp_nonce_url( admin_url( 'admin.php?page=wp-accessibility&action=wpa_dismiss_permanently' ), 'wpa-notice' ) ) . '" class="button button-secondary">' . __( 'Dismiss forever', 'wp-accessibility' ) . '</a>';
 
 		$notice = sprintf(
 			// translators: %1$s is the image, %2$s is the URL to the full schedule.
@@ -233,8 +242,8 @@ function wpa_stylesheet() {
 		wp_add_inline_style( 'wpa-style', wp_filter_nohtml_kses( wp_unslash( $add_css . $custom_css ) ) );
 	}
 	if ( current_user_can( 'edit_files' ) && 'on' === get_option( 'wpa_diagnostics' ) ) {
-		wp_register_style( 'diagnostic', plugins_url( 'css/diagnostic.css', __FILE__ ) );
-		wp_register_style( 'diagnostic-head', plugins_url( 'css/diagnostic-head.css', __FILE__ ) );
+		wp_register_style( 'diagnostic', plugins_url( 'css/diagnostic.css', __FILE__ ), array(), $version );
+		wp_register_style( 'diagnostic-head', plugins_url( 'css/diagnostic-head.css', __FILE__ ), array(), $version );
 		wp_enqueue_style( 'diagnostic' );
 		wp_enqueue_style( 'diagnostic-head' );
 	}
@@ -246,9 +255,10 @@ add_action( 'admin_head', 'wpa_admin_stylesheet' );
  */
 function wpa_admin_stylesheet() {
 	// Used to provide an admin CSS from plug-in, now only enqueue if custom provided in theme.
+	$version = ( SCRIPT_DEBUG ) ? wp_rand( 10000, 100000 ) : wpa_check_version();
 	if ( file_exists( get_stylesheet_directory() . '/wp-admin.css' ) ) {
 		$file = get_stylesheet_directory_uri() . '/wp-admin.css';
-		wp_register_style( 'wp-a11y-css', $file );
+		wp_register_style( 'wp-a11y-css', $file, array(), $version );
 		wp_enqueue_style( 'wp-a11y-css' );
 	}
 }
@@ -597,6 +607,7 @@ function wpa_enqueue_js() {
 			'pause'       => __( 'Pause video', 'wp-accessibility' ),
 			'play'        => __( 'Play video', 'wp-accessibility' ),
 			'restUrl'     => get_rest_url( null, 'wp/v2/media' ),
+			'restNonce'   => wp_create_nonce( 'wp_rest' ),
 			'ldType'      => $longdesc_type,
 			'ldHome'      => home_url(),
 			'ldText'      => '<span class="dashicons dashicons-media-text" aria-hidden="true"></span><span class="screen-reader">' . __( 'Long Description', 'wp-accessibility' ) . '</span>',
@@ -674,7 +685,8 @@ if ( 'on' === get_option( 'wpa_search' ) ) {
  */
 function wpa_filter( $query ) {
 	if ( ! is_admin() ) {
-		if ( isset( $_GET['s'] ) && '' === trim( (string) $_GET['s'] ) && ( $query->is_main_query() ) ) {
+		// This is a public query. There is no nonce.
+		if ( isset( $_GET['s'] ) && '' === trim( sanitize_text_field( wp_unslash( (string) $_GET['s'] ) ) ) && ( $query->is_main_query() ) ) {
 			$query->query_vars['s'] = '&#32;';
 			$query->set( 'is_search', 1 );
 			add_action( 'template_include', 'wpa_search_error' );
@@ -774,6 +786,7 @@ function wpa_custom_excerpt_more( $output ) {
  * Create support form.
  */
 function wpa_get_support_form() {
+	ob_start();
 	global $current_user;
 	$current_user = wp_get_current_user();
 	$request      = '';
@@ -785,7 +798,9 @@ function wpa_get_support_form() {
 	$language   = get_bloginfo( 'language' );
 	$charset    = get_bloginfo( 'charset' );
 	// server.
-	$php_version = phpversion();
+	$php_version     = phpversion();
+	$user_agent      = isset( $_SERVER['HTTP_USER_AGENT'] ) ? sanitize_text_field( wp_unslash( $_SERVER['HTTP_USER_AGENT'] ) ) : '';
+	$server_software = isset( $_SERVER['SERVER_SOFTWARE'] ) ? sanitize_text_field( wp_unslash( $_SERVER['SERVER_SOFTWARE'] ) ) : '';
 
 	// theme data.
 	$theme         = wp_get_theme();
@@ -822,8 +837,8 @@ Admin Email: $current_user->user_email
 
 ==Extra info:==
 PHP Version: $php_version
-Server Software: $_SERVER[SERVER_SOFTWARE]
-User Agent: $_SERVER[HTTP_USER_AGENT]
+Server Software: $server_software
+User Agent: $user_agent
 
 ==Theme:==
 Name: $theme_name
@@ -835,16 +850,15 @@ Version: $theme_version
 $plugins_string
 ";
 	if ( isset( $_POST['wpa_support'] ) ) {
-		$nonce = $_REQUEST['_wpnonce'];
+		$nonce = isset( $_REQUEST['_wpnonce'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['_wpnonce'] ) ) : '';
 		if ( ! wp_verify_nonce( $nonce, 'wpa-nonce' ) ) {
 			wp_die( 'WP Accessibility: Security check failed' );
 		}
-		$request     = ( ! empty( $_POST['support_request'] ) ) ? sanitize_textarea_field( wp_unslash( $_POST['support_request'] ) ) : false;
-		$has_donated = ( 'on' === $_POST['has_donated'] ) ? 'Donor' : 'No donation';
-		$subject     = "WP Accessibility support request. $has_donated";
-		$message     = $request . "\n\n" . $data;
+		$request = ( ! empty( $_POST['support_request'] ) ) ? sanitize_textarea_field( wp_unslash( $_POST['support_request'] ) ) : false;
+		$subject = "WP Accessibility support request.";
+		$message = $request . "\n\n" . $data;
 		// Get the site domain and get rid of www. from pluggable.php.
-		$sitename = sanitize_text_field( strtolower( $_SERVER['SERVER_NAME'] ) );
+		$sitename = isset( $_SERVER['SERVER_NAME'] ) ? strtolower( sanitize_text_field( wp_unslash( $_SERVER['SERVER_NAME'] ) ) ) : '';
 		if ( 'www.' === substr( $sitename, 0, 4 ) ) {
 			$sitename = substr( $sitename, 4 );
 		}
@@ -855,40 +869,33 @@ $plugins_string
 			echo "<div class='message error'><p>" . esc_html__( 'Please describe your problem.', 'wp-accessibility' ) . '</p></div>';
 		} else {
 			wp_mail( 'plugins@joedolson.com', $subject, $message, $from );
-			if ( 'Donor' === $has_donated ) {
-				echo "<div class='message updated'><p>" . esc_html__( 'Thank you for supporting the continuing development of this plug-in! I\'ll get back to you as soon as I can.', 'wp-accessibility' ) . '</p></div>';
-			} else {
-				echo "<div class='message updated'><p>" . esc_html__( 'I cannot provide support, but will treat your request as a bug report, and will incorporate any permanent solutions I discover into the plug-in.', 'wp-accessibility' ) . '</p></div>';
-			}
+			wp_admin_notice( esc_html__( 'Support request sent. If you don\'t receive a response within a week, please try the contact form on my website.', 'wp-accessibility' ) );
 		}
 	}
 	$admin_url = admin_url( 'admin.php?page=wp-accessibility' );
 
 	echo "
 	<form method='post' action='" . esc_url( $admin_url ) . "'>
-		<div><input type='hidden' name='_wpnonce' value='" . wp_create_nonce( 'wpa-nonce' ) . "' /></div>
+		<div><input type='hidden' name='_wpnonce' value='" . esc_attr( wp_create_nonce( 'wpa-nonce' ) ) . "' /></div>
 		<div>";
 	echo '
 		<p>
-		<code>' . __( 'From:', 'wp-accessibility' ) . " \"$current_user->display_name\" &lt;$current_user->user_email&gt;</code>
+		<code>' . esc_html__( 'From:', 'wp-accessibility' ) . " \"" . esc_html( $current_user->display_name ) . "\" &lt;" . esc_html( $current_user->user_email ) . "&gt;</code>
 		</p>
 		<p>
-		<input type='checkbox' name='has_donated' id='has_donated' value='on' /> <label for='has_donated'>";
-		// Translators: Donation URL.
-	echo sprintf( __( 'I <a href="%s">made a donation</a> to help support this plugin', 'wp-accessibility' ), 'https://www.joedolson.com/donate/' ) . "</label>
+		<label for='support_request'>" . esc_html__( 'Support Request:', 'wp-accessibility' ) . "</label><br /><textarea name='support_request' required id='support_request' cols='80' rows='10' class='widefat'>" . esc_textarea( wp_unslash( $request ) ) . "</textarea>
 		</p>
 		<p>
-		<label for='support_request'>" . __( 'Support Request:', 'wp-accessibility' ) . "</label><br /><textarea name='support_request' required id='support_request' cols='80' rows='10' class='widefat'>" . esc_textarea( stripslashes( $request ) ) . "</textarea>
+		<input type='submit' value='" . esc_html__( 'Send Support Request', 'wp-accessibility' ) . "' name='wpa_support' class='button-primary' />
 		</p>
-		<p>
-		<input type='submit' value='" . __( 'Send Support Request', 'wp-accessibility' ) . "' name='wpa_support' class='button-primary' />
-		</p>
-		<p>" . __( 'The following additional information will be sent with your support request:', 'wp-accessibility' ) . "</p>
+		<p>" . esc_html__( 'The following additional information will be sent with your support request:', 'wp-accessibility' ) . "</p>
 		<div class='wpa_support'>
-		" . wpautop( $data ) . '
+		" . wp_kses_post( wpautop( $data ) ) . '
 		</div>
 		</div>
 	</form>';
+	$output = ob_get_clean();
+	echo wp_kses_post( $output );
 }
 
 /**
@@ -1076,12 +1083,12 @@ function wpa_add_inner_box() {
 	global $post;
 	$summary = get_post_meta( $post->ID, '_wpa_content_summary', true );
 	$nonce   = wp_nonce_field( 'wpa-nonce-field', 'wpa_nonce_name', true, false );
-	echo $nonce;
+	echo wp_kses_post( $nonce );
 	?>
 	<p class='wpa-content-summary-field'>
-		<label for="wpa_content_summary"><?php _e( 'Simple Content Summary', 'wp-accessibility' ); ?></label><br/>
-		<textarea class="wpa-content-summary widefat" name="wpa_content_summary" id="wpa_content_summary" rows="4" cols="60" aria-describedy="content-summary-description"><?php echo esc_textarea( $summary ); ?></textarea>
-		<span id="content-summary-description"><?php _e( 'Provide a simplified summary to aid comprehension of complex content.', 'wp-accessibility' ); ?></span>
+		<label for="wpa_content_summary"><?php esc_html_e( 'Simple Content Summary', 'wp-accessibility' ); ?></label><br/>
+		<textarea class="wpa-content-summary widefat" name="wpa_content_summary" id="wpa_content_summary" rows="4" cols="60" aria-describedby="content-summary-description"><?php echo esc_textarea( wp_unslash( $summary ) ); ?></textarea>
+		<span id="content-summary-description"><?php esc_html_e( 'Provide a simplified summary to aid comprehension of complex content.', 'wp-accessibility' ); ?></span>
 	</p>
 	<?php
 }
@@ -1102,10 +1109,11 @@ function wpa_save_content_summary( $id, $post ) {
 	// verify this came from our screen and with proper authorization.
 	// because save_post can be triggered at other times.
 	if ( isset( $_POST['wpa_nonce_name'] ) ) {
-		if ( ! wp_verify_nonce( $_POST['wpa_nonce_name'], 'wpa-nonce-field' ) ) {
+		$nonce = sanitize_text_field( wp_unslash( $_POST['wpa_nonce_name'] ) );
+		if ( ! wp_verify_nonce( $nonce, 'wpa-nonce-field' ) ) {
 			return $id;
 		}
-		$summary = isset( $_POST['wpa_content_summary'] ) ? wp_kses_post( $_POST['wpa_content_summary'] ) : '';
+		$summary = isset( $_POST['wpa_content_summary'] ) ? wp_kses_post( wp_unslash( $_POST['wpa_content_summary'] ) ) : '';
 		update_post_meta( $id, '_wpa_content_summary', $summary );
 	}
 

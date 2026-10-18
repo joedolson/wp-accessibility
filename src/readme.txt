@@ -88,6 +88,15 @@ WP Accessibility includes a statistics collection feature to help you identify h
 
 [Suggest a change!](https://github.com/joedolson/wp-accessibility/issues/)
 
+= 2.4.4 =
+
+* Security: Fix potential disclosure of private data via the `longdesc` parameter.
+* Bug fix: Color contrast form target wrong admin page.
+* Bug fix: Remove extraneous 'p' parameter on longdesc targets.
+* Bug fix: Get post ID from parent `article` if not on img.
+* Change: Improve `title` element on longdesc target page.
+* Updates & hardening to meet current WordPress plugin standards.
+
 = 2.4.3 =
 
 * Bug fix: If array value passed to search parameter, PHP fatal triggered due to unguarded expectation that GET parameter is a string.
