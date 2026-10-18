@@ -786,20 +786,26 @@
 				id = classes.replace( 'wp-image-', '' );
 			}
 			let api = wpa.restUrl + '/' + id;
-			fetch( api )
-				.then( response => response.json())
-				.then(data => {
+			fetch( api, {
+					method: 'GET',
+					headers: {
+						'X-WP-Nonce': wpa.restNonce
+					}
+				} )
+				.then( response => {
+					return response.json();
+				})
+				.then( data => {
 					let rawdesc = data.description.rendered;
 					rawdesc = rawdesc.replace(/(<([^>]+)>)/gi, '').trim();
 					if ( '' !== rawdesc ) {
 						let url = new URL( wpa.ldHome );
 						url.searchParams.set( 'longdesc', id );
-						url.searchParams.set( 'p', id );
 						url.toString();
 						wpa_draw_longdesc( img, id, url, rawdesc );
 					}
 				})
-				.catch( error => {
+				.catch( (error) => {
 					console.log( error );
 				});
 		}
@@ -822,6 +828,19 @@
 					post_id = value.replace( 'page-id-', '', value );
 				}
 			});
+			if ( '' === post_id ) {
+				let articleClasses = img.closest( 'article' ).className.split(/\s+/);
+				if ( articleClasses.length > 0 ) {
+					articleClasses.forEach( (value) => {
+						if ( value.match( /post-/gi ) ) {
+							let stringRemaining = value.replace( 'post-', '', value );
+							if ( stringRemaining.match( /^[0-9]+$/ ) ) {
+								post_id = stringRemaining;
+							}
+						}
+					});
+				}
+			}
 			let url = new URL(longdesc);
 			url.searchParams.set( 'referrer', post_id );
 			url.toString();
