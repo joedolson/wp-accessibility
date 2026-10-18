@@ -13,31 +13,44 @@
  * @link     https://www.joedolson.com/wp-accessibility/
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 ?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
-	<title><?php the_title(); ?></title>
-	<link rel="stylesheet" type="text/css" href="<?php print get_stylesheet_uri(); ?>">
-	<link rel="stylesheet" type="text/css" href="<?php print plugins_url( '/wp-accessibility/css/wpa-style.css' ); ?>">
+	<title>
+	<?php
+	// translators: %s is the post ID of the image.
+	printf( esc_html__( 'Image Long Description %s', 'wp-accessibility' ), '#' . esc_html( get_the_ID() ) );
+	?>
+	</title>
+	<?php wp_head(); ?>
 </head>
 <body>
-<div id="longdesc" class="template-longdesc">
+<main id="longdesc" class="template-longdesc">
 	<div id="desc_<?php the_ID(); ?>">
 		<div id="desc_wp-image-<?php the_ID(); ?>">
 			<?php the_content(); ?>
 		</div>
 		<?php
+		// This is a public page. There is no nonce.
 		if ( isset( $_GET['referrer'] ) ) {
-			$uri = get_permalink( (int) $_GET['referrer'] );
-			if ( ! empty( $uri ) ) {
-				$uri .= '#' . wpa_longdesc_return_anchor( get_the_ID() );
-				print '<p><a href="' . esc_url( $uri ) . '">' . esc_html__( 'Return to article.', 'wp-accessibility' ) . '</a></p>';
+			$referer = (int) $_GET['referrer'];
+			// Don't disclose link if user doesn't have permission to view the post.
+			if ( is_post_publicly_viewable( $referer ) || current_user_can( 'read_post', $referer ) ) {
+				$uri = get_permalink( $referer );
+				if ( ! empty( $uri ) ) {
+					$uri .= '#' . wpa_longdesc_return_anchor( get_the_ID() );
+					print '<p><a href="' . esc_url( $uri ) . '">' . esc_html__( 'Return to article.', 'wp-accessibility' ) . '</a></p>';
+				}
 			}
 		}
 		?>
 	</div>
-</div>
+</main>
 </body>
 </html>
