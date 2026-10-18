@@ -81,7 +81,8 @@ div.aligncenter.wpa-ld {
 	font-size: clamp( 16px, 1rem, 24px );
 }
 
-.wpa-ld .longdesc-link {
+.wpa-ld .longdesc-link,
+.wpa-ld .longdesc-link:visited {
 	position: absolute;
 	display: inline-block;
 	right: 3px;
@@ -91,6 +92,7 @@ div.aligncenter.wpa-ld {
 	font-size: clamp( 14px, .875rem, 20px );
 	padding: 2px;
 	border-radius: 3px;
+	line-height: 1.4;
 }
 
 .wpa-alt .wpa-alt-text {
