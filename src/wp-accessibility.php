@@ -855,7 +855,7 @@ $plugins_string
 			wp_die( 'WP Accessibility: Security check failed' );
 		}
 		$request = ( ! empty( $_POST['support_request'] ) ) ? sanitize_textarea_field( wp_unslash( $_POST['support_request'] ) ) : false;
-		$subject = "WP Accessibility support request.";
+		$subject = 'WP Accessibility support request.';
 		$message = $request . "\n\n" . $data;
 		// Get the site domain and get rid of www. from pluggable.php.
 		$sitename = isset( $_SERVER['SERVER_NAME'] ) ? strtolower( sanitize_text_field( wp_unslash( $_SERVER['SERVER_NAME'] ) ) ) : '';
@@ -880,7 +880,7 @@ $plugins_string
 		<div>";
 	echo '
 		<p>
-		<code>' . esc_html__( 'From:', 'wp-accessibility' ) . " \"" . esc_html( $current_user->display_name ) . "\" &lt;" . esc_html( $current_user->user_email ) . "&gt;</code>
+		<code>' . esc_html__( 'From:', 'wp-accessibility' ) . ' "' . esc_html( $current_user->display_name ) . '" &lt;' . esc_html( $current_user->user_email ) . "&gt;</code>
 		</p>
 		<p>
 		<label for='support_request'>" . esc_html__( 'Support Request:', 'wp-accessibility' ) . "</label><br /><textarea name='support_request' required id='support_request' cols='80' rows='10' class='widefat'>" . esc_textarea( wp_unslash( $request ) ) . "</textarea>

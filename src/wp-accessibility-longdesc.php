@@ -115,7 +115,7 @@ function wpa_longdesc_template() {
 /**
  * Check whether an image can be accessed by the current user.
  *
- * @param WP_Post  $post Image attachment post object.
+ * @param WP_Post $post Image attachment post object.
  * @return bool True if the image can be accessed, false otherwise.
  */
 function wpa_check_image_permissions( $post ) {
@@ -127,7 +127,7 @@ function wpa_check_image_permissions( $post ) {
 	}
 	// By default, attachments inherit the visibility of their parent post.
 	$post_parent_status = get_post( $post->post_parent )->post_status;
-	if ( 'private' === $post_parent_status && ! current_user_can( 'read_post', $post->post_parent )  ) {
+	if ( 'private' === $post_parent_status && ! current_user_can( 'read_post', $post->post_parent ) ) {
 		$return = false;
 	}
 	// If the post currently requires a password, check if it has been provided.
