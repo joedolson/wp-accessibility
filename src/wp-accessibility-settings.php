@@ -83,7 +83,12 @@ function wpa_update_settings() {
 			update_option( 'asl_styles', $asl_styles );
 			$message = __( 'Skiplinks Settings Updated', 'wp-accessibility' );
 
-			return "<div class='notice notice-success'><p>" . $message . "</p>$notice</div>";
+			return wp_get_admin_notice(
+				$message . $notice,
+				array(
+					'type' => 'success',
+				)
+			);
 		}
 
 		if ( isset( $_POST['action'] ) && 'features' === $_POST['action'] ) {
@@ -97,7 +102,12 @@ function wpa_update_settings() {
 			update_option( 'wpa_post_types', $wpa_post_types );
 			$message = __( 'Accessibility Features Updated', 'wp-accessibility' );
 
-			return "<div class='notice notice-success'><p>" . $message . '</p></div>';
+			return wp_get_admin_notice(
+				$message,
+				array(
+					'type' => 'success',
+				)
+			);
 		}
 
 		if ( isset( $_POST['action'] ) && 'toolbar' === $_POST['action'] ) {
@@ -131,7 +141,7 @@ function wpa_update_settings() {
 			);
 		}
 	} else {
-		return;
+		return '';
 	}
 }
 

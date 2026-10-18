@@ -52,7 +52,7 @@ function wpa_update_admin_settings() {
 			);
 		}
 	} else {
-		return;
+		return '';
 	}
 }
 

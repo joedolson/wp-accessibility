@@ -78,7 +78,7 @@ function wpa_update_overlay_settings() {
 			);
 		}
 	} else {
-		return;
+		return '';
 	}
 }
 
