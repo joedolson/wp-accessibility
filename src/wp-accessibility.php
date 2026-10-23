@@ -1082,8 +1082,7 @@ function wpa_add_outer_box() {
 function wpa_add_inner_box() {
 	global $post;
 	$summary = get_post_meta( $post->ID, '_wpa_content_summary', true );
-	$nonce   = wp_nonce_field( 'wpa-nonce-field', 'wpa_nonce_name', true, false );
-	echo wp_kses_post( $nonce );
+	wp_nonce_field( 'wpa-nonce-field', 'wpa_nonce_name' );
 	?>
 	<p class='wpa-content-summary-field'>
 		<label for="wpa_content_summary"><?php esc_html_e( 'Simple Content Summary', 'wp-accessibility' ); ?></label><br/>
