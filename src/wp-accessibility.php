@@ -16,7 +16,7 @@
  * Text Domain: wp-accessibility
  * License:     GPL-2.0+
  * License URI: http://www.gnu.org/license/gpl-2.0.txt
- * Version: 2.4.4
+ * Version: 2.4.5
  */
 
 /*
@@ -55,7 +55,7 @@ if ( 'off' !== get_option( 'wpa_track_stats' ) ) {
 	require_once __DIR__ . '/wp-accessibility-stats.php';
 }
 
-define( 'WP_ACCESSIBILITY_VERSION', '2.4.4' );
+define( 'WP_ACCESSIBILITY_VERSION', '2.4.5' );
 
 register_activation_hook( __FILE__, 'wpa_install' );
 
