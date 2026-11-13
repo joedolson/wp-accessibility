@@ -1063,7 +1063,7 @@ function wpa_in_post_type( $post_id ) {
 	return false;
 }
 
-add_action( 'admin_menu', 'wpa_add_outer_box' );
+add_action( 'add_meta_boxes', 'wpa_add_outer_box' );
 /**
  * Add metabox for content summaries.
  */
