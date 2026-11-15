@@ -126,7 +126,7 @@ function wpa_check_image_permissions( $post ) {
 		$return = false;
 	}
 	// By default, attachments inherit the visibility of their parent post.
-	$post_parent_status = get_post( $post->post_parent )->post_status;
+	$post_parent_status = ( is_object( $post ) && is_object( get_post( $post->post_parent ) ) ) ? get_post( $post->post_parent )->post_status : '';
 	if ( 'private' === $post_parent_status && ! current_user_can( 'read_post', $post->post_parent ) ) {
 		$return = false;
 	}
