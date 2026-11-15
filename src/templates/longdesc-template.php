@@ -38,8 +38,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 		<?php
 		// This is a public page. There is no nonce.
-		if ( isset( $_GET['referrer'] ) ) {
-			$referer = (int) $_GET['referrer'];
+		if ( isset( $_GET['referrer'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			$referer = (int) $_GET['referrer']; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			// Don't disclose link if user doesn't have permission to view the post.
 			if ( is_post_publicly_viewable( $referer ) || current_user_can( 'read_post', $referer ) ) {
 				$uri = get_permalink( $referer );

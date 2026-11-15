@@ -13,17 +13,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-add_filter( 'wp_get_attachment_image_attributes', 'wpa_featured_longdesc', 10, 3 );
+add_filter( 'wp_get_attachment_image_attributes', 'wpa_featured_longdesc', 10, 2 );
 /**
  * Get long descriptions for featured images.
  *
- * @param array              $attr Existing image attributes.
- * @param object             $attachment Current image attachment object.
- * @param mixed array/string $size Image size shown.
+ * @param array  $attr Existing image attributes.
+ * @param object $attachment Current image attachment object.
  *
  * @return array New attributes array.
  */
-function wpa_featured_longdesc( $attr, $attachment, $size ) {
+function wpa_featured_longdesc( $attr, $attachment ) {
 	if ( 'on' === get_option( 'wpa_longdesc_featured' ) ) {
 		$permissions = wpa_check_image_permissions( $attachment );
 		if ( $permissions && false !== (bool) wp_strip_all_tags( $attachment->post_content ) ) {
@@ -73,14 +72,14 @@ add_action( 'template_redirect', 'wpa_longdesc_template' );
  */
 function wpa_longdesc_template() {
 	// Return early if there is no reason to proceed. This is a public page, no nonce.
-	if ( ! isset( $_GET['longdesc'] ) ) {
+	if ( ! isset( $_GET['longdesc'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		return;
 	}
 
 	global $post;
 
 	// Get the image attachment's data.
-	$id   = absint( $_GET['longdesc'] );
+	$id   = absint( $_GET['longdesc'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 	$post = get_post( $id );
 	if ( is_object( $post ) ) {
 		$post_permissions = wpa_check_image_permissions( $post );
@@ -154,7 +153,7 @@ function wpa_longdesc_return_anchor( $post_id ) {
 	return 'longdesc-return-' . $post_id;
 }
 
-add_filter( 'image_send_to_editor', 'wpa_longdesc_add_attr', 10, 8 );
+add_filter( 'image_send_to_editor', 'wpa_longdesc_add_attr', 10, 2 );
 /**
  * Add Attribute.
  *
@@ -163,19 +162,13 @@ add_filter( 'image_send_to_editor', 'wpa_longdesc_add_attr', 10, 8 );
  *
  * @param string $html Image HTML.
  * @param int    $attachment_id Post ID.
- * @param string $caption Caption text.
- * @param string $title Image title.
- * @param string $align Image alignment.
- * @param string $url Image URL.
- * @param array  $size Image size.
- * @param string $alt Image alt attribute.
  *
  * @return string
  *
  * @since 2010-09-20
  * @alter 2011-04-06
  */
-function wpa_longdesc_add_attr( $html, $attachment_id, $caption, $title, $align, $url, $size, $alt ) {
+function wpa_longdesc_add_attr( $html, $attachment_id ) {
 	// Get data for the image attachment.
 	$image       = get_post( $attachment_id );
 	$permissions = wpa_check_image_permissions( $image );
@@ -183,8 +176,8 @@ function wpa_longdesc_add_attr( $html, $attachment_id, $caption, $title, $align,
 		$args = array( 'longdesc' => $image->ID );
 		// The referrer is the post that the image is inserted into.
 		// Post ID is sent via the request on new posts.
-		if ( isset( $_REQUEST['post_id'] ) || get_the_ID() ) {
-			$post_id          = ( isset( $_REQUEST['post_id'] ) ) ? absint( $_REQUEST['post_id'] ) : get_the_ID();
+		if ( isset( $_REQUEST['post_id'] ) || get_the_ID() ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			$post_id          = ( isset( $_REQUEST['post_id'] ) ) ? absint( $_REQUEST['post_id'] ) : get_the_ID(); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			$args['referrer'] = $post_id;
 		}
 		if ( '' !== trim( wp_strip_all_tags( $image->post_content ) ) ) {

@@ -69,7 +69,7 @@ function wpa_luminosity( $r, $r2, $g, $g2, $b, $b2 ) {
  * @return string Hexadecimal color equivalent.
  */
 function wpa_rgb2hex( $r, $g = - 1, $b = - 1 ) {
-	if ( is_array( $r ) && sizeof( $r ) === 3 ) {
+	if ( is_array( $r ) && count( $r ) === 3 ) {
 		list( $r, $g, $b ) = $r;
 	}
 	$r = intval( $r );

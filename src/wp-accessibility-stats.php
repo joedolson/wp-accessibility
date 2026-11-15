@@ -178,7 +178,7 @@ function wpa_get_post_by_title( $title ) {
 }
 
 /**
- * Attempts to correctly identify the current URL.
+ * Attempts to correctly identify the current URL. Return value should be escaped.
  *
  * @return string
  */
@@ -188,9 +188,10 @@ function wpa_get_current_url() {
 	}
 	global $wp, $wp_rewrite;
 	$args = array();
-	if ( isset( $_GET['page_id'] ) ) {
-		$args = array( 'page_id' => absint( $_GET['page_id'] ) );
+	if ( isset( $_GET['page_id'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$args['page_id'] = absint( $_GET['page_id'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 	}
+
 	$current_url = home_url( add_query_arg( $args, $wp->request ) );
 
 	if ( $wp_rewrite->using_index_permalinks() && false === strpos( $current_url, 'index.php' ) ) {
@@ -200,6 +201,8 @@ function wpa_get_current_url() {
 	if ( $wp_rewrite->using_permalinks() ) {
 		$current_url = trailingslashit( $current_url );
 	}
+	$args        = map_deep( $_GET, 'sanitize_text_field' ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+	$current_url = add_query_arg( $args, $current_url );
 	/**
 	 * Filter the URL returned for the current URL.
 	 *
@@ -608,7 +611,7 @@ function wpa_format_stats( $type, $data, $history ) {
 	if ( 'toolbar' === $type ) {
 		$history = (array) $history;
 		foreach ( $history as $k => $d ) {
-			return '<strong>' . $k . '</strong>:' . print_r( $d, 1 );
+			return '<strong>' . $k . '</strong>:' . print_r( $d, 1 ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 		}
 	} else {
 		$data = (array) $data;
@@ -708,15 +711,13 @@ function wpa_custom_column( $column_name, $post_id ) {
 					// translators: Data expanded; either `alt` or `longdesc`.
 					$last_action = sprintf( __( '%s expanded on image.', 'wp-accessibility' ), $action );
 				}
-			} else {
-				if ( ! $events ) {
+			} elseif ( ! $events ) {
 					$icon        = 'universal-access';
 					$last_action = __( 'Page loaded', 'wp-accessibility' );
-				} else {
-					$icon = 'update';
-					// translators: Date of change.
-					$last_action = sprintf( __( 'Found issues changed on %s', 'wp-accessibility' ), gmdate( 'Y-m-d', $event->timestamp ) );
-				}
+			} else {
+				$icon = 'update';
+				// translators: Date of change.
+				$last_action = sprintf( __( 'Found issues changed on %s', 'wp-accessibility' ), gmdate( 'Y-m-d', $event->timestamp ) );
 			}
 			echo '<span class="dashicons dashicons-' . esc_attr( $icon ) . '" aria-hidden="true"></span> ' . esc_html( $last_action );
 			break;

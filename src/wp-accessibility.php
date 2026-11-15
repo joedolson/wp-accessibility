@@ -686,6 +686,7 @@ if ( 'on' === get_option( 'wpa_search' ) ) {
 function wpa_filter( $query ) {
 	if ( ! is_admin() ) {
 		// This is a public query. There is no nonce.
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		if ( isset( $_GET['s'] ) && '' === trim( sanitize_text_field( wp_unslash( (string) $_GET['s'] ) ) ) && ( $query->is_main_query() ) ) {
 			$query->query_vars['s'] = '&#32;';
 			$query->set( 'is_search', 1 );
@@ -787,8 +788,6 @@ function wpa_custom_excerpt_more( $output ) {
  */
 function wpa_get_support_form() {
 	ob_start();
-	global $current_user;
-	$current_user = wp_get_current_user();
 	$request      = '';
 	$version      = wpa_check_version();
 	// send fields for all plugins.
@@ -833,7 +832,7 @@ URL: $home_url
 Install: $wp_url
 Language: $language
 Charset: $charset
-Admin Email: $current_user->user_email
+Admin Email: ' . esc_html( wp_get_current_user()->user_email ) . '
 
 ==Extra info:==
 PHP Version: $php_version
@@ -863,7 +862,7 @@ $plugins_string
 			$sitename = substr( $sitename, 4 );
 		}
 		$from_email = 'wordpress@' . $sitename;
-		$from       = "From: $current_user->display_name <$from_email>\r\nReply-to: $current_user->display_name <$current_user->user_email>\r\n";
+		$from       = "From: " . wp_get_current_user()->display_name . " <$from_email>\r\nReply-to: " . wp_get_current_user()->display_name . " <" . wp_get_current_user()->user_email . ">\r\n";
 
 		if ( ! $request ) {
 			echo "<div class='message error'><p>" . esc_html__( 'Please describe your problem.', 'wp-accessibility' ) . '</p></div>';
@@ -880,7 +879,7 @@ $plugins_string
 		<div>";
 	echo '
 		<p>
-		<code>' . esc_html__( 'From:', 'wp-accessibility' ) . ' "' . esc_html( $current_user->display_name ) . '" &lt;' . esc_html( $current_user->user_email ) . "&gt;</code>
+		<code>' . esc_html__( 'From:', 'wp-accessibility' ) . ' "' . esc_html( wp_get_current_user()->display_name ) . '" &lt;' . esc_html( wp_get_current_user()->user_email ) . "&gt;</code>
 		</p>
 		<p>
 		<label for='support_request'>" . esc_html__( 'Support Request:', 'wp-accessibility' ) . "</label><br /><textarea name='support_request' required id='support_request' cols='80' rows='10' class='widefat'>" . esc_textarea( wp_unslash( $request ) ) . "</textarea>
@@ -1095,12 +1094,11 @@ function wpa_add_inner_box() {
 /**
  * Save content summary from post meta box.
  *
- * @param int    $id Post ID.
- * @param object $post Post.
+ * @param int $id Post ID.
  *
  * @return int
  */
-function wpa_save_content_summary( $id, $post ) {
+function wpa_save_content_summary( $id ) {
 	if ( empty( $_POST ) || ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) || wp_is_post_revision( $id ) || isset( $_POST['_inline_edit'] ) || ( defined( 'DOING_AJAX' ) && DOING_AJAX ) || ! wpa_in_post_type( $id ) ) {
 		return $id;
 	}
@@ -1118,4 +1116,4 @@ function wpa_save_content_summary( $id, $post ) {
 
 	return $id;
 }
-add_action( 'save_post', 'wpa_save_content_summary', 10, 2 );
+add_action( 'save_post', 'wpa_save_content_summary', 10, 1 );

@@ -119,11 +119,10 @@ add_shortcode( 'wpa_toolbar', 'wpa_toolbar_shortcode' );
  * Output Toolbar shortcode
  *
  * @param array  $atts Shortcode attributes.
- * @param string $content Contained content.
  *
  * @return string
  */
-function wpa_toolbar_shortcode( $atts, $content ) {
+function wpa_toolbar_shortcode( $atts ) {
 	$args = shortcode_atts(
 		array(
 			'type'    => 'widget',
