@@ -118,7 +118,7 @@ add_shortcode( 'wpa_toolbar', 'wpa_toolbar_shortcode' );
 /**
  * Output Toolbar shortcode
  *
- * @param array  $atts Shortcode attributes.
+ * @param array $atts Shortcode attributes.
  *
  * @return string
  */

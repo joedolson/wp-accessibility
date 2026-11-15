@@ -91,7 +91,7 @@ function wpa_add_stats( $stats, $title, $type = 'view', $post_ID = 0 ) {
 			add_post_meta( $exists, '_wpa_event', $stats );
 		} else {
 			// Get most recent test results and compare to current.
-			$history = get_post_meta( $exists, '_wpa_event' );
+			$history = get_post_meta( $exists, '_wpa_event', false );
 			if ( $history && is_array( $history ) ) {
 				$old_stats = end( $history );
 			} else {
@@ -322,7 +322,7 @@ function wpa_stats_data_point( $post, $type, $limit = 5 ) {
 	$output   = '';
 	$post_ID  = $post->ID;
 	$data     = json_decode( $post->post_content );
-	$history  = get_post_meta( $post_ID, '_wpa_event' );
+	$history  = get_post_meta( $post_ID, '_wpa_event', false );
 	$relative = get_post_meta( $post_ID, '_wpa_post_id', true );
 	$output  .= '<li><div class="wpa-header"><h3><strong>' . gmdate( get_option( 'date_format' ), $data->timestamp ) . '</strong><br />' . gmdate( get_option( 'time_format' ), $data->timestamp ) . '</h3>';
 
@@ -476,7 +476,7 @@ function wpa_stats_data_point( $post, $type, $limit = 5 ) {
  */
 function wpa_compare_views( $post_id ) {
 	$content = get_post_field( 'post_content', $post_id );
-	$history = get_post_meta( $post_id, '_wpa_event' );
+	$history = get_post_meta( $post_id, '_wpa_event', false );
 
 	if ( empty( $history ) ) {
 		$data = wpa_parse_view_data( json_decode( $content ) )['count'];
@@ -689,7 +689,7 @@ function wpa_custom_column( $column_name, $post_id ) {
 			echo '<span class="dashicons dashicons-admin-page" aria-hidden="true"></span> ' . esc_html( $type );
 			break;
 		case 'wpa_last':
-			$events = get_post_meta( $post_id, '_wpa_event' );
+			$events = get_post_meta( $post_id, '_wpa_event', false );
 			if ( $events && is_array( $events ) ) {
 				$event = json_decode( end( $events ) );
 			} else {

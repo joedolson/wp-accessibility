@@ -79,19 +79,19 @@ function wpa_longdesc_template() {
 	global $post;
 
 	// Get the image attachment's data.
-	$id   = absint( $_GET['longdesc'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-	$post = get_post( $id );
-	if ( is_object( $post ) ) {
-		$post_permissions = wpa_check_image_permissions( $post );
+	$id        = absint( $_GET['longdesc'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+	$this_post = get_post( $id );
+	if ( is_object( $this_post ) ) {
+		$post_permissions = wpa_check_image_permissions( $this_post );
 		if ( ! $post_permissions ) {
 			header( 'HTTP/1.0 404 Not Found' );
 			exit;
 		}
-		setup_postdata( $post );
+		setup_postdata( $this_post );
 	}
 
 	// Attachment must be an image.
-	if ( false === strpos( get_post_mime_type(), 'image' ) ) {
+	if ( false === strpos( get_post_mime_type( $this_post ), 'image' ) ) {
 		header( 'HTTP/1.0 404 Not Found' );
 		exit;
 	}
