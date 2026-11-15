@@ -53,18 +53,16 @@ function wpa_media_value( $column, $id ) {
 			$no_alt = (bool) get_post_meta( $id, '_no_alt', true );
 			if ( ! $alt && ! $no_alt ) {
 				echo '<span class="missing"><span class="dashicons dashicons-no" aria-hidden="true"></span> <a href="' . esc_url( get_edit_post_link( $id ) ) . '#attachment_alt">' . esc_html__( 'Add <code>alt</code> text', 'wp-accessibility' ) . '</a></span>';
-			} else {
-				if ( true === $no_alt ) {
+			} elseif ( true === $no_alt ) {
 					echo '<span class="ok"><span class="dashicons dashicons-yes" aria-hidden="true"></span> ' . esc_html__( 'Decorative', 'wp-accessibility' ) . '</span>';
-				} elseif ( in_array( $alt, $invalid_values, true ) || ctype_punct( $alt ) || ctype_space( $alt ) ) {
-					echo '<span class="missing"><span class="dashicons dashicons-no" aria-hidden="true"></span> <a href="' . esc_url( get_edit_post_link( $id ) ) . '#attachment_alt">' . esc_html__( 'Invalid <code>alt</code>', 'wp-accessibility' ) . '</a></span>';
-				} elseif ( wpa_suspicious_alt( $alt ) ) {
-					echo '<span class="missing"><span class="dashicons dashicons-no" aria-hidden="true"></span> <a href="' . esc_url( get_edit_post_link( $id ) ) . '#attachment_alt">' . esc_html__( 'Suspicious <code>alt</code>', 'wp-accessibility' ) . '</a></span>';
-				} elseif ( wpa_long_alt( $alt ) ) {
-					echo '<span class="long"><span class="dashicons dashicons-warning" aria-hidden="true"></span> <a href="' . esc_url( get_edit_post_link( $id ) ) . '#attachment_alt">' . esc_html__( 'Long <code>alt</code> text', 'wp-accessibility' ) . '</a></span>';
-				} else {
-					echo '<span class="ok"><span class="dashicons dashicons-yes" aria-hidden="true"></span> ' . wp_kses_post( __( 'Has <code>alt</code>', 'wp-accessibility' ) ) . '</span>';
-				}
+			} elseif ( in_array( $alt, $invalid_values, true ) || ctype_punct( $alt ) || ctype_space( $alt ) ) {
+				echo '<span class="missing"><span class="dashicons dashicons-no" aria-hidden="true"></span> <a href="' . esc_url( get_edit_post_link( $id ) ) . '#attachment_alt">' . esc_html__( 'Invalid <code>alt</code>', 'wp-accessibility' ) . '</a></span>';
+			} elseif ( wpa_suspicious_alt( $alt ) ) {
+				echo '<span class="missing"><span class="dashicons dashicons-no" aria-hidden="true"></span> <a href="' . esc_url( get_edit_post_link( $id ) ) . '#attachment_alt">' . esc_html__( 'Suspicious <code>alt</code>', 'wp-accessibility' ) . '</a></span>';
+			} elseif ( wpa_long_alt( $alt ) ) {
+				echo '<span class="long"><span class="dashicons dashicons-warning" aria-hidden="true"></span> <a href="' . esc_url( get_edit_post_link( $id ) ) . '#attachment_alt">' . esc_html__( 'Long <code>alt</code> text', 'wp-accessibility' ) . '</a></span>';
+			} else {
+				echo '<span class="ok"><span class="dashicons dashicons-yes" aria-hidden="true"></span> ' . wp_kses_post( __( 'Has <code>alt</code>', 'wp-accessibility' ) ) . '</span>';
 			}
 		} else {
 			echo '<span class="non-image">' . esc_html__( 'N/A', 'wp-accessibility' ) . '</span>';
