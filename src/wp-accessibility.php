@@ -862,7 +862,7 @@ $plugins_string
 			$sitename = substr( $sitename, 4 );
 		}
 		$from_email = 'wordpress@' . $sitename;
-		$from       = 'From: ' . wp_get_current_user()->display_name . ' <' . $from_email . ">\r\nReply-to: " . wp_get_current_user()->display_name . " <" . wp_get_current_user()->user_email . ">\r\n";
+		$from       = 'From: ' . wp_get_current_user()->display_name . ' <' . $from_email . ">\r\nReply-to: " . wp_get_current_user()->display_name . ' <' . wp_get_current_user()->user_email . ">\r\n";
 
 		if ( ! $request ) {
 			echo "<div class='message error'><p>" . esc_html__( 'Please describe your problem.', 'wp-accessibility' ) . '</p></div>';
